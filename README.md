@@ -21,5 +21,14 @@ A few other features that might make their way into the tool :
 Any other suggestion is welcome, please use github Issues for your suggestions.
 
 To get started with it :
-- As always, copy config_example.php to config.php and adapt to your needs
+- As always, copy `config_example.php` to config.php and adapt to your needs
 - Have a web Server pointing to your install directory (This tool doesn't include any standalone WebServer)
+
+You will need to configure some Discord Bot settings in config.php. If you use PMSF, you can reuse the same parameters for `discordBotClientId` and `discordBotClientSecret` or find them on the Discord application Portal. `redirect_url` should point to your PoracleWeb base directory and should be configured as a Redirects in your discord bot. 
+
+For those parameters go to :
+- https://discord.com/developers/applications
+- Select your Bot (or create a new one).
+- Go to Oauth2 and add your `redirect_url` under Redirects
+- Client ID can be found under "General Information"
+- Client Secret can be found under "General Information" by clicking the "Click to reveal" link.
