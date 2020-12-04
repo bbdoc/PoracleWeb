@@ -20,3 +20,6 @@ A few other features that might make their way into the tool :
 
 Any other suggestion is welcome, please use github Issues for your suggestions.
 
+To get started with it :
+- As always, copy config_example.php to config.php and adapt to your needs
+- Have a web Server pointing to your install directory (This tool doesn't include any standalone WebServer)
