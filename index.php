@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>POracle Configurator</title>
   <link rel="icon" type="image/x-icon" href="favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="style.css?v=<?=time();?>">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -121,7 +121,7 @@ if($_SESSION['username']) {
   echo "</ul>";
 
   // Add Hidden Fancy Boxes
-  include "./fancy_areas.php";
+  include "./fancy/fancy_areas.php";
 
   echo "<a data-fancybox data-src='#areas' href='javascript:;' style='text-decoration: none;'>";
   echo "<button class='button_update' style='width:150px;'>Select Areas</button>";
@@ -141,7 +141,7 @@ if($_SESSION['username']) {
   while($row = $result->fetch_assoc()) {
 
     // Add Hidden Fancy Boxes
-    include "./fancy_pokemons.php";
+    include "./fancy/fancy_pokemons.php";
 
     echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."' href='javascript:;'>";
     echo "<button>";
@@ -205,7 +205,7 @@ if($_SESSION['username']) {
   while($row = $result->fetch_assoc()) {
 
     // Add Hidden Fancy Boxes
-    include "./fancy_eggs.php";
+    include "./fancy/fancy_eggs.php";
 
     echo "<a data-fancybox data-src='#egg_".$row['level']."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
@@ -227,7 +227,7 @@ if($_SESSION['username']) {
   while($row = $result->fetch_assoc()) {
 
     // Add Hidden Fancy Boxes
-    include "./fancy_raids.php";
+    include "./fancy/fancy_raids.php";
 
     echo "<a data-fancybox class='various' data-src='#raid_".$row['level']."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
@@ -249,7 +249,7 @@ if($_SESSION['username']) {
   while($row = $result->fetch_assoc()) {
 
     // Add Hidden Fancy Boxes
-    include "./fancy_raids.php";
+    include "./fancy/fancy_raids.php";
 
     echo "<a data-fancybox class='various' data-src='#raid_".$row['level']."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
