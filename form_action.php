@@ -23,7 +23,7 @@
 include "./config.php";
 include "./db_connect.php";
 
-if ( $_POST['update'] == 'Update' && $_POST['type'] == 'monsters' ) {
+if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
 
   $sql = "UPDATE monsters  
       SET distance = ".$_POST['distance'].",
@@ -42,7 +42,7 @@ if ( $_POST['update'] == 'Update' && $_POST['type'] == 'monsters' ) {
 
 }
 
-if ( $_POST['update'] == 'Update' && $_POST['type'] == 'raids' ) {
+if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'raids' ) {
 
   $sql = "UPDATE raid
       SET distance = ".$_POST['distance']."
@@ -54,7 +54,7 @@ if ( $_POST['update'] == 'Update' && $_POST['type'] == 'raids' ) {
 
 }
 
-if ( $_POST['update'] == 'Update' && $_POST['type'] == 'eggs' ) {
+if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'eggs' ) {
 
   $sql = "UPDATE egg
       SET distance = ".$_POST['distance']."
@@ -67,7 +67,7 @@ if ( $_POST['update'] == 'Update' && $_POST['type'] == 'eggs' ) {
 }
 
 
-if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'monsters' ) {
+if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
 
   $sql = "DELETE FROM monsters
           WHERE pokemon_id = ".$_POST['pokemon_id']."
@@ -78,7 +78,7 @@ if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'monsters' ) {
   
 }
 
-if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'raids' ) {
+if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'raids' ) {
 
   $sql = "DELETE FROM raid
           WHERE pokemon_id = ".$_POST['pokemon_id']."
@@ -90,7 +90,7 @@ if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'raids' ) {
 
 }
 
-if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'eggs' ) {
+if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'eggs' ) {
 
   $sql = "DELETE FROM egg
           WHERE level = ".$_POST['level']."
@@ -102,7 +102,7 @@ if ( $_POST['delete'] == 'Delete' && $_POST['type'] == 'eggs' ) {
 }
 
 
-if ( $_POST['add_mon'] == 'Submit' ) {
+if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 
   foreach ($_POST as $key => $value) {
     if ( substr( $key, 0, 4 ) === "mon_" ) {
@@ -137,7 +137,7 @@ if ( $_POST['add_mon'] == 'Submit' ) {
 
 }
 
-if ( $_POST['add_raid'] == 'Submit' ) {
+if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
 
   foreach ($_POST as $key => $value) {
      if ( substr( $key, 0, 4 ) === "egg_" ) {
@@ -174,13 +174,13 @@ if ( $_POST['add_raid'] == 'Submit' ) {
 }
 
 
-if ( $_GET['action'] == 'delete_all_mons' ) {
+if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
 	$sql = "DELETE from monsters WHERE id = '".$_SESSION['id']."';";
 	$result = $conn->query($sql);
 	header("Location: $redirect_url?return=success_delete_mons");
 }
 
-if ( $_GET['action'] == 'delete_all_raids' ) {
+if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
         $sql = "DELETE from egg WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
         $sql = "DELETE from raid WHERE id = '".$_SESSION['id']."';";
@@ -188,20 +188,20 @@ if ( $_GET['action'] == 'delete_all_raids' ) {
         header("Location: $redirect_url?return=success_delete_raids");
 }
 
-if ( $_GET['action'] == 'enable' ) {
+if ( isset($_GET['action']) && $_GET['action'] == 'enable' ) {
         $sql = "UPDATE humans set enabled = 1 WHERE id = '".$_SESSION['id']."';";
 	$result = $conn->query($sql);
         header("Location: $redirect_url");
 }
 
-if ( $_GET['action'] == 'disable' ) {
+if ( isset($_GET['action']) && $_GET['action'] == 'disable' ) {
         $sql = "UPDATE humans set enabled = 0 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
         header("Location: $redirect_url");
 }
 
 
-if ( $_POST['action'] == 'areas' ) {
+if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
     $area_list = array();
     foreach ($_POST as $key => $value) {
      if ( substr( $key, 0, 5 ) === "area_" ) {
