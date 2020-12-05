@@ -5,6 +5,7 @@ include "./config.php";
 session_start();
 
 $dbnames = explode(",", $dbname);
+
 foreach ($dbnames as &$db) {
   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
   $sql = "SELECT * from humans WHERE id = '".$_SESSION['id']."'";

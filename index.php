@@ -35,16 +35,16 @@
 
 <?php 
 
-if ( $_GET['return'] == 'success_added_raids' ) { echo "<div class='success_msg'>Successfully Added Raids Alarm(s)</div>"; }
-if ( $_GET['return'] == 'success_update_mons' ) { echo "<div class='success_msg'>Successfully Updated Monster Alarm</div>"; }
-if ( $_GET['return'] == 'success_update_raid' ) { echo "<div class='success_msg'>Successfully Updated Raid Alarm</div>"; }
-if ( $_GET['return'] == 'success_update_egg' ) { echo "<div class='success_msg'>Successfully Updated Egg Alarm</div>"; }
-if ( $_GET['return'] == 'success_delete_mons' ) { echo "<div class='success_msg'>Successfully Deleted Monster Alarm(s)</div>"; }
-if ( $_GET['return'] == 'success_added_mons' ) { echo "<div class='success_msg'>Successfully Added Monster Alarm(s)</div>"; }
-if ( $_GET['return'] == 'success_delete_raids' ) { echo "<div class='success_msg'>Successfully Deleted Eggs & Raids Alarm(s)</div>"; }
-if ( $_GET['return'] == 'success_delete_raid' ) { echo "<div class='success_msg'>Successfully Deleted Raid Alarm</div>"; }
-if ( $_GET['return'] == 'success_delete_egg' ) { echo "<div class='success_msg'>Successfully Deleted Egg Alarm</div>"; }
-if ( $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_added_raids' ) { echo "<div class='success_msg'>Successfully Added Raids Alarm(s)</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_update_mons' ) { echo "<div class='success_msg'>Successfully Updated Monster Alarm</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_update_raid' ) { echo "<div class='success_msg'>Successfully Updated Raid Alarm</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_update_egg' ) { echo "<div class='success_msg'>Successfully Updated Egg Alarm</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_delete_mons' ) { echo "<div class='success_msg'>Successfully Deleted Monster Alarm(s)</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_added_mons' ) { echo "<div class='success_msg'>Successfully Added Monster Alarm(s)</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_delete_raids' ) { echo "<div class='success_msg'>Successfully Deleted Eggs & Raids Alarm(s)</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_delete_raid' ) { echo "<div class='success_msg'>Successfully Deleted Raid Alarm</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_delete_egg' ) { echo "<div class='success_msg'>Successfully Deleted Egg Alarm</div>"; }
+if ( isset($return) && $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
 
 
 echo "<br>";
