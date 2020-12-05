@@ -26,7 +26,11 @@ $discordBotClientSecret = "";
 $imgUrl="https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
 
 // Provide a valid URL to your Tile Server for Displaying a location map
-$mapURL="http://mytileserver.com:9000/staticmap/pokemon?pokemon_id=150&form00&latitude=#LAT#&longitude=#LON#";
+// Arguments should correspond to your server template setup
+// Use #LAT# and #LON# as placeholders for latitude and longitude
+// An example is provided hereunder
+
+$mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/pmsf_outline_shadow/pokemon_icon_150_00.png&lat=#LAT#&lon=#LON#";
 
 // Other Configuration Items
 
