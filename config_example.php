@@ -12,6 +12,10 @@ $dbuser     = "";
 $dbpass     = "";
 $dbport     = "3306";
 
+// Poracle Install Directoyy
+
+$poracle_dir="";
+
 // Discord Configuration
 
 $redirect_url="";
