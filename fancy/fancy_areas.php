@@ -33,7 +33,7 @@
     ";
 
     echo "<center>";
-    echo "<ul>";
+    echo "<ul>\n";
 
     $areas = shell_exec('grep name '.$poracle_dir.'/config/geofence.json | cut -d\" -f4 | tr "\n" "," | sed s/,$//g');
     $areas = explode(',', $areas);
@@ -42,12 +42,12 @@
 
        if ( stristr($existing_area, $area) > '') { $checked = 'checked'; } else { $checked = ''; };
 
-       echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>";
-       echo "<label for='area_$area' style='width:200px;'>$area";
-       echo "</li>";
+       echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
+       echo "<label for='area_$area' style='width:200px;'>$area</label>\n";
+       echo "</li>\n";
     } 
 
-    echo "</ul>";
+    echo "</ul>\n";
 
     echo "
 

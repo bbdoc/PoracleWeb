@@ -51,6 +51,7 @@ echo "<br>";
 
 include "./config.php";
 include "./db_connect.php";
+include "./functions.php";
 
 echo "<center>";
 
@@ -135,7 +136,7 @@ if($_SESSION['username']) {
   echo "<a href='./form_action.php?action=delete_all_mons'><button class='button_delete' style='width:150px;' onclick='return confirm_mon_delete();'>Delete All</button></a>";
   echo "<br><br>";
 
-  $sql = "select * FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id";
+  $sql = "select * FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id, form";
   $result = $conn->query($sql);
 
   while($row = $result->fetch_assoc()) {
@@ -143,7 +144,7 @@ if($_SESSION['username']) {
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_pokemons.php";
 
-    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."' href='javascript:;'>";
+    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['level']."_".$row['level']."' href='javascript:;'>";
     echo "<button>";
     echo "<font size=1>";
     echo "<table width=100%><tr>";
@@ -151,7 +152,7 @@ if($_SESSION['username']) {
     if ( $row['pokemon_id'] == '0' ) {
       echo "<td height=60><font size=5><strong>ALL</strong></font></td>";
     } else {
-      echo "<td><img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_00.png'></td>";
+      echo "<td><img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'></td>";
     }
     echo "<td width=100%>";
 
@@ -177,7 +178,8 @@ if($_SESSION['username']) {
       echo "<p><b>Ultra : </b>top".$row['ultra_league_ranking']." @".$row['ultra_league_ranking_min_cp']."</p>";
     }
     if ($row['form'] <> '0' ) {
-      echo "<p><b>Form : </b>".$row['form']."</p>";
+      $form_name=get_form_name($row['pokemon_id'],$row['form']);
+      echo "<p style='margin-top:5px;'><code>".$form_name."</code></p>"; 
     }
     if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000' ) {
       echo "<p><b>CP : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";

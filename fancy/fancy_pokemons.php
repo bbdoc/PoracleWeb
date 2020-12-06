@@ -1,17 +1,19 @@
 
 <?php
 
+    $form_name=get_form_name($row['pokemon_id'],$row['form']);
+
     // Add Hidden Fancy Box Content for Pokemons
 
     echo "
-    <div style='display: none;' id='mon_".$row['pokemon_id']."'>
+    <div style='display: none;' id='mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['level']."_".$row['level']."'>
     <form action='./form_action.php' method='POST'>
     ";
 
     if ( $row['pokemon_id'] == '0' ) {
       echo "<center><font size=5><strong>ALL</strong></font></center>";
     } else {
-      echo "<center><img width=100 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_00.png'></center>";
+      echo "<center><img width=100 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'></center>";
     }
 
     echo "
@@ -19,6 +21,13 @@
         <br>
         <input type='hidden' id='type' name='type' value='monsters'>
         <input type='hidden' id='pokemon_id' name='pokemon_id' value='".$row['pokemon_id']."'>
+        <input type='hidden' id='cur_form' name='cur_form' value='".$row['form']."'>
+        <input type='hidden' id='cur_min_iv' name='cur_min_iv' value='".$row['min_iv']."'>
+        <input type='hidden' id='cur_max_iv' name='cur_max_iv' value='".$row['max_iv']."'>
+        <input type='hidden' id='cur_min_cp' name='cur_min_cp' value='".$row['min_cp']."'>
+        <input type='hidden' id='cur_max_cp^' name='cur_max_cp' value='".$row['max_cp']."'>
+        <input type='hidden' id='cur_min_level' name='cur_min_level' value='".$row['min_level']."'>
+        <input type='hidden' id='cur_max_level' name='cur_max_level' value='".$row['max_level']."'>
 
 	<table width=130% style='margin-left:-30px;'>
 
@@ -100,6 +109,22 @@
         <input type='number' id=ultra_league_ranking'' name='ultra_league_ranking' size=1 value='".$row['ultra_league_ranking']."' min='0' max='4096'>
         <label for='fname'>CP</label>
         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 value='".$row['ultra_league_ranking_min_cp']."' min='0' max='4096'><br>
+        </td></tr>
+
+        <tr><td>
+        <label for='fname'>Form:</label>
+	</td><td style='max-width: 180px;'>
+        ";
+    $forms=get_all_forms($row['pokemon_id']);    
+    ksort($forms);
+    foreach($forms as $key => $value) {
+       if ($key == $row['form']) { $checked = 'checked'; } else { $checked = ''; }
+       echo "<div style='display:inline-block;'>";
+       echo "<input type='radio' name='form' id='form_".$key."' value='form_".$key."' $checked/>";
+       echo "<label for='form_".$key."'>$value</label>";
+       echo "</div>";
+    }
+    echo "
         </td></tr>
 
         </table>

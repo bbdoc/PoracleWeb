@@ -135,4 +135,9 @@ label {
   margin-bottom: 10px;
   text-align:center;
 }
-
+code {
+    padding: 2px 10px;
+    color: white;
+    background-color: #303030;
+    border-radius: 4px;
+}

@@ -20,10 +20,32 @@
 
 <?php 
 
+echo "<table>";
+    foreach ($_POST as $key => $value) {
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
+        echo "</td>";
+        echo "</tr>";
+    }
+
+echo "</table>";
+
+
+
 include "./config.php";
 include "./db_connect.php";
 
 if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
+
+  foreach ($_POST as $key => $value) {
+    if ( substr( $value, 0, 5 ) === "form_" ) {
+      $form = ltrim($value,'form_');
+    }
+  }
 
   $sql = "UPDATE monsters  
       SET distance = ".$_POST['distance'].",
@@ -33,8 +55,12 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
           min_weight = ".$_POST['min_weight'].", max_weight = ".$_POST['max_weight'].",
           atk = ".$_POST['atk'].", def = ".$_POST['def'].", sta = ".$_POST['sta'].",
           great_league_ranking = ".$_POST['great_league_ranking'].", great_league_ranking_min_cp = ".$_POST['great_league_ranking_min_cp'].",
-	  ultra_league_ranking = ".$_POST['ultra_league_ranking'].", ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp']."
-      WHERE pokemon_id = ".$_POST['pokemon_id']."
+	  ultra_league_ranking = ".$_POST['ultra_league_ranking'].", ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp'].",
+          form = ".$form."
+      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']."
+      AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
+      AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
+      AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
       AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);

@@ -119,7 +119,8 @@ echo "Select the monsters you want to add to your alarms";
 echo "<ul>";
 
 
-  $sql = "SELECT * from seq_1_to_$max_pokemon WHERE seq not in (select pokemon_id FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id)";
+  #$sql = "SELECT * from seq_1_to_$max_pokemon WHERE seq not in (select pokemon_id FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id)";
+  $sql = "SELECT * from seq_1_to_$max_pokemon";
   $result = $conn->query($sql);
 
   while($row = $result->fetch_assoc()) {
