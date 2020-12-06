@@ -96,7 +96,10 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
 
   $sql = "DELETE FROM monsters
-          WHERE pokemon_id = ".$_POST['pokemon_id']."
+          WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']."
+          AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
+          AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
+          AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
 	  AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);

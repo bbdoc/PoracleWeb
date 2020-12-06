@@ -128,8 +128,8 @@
         </td></tr>
 
         </table>
-
-        <center>
+   
+        <br><center>
 	<input type='submit' name='update' value='Update' class='button_update'>
 	<input type='submit' name='delete' value='Delete' class='button_delete'>
         </center>
