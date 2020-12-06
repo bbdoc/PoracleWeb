@@ -1,0 +1,91 @@
+
+/* Style for CheckBoxes Multi Selections */
+
+ul {
+  list-style-type: none;
+    padding: 0;
+}
+
+li {
+  display: inline-block;
+}
+
+input[type="checkbox"][id^="mon"], input[type="checkbox"][id^="egg"], input[type="checkbox"][id^="raid"], input[type="checkbox"][id^="area"]  {
+  display: none;
+}
+
+/*
+input[type="radio"][id^="form"]  {
+  display: none;
+}
+*/
+
+label[for^="mon"], label[for^="egg"], label[for^="raid"], label[for^="area"] {
+  border: 1px solid grey;
+  background-color: lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+  display: block;
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+label[for^="form"] {
+    padding: 2px 10px;
+    color: white;
+    background-color: darkgrey;
+    border-radius: 4px;
+}
+
+:checked+label[for^="form"] {
+  background-color: darkgreen;
+}
+
+label::before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+label img {
+  height: 50px;
+  width: 50px;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+}
+
+:checked+label {
+  border-color: #ddd;
+}
+
+:checked+label::before {
+  content: "✓";
+  background-color: grey;
+  transform: scale(1);
+}
+
+:checked+label img {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px #333;
+  z-index: -1;
+}
+
