@@ -74,7 +74,7 @@ if($_SESSION['username']) {
 
 <div id="navbar">
   <a data-fancybox data-src='#profile' href='javascript:;' style='text-decoration: none;'>
-  <table>
+  <table style='margin:0px; margin:-10px;'>
   <tr valign='middle'>
     <td><b><font color=white size=4>PoracleWeb</font></b> </td>
     <td width=100%> </td>

@@ -42,7 +42,7 @@ echo "<center><br>";
   // Show Monsters Alarms
 
   echo "<hr><br><p><b>Monsters you are tracking</b></p>";
-  echo "<i>Click on any Alarm to edit your tracking parameters</i></p><br>";
+  echo "<font size=2><i>Click on any Alarm to edit your tracking parameters</i></font></p><br>";
   echo "<a href='./add_mons.php'><button class='button_update' style='width:150px;'>Add New</button></a>";
   echo "<a href='./form_action.php?action=delete_all_mons'><button class='button_delete' style='width:150px;' onclick='return confirm_mon_delete();'>Delete All</button></a>";
   echo "<br><br>";
@@ -107,7 +107,7 @@ echo "<center><br>";
   // Show Eggs & Raids
 
   echo "<hr><br><p><b>Eggs & Raids you are tracking</b></p>\n";
-  echo "<i>Click on any Alarm to edit your tracking parameters</i></p><br>";
+  echo "<i><font size=2>Click on any Alarm to edit your tracking parameters</font></i></p><br>";
   echo "<a href='./add_raids.php'><button class='button_update' style='width:150px;'>Add New</button></a>\n";
   echo "<a href='./form_action.php?action=delete_all_raids'><button class='button_delete' style='width:150px;' onclick='return confirm_raid_delete();'>Delete All</button></a>\n";
   echo "<br><br>\n";
