@@ -1,106 +1,13 @@
 
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POracle Configurator</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-  <script type="text/javascript">
-    function confirm_mon_delete() {
-       if (confirm('This will delete all your Pokemon Alarms and cannot be undone, are you sure ?')) {
-           yourformelement.submit();
-       } else {
-           return false;
-       }
-    }
-    function confirm_raid_delete() {
-       if (confirm('This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure ?')) {
-           yourformelement.submit();
-       } else {
-           return false;
-       }
-    }
-    </script>
-
-</head>
-
-<body style="background-color:#FFFFFF; color: grey;">
-
 <?php 
-
-if ( isset($return) && $_GET['return'] == 'success_added_raids' ) { echo "<div class='success_msg'>Successfully Added Raids Alarm(s)</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_update_mons' ) { echo "<div class='success_msg'>Successfully Updated Monster Alarm</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_update_raid' ) { echo "<div class='success_msg'>Successfully Updated Raid Alarm</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_update_egg' ) { echo "<div class='success_msg'>Successfully Updated Egg Alarm</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_delete_mons' ) { echo "<div class='success_msg'>Successfully Deleted Monster Alarm(s)</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_added_mons' ) { echo "<div class='success_msg'>Successfully Added Monster Alarm(s)</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_delete_raids' ) { echo "<div class='success_msg'>Successfully Deleted Eggs & Raids Alarm(s)</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_delete_raid' ) { echo "<div class='success_msg'>Successfully Deleted Raid Alarm</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_delete_egg' ) { echo "<div class='success_msg'>Successfully Deleted Egg Alarm</div>"; }
-if ( isset($return) && $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
-
-
-echo "<br>";
 
 include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
+include "./header.php";
 
-echo "<center>";
+echo "<center><br>";
 
-if($_SESSION['username']) {
-
-  echo "<p><b><font color='darkblue' size=4>Welcome ".$_SESSION['username']."</font></b></p>";
-  $avatar = "https://cdn.discordapp.com/avatars/".$_SESSION['id']. "/".$_SESSION['avatar'].".png";
-  echo "<img src='$avatar' style='border-radius: 50%; width:50px;'><br><br>";
-  #echo '<p><a href="./discord_auth.php?action=logout">Log Out</a></p>';
-
-  // Exit if user not registered to Poracle
-
-  $sql = "SELECT * from humans WHERE id = '".$_SESSION['id']."'";
-  $result = $conn->query($sql);
-  if ( $result->num_rows == 0 ) {
-	  echo "<br><font color='darkred'><b>Please Register to Poracle first before using this tool.</font></b><br>";
-	  exit();
-  }
-  
-  // Show Global Informations from Humans
-
-  $sql = "select area, latitude, longitude, enabled from humans WHERE id = '".$_SESSION['id']."'";
-  $result = $conn->query($sql);
-  while($row = $result->fetch_assoc()) {
-        $area=$row['area'];
-        $latitude=$row['latitude'];
-        $longitude=$row['longitude'];
-        $enabled=$row['enabled'];
-  }
-
-  if ( $enabled == "1") { 
-    echo "<font color='darkgreen'><b>Your alarms are currently enabled</font></b><br>";
-    echo "<a href='./form_action.php?action=disable'><button class='button_delete' style='width:150px;'>Disable</button></a><br>";
-  } else {
-    echo "<font color='darkred'><b>Your alarms are currently disabled</font></b><br>";
-    echo "<a href='./form_action.php?action=enable'><button class='button_update' style='width:150px;'>Enable</button></a><br>";
-  }
-
-  if ( $latitude == "0.0000000000" && $longitude == "0.0000000000" ) {
-	  echo "<font color='darkred'><b>Your Location is not set and cannot be set here.<br>";
-	  echo "Please set it in discord using <code>/location</code> command</font></b><br><br>";
-  } else if ( isset($mapURL) && $mapURL <> ""  ) {
-	  echo "Your Location is currently set to <br>$latitude, $longitude<br><br>";
-          $mapURL=str_replace('#LAT#', $latitude, $mapURL);
-          $mapURL=str_replace('#LON#', $longitude, $mapURL);
-          echo "<img src='$mapURL' width=400><br><br>";
-  }
-
-  echo "<hr>";
   if ($area == "[]") { 
           echo "<font color='darkred'><b>You have not set any area yet</font></b><br>";
 	  $areas = ""; 
@@ -121,7 +28,11 @@ if($_SESSION['username']) {
   }
   echo "</ul>";
 
-  // Add Hidden Fancy Boxes
+
+  // Add Hidden Fancy Box Profile
+  include "./fancy/fancy_profile.php";
+
+  // Add Hidden Fancy Box Area
   include "./fancy/fancy_areas.php";
 
   echo "<a data-fancybox data-src='#areas' href='javascript:;' style='text-decoration: none;'>";
@@ -265,15 +176,6 @@ if($_SESSION['username']) {
     echo "</a>\n";
 
   }
-
-
-} else {
-  echo '<h2>Welcome to the <br>Poracle Alarm Management</h2>';
-  echo '<h4>Please Log In to access your current Alarm Config</h4>';
-  echo '<h4>Clic on below Discord icon to log in</h4>';
-  echo '<p><a href="./discord_auth.php?action=login"><img width=100 src="./discord.jpg"></a></p>';
-  echo '<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>';
-}
 
 echo "<br><br>";
 ?>
