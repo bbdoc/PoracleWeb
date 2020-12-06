@@ -18,7 +18,7 @@ table {
 
 }
 tr {
-    box-shadow: 0 0 10px red;
+    box-shadow: 0 0 10px darkgreen;
     -webkit-border-radius: 5px!important;
 }
 td {

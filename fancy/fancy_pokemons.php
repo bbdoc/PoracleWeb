@@ -34,7 +34,7 @@
         <tr><td>
 	<label for='fname'>Distance:</label>
         </td><td>
-	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:7eml' min='0'><br>
+	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:7eml' min='0'>&nbsp;meters<br>
         </td></tr>
 
         <tr><td>
@@ -96,18 +96,18 @@
         <tr><td>
         <label for='fname'>PvP Great</label>
         </td><td>
-        <label for='fname'>Rank</label>
+        <label for='fname'>Min Rank</label>
         <input type='number' id=great_league_ranking'' name='great_league_ranking' size=1 value='".$row['great_league_ranking']."' min='0' max='4096'>
-        <label for='fname'>CP</label>
+        <label for='fname'>Min CP</label>
         <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1 value='".$row['great_league_ranking_min_cp']."' min='0' max='4096'><br>
         </td></tr>
 
         <tr><td>
         <label for='fname'>PvP Ultra</label>
         </td><td>
-        <label for='fname'>Rank</label>
+        <label for='fname'>Min Rank</label>
         <input type='number' id=ultra_league_ranking'' name='ultra_league_ranking' size=1 value='".$row['ultra_league_ranking']."' min='0' max='4096'>
-        <label for='fname'>CP</label>
+        <label for='fname'>Min CP</label>
         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 value='".$row['ultra_league_ranking_min_cp']."' min='0' max='4096'><br>
         </td></tr>
 
