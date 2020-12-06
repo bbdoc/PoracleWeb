@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POracleWeb</title>
+  <title>PoracleWeb</title>
   <link rel="icon" type="image/x-icon" href="favicon.png"/>
   <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,7 +46,7 @@ if($_SESSION['username']) {
           echo "<tr valign='middle'>";
           echo "<td><b><font color=white size=4>PoracleWeb</font></b> </td>";
           echo "<td width=100%> </td>";
-          echo "<td><b><font color=white size=2>".$_SESSION['username']."</font></b> </td>";
+          echo "<td><b><font size=2 color='white'>".$_SESSION['username']."</font></b> </td>";
           echo "<td><img src='".$avatar."' style='border-radius: 50%; width:40px; border: 1px solid darkgreen'></td>";
           echo "</tr>";
           echo "</table>";
@@ -66,8 +66,8 @@ if($_SESSION['username']) {
         $enabled=$row['enabled'];
   }
 
-  if ( $enabled == "1") { $enabled_color="&#128994;";} else { $enabled_color="&#128308;";}
-  if ( $latitude == "0.0000000000" && $longitude == "0.0000000000" ) {$location_color="&#128308;";} else { $location_color="&#128994;";}
+  if ( $enabled == "1") { $enabled_color="<span class='greendot'></span>";} else { $enabled_color="<span class='reddot'></span>";}
+  if ( $latitude == "0.0000000000" && $longitude == "0.0000000000" ) {$location_color="<span class='reddot'></span>";} else { $location_color="<span class='greendot'></span>";}
 ?>
 
 <body>

@@ -235,14 +235,14 @@ label img {
 /* Style for Sticky Hader */
 
 .header {
-  background-color: #000000;
+  background-color: #333;
   padding: 30px;
   text-align: center;
 }
 
 #navbar {
   overflow: hidden;
-  font-color: #FFFFFF;
+  font-color: white;
   background-color: #333;
   padding-left:10;
   padding-right:10;
@@ -259,12 +259,12 @@ label img {
 }
 
 #navbar a:hover {
-  background-color: #ddd;
+  background-color: #333;
   color: black;
 }
 
 #navbar a.active {
-  background-color: #4CAF50;
+  background-color: #333;
   color: white;
 }
 
@@ -277,7 +277,7 @@ label img {
     position:fixed;
     top:0;
     right:0;
-    background:#090909;
+    background:#333;
     z-index:1000;
 }
 
@@ -285,4 +285,24 @@ label img {
 .sticky + .content {
   padding-top: 60px;
 }
+
+.reddot {
+  height: 15px;
+  width: 15px;
+  margin: 3px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.greendot {
+  height: 15px;
+  width: 15px;
+  margin: 3px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
 

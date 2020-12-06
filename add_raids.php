@@ -5,6 +5,9 @@ include "./config.php";
 include "./db_connect.php";
 include "./header.php";
 
+// Add Hidden Fancy Box Profile
+include "./fancy/fancy_profile.php";
+
 echo "<center><br>";
 echo "<font color='darkred'><b>ADD MONSTERS TO YOUR ALARMS</font></b><br><br>";
 echo "<form action='./form_action.php' method='POST'>";
