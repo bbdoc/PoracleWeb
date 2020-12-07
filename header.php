@@ -26,6 +26,20 @@
            return false;
        }
     }
+    function confirm_mon_cleaning() {
+       if (confirm('This will disable cleaning on ALL Pokemon Alarms and cannot be undone, are you sure ?')) {
+           yourformelement.submit();
+       } else {
+           return false;
+       }
+    }
+    function confirm_raid_cleaning() {
+       if (confirm('This will disable cleaning on ALL Raids & Eggs Alarms and cannot be undone, are you sure ?')) {
+           yourformelement.submit();
+       } else {
+           return false;
+       }
+    }
     </script>
 
 </head>
@@ -56,6 +70,18 @@ if($_SESSION['username']) {
 
 	  echo "</center>";
   }
+
+  // Check for Cleaned
+
+  $sql = "select min(clean) clean FROM monsters WHERE id = '".$_SESSION['id']."'";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) { $all_mon_cleaned = $row['clean'];}
+  if ( $all_mon_cleaned == "1") { $all_mon_cleaned_color="<span class='greendot'></span>";} else { $all_mon_cleaned_color="<span class='reddot'></span>";}
+
+  $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '".$_SESSION['id']."'";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) { $all_raid_cleaned = $row['clean'];}
+  if ( $all_raid_cleaned == "1") { $all_raid_cleaned_color="<span class='greendot'></span>";} else { $all_raid_cleaned_color="<span class='reddot'></span>";}
 
   $sql = "select area, latitude, longitude, enabled from humans WHERE id = '".$_SESSION['id']."'";
   $result = $conn->query($sql);

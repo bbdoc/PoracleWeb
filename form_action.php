@@ -283,5 +283,34 @@ if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
     header("Location: $redirect_url?return=success_update_areas");
 }
 
+if ( isset($_GET['action']) && $_GET['action'] == 'disable_mon_clean' ) {
+        $sql = "UPDATE monsters set clean = 0 WHERE id = '".$_SESSION['id']."';";
+        $result = $conn->query($sql);
+        header("Location: $redirect_url");
+}
+
+if ( isset($_GET['action']) && $_GET['action'] == 'enable_mon_clean' ) {
+        $sql = "UPDATE monsters set clean = 1 WHERE id = '".$_SESSION['id']."';";
+        $result = $conn->query($sql);
+        header("Location: $redirect_url");
+}
+
+if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
+        $sql = "UPDATE raid set clean = 0 WHERE id = '".$_SESSION['id']."';";
+	$result = $conn->query($sql);
+        $sql = "UPDATE egg set clean = 0 WHERE id = '".$_SESSION['id']."';";
+        $result = $conn->query($sql);
+        header("Location: $redirect_url");
+}
+
+if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
+        $sql = "UPDATE raid set clean = 1 WHERE id = '".$_SESSION['id']."';";
+        $result = $conn->query($sql);
+        $sql = "UPDATE egg set clean = 1 WHERE id = '".$_SESSION['id']."';";
+        $result = $conn->query($sql);
+        header("Location: $redirect_url");
+}
+
+
 
 ?>

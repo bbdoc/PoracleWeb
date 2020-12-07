@@ -39,16 +39,6 @@ echo "<center><br>";
   echo "<button class='button_update' style='width:150px;'>Select Areas</button>";
   echo "</a>";
 
-  // Check for Cleaned
-
-  $sql = "select min(clean) clean FROM monsters WHERE id = '".$_SESSION['id']."'";
-  $result = $conn->query($sql);
-  while($row = $result->fetch_assoc()) { $all_mon_cleaned = $row['clean'];}
-  $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '".$_SESSION['id']."'";
-  $result = $conn->query($sql);
-  while($row = $result->fetch_assoc()) { $all_raid_cleaned = $row['clean'];}
-
-
   // Show Monsters Alarms
 
   echo "<hr><br><p><b>Monsters you are tracking</b></p>";

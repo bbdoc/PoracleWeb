@@ -14,7 +14,6 @@ A few other features that might make their way into the tool :
 
 - Ability to set a Location.
 - Ability to set a Distance globally for all Monsters and/or all Raids/Eggs
-- Ability to set clean to True per alarm but also globally.
 - A way to visualize distances drawing a radius on the map from current position.
 - Search tool when trying to add pokemon alarms.
 

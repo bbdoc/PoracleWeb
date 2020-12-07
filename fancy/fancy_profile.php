@@ -37,11 +37,40 @@ echo " <div style='display: none;' id='profile'>";
   echo "<img src='$avatar' style='border-radius: 50%; width:50px;'><br><br>";
 
 
+  // Add Button to enable/disable Alarms
+
+  echo "<table><tr>";
+  echo "<td>$enabled_color</td>";
+  echo "<td>Alarms</td>";
+  echo "<td>";
   if ( $enabled == "1") {
-    echo "<a href='./form_action.php?action=disable'><button class='button_delete' style='width:200px;'>Disable Alarms</button></a><br>";
+    echo "<a href='./form_action.php?action=disable'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
   } else {
-    echo "<a href='./form_action.php?action=enable'><button class='button_update' style='width:200px;'>Enable Alarms</button></a><br>";
+    echo "<a href='./form_action.php?action=enable'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
   }
+  echo "</td>";
+  echo "</tr><tr>";
+  echo "<td>$all_mon_cleaned_color</td>";
+  echo "<td>All Monsters Cleaning</td>";
+  echo "<td>";
+  if ( $all_mon_cleaned == "1") {
+    echo "<a href='./form_action.php?action=disable_mon_clean' onclick='return confirm_mon_cleaning();'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
+  } else {
+    echo "<a href='./form_action.php?action=enable_mon_clean'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
+  }
+  echo "</td>";
+  echo "</tr><tr>";
+  echo "<td>$all_raid_cleaned_color</td>";
+  echo "<td>All Raids/Eggs Cleaning</td>";
+  echo "<td>";
+  if ( $all_raid_cleaned == "1") {
+    echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
+  } else {
+    echo "<a href='./form_action.php?action=enable_raid_clean'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
+  }
+  echo "</td>";
+  echo "</tr><tr>";
+  echo "</tr></table>";
 
   if ( $latitude == "0.0000000000" && $longitude == "0.0000000000" ) {
           echo "<font color='darkred'><b>Your Location is not set and cannot be set here.<br>";
