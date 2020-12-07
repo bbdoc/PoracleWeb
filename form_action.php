@@ -168,11 +168,11 @@ if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 			".$_POST['great_league_ranking'].", ".$_POST['great_league_ranking_min_cp'].", 
 			".$_POST['ultra_league_ranking'].", ".$_POST['ultra_league_ranking_min_cp']."
 		)";
-	    $result = $conn->query($sql);
-            header("Location: $redirect_url?return=success_added_mons");
-
+	    $result = $conn->query($sql); 
+            if ($pokemon_id == 0) { break; }  
     }
   }
+  header("Location: $redirect_url?return=success_added_mons");
 
 }
 

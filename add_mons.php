@@ -101,7 +101,7 @@ echo "
         <label for='fname'>Gender:</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
-        <input type='radio' name='gender' id='gender_0' value='gender_0' />
+        <input type='radio' name='gender' id='gender_0' value='gender_0' checked/>
         <label for='gender_0'>All</label>
         </div>
         <div style='display:inline-block;'>
@@ -118,9 +118,15 @@ echo "
 	<br>
 ";
 
-echo "Select the monsters you want to add to your alarms";
+echo "Select the monsters you want to add to your alarms\n";
 
-echo "<ul>";
+echo "<ul>\n";
+
+echo "<li><input type='checkbox' name='mon_0' id='mon_0' />\n";
+echo "<label for='mon_0'><center><font size=5><strong>ALL</strong></font></center>";
+echo "<font size=2>Apply Settings to all Pokemons<br>Other selections won't apply if selected</font></label>";
+echo "</li>\n";
+echo "<br>\n";
 
 
   #$sql = "SELECT * from seq_1_to_$max_pokemon WHERE seq not in (select pokemon_id FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id)";
@@ -130,11 +136,11 @@ echo "<ul>";
   while($row = $result->fetch_assoc()) {
 
      $i=$row['seq'];
-     echo "<li><input type='checkbox' name='mon_$i' id='mon_$i' />";
+     echo "<li><input type='checkbox' name='mon_$i' id='mon_$i' />\n";
      echo "<label for='mon_$i'><img src='$imgUrl/pokemon_icon_".str_pad($i, 3, "0", STR_PAD_LEFT)."_00.png' />";
      echo "<br>";
      echo "<font size=2>".str_pad($i, 3, "0", STR_PAD_LEFT)."</font></label>";
-     echo "</li>";
+     echo "</li>\n";
 
 }
 
