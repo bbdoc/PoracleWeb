@@ -44,9 +44,9 @@ echo " <div style='display: none;' id='profile'>";
   echo "<td>Alarms</td>";
   echo "<td>";
   if ( $enabled == "1") {
-    echo "<a href='./form_action.php?action=disable'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
+    echo "<a href='./form_action.php?action=disable'><button class='button_disable'>Disable</button></a><br>";
   } else {
-    echo "<a href='./form_action.php?action=enable'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
+    echo "<a href='./form_action.php?action=enable'><button class='button_enable'>Enable</button></a><br>";
   }
   echo "</td>";
   echo "</tr><tr>";
@@ -54,9 +54,9 @@ echo " <div style='display: none;' id='profile'>";
   echo "<td>All Monsters Cleaning</td>";
   echo "<td>";
   if ( $all_mon_cleaned == "1") {
-    echo "<a href='./form_action.php?action=disable_mon_clean' onclick='return confirm_mon_cleaning();'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
+    echo "<a href='./form_action.php?action=disable_mon_clean' onclick='return confirm_mon_cleaning();'><button class='button_disable'>Disable</button></a><br>";
   } else {
-    echo "<a href='./form_action.php?action=enable_mon_clean'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
+    echo "<a href='./form_action.php?action=enable_mon_clean'><button class='button_enable'>Enable</button></a><br>";
   }
   echo "</td>";
   echo "</tr><tr>";
@@ -64,9 +64,9 @@ echo " <div style='display: none;' id='profile'>";
   echo "<td>All Raids/Eggs Cleaning</td>";
   echo "<td>";
   if ( $all_raid_cleaned == "1") {
-    echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button style='width:100px;' class='button_delete'>Disable</button></a><br>";
+    echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button class='button_disable'>Disable</button></a><br>";
   } else {
-    echo "<a href='./form_action.php?action=enable_raid_clean'><button style='width:100px;' class='button_update'>Enable</button></a><br>";
+    echo "<a href='./form_action.php?action=enable_raid_clean'><button class='button_enable'>Enable</button></a><br>";
   }
   echo "</td>";
   echo "</tr><tr>";
