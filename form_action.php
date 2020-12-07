@@ -45,7 +45,11 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
     if ( substr( $value, 0, 5 ) === "form_" ) {
       $form = ltrim($value,'form_');
     }
+    if ( substr( $value, 0, 7 ) === "gender_" ) {
+      $gender = ltrim($value,'gender_');
+    }
   }
+
 
   $sql = "UPDATE monsters  
       SET distance = ".$_POST['distance'].",
@@ -56,8 +60,8 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
           atk = ".$_POST['atk'].", def = ".$_POST['def'].", sta = ".$_POST['sta'].",
           great_league_ranking = ".$_POST['great_league_ranking'].", great_league_ranking_min_cp = ".$_POST['great_league_ranking_min_cp'].",
 	  ultra_league_ranking = ".$_POST['ultra_league_ranking'].", ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp'].",
-          form = ".$form."
-      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']."
+          form = ".$form.", gender = ".$gender."
+      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']." AND gender = ".$_POST['cur_gender']."
       AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
       AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
       AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
@@ -134,6 +138,12 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
 if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 
   foreach ($_POST as $key => $value) {
+    if ( substr( $value, 0, 7 ) === "gender_" ) {
+      $gender = ltrim($value,'gender_');
+    }
+  }
+
+  foreach ($_POST as $key => $value) {
     if ( substr( $key, 0, 4 ) === "mon_" ) {
 	$pokemon_id = ltrim($key,'mon_');
 	$sql = "INSERT INTO monsters (
@@ -154,7 +164,7 @@ if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 			".$_POST['min_level'].", ".$_POST['max_level'].", 
 			".$_POST['atk'].", ".$_POST['def'].", ".$_POST['sta'].", 1,
 			".$_POST['min_weight'].", ".$_POST['max_weight'].", 0,
-			".$_POST['max_atk'].", ".$_POST['max_def'].", ".$_POST['max_sta'].", 0, 
+			".$_POST['max_atk'].", ".$_POST['max_def'].", ".$_POST['max_sta'].", ".$gender.",
 			".$_POST['great_league_ranking'].", ".$_POST['great_league_ranking_min_cp'].", 
 			".$_POST['ultra_league_ranking'].", ".$_POST['ultra_league_ranking_min_cp']."
 		)";

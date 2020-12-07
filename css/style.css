@@ -178,14 +178,14 @@ label[for^="mon"], label[for^="egg"], label[for^="raid"], label[for^="area"] {
   user-select: none;
 }
 
-label[for^="form"] {
+label[for^="form"], label[for^="gender"] {
     padding: 2px 10px;
     color: white;
     background-color: darkgrey;
     border-radius: 4px;
 }
 
-:checked+label[for^="form"] {
+:checked+label[for^="form"] , :checked+label[for^="gender"] {
   background-color: darkgreen;
 }
 

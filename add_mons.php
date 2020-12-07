@@ -96,6 +96,24 @@ echo "
         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 value='0' min='0' max='4096'><br>
         </td></tr>
 
+        </td></tr>
+        <tr><td>
+        <label for='fname'>Gender:</label>
+        </td><td style='max-width: 180px;'>
+        <div style='display:inline-block;'>
+        <input type='radio' name='gender' id='gender_0' value='gender_0' />
+        <label for='gender_0'>All</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='gender' id='gender_1' value='gender_1' />
+        <label for='gender_1'>Male</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='gender' id='gender_2' value='gender_2' />
+        <label for='gender_2'>Female</label>
+        </div>
+        </td></tr>
+
 	</table>
 	<br>
 ";

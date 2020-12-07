@@ -63,7 +63,9 @@ echo "<center><br>";
     if ( $row['pokemon_id'] == '0' ) {
       echo "<td height=60><font size=5><strong>ALL</strong></font></td>";
     } else {
-      echo "<td><img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'></td>";
+      $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
+      if (false === file_get_contents("$PkmnImg",0,null,0,1))  { $PkmnImg = "$redirect_url/nopic.png"; }
+      echo "<td><img width=50 src='$PkmnImg'></td>";
     }
     echo "<td width=100%>";
 
@@ -92,6 +94,8 @@ echo "<center><br>";
       $form_name=get_form_name($row['pokemon_id'],$row['form']);
       echo "<p style='margin-top:5px;'><code>".$form_name."</code></p>"; 
     }
+    if ($row['gender'] == '1' ) { echo "<p style='margin-top:5px;'><code>Male</code></p>"; }
+    if ($row['gender'] == '2' ) { echo "<p style='margin-top:5px;'><code>Female</code></p>"; }
     if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000' ) {
       echo "<p><b>CP : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";
     }

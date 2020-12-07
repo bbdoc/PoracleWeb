@@ -13,7 +13,9 @@
     if ( $row['pokemon_id'] == '0' ) {
       echo "<center><font size=5><strong>ALL</strong></font></center>";
     } else {
-      echo "<center><img width=100 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'></center>";
+      $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
+      if (false === file_get_contents("$PkmnImg",0,null,0,1))  { $PkmnImg = "$redirect_url/nopic.png"; }
+      echo "<td><center><img width=100 src='$PkmnImg'></center></td>";
     }
 
     echo "
@@ -28,6 +30,7 @@
         <input type='hidden' id='cur_max_cp^' name='cur_max_cp' value='".$row['max_cp']."'>
         <input type='hidden' id='cur_min_level' name='cur_min_level' value='".$row['min_level']."'>
         <input type='hidden' id='cur_max_level' name='cur_max_level' value='".$row['max_level']."'>
+        <input type='hidden' id='cur_gender' name='cur_gender' value='".$row['gender']."'>
 
 	<table width=130% style='margin-left:-30px;'>
 
@@ -115,17 +118,37 @@
         <label for='fname'>Form:</label>
 	</td><td style='max-width: 180px;'>
         ";
-    $forms=get_all_forms($row['pokemon_id']);    
-    ksort($forms);
-    foreach($forms as $key => $value) {
-       if ($key == $row['form']) { $checked = 'checked'; } else { $checked = ''; }
-       echo "<div style='display:inline-block;'>";
-       echo "<input type='radio' name='form' id='form_".$key."' value='form_".$key."' $checked/>";
-       echo "<label for='form_".$key."'>$value</label>";
-       echo "</div>";
-    }
-    echo "
+        $forms=get_all_forms($row['pokemon_id']);    
+        ksort($forms);
+        foreach($forms as $key => $value) {
+        if ($key == $row['form']) { $checked = 'checked'; } else { $checked = ''; }
+          echo "<div style='display:inline-block;'>";
+          echo "<input type='radio' name='form' id='form_".$key."' value='form_".$key."' $checked/>";
+          echo "<label for='form_".$key."'>$value</label>";
+          echo "</div>";
+        }
+	echo "</td></tr>
+	<tr><td>";
+        if ($row['gender'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+        if ($row['gender'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+        if ($row['gender'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+        echo "
+        <label for='fname'>Gender:</label>
+        </td><td style='max-width: 180px;'>
+        <div style='display:inline-block;'>
+	<input type='radio' name='gender' id='gender_0' value='gender_0' $checked0 />
+	<label for='gender_0'>All</label>
+	</div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='gender' id='gender_1' value='gender_1' $checked1 />
+        <label for='gender_1'>Male</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='gender' id='gender_2' value='gender_2' $checked2 />
+        <label for='gender_2'>Female</label>
+        </div>
         </td></tr>
+
 
         </table>
    
