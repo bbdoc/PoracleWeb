@@ -64,8 +64,11 @@ echo "<center><br>";
       echo "<td height=60><font size=5><strong>ALL</strong></font></td>";
     } else {
       $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
-      if (false === file_get_contents("$PkmnImg",0,null,0,1))  { $PkmnImg = "$redirect_url/nopic.png"; }
-      echo "<td><img width=50 src='$PkmnImg'></td>";
+      if (false === file_get_contents("$PkmnImg",0,null,0,1))  { 
+	      echo "<td height=60><font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font></td>";
+      } else {
+	      echo "<td><img width=50 src='$PkmnImg'></td>";
+      }
     }
     echo "<td width=100%>";
 
