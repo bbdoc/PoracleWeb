@@ -39,10 +39,21 @@ echo "<center><br>";
   echo "<button class='button_update' style='width:150px;'>Select Areas</button>";
   echo "</a>";
 
+  // Check for Cleaned
+
+  $sql = "select min(clean) clean FROM monsters WHERE id = '".$_SESSION['id']."'";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) { $all_mon_cleaned = $row['clean'];}
+  $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '".$_SESSION['id']."'";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) { $all_raid_cleaned = $row['clean'];}
+
+
   // Show Monsters Alarms
 
   echo "<hr><br><p><b>Monsters you are tracking</b></p>";
   echo "<font size=2><i>Click on any Alarm to edit your tracking parameters</i></font></p><br>";
+  if ($all_mon_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Monsters</code></p><br>"; }
   echo "<a href='./add_mons.php'><button class='button_update' style='width:150px;'>Add New</button></a>";
   echo "<a href='./form_action.php?action=delete_all_mons'><button class='button_delete' style='width:150px;' onclick='return confirm_mon_delete();'>Delete All</button></a>";
   echo "<br><br>";
@@ -51,6 +62,16 @@ echo "<center><br>";
   $result = $conn->query($sql);
 
   while($row = $result->fetch_assoc()) {
+
+    // Check Images and Substitude if necessary
+
+    $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
+    if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
+        $PkmnImg = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
+    } else {
+        $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
+        $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
+    }
 
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_pokemons.php";
@@ -63,12 +84,7 @@ echo "<center><br>";
     if ( $row['pokemon_id'] == '0' ) {
       echo "<td height=60><font size=5><strong>&nbsp;ALL</strong></font></td>";
     } else {
-      $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
-      if (false === file_get_contents("$PkmnImg",0,null,0,1))  { 
-	      echo "<td height=60><font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font></td>";
-      } else {
-	      echo "<td><img width=50 src='$PkmnImg'></td>";
-      }
+      echo "<td>$PkmnImg_50</td>";
     }
     echo "<td width=100%>";
 
@@ -93,15 +109,18 @@ echo "<center><br>";
     if ($row['ultra_league_ranking'] <> '4096') {
       echo "<p><b>Ultra : </b>top".$row['ultra_league_ranking']." @".$row['ultra_league_ranking_min_cp']."</p>";
     }
+    if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000' ) {
+      echo "<p><b>CP : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";
+    }
+
     if ($row['form'] <> '0' ) {
       $form_name=get_form_name($row['pokemon_id'],$row['form']);
       echo "<p style='margin-top:5px;'><code>".$form_name."</code></p>"; 
     }
     if ($row['gender'] == '1' ) { echo "<p style='margin-top:5px;'><code>Male</code></p>"; }
     if ($row['gender'] == '2' ) { echo "<p style='margin-top:5px;'><code>Female</code></p>"; }
-    if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000' ) {
-      echo "<p><b>CP : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";
-    }
+    if ($row['clean'] == '1' && $all_mon_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
+
     echo "</td>";
     echo "</tr></table>";
 
@@ -115,6 +134,7 @@ echo "<center><br>";
 
   echo "<hr><br><p><b>Eggs & Raids you are tracking</b></p>\n";
   echo "<i><font size=2>Click on any Alarm to edit your tracking parameters</font></i></p><br>";
+  if ($all_raid_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Raids/Eggs</code></p><br>"; }
   echo "<a href='./add_raids.php'><button class='button_update' style='width:150px;'>Add New</button></a>\n";
   echo "<a href='./form_action.php?action=delete_all_raids'><button class='button_delete' style='width:150px;' onclick='return confirm_raid_delete();'>Delete All</button></a>\n";
   echo "<br><br>\n";
@@ -135,6 +155,8 @@ echo "<center><br>";
     if ($row['distance'] <> '0' ) {
       echo "<br>Distance : ".$row['distance']."<br>";
     }
+    if ($row['clean'] == '1' && $all_raid_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
+
     echo "</font>\n";
     echo "</button>\n";
     echo "</a>\n";
@@ -157,6 +179,7 @@ echo "<center><br>";
     if ($row['distance'] <> '0' ) {
       echo "<br>Distance : ".$row['distance'];
     }
+    if ($row['clean'] == '1' && $all_raid_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
     echo "</font>\n";
     echo "</button>\n";
     echo "</a>\n";
@@ -178,6 +201,7 @@ echo "<center><br>";
     if ($row['distance'] <> '0' ) {
       echo "<br>Distance : ".$row['distance'];
     }
+    if ($row['clean'] == '1' && $all_raid_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
     echo "</font>\n";
     echo "</button>\n";
     echo "</a>\n";

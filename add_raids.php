@@ -22,6 +22,22 @@ echo "
         <input type='number' id='distance' name='distance' value='0' style='width:3em'><br>
         </td></tr>
 
+        <tr><td>";
+        if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+        if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+        echo "
+        <label for='fname'>Clean:</label>
+        </td><td style='max-width: 180px;'>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_0' value='clean_0' />
+        <label for='clean_0'>No</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_1' value='clean_1' checked />
+        <label for='clean_1'>Yes</label>
+        </div>
+        </td></tr>
+
 	</table>
 	<br>
 ";

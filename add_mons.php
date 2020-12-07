@@ -112,7 +112,21 @@ echo "
         <input type='radio' name='gender' id='gender_2' value='gender_2' />
         <label for='gender_2'>Female</label>
         </div>
+	</td></tr>
+
+        <tr><td>
+        <label for='fname'>Clean:</label>
+	</td><td style='max-width: 180px;'>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_1' value='clean_1' checked />
+        <label for='clean_1'>Yes</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_0' value='clean_0' />
+        <label for='clean_0'>No</label>
+        </div>
         </td></tr>
+
 
 	</table>
 	<br>

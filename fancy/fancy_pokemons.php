@@ -13,12 +13,7 @@
     if ( $row['pokemon_id'] == '0' ) {
       echo "<center><font size=5><strong>ALL</strong></font></center>";
     } else {
-      $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
-      if (false === file_get_contents("$PkmnImg",0,null,0,1))  {
-              echo "<td height=60><font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font></td>";
-      } else {
-              echo "<td><img width=50 src='$PkmnImg'></td>";
-      }
+      echo "<td><center>$PkmnImg_100</center></td>";
     }
 
     echo "
@@ -131,6 +126,7 @@
           echo "</div>";
         }
 	echo "</td></tr>
+
 	<tr><td>";
         if ($row['gender'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
         if ($row['gender'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
@@ -152,6 +148,21 @@
         </div>
         </td></tr>
 
+        <tr><td>";
+        if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+        if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+        echo "
+        <label for='fname'>Clean:</label>
+        </td><td style='max-width: 180px;'>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_0' value='clean_0' $checked0 />
+        <label for='clean_0'>No</label>
+        </div>
+        <div style='display:inline-block;'>
+        <input type='radio' name='clean' id='clean_1' value='clean_1' $checked1 />
+        <label for='clean_1'>Yes</label>
+        </div>
+        </td></tr>
 
         </table>
    
