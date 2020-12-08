@@ -7,14 +7,15 @@ include "./header.php";
 include "./fancy/fancy_profile.php";
 
 echo "<center><br>";
-echo "<font color='darkred'><b>ADD MONSTERS TO YOUR ALARMS</font></b><br><br>";
+echo "<font color='darkred'><b>ADD EGGS / RAIDS / RAIDBOSSES to YOUR ALARMS</font></b><br><br>";
 echo "<form action='./form_action.php' method='POST'>";
 echo "<p>Set Parameters you want to use for those new alarms</p><br>";
 
 echo "
         <table width=90% style='max-width: 500px;'>
 
-        <tr><td>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
         <label for='fname'>Distance:</label>
         </td><td>
         <input type='number' id='distance' name='distance' value='0' style='width:3em'><br>
@@ -24,7 +25,8 @@ echo "
         if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
         if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
         echo "
-        <label for='fname'>Clean:</label>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>$tt_clean_pkmn</span></div>
+	<label for='fname'>Clean:</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
         <input type='radio' name='clean' id='clean_0' value='clean_0' />

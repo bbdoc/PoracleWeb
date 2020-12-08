@@ -27,10 +27,11 @@
 
 	<table width=130% style='margin-left:-30px;'>
 
-        <tr><td>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
 	<label for='fname'>Distance:</label>
         </td><td>
-	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:5em' min='0'><br>
+	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:5em' min='0'>&nbsp;meters<br>
         </td></tr>
 
         <tr><td>";
