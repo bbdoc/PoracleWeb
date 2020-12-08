@@ -17,7 +17,6 @@
 <body style="background-color:#FFFFFF; color: grey;">
 <br>
 
-
 <?php 
 
 #echo "<table>";
@@ -35,6 +34,21 @@
 
 include "./config.php";
 include "./db_connect.php";
+
+?>
+
+<center>
+<div style="max-width:90%">
+<font size=6 color="darkred">Oops...</font><br><br>
+<img src='homer.png' width=250><br><br>
+Looks like Something went wrong, you shouldn't be here.<br><br>
+Please get back to homepage:<br><br>
+<a href="<?php echo $redirect_url; ?>"><font size=5>PoracleWeb</font></a>
+</div>
+</center>
+
+<?php
+
 
 if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
 
