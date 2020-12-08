@@ -37,7 +37,8 @@
         if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
         if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
         echo "
-        <label for='fname'>Clean:</label>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_raid."</span></div>
+	<label for='fname'>Clean</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
         <input type='radio' name='clean' id='clean_0' value='clean_0' $checked0 />

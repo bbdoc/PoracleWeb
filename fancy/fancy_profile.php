@@ -51,7 +51,10 @@ echo " <div style='display: none;' id='profile'>";
   echo "</td>";
   echo "</tr><tr>";
   echo "<td>$all_mon_cleaned_color</td>";
-  echo "<td>All Monsters Cleaning</td>";
+  echo "<td>";
+  echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_pkmn."</span></div>&nbsp;";
+  echo "All Monsters Cleaning";
+  echo "</td>";
   echo "<td>";
   if ( $all_mon_cleaned == "1") {
     echo "<a href='./form_action.php?action=disable_mon_clean' onclick='return confirm_mon_cleaning();'><button class='button_disable'>Disable</button></a><br>";
@@ -61,7 +64,10 @@ echo " <div style='display: none;' id='profile'>";
   echo "</td>";
   echo "</tr><tr>";
   echo "<td>$all_raid_cleaned_color</td>";
-  echo "<td>All Raids/Eggs Cleaning</td>";
+  echo "<td>";
+  echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_raid."</span></div>&nbsp;";
+  echo "All Raids/Eggs Cleaning";
+  echo "</td>";
   echo "<td>";
   if ( $all_raid_cleaned == "1") {
     echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button class='button_disable'>Disable</button></a><br>";
