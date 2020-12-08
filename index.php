@@ -53,14 +53,22 @@ echo "<center><br>";
 
   while($row = $result->fetch_assoc()) {
 
-    // Check Images and Substitude if necessary
+    // Check Images only if Form <> Normal and Substitude if necessary
 
     $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
-    if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
-        $PkmnImg = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
-    } else {
-        $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
-        $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
+    if ( $row['form'] <> 0 ) {
+       if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
+	  $PkmnImg_50 = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
+	  $PkmnImg_100 = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
+       } 
+       else {
+          $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
+          $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
+       }
+    }
+    else {
+       $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
+       $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
     }
 
     // Add Hidden Fancy Boxes

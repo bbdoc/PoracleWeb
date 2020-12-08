@@ -127,12 +127,21 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_egg' ) { echo 
 if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
 
 } else {
+
+  echo "<div id='navbar'>";
+  echo "<table width=100%>";
+  echo "<tr valign='middle'>";
+  echo "<td><b><font color=white size=4><br>PoracleWeb<br><br></font></b></td>";
+  echo "</tr>";
+  echo "</table>";
+  echo "</div>";
+
   echo "<center><br>";
-  echo '<h2>Welcome to the <br>Poracle Alarm Management</h2>';
-  echo '<h4>Please Log In to access your current Alarm Config</h4>';
-  echo '<h4>Clic on below Discord icon to log in</h4>';
-  echo '<p><a href="./discord_auth.php?action=login"><img width=100 src="./discord.jpg"></a></p>';
-  echo '<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>';
+  echo "<h2>Welcome to the <br>Poracle Alarm Management</h2>";
+  echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>";
+  echo "<h4>Clic on below Discord icon to log in</h4>";
+  echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./discord.jpg'></a></p>";
+  echo "<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>";
   echo "</center>";
   exit();
 }

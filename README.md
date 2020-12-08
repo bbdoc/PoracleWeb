@@ -1,8 +1,8 @@
 # PoracleWeb
 
-This tool is an add-on to PoracleJS (https://github.com/KartulUdus/PoracleJS)
+REQUIRES MYSQL !
 
-It requires PR #151 (PvP Stats Tracking - https://github.com/KartulUdus/PoracleJS/pull/151) to be installed.
+This tool is an add-on to PoracleJS (https://github.com/KartulUdus/PoracleJS)
 
 This is a first attempt at creating a Web Inteface do handle alarms configuration in PoracleJS.
 
@@ -23,7 +23,7 @@ To get started with it :
 - As always, copy `config_example.php` to config.php and adapt to your needs
 - Have a web Server pointing to your install directory (This tool doesn't include any standalone WebServer)
 
-You will need to configure some Discord Bot settings in config.php. If you use PMSF, you can reuse the same parameters for `discordBotClientId` and `discordBotClientSecret` or find them on the Discord application Portal. `redirect_url` should point to your PoracleWeb base directory and should be configured as a Redirects in your discord bot. 
+You will need to configure your Discord Bot settings in config.php. If you use PMSF, you can reuse the same parameters for `discordBotClientId` and `discordBotClientSecret` or find them on the Discord application Portal. `redirect_url` should point to your PoracleWeb base directory and should be configured as a Redirects in your discord bot. 
 
 For those parameters go to :
 - https://discord.com/developers/applications
