@@ -46,6 +46,11 @@
 
 <?php
 
+include "./config.php";
+include "./db_connect.php";
+include "./functions.php";
+include "./tooltips.php";
+
 if($_SESSION['username']) {
 
    $avatar = "https://cdn.discordapp.com/avatars/".$_SESSION['id']. "/".$_SESSION['avatar'].".png";

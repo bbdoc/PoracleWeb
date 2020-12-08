@@ -20,21 +20,18 @@
 
 <?php 
 
-echo "<table>";
-    foreach ($_POST as $key => $value) {
-        echo "<tr>";
-        echo "<td>";
-        echo $key;
-        echo "</td>";
-        echo "<td>";
-        echo $value;
-        echo "</td>";
-        echo "</tr>";
-    }
-
-echo "</table>";
-
-
+#echo "<table>";
+#    foreach ($_POST as $key => $value) {
+#        echo "<tr>";
+#        echo "<td>";
+#        echo $key;
+#        echo "</td>";
+#        echo "<td>";
+#        echo $value;
+#        echo "</td>";
+#        echo "</tr>";
+#    }
+#echo "</table>";
 
 include "./config.php";
 include "./db_connect.php";
@@ -71,7 +68,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
       AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
-  header("Location: $redirect_url?return=success_update_mons");
+  header("Location: $redirect_url?return=success_update_mons"); exit();
 
 }
 
@@ -89,7 +86,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
       AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
-  header("Location: $redirect_url?return=success_update_raid");
+  header("Location: $redirect_url?return=success_update_raid"); exit();
 
 }
 
@@ -107,7 +104,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
       AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
-  header("Location: $redirect_url?return=success_update_egg");
+  header("Location: $redirect_url?return=success_update_egg"); exit();
 
 }
 
@@ -122,7 +119,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
 	  AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
-  header("Location: $redirect_url?return=success_delete_mons");
+  header("Location: $redirect_url?return=success_delete_mons"); exit();
   
 }
 
@@ -134,7 +131,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
           AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql); 
-  header("Location: $redirect_url?return=success_delete_raid");
+  header("Location: $redirect_url?return=success_delete_raid"); exit();
 
 }
 
@@ -145,7 +142,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
           AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
-  header("Location: $redirect_url?return=success_delete_egg");
+  header("Location: $redirect_url?return=success_delete_egg"); exit();
 
 }
 
@@ -190,10 +187,10 @@ if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 			".$_POST['ultra_league_ranking'].", ".$_POST['ultra_league_ranking_min_cp']."
 		)";
 	    $result = $conn->query($sql); 
-            if ($pokemon_id == 0) { break; }  
+	    if ($pokemon_id == 0) { break; }  
     }
   }
-  header("Location: $redirect_url?return=success_added_mons");
+  header("Location: $redirect_url?return=success_added_mons"); exit();
 
 }
 
@@ -235,7 +232,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
      }
   }
 
-  header("Location: $redirect_url?return=success_added_raids");
+  header("Location: $redirect_url?return=success_added_raids"); exit();
 
 }
 
@@ -243,7 +240,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
 	$sql = "DELETE from monsters WHERE id = '".$_SESSION['id']."';";
 	$result = $conn->query($sql);
-	header("Location: $redirect_url?return=success_delete_mons");
+	header("Location: $redirect_url?return=success_delete_mons"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
@@ -251,19 +248,19 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
         $result = $conn->query($sql);
         $sql = "DELETE from raid WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url?return=success_delete_raids");
+        header("Location: $redirect_url?return=success_delete_raids"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'enable' ) {
         $sql = "UPDATE humans set enabled = 1 WHERE id = '".$_SESSION['id']."';";
 	$result = $conn->query($sql);
-        header("Location: $redirect_url");
+	header("Location: $redirect_url"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'disable' ) {
         $sql = "UPDATE humans set enabled = 0 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url");
+        header("Location: $redirect_url"); exit();
 }
 
 
@@ -280,19 +277,19 @@ if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
     $area_list = "[".$area_list."]";
     $sql = "UPDATE humans set area = '".$area_list."' WHERE id = '".$_SESSION['id']."';";
     $result = $conn->query($sql);
-    header("Location: $redirect_url?return=success_update_areas");
+    header("Location: $redirect_url?return=success_update_areas"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'disable_mon_clean' ) {
         $sql = "UPDATE monsters set clean = 0 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url");
+        header("Location: $redirect_url"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'enable_mon_clean' ) {
         $sql = "UPDATE monsters set clean = 1 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url");
+        header("Location: $redirect_url"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
@@ -300,7 +297,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
 	$result = $conn->query($sql);
         $sql = "UPDATE egg set clean = 0 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url");
+        header("Location: $redirect_url"); exit();
 }
 
 if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
@@ -308,7 +305,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
         $result = $conn->query($sql);
         $sql = "UPDATE egg set clean = 1 WHERE id = '".$_SESSION['id']."';";
         $result = $conn->query($sql);
-        header("Location: $redirect_url");
+        header("Location: $redirect_url"); exit();
 }
 
 

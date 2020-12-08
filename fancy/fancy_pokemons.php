@@ -33,12 +33,13 @@
 	<table width=130% style='margin-left:-30px;'>
 
         <tr><td>
-	<label for='fname'>Distance:</label>
+	<label for='fname'>Distance</label>
         </td><td>
 	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:7eml' min='0'>&nbsp;meters<br>
         </td></tr>
 
-        <tr><td>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_iv_pkmn."</span></div>
         <label for='fname'>IV</label>
         </td><td>
         <label for='fname'>Min</label>
@@ -113,7 +114,7 @@
         </td></tr>
 
         <tr><td>
-        <label for='fname'>Form:</label>
+        <label for='fname'>Form</label>
 	</td><td style='max-width: 180px;'>
         ";
         $forms=get_all_forms($row['pokemon_id']);    
@@ -132,7 +133,7 @@
         if ($row['gender'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
         if ($row['gender'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
         echo "
-        <label for='fname'>Gender:</label>
+        <label for='fname'>Gender</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
 	<input type='radio' name='gender' id='gender_0' value='gender_0' $checked0 />
@@ -152,7 +153,8 @@
         if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
         if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
         echo "
-        <label for='fname'>Clean:</label>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_pkmn."</span></div>
+	<label for='fname'>Clean</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
         <input type='radio' name='clean' id='clean_0' value='clean_0' $checked0 />

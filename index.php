@@ -1,9 +1,6 @@
 
 <?php 
 
-include "./config.php";
-include "./db_connect.php";
-include "./functions.php";
 include "./header.php";
 
 echo "<center><br>";

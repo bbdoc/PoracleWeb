@@ -1,9 +1,25 @@
 
 <?php 
 
-include "./config.php";
-include "./db_connect.php";
 include "./header.php";
+
+?>
+
+<script type="text/javascript">
+ $(document).ready(function () {
+   $("input[type='checkbox']").change(function () {
+      var maxAllowed = 100;
+      var cnt = $("input[type='checkbox']:checked").length;
+      if (cnt > maxAllowed)
+      {
+         $(this).prop("checked", "");
+         alert('Sorry, you cannot select more than ' + maxAllowed + ' Pokemons at a time!');
+     }
+  });
+});
+</script>
+
+<?php
 
 // Add Hidden Fancy Box Profile
 include "./fancy/fancy_profile.php";
@@ -18,12 +34,13 @@ echo "
         <table width=90% style='max-width: 500px;'>
 
         <tr><td>
-        <label for='fname'>Distance:</label>
+        <label for='fname'>Distance</label>
         </td><td>
         <input type='number' id='distance' name='distance' value='0' style='width:7em'>&nbsp;meters<br>
         </td></tr>
 
-        <tr><td>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>$tt_iv_pkmn</span></div>
         <label for='fname'>IV</label>
         </td><td>
         <label for='fname'>Min</label>
@@ -98,7 +115,7 @@ echo "
 
         </td></tr>
         <tr><td>
-        <label for='fname'>Gender:</label>
+        <label for='fname'>Gender</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
         <input type='radio' name='gender' id='gender_0' value='gender_0' checked/>
@@ -114,8 +131,9 @@ echo "
         </div>
 	</td></tr>
 
-        <tr><td>
-        <label for='fname'>Clean:</label>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>$tt_clean_pkmn</span></div>
+        <label for='fname'>Clean</label>
 	</td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
         <input type='radio' name='clean' id='clean_1' value='clean_1' checked />
@@ -170,4 +188,6 @@ echo "</center>";
 echo "<br><br>";
 
 ?>
+
 </table>
+

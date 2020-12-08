@@ -1,8 +1,6 @@
 
 <?php 
 
-include "./config.php";
-include "./db_connect.php";
 include "./header.php";
 
 // Add Hidden Fancy Box Profile
