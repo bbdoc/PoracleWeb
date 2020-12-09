@@ -70,5 +70,21 @@ foreach ($json as $name => $pokemon) {
 return $found_name; 
 }
 
+function get_areas() {
+
+include "./config.php";
+$areas = file_get_contents("$poracle_dir/config/geofence.json");
+$json = json_decode($areas, true);
+$areas=array();
+
+foreach ($json as $id => $area) {
+	array_push($areas, $area['name']);
+}
+return $areas;
+}
+
+get_areas();
+
+
 
 ?>

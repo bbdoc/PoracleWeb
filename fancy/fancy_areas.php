@@ -35,10 +35,9 @@
     echo "<center>";
     echo "<ul>\n";
 
-    $areas = shell_exec('grep name '.$poracle_dir.'/config/geofence.json | cut -d\" -f4 | tr "\n" "," | sed s/,$//g');
-    $areas = explode(',', $areas);
+    $areas=get_areas();
     sort($areas);
-    foreach ($areas as &$area) {
+    foreach($areas as $key => $area) {
 
        if ( stristr($existing_area, $area) > '') { $checked = 'checked'; } else { $checked = ''; };
 
