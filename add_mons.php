@@ -5,6 +5,8 @@ include "./header.php";
 
 ?>
 
+<script type="text/javascript" src="search_mons.js"></script>
+
 <script type="text/javascript">
  $(document).ready(function () {
    $("input[type='checkbox']").change(function () {
@@ -16,7 +18,17 @@ include "./header.php";
          alert('Sorry, you cannot select more than ' + maxAllowed + ' Pokemons at a time!');
      }
   });
+ });
+
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
 });
+
 </script>
 
 <?php
@@ -151,7 +163,12 @@ echo "
 	<br>
 ";
 
-echo "Select the monsters you want to add to your alarms\n";
+echo "Select the monsters you want to add to your alarms<br>\n";
+echo "Use ALL in search box for displaying all Pokemons Available<br>\n";
+echo "<br>";
+
+# Add Search Box 
+echo "<input type='text' id='search' placeholder='Search' style='width:350px;'/><br>";
 
 echo "<ul>\n";
 
@@ -161,28 +178,14 @@ echo "<font size=2>Apply Settings to all Pokemons<br>Other selections won't appl
 echo "</li>\n";
 echo "<br>\n";
 
-
-  #$sql = "SELECT * from seq_1_to_$max_pokemon WHERE seq not in (select pokemon_id FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id)";
-  $sql = "SELECT * from seq_1_to_$max_pokemon";
-  $result = $conn->query($sql);
-
-  while($row = $result->fetch_assoc()) {
-
-     $i=$row['seq'];
-     echo "<li><input type='checkbox' name='mon_$i' id='mon_$i' />\n";
-     echo "<label for='mon_$i'><img src='$imgUrl/pokemon_icon_".str_pad($i, 3, "0", STR_PAD_LEFT)."_00.png' />";
-     echo "<br>";
-     echo "<font size=2>".str_pad($i, 3, "0", STR_PAD_LEFT)."</font></label>";
-     echo "</li>\n";
-
-}
-
-echo "</ul>";
-
-echo "<input type='submit' name='add_mon' value='Submit' class='button_update' style='width:150px;'>";
+# Add Empty Div to be used by Ajax to display results
+echo "<div id='display'></div>";
 
 echo "</form>";
 
+echo "</ul>";
+
+echo "<input type='submit' name='add_mon' value='Submit' class='button_update' style='width:150px;'><br>";
 echo "<a href='$redirect_url'><button class='button_other' style='width:150px;'>Cancel</button></a>";
 
 echo "</center>";

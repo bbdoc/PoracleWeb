@@ -18,7 +18,7 @@ echo "
         <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
         <label for='fname'>Distance:</label>
         </td><td>
-        <input type='number' id='distance' name='distance' value='0' style='width:3em'><br>
+        <input type='number' id='distance' name='distance' value='0' style='width:3em'>&nbsp;meters<br>
         </td></tr>
 
         <tr><td>";
