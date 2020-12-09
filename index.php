@@ -18,8 +18,8 @@ echo "<center><br>";
        $area=str_replace('"', '', $area); 
        $area=str_replace('[', '', $area); 
        $area=str_replace(']', '', $area); 
-       echo "<li><input type='checkbox' name='area_$area' id='area_$area' checked onclick='return false;'/>";
-       echo "<label for='area_$area' style='width:200px;'>".strtoupper($area);
+       echo "<li><input type='checkbox' name='areav_$area' id='areav_$area' checked onclick='return false;'/>";
+       echo "<label for='areav_$area' style='width:200px;'>".strtoupper($area);
        echo "</li>";
      }
      echo "</ul>";
