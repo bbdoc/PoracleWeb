@@ -163,9 +163,10 @@ echo "
 	<br>
 ";
 
-echo "Select the monsters you want to add to your alarms<br>\n";
+echo "<div style='max-width:90%;'>";
+echo "Select the monsters you want to add to your alarms<br><br>\n";
 echo "Type ALL in search box for displaying all Pokemons Available<br>\n";
-echo "<br>";
+echo "</div><br>";
 
 # Add Search Box 
 echo "<input type='text' id='search' placeholder='Search' style='width:350px;'/><br>";
