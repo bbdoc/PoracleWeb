@@ -83,7 +83,4 @@ foreach ($json as $id => $area) {
 return $areas;
 }
 
-get_areas();
-
-
 ?>
