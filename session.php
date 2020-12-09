@@ -12,7 +12,6 @@ foreach ($dbnames as &$db) {
   $result = $conn->query($sql);
   if ( $result->num_rows > 0 ) {
 	  $_SESSION['dbname'] = $db;
-	  echo $_SESSION['dbname'];
   }
 }
 

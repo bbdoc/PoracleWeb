@@ -51,7 +51,7 @@ include "./db_connect.php";
 include "./functions.php";
 include "./tooltips.php";
 
-if($_SESSION['username']) {
+if(isset($_SESSION['username'])) {
 
    $avatar = "https://cdn.discordapp.com/avatars/".$_SESSION['id']. "/".$_SESSION['avatar'].".png";
 
@@ -133,22 +133,23 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { ech
 
 } else {
 
-  echo "<div id='navbar'>";
-  echo "<table width=100%>";
-  echo "<tr valign='middle'>";
-  echo "<td><b><font color=white size=4><br>PoracleWeb<br><br></font></b></td>";
-  echo "</tr>";
-  echo "</table>";
-  echo "</div>";
+  echo "<div id='navbar'>\n";
+  echo "<table width=100%>\n";
+  echo "<tr valign='middle'>\n";
+  echo "<td><b><font color=white size=4><br>PoracleWeb<br><br></font></b></td>\n";
+  echo "</tr>\n";
+  echo "</table>\n";
+  echo "</div>\n";
 
-  echo "<center><br>";
-  echo "<h2>Welcome to the <br>Poracle Alarm Management</h2>";
-  echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>";
-  echo "<h4>Clic on below Discord icon to log in</h4>";
-  echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./discord.jpg'></a></p>";
-  echo "<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>";
-  echo "</center>";
+  echo "<center><br>\n";
+  echo "<h2>Welcome to the <br>Poracle Alarm Management</h2>\n";
+  echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>\n";
+  echo "<h4>Clic on below Discord icon to log in</h4>\n";
+  echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./discord.jpg'></a></p>\n";
+  echo "<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>\n";
+  echo "</center>\n";
   exit();
+
 }
 
 ?>
