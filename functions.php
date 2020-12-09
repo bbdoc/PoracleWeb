@@ -86,5 +86,4 @@ return $areas;
 get_areas();
 
 
-
 ?>

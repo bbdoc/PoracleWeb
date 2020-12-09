@@ -8,7 +8,7 @@ include "./config.php";
 
   foreach($mons as $pokemon_id => $pokemon_name) {
     if ($pokemon_id <= $max_pokemon) {
-     if ( $_POST['search'] == "ALL" || strpos($pokemon_name, $_POST['search']) !== FALSE ) {
+     if ( $_POST['search'] == "ALL" || stripos($pokemon_name, $_POST['search']) !== FALSE ) {
         $i=$pokemon_id;
         echo "<li><input type='checkbox' name='mon_$i' id='mon_$i' />\n";
         echo "<label for='mon_$i'><img src='$imgUrl/pokemon_icon_".str_pad($i, 3, "0", STR_PAD_LEFT)."_00.png' style='margin-bottom:10px;' />";

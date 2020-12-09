@@ -28,7 +28,7 @@
     // Add Hidden Fancy Box Area Selection
 
     echo "
-    <div style='display: none;' id='areas'>
+    <div style='display: none; max-width:90%;' id='areas'>
     <form action='./form_action.php' method='POST'>
     ";
 
