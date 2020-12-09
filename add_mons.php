@@ -169,7 +169,7 @@ echo "Type ALL in search box for displaying all Pokemons Available<br>\n";
 echo "</div><br>";
 
 # Add Search Box 
-echo "<input type='text' id='search' placeholder='Search' style='width:350px;'/><br>";
+echo "<input type='text' id='search' placeholder='Search' style='width:300px; font-size:20px;'/><br>";
 
 echo "<ul>\n";
 
