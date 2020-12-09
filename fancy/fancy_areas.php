@@ -39,6 +39,7 @@
     sort($areas);
     foreach($areas as $key => $area) {
 
+       $area = str_replace(' ', '_', $area);
        if ( stristr($existing_area, $area) > '') { $checked = 'checked'; } else { $checked = ''; };
 
        echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
