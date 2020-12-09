@@ -6,7 +6,7 @@
     // Add Hidden Fancy Box Content for Pokemons
 
     echo "
-    <div style='display: none;' id='mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['min_level']."'>
+    <div style='display: none;' id='mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."'>
     <form action='./form_action.php' method='POST'>
     ";
 

@@ -182,13 +182,14 @@ echo "</li>\n";
 echo "<br>\n";
 
 # Add Empty Div to be used by Ajax to display results
-echo "<div id='display'></div>";
+echo "<div id='display'></div>\n";
 
-echo "</form>";
-
-echo "</ul>";
+echo "</ul>\n";
 
 echo "<input type='submit' name='add_mon' value='Submit' class='button_update' style='width:150px;'><br>";
+
+echo "</form>\n";
+
 echo "<a href='$redirect_url'><button class='button_other' style='width:150px;'>Cancel</button></a>";
 
 echo "</center>";
