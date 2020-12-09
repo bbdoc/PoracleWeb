@@ -55,8 +55,9 @@ echo "<center><br>";
     $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
     if ( $row['form'] <> 0 ) {
        if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
-	  $PkmnImg_50 = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
-	  $PkmnImg_100 = "<font size=5><strong><center>&nbsp;".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</center></strong></font>";
+          $pokemon_name=get_mons($row['pokemon_id']); 
+          $PkmnImg_50 = "<font size=5><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
+	  $PkmnImg_100 = "<font size=8><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
        } 
        else {
           $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
@@ -79,7 +80,7 @@ echo "<center><br>";
     if ( $row['pokemon_id'] == '0' ) {
       echo "<td height=60><font size=5><strong>&nbsp;ALL</strong></font></td>";
     } else {
-      echo "<td>$PkmnImg_50</td>";
+      echo "<td><center>$PkmnImg_50</center></td>";
     }
     echo "<td width=100%>";
 

@@ -49,9 +49,26 @@ foreach ($json as $name => $pokemon) {
 	$arr = explode("_", $name, 2);
         $pokemon_id = $arr[0];
 	$monsters[$pokemon_id] = $pokemon['name'];
-}
+   }
 $monsters=array_unique($monsters);
 return $monsters;
 }
+
+function get_mons($pokemon_id) {
+
+include "./config.php";
+$monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+$json = json_decode($monsters, true);
+$monsters=array();
+
+foreach ($json as $name => $pokemon) {
+   $arr = explode("_", $name, 2);
+   if ($arr['0'] == "$pokemon_id") {
+        $found_name = $pokemon['name']; 
+      }
+}
+return $found_name; 
+}
+
 
 ?>

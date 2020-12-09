@@ -164,7 +164,7 @@ echo "
 ";
 
 echo "Select the monsters you want to add to your alarms<br>\n";
-echo "Use ALL in search box for displaying all Pokemons Available<br>\n";
+echo "Type ALL in search box for displaying all Pokemons Available<br>\n";
 echo "<br>";
 
 # Add Search Box 
@@ -173,8 +173,10 @@ echo "<input type='text' id='search' placeholder='Search' style='width:350px;'/>
 echo "<ul>\n";
 
 echo "<li><input type='checkbox' name='mon_0' id='mon_0' />\n";
-echo "<label for='mon_0'><center><font size=5><strong>ALL</strong></font></center>";
-echo "<font size=2>Apply Settings to all Pokemons<br>Other selections won't apply if selected</font></label>";
+echo "<label for='mon_0' style='padding:15px;'><center>";
+echo "<font size=4>Apply Settings to all Pokemons</font><br>";
+echo "<font size=2>Other selections won't apply if selected</font>";
+echo "</center></label>";
 echo "</li>\n";
 echo "<br>\n";
 
