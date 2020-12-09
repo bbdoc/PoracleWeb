@@ -24,16 +24,20 @@ echo "
         <tr><td>";
         if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
         if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+        $clean_0_checked = 0;
+        $clean_1_checked = 0;
+        if ($all_raid_cleaned == "1") { $clean_1_checked = 'checked'; } else { $clean_0_checked = 'checked'; }
+
         echo "
         <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>$tt_clean_pkmn</span></div>
 	<label for='fname'>Clean:</label>
         </td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_0' value='clean_0' />
+        <input type='radio' name='clean' id='clean_0' value='clean_0' $clean_0_checked />
         <label for='clean_0'>No</label>
         </div>
         <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_1' value='clean_1' checked />
+        <input type='radio' name='clean' id='clean_1' value='clean_1' $clean_1_checked />
         <label for='clean_1'>Yes</label>
         </div>
         </td></tr>

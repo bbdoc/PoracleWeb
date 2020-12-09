@@ -36,6 +36,10 @@ $(document).ready(function() {
 // Add Hidden Fancy Box Profile
 include "./fancy/fancy_profile.php";
 
+$clean_0_checked = 0;
+$clean_1_checked = 0;
+if ($all_mon_cleaned == "1") { $clean_1_checked = 'checked'; } else { $clean_0_checked = 'checked'; }
+
 
 echo "<center><br>";
 echo "<font color='darkred'><b>ADD MONSTERS TO YOUR ALARMS</font></b><br><br>";
@@ -149,11 +153,11 @@ echo "
         <label for='fname'>Clean</label>
 	</td><td style='max-width: 180px;'>
         <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_1' value='clean_1' checked />
+        <input type='radio' name='clean' id='clean_1' value='clean_1' $clean_1_checked />
         <label for='clean_1'>Yes</label>
         </div>
         <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_0' value='clean_0' />
+        <input type='radio' name='clean' id='clean_0' value='clean_0' $clean_0_checked />
         <label for='clean_0'>No</label>
         </div>
         </td></tr>
