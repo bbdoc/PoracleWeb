@@ -6,24 +6,25 @@ include "./header.php";
 echo "<center><br>";
 
   if ($area == "[]") { 
-          echo "<font color='darkred'><b>You have not set any area yet</font></b><br>";
+          echo "<font color='darkred'><b>You have not set any area yet</font></b><br><br>";
 	  $areas = ""; 
   } else { 
           echo "You are currently receiving alarms for the following area(s) :<br>";
 	  $areas = explode(",", $area); 
-  }
 
-  echo "<ul>";
-  foreach($areas as $key => $area)
-  { 
+     echo "<ul>";
+     foreach($areas as $key => $area)
+     { 
        $area=str_replace('"', '', $area); 
        $area=str_replace('[', '', $area); 
        $area=str_replace(']', '', $area); 
        echo "<li><input type='checkbox' name='area_$area' id='area_$area' checked onclick='return false;'/>";
        echo "<label for='area_$area' style='width:200px;'>".strtoupper($area);
        echo "</li>";
+     }
+     echo "</ul>";
+
   }
-  echo "</ul>";
 
 
   // Add Hidden Fancy Box Profile
@@ -51,10 +52,9 @@ echo "<center><br>";
   while($row = $result->fetch_assoc()) {
 
     // Check Images only if Form <> Normal and Substitude if necessary
-
     $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
     if ( $row['form'] <> 0 ) {
-       if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
+      if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
           $pokemon_name=get_mons($row['pokemon_id']); 
           $PkmnImg_50 = "<font size=5><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
 	  $PkmnImg_100 = "<font size=8><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
@@ -72,7 +72,7 @@ echo "<center><br>";
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_pokemons.php";
 
-    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['level']."_".$row['level']."' href='javascript:;'>";
+    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."' href='javascript:;'>";
     echo "<button>";
     echo "<font size=1>";
     echo "<table width=100%><tr>";
