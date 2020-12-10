@@ -8,7 +8,7 @@
 
     while($row = $result->fetch_assoc()) { 
 	    $existing_area = $row['area'];  
-	    $existing_area = json_decode($existing_area);
+	    $existing_area = json_decode($row['area']); 
     }
 
     // Add Hidden Fancy Box Area Selection
@@ -26,7 +26,8 @@
     foreach($areas as $key => $area) {
 
        $area = str_replace(' ', '_', $area); 
-       if (in_array($area, $existing_area)) { $checked = 'checked'; } else { $checked = ''; };
+
+       if (in_array(strtolower($area), $existing_area)) { $checked = 'checked'; } else { $checked = ''; };
        echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
        echo "<label for='area_$area' style='width:200px;'>$area</label>\n";
        echo "</li>\n";
