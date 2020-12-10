@@ -18,9 +18,9 @@ echo "<center><br>";
        $area=str_replace('"', '', $area); 
        $area=str_replace('[', '', $area); 
        $area=str_replace(']', '', $area); 
-       echo "<li><input type='checkbox' name='areav_$area' id='areav_$area' checked onclick='return false;'/>";
+       echo "<li><input type='checkbox' name='areav_$area' id='areav_$area' checked onclick='return false;'/>\n";
        echo "<label for='areav_$area' style='width:200px;'>".strtoupper($area);
-       echo "</li>";
+       echo "</li>\n";
      }
      echo "</ul>";
 
@@ -39,12 +39,12 @@ echo "<center><br>";
 
   // Show Monsters Alarms
 
-  echo "<hr><br><p><b>Monsters you are tracking</b></p>";
-  echo "<font size=2><i>Click on any Alarm to edit your tracking parameters</i></font></p><br>";
-  if ($all_mon_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Monsters</code></p><br>"; }
-  echo "<a href='./add_mons.php'><button class='button_update' style='width:150px;'>Add New</button></a>";
-  echo "<a href='./form_action.php?action=delete_all_mons'><button class='button_delete' style='width:150px;' onclick='return confirm_mon_delete();'>Delete All</button></a>";
-  echo "<br><br>";
+  echo "<hr><br><p><b>Monsters you are tracking</b></p>\n";
+  echo "<font size=2><i>Click on any Alarm to edit your tracking parameters</i></font></p><br>\n";
+  if ($all_mon_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Monsters</code></p><br>\n"; }
+  echo "<a href='./add_mons.php'><button class='button_update' style='width:150px;'>Add New</button></a>\n";
+  echo "<a href='./form_action.php?action=delete_all_mons'><button class='button_delete' style='width:150px;' onclick='return confirm_mon_delete();'>Delete All</button></a>\n";
+  echo "<br><br>\n";
 
   $sql = "select * FROM monsters WHERE id = '".$_SESSION['id']."' ORDER BY pokemon_id, form";
   $result = $conn->query($sql);
@@ -52,7 +52,7 @@ echo "<center><br>";
   while($row = $result->fetch_assoc()) {
 
     // Check Images only if Form <> Normal and Substitude if necessary
-    $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
+    $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png\n";
     if ( $row['form'] <> 0 ) {
       if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
           $pokemon_name=get_mons($row['pokemon_id']); 
@@ -72,15 +72,15 @@ echo "<center><br>";
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_pokemons.php";
 
-    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."' href='javascript:;'>";
-    echo "<button>";
-    echo "<font size=1>";
-    echo "<table width=100%><tr>";
+    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."' href='javascript:;'>\n";
+    echo "<button>\n";
+    echo "<font size=1>\n";
+    echo "<table width=100%><tr>\n";
    
     if ( $row['pokemon_id'] == '0' ) {
-      echo "<td height=60><font size=5><strong>&nbsp;ALL</strong></font></td>";
+      echo "<td><div class='img_div'><font size=5><strong>&nbsp;ALL</strong></font></div></td>";
     } else {
-      echo "<td><center>$PkmnImg_50</center></td>";
+      echo "<td><div class='img_div'><center>$PkmnImg_50</center></div></td>";
     }
     echo "<td width=100%>";
 

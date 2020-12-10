@@ -189,7 +189,7 @@ input[type="checkbox"][id^="mon"], input[type="checkbox"][id^="egg"], input[type
 }
 
 /*
-input[type="radio"][id^="form"]  {
+input[type="radio"][id^="gender"], input[type="radio"][id^="clean"], input[type="radio"][id^="form"]   {
   display: none;
 }
 */
@@ -248,12 +248,14 @@ label img {
 
 :checked+label {
   border-color: #ddd;
+  position: relative;
 }
 
-:checked+label::before {
+:checked+label[for^="area"]::before {
   content: "✓";
-  background-color: grey;
+  background-color: darkgrey;
   transform: scale(1);
+  position: absolute;
 }
 
 :checked+label img {
@@ -361,4 +363,15 @@ label img {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+/* Vertical Alignement */
+.img_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 60px;
+    width: 60px;
+}
+
 

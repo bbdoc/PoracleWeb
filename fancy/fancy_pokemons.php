@@ -11,7 +11,7 @@
     ";
 
     if ( $row['pokemon_id'] == '0' ) {
-      echo "<center><font size=5><strong>ALL</strong></font></center>";
+      echo "<center><font size=8><strong>ALL</strong></font></center>";
     } else {
       echo "<td><center>$PkmnImg_100</center></td>";
     }
@@ -125,7 +125,7 @@
           echo "<div style='display:inline-block;'>";
           echo "<input type='radio' name='form' id='form_".$key."' value='form_".$key."' $checked/>";
           echo "<label for='form_".$key."'>$value</label>";
-          echo "</div>";
+	  echo "</div>\n";
         }
 	echo "</td></tr>
 
