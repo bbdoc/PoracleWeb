@@ -50,7 +50,7 @@ echo "Select Egg Levels you want to add to your alarms";
 
 echo "<ul>";
 
-  $eggs = explode(',', "1,2,3,4,5,6");
+  $eggs = explode(',', "1,3,5,6");
   foreach ($eggs as &$egg) {
      echo "<li><input type='checkbox' name='egg_$egg' id='egg_$egg' />\n";
      echo "<label for='egg_$egg'><img src='$imgUrl/egg".$egg.".png' />\n";
@@ -65,7 +65,7 @@ echo "Select Raid Levels you want to add to your alarms";
 
 echo "<ul>";
 
-  $raids = explode(',', "1,2,3,4,5,6");
+  $raids = explode(',', "1,3,5,6");
   foreach ($raids as &$raid) {
      echo "<li><input type='checkbox' name='raid_$raid' id='raid_$raid' />\n";
      echo "<label for='raid_$raid'><img src='$imgUrl/egg".$raid.".png' />\n";
