@@ -237,10 +237,13 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
   }
 
     foreach ($_POST as $key => $value) {
-     if ( substr( $key, 0, 4 ) === "mon_" ) {
-        $pokemon_id = ltrim($key,'mon_');
+        if ( substr( $key, 0, 4 ) === "mon_" ) {
+        $arr = explode("_", $key);
+        $boss_id = $arr[1];
+        $boss_form = $arr[2];
+        $boss_mega = $arr[3];
         $sql = "INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
-                VALUES ( '".$_SESSION['id']."', '', $clean, 1, ".$pokemon_id.", ".$_POST['distance'].", 4, 9000, 0)";
+                VALUES ( '".$_SESSION['id']."', '', $clean, 1, ".$boss_id.", ".$_POST['distance'].", 4, 9000, ".$boss_form.")";
         $result = $conn->query($sql);
 	echo $sql."<br>";
      }

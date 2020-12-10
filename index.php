@@ -190,10 +190,11 @@ echo "<center><br>";
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_raids.php";
 
+    $pokemon_name=get_mons($row['pokemon_id']);
     echo "<a data-fancybox class='various' data-src='#raid_".$row['level']."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
-    echo "<img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_00.png'><br><br>\n";
     echo "<font size=1>";
+    echo "<img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_00.png'><br><br>$pokemon_name\n";
     if ($row['distance'] <> '0' ) {
       echo "<br>Distance : ".$row['distance'];
     }

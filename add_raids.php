@@ -52,11 +52,11 @@ echo "<ul>";
 
   $eggs = explode(',', "1,2,3,4,5,6");
   foreach ($eggs as &$egg) {
-     echo "<li><input type='checkbox' name='egg_$egg' id='egg_$egg' />";
-     echo "<label for='egg_$egg'><img src='$imgUrl/egg".$egg.".png' />";
-     echo "<br>";
-     echo "<font size=2>Eggs<br>Level ".$egg."</font></label>";
-     echo "</li>";
+     echo "<li><input type='checkbox' name='egg_$egg' id='egg_$egg' />\n";
+     echo "<label for='egg_$egg'><img src='$imgUrl/egg".$egg.".png' />\n";
+     echo "<br>\n";
+     echo "<font size=2>Eggs<br>Level ".$egg."</font></label>\n";
+     echo "</li>\n";
   }
 
 echo "</ul>";
@@ -67,11 +67,11 @@ echo "<ul>";
 
   $raids = explode(',', "1,2,3,4,5,6");
   foreach ($raids as &$raid) {
-     echo "<li><input type='checkbox' name='raid_$raid' id='raid_$raid' />";
-     echo "<label for='raid_$raid'><img src='$imgUrl/egg".$raid.".png' />";
-     echo "<br>";
-     echo "<font size=2>Raids<br>Level ".$raid."</font></label>";
-     echo "</li>";
+     echo "<li><input type='checkbox' name='raid_$raid' id='raid_$raid' />\n";
+     echo "<label for='raid_$raid'><img src='$imgUrl/egg".$raid.".png' />\n";
+     echo "<br>\n";
+     echo "<font size=2>Raids<br>Level ".$raid."</font></label>\n";
+     echo "</li>\n";
   }
 
 
@@ -81,13 +81,21 @@ echo "Select the Raid Bosses you want to add to your alarms";
 
 echo "<ul>";
 
-  $bosses = explode(',', $raid_bosses); 
-  foreach ($bosses as &$boss) {
-     echo "<li><input type='checkbox' name='mon_$boss' id='mon_$boss' />";
-     echo "<label for='mon_$boss'><img src='$imgUrl/pokemon_icon_".str_pad($boss, 3, "0", STR_PAD_LEFT)."_00.png' />";
-     echo "<br>";
-     echo "<font size=2>".str_pad($boss, 3, "0", STR_PAD_LEFT)."</font></label>";
-     echo "</li>";
+  #$bosses = explode(',', $raid_bosses); 
+  #foreach ($bosses as &$boss) {
+  $bosses = get_raid_bosses();
+  foreach($bosses as $key => $boss) {
+     $arr = explode("_", $boss);
+     $boss_id = $arr[0];
+     $boss_form = $arr[1];
+     $boss_mega = $arr[2]; 
+     if ($boss_mega == 2) { $mega_name = "Mega X"; } else if ($boss_mega == 3) { $mega_name = "Mega Y"; } else { $mega_name = ""; }
+     $pokemon_name=get_mons($boss_id);
+     echo "<li><input type='checkbox' name='mon_${boss_id}_${boss_form}' id='mon_${boss_id}_${boss_form}' />\n";
+     echo "<label for='mon_${boss_id}_${boss_form}'><img src='$imgUrl/pokemon_icon_".$boss.".png' />\n";
+     echo "<br>\n";
+     echo "<font size=2>".str_pad($boss_id, 3, "0", STR_PAD_LEFT)."<br>".$pokemon_name."<br>".$mega_name."</font></label>\n";
+     echo "</li>\n";
   }
 
 echo "</ul>";
