@@ -285,9 +285,9 @@ if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
     $area_list = array();
     foreach ($_POST as $key => $value) {
      if ( substr( $key, 0, 5 ) === "area_" ) {
-	     $area = ltrim($key,'area_');
+	     $area = substr( $key, 5 );
 	     $area = strtolower($area);
-             array_push($area_list, "\"$area\"");
+             array_push($area_list, "\"$area\""); echo $area."<br>";
      }
     }
     $area_list = implode(',', $area_list);

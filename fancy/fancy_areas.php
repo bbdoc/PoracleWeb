@@ -6,7 +6,10 @@
     $sql = "select area FROM humans WHERE id = '".$_SESSION['id']."'";
     $result = $conn->query($sql);
 
-    while($row = $result->fetch_assoc()) { $existing_area = $row['area']; }
+    while($row = $result->fetch_assoc()) { 
+	    $existing_area = $row['area'];  
+	    $existing_area = json_decode($existing_area);
+    }
 
     // Add Hidden Fancy Box Area Selection
 
@@ -22,9 +25,8 @@
     sort($areas);
     foreach($areas as $key => $area) {
 
-       $area = str_replace(' ', '_', $area);
-       if ( stristr($existing_area, $area) > '') { $checked = 'checked'; } else { $checked = ''; };
-
+       $area = str_replace(' ', '_', $area); 
+       if (in_array($area, $existing_area)) { $checked = 'checked'; } else { $checked = ''; };
        echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
        echo "<label for='area_$area' style='width:200px;'>$area</label>\n";
        echo "</li>\n";
