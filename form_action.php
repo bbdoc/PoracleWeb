@@ -75,13 +75,19 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
           great_league_ranking = ".$_POST['great_league_ranking'].", great_league_ranking_min_cp = ".$_POST['great_league_ranking_min_cp'].",
 	  ultra_league_ranking = ".$_POST['ultra_league_ranking'].", ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp'].",
           form = ".$form.", gender = ".$gender.", clean = ".$clean."
-      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']." AND gender = ".$_POST['cur_gender']." 
+      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']." 
+      AND distance = ".$_POST['cur_distance']." AND gender = ".$_POST['cur_gender']." 
       AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
       AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
       AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
+      AND min_weight = ".$_POST['cur_min_weight']." AND max_weight = ".$_POST['cur_max_weight']."
+      AND atk = ".$_POST['cur_atk']." AND def = ".$_POST['cur_def']." AND sta = ".$_POST['cur_sta']."
+      AND max_atk = ".$_POST['cur_max_atk']." AND max_def = ".$_POST['cur_max_def']." AND max_sta = ".$_POST['cur_max_sta']."
+      AND great_league_ranking = ".$_POST['cur_great_league_ranking']." AND great_league_ranking_min_cp = ".$_POST['great_league_ranking_min_cp']."
+      AND ultra_league_ranking = ".$_POST['cur_ultra_league_ranking']." AND ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp']."
       AND id = '".$_SESSION['id']."';";
 
-  $result = $conn->query($sql);
+  $result = $conn->query($sql); 
   header("Location: $redirect_url?return=success_update_mons"); exit();
 
 }
@@ -126,11 +132,18 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'monsters' ) {
 
   $sql = "DELETE FROM monsters
-          WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']."
-          AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
-          AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
-          AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
-	  AND id = '".$_SESSION['id']."';";
+      WHERE pokemon_id = ".$_POST['pokemon_id']." AND form = ".$_POST['cur_form']."
+      AND distance = ".$_POST['cur_distance']." AND gender = ".$_POST['cur_gender']."
+      AND min_iv = ".$_POST['cur_min_iv']." AND max_iv = ".$_POST['cur_max_iv']."
+      AND min_cp = ".$_POST['cur_min_cp']." AND max_cp = ".$_POST['cur_max_cp']."
+      AND min_level = ".$_POST['cur_min_level']." AND max_level = ".$_POST['cur_max_level']."
+      AND min_weight = ".$_POST['cur_min_weight']." AND max_weight = ".$_POST['cur_max_weight']."
+      AND atk = ".$_POST['cur_atk']." AND def = ".$_POST['cur_def']." AND sta = ".$_POST['cur_sta']."
+      AND max_atk = ".$_POST['cur_max_atk']." AND max_def = ".$_POST['cur_max_def']." AND max_sta = ".$_POST['cur_max_sta']."
+      AND great_league_ranking = ".$_POST['cur_great_league_ranking']." AND great_league_ranking_min_cp = ".$_POST['great_league_ranking_min_cp']."
+      AND ultra_league_ranking = ".$_POST['cur_ultra_league_ranking']." AND ultra_league_ranking_min_cp = ".$_POST['ultra_league_ranking_min_cp']."
+      AND id = '".$_SESSION['id']."';";
+
 
   $result = $conn->query($sql);
   header("Location: $redirect_url?return=success_delete_mons"); exit();

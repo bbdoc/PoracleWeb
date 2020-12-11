@@ -51,6 +51,20 @@ echo "<center><br>";
 
   while($row = $result->fetch_assoc()) {
 
+    // Build a Unique Index
+
+    $pkm_unique_id="mon_".$row['pokemon_id']."_".
+         $row['form']."_".$row['distance']."_".$row['gender'].
+         $row['min_cp']."_".$row['max_cp']."_".
+         $row['min_iv']."_".$row['max_iv']."_".
+         $row['min_level']."_".$row['max_level']."_".
+         $row['min_weight']."_".$row['max_weight']."_".
+         $row['atk']."_".$row['def']."_".$row['sta']."_".
+         $row['max_atk']."_".$row['max_def']."_".$row['max_sta']."_".
+         $row['great_league_ranking']."_".$row['great_league_ranking_min_cp']."_".
+         $row['ultra_league_ranking']."_".$row['ultra_league_ranking_min_cp'];
+
+
     // Check Images only if Form <> Normal and Substitude if necessary
     $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
     if ( $row['form'] <> 0 ) { 
@@ -72,7 +86,7 @@ echo "<center><br>";
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_pokemons.php";
 
-    echo "<a data-fancybox data-src='#mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."' href='javascript:;'>\n";
+    echo "<a data-fancybox data-src='#$pkm_unique_id'>\n";
     echo "<button>\n";
     echo "<font size=1>\n";
     echo "<table width=100%><tr>\n";

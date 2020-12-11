@@ -251,7 +251,7 @@ label img {
   position: relative;
 }
 
-:checked+label[for^="area"]::before {
+:checked+label[for^="area"]::before, :checked+label[for^="mon"]::before {
   content: "✓";
   background-color: darkgrey;
   transform: scale(1);

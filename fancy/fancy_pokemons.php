@@ -6,7 +6,7 @@
     // Add Hidden Fancy Box Content for Pokemons
 
     echo "
-    <div style='display: none;' id='mon_".$row['pokemon_id']."_".$row['form']."_".$row['min_cp']."_".$row['max_cp']."_".$row['min_iv']."_".$row['max_iv']."_".$row['min_level']."_".$row['max_level']."'>
+    <div style='display: none;' id='$pkm_unique_id'>
     <form action='./form_action.php' method='POST'>
     ";
 
@@ -22,13 +22,26 @@
         <input type='hidden' id='type' name='type' value='monsters'>
         <input type='hidden' id='pokemon_id' name='pokemon_id' value='".$row['pokemon_id']."'>
         <input type='hidden' id='cur_form' name='cur_form' value='".$row['form']."'>
+        <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
         <input type='hidden' id='cur_min_iv' name='cur_min_iv' value='".$row['min_iv']."'>
         <input type='hidden' id='cur_max_iv' name='cur_max_iv' value='".$row['max_iv']."'>
         <input type='hidden' id='cur_min_cp' name='cur_min_cp' value='".$row['min_cp']."'>
-        <input type='hidden' id='cur_max_cp^' name='cur_max_cp' value='".$row['max_cp']."'>
+        <input type='hidden' id='cur_max_cp' name='cur_max_cp' value='".$row['max_cp']."'>
         <input type='hidden' id='cur_min_level' name='cur_min_level' value='".$row['min_level']."'>
         <input type='hidden' id='cur_max_level' name='cur_max_level' value='".$row['max_level']."'>
+        <input type='hidden' id='cur_min_weight' name='cur_min_weight' value='".$row['min_weight']."'>
+        <input type='hidden' id='cur_max_weight' name='cur_max_weight' value='".$row['max_weight']."'>
         <input type='hidden' id='cur_gender' name='cur_gender' value='".$row['gender']."'>
+        <input type='hidden' id='cur_atk' name='cur_atk' value='".$row['atk']."'>
+        <input type='hidden' id='cur_def' name='cur_def' value='".$row['def']."'>
+        <input type='hidden' id='cur_sta' name='cur_sta' value='".$row['sta']."'>
+        <input type='hidden' id='cur_max_atk' name='cur_max_atk' value='".$row['max_atk']."'>
+        <input type='hidden' id='cur_max_def' name='cur_max_def' value='".$row['max_def']."'>
+        <input type='hidden' id='cur_max_sta' name='cur_max_sta' value='".$row['max_sta']."'>
+        <input type='hidden' id='cur_great_league_ranking' name='cur_great_league_ranking' value='".$row['great_league_ranking']."'>
+        <input type='hidden' id='cur_great_league_ranking_min_cp' name='cur_great_league_ranking_min_cp' value='".$row['great_league_ranking_min_cp']."'>
+        <input type='hidden' id='cur_ultra_league_ranking' name='cur_ultra_league_ranking' value='".$row['ultra_league_ranking']."'>
+        <input type='hidden' id='cur_ultra_league_ranking_min_cp' name='cur_ultra_league_ranking_min_cp' value='".$row['ultra_league_ranking_min_cp']."'>
 
 	<table width=130% style='margin-left:-30px;'>
 
@@ -36,7 +49,7 @@
         <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
 	<label for='fname'>Distance</label>
         </td><td>
-	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:7eml' min='0'>&nbsp;meters<br>
+	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:80px' min='0'>&nbsp;meters<br>
         </td></tr>
 
 	<tr><td>
