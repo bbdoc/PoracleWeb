@@ -103,6 +103,8 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
   $sql = "UPDATE raid
       SET distance = ".$_POST['distance'].", clean = ".$clean."
       WHERE pokemon_id = ".$_POST['pokemon_id']." AND level = ".$_POST['level']."
+      AND form = ".$_POST['cur_form']." AND distance = ".$_POST['cur_distance']."
+      AND team = ".$_POST['cur_team']."
       AND id = '".$_SESSION['id']."';";
 
   $result = $conn->query($sql);
@@ -121,9 +123,11 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
   $sql = "UPDATE egg
       SET distance = ".$_POST['distance'].", clean = ".$clean."
       WHERE level = ".$_POST['level']."
+      AND distance = ".$_POST['cur_distance']."
+      AND team = ".$_POST['cur_team']."
       AND id = '".$_SESSION['id']."';";
 
-  $result = $conn->query($sql);
+  $result = $conn->query($sql); 
   header("Location: $redirect_url?return=success_update_egg"); exit();
 
 }
