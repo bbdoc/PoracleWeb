@@ -14,10 +14,12 @@ while($row = $result->fetch_assoc()) {
 
 echo " <div style='display: none;' id='profile'>";
 
-  echo "<center>";
-  echo "<p><b><font color='darkblue' size=4>Welcome ".$_SESSION['username']."</font></b></p>";
   $avatar = "https://cdn.discordapp.com/avatars/".$_SESSION['id']. "/".$_SESSION['avatar'].".png";
-  echo "<img src='$avatar' style='border-radius: 50%; width:50px;'><br><br>";
+  echo "<div style='float: right; font-size:40px;'><a href='logout.php'><i class='fa fa-sign-out' aria-hidden='true'></i></a></div>";
+  echo "<div style='float: left;'><img src='$avatar' style='border-radius: 50%; width:40px;'></div>";
+  echo "<center>";
+  echo "<br><p><b><font color='darkblue' size=4>Welcome ".$_SESSION['username']."</font></b></p><br>";
+  echo "<center>";
 
 
   // Add Button to enable/disable Alarms

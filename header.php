@@ -142,6 +142,7 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { ech
   echo "</div>\n";
 
   echo "<center><br>\n";
+  if ( isset($_GET['return']) && $_GET['return'] == 'success_logout' ) { echo "<div class='success_msg'>You have been Successfully logged out</div>"; }
   echo "<h2>Welcome to the <br>Poracle Alarm Management</h2>\n";
   echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>\n";
   echo "<h4>Clic on below Discord icon to log in</h4>\n";
