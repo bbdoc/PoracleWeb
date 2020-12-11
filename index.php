@@ -68,7 +68,7 @@ echo "<center><br>";
     // Check Images only if Form <> Normal and Substitude if necessary
     $PkmnImg="$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png";
     if ( $row['form'] <> 0 ) { 
-       if (false === file_get_contents("$PkmnImg",0,null,0,1)) {
+       if (false === @file_get_contents("$PkmnImg",0,null,0,1)) {
           $pokemon_name=get_mons($row['pokemon_id']); 
 	  $PkmnImg_50 = "<font size=5><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
 	  $PkmnImg_100 = "<font size=8><strong>".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."</strong></font><br>$pokemon_name";
