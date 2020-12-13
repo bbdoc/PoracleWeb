@@ -26,7 +26,7 @@ echo " <div style='display: none;' id='profile'>";
 
   echo "<table width=250><tr>\n";
   echo "<td>Alarms</td>\n";
-  echo "<td>\n";
+  echo "<td style='padding:0px;'>\n";
   if ( $enabled == "1") {
     echo "<a href='./form_action.php?action=disable'><button class='button_switch'><img src='img/switch-on.svg'></button></a><br>\n";
   } else {
@@ -38,7 +38,7 @@ echo " <div style='display: none;' id='profile'>";
   echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_pkmn."</span></div>&nbsp;\n";
   echo "All Monsters Cleaning\n";
   echo "</td>\n";
-  echo "<td>\n";
+  echo "<td style='padding:0px;'>\n";
   if ( $all_mon_cleaned == "1") {
     echo "<a href='./form_action.php?action=disable_mon_clean' onclick='return confirm_mon_cleaning();'><button class='button_switch'><img src='img/switch-on.svg'></button></a><br>\n";
   } else {
@@ -50,7 +50,7 @@ echo " <div style='display: none;' id='profile'>";
   echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_raid."</span></div>&nbsp;\n";
   echo "All Raids/Eggs Cleaning\n";
   echo "</td>\n";
-  echo "<td>\n";
+  echo "<td style='padding:0px;'>\n";
   if ( $all_raid_cleaned == "1") {
     echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button class='button_switch'><img src='img/switch-on.svg'></button></a><br>\n";
   } else {
