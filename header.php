@@ -1,4 +1,4 @@
-<html>
+<html translate="no">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +51,8 @@ include "./db_connect.php";
 include "./functions.php";
 include "./tooltips.php";
 
+if(isset($custom_title)) { $title = $custom_title; } else { $title = "PoracleWeb"; }
+
 if(isset($_SESSION['username'])) {
 
    $avatar = "https://cdn.discordapp.com/avatars/".$_SESSION['id']. "/".$_SESSION['avatar'].".png";
@@ -63,7 +65,7 @@ if(isset($_SESSION['username'])) {
           echo "<div id='navbar'>";
           echo"<table>";
           echo "<tr valign='middle'>";
-          echo "<td><b><font color=white size=4>PoracleWeb</font></b> </td>";
+          echo "<td><b><font color=white size=4>$title</font></b> </td>";
           echo "<td width=100%> </td>";
           echo "<td><b><font size=2 color='white'>".$_SESSION['username']."</font></b> </td>";
           echo "<td><img src='".$avatar."' style='border-radius: 50%; width:40px; border: 1px solid darkgreen'></td>";
@@ -107,7 +109,7 @@ if(isset($_SESSION['username'])) {
   <a data-fancybox data-src='#profile' href='javascript:;' style='text-decoration: none;'>
   <table style='margin:0px; margin:-10px;'>
   <tr valign='middle'>
-    <td><b><font color=white size=4>PoracleWeb</font></b> </td>
+  <td><b><font color=white size=4><?php echo $title ?></font></b> </td>
     <td width=100%> </td>
     <td><b><font color=white size=2><?php echo $_SESSION['username'] ?></font></b> </td>
     <td><img src='<?php echo $avatar ?>' style='border-radius: 50%; width:40px; border: 1px solid darkgreen'></td>
@@ -136,18 +138,18 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { ech
   echo "<div id='navbar'>\n";
   echo "<table width=100%>\n";
   echo "<tr valign='middle'>\n";
-  echo "<td><b><font color=white size=4><br>PoracleWeb<br><br></font></b></td>\n";
+  echo "<td><b><font color=white size=4><br>$title<br><br></font></b></td>\n";
   echo "</tr>\n";
   echo "</table>\n";
   echo "</div>\n";
 
   echo "<center><br>\n";
   if ( isset($_GET['return']) && $_GET['return'] == 'success_logout' ) { echo "<div class='success_msg'>You have been Successfully logged out</div>"; }
-  echo "<h2>Welcome to the <br>Poracle Alarm Management</h2>\n";
+  echo "<h2>Welcome to $title</h2>\n";
   echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>\n";
-  echo "<h4>Clic on below Discord icon to log in</h4>\n";
+  echo "<h4>Click on below Discord icon to log in</h4>\n";
   echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./discord.jpg'></a></p>\n";
-  echo "<br><p>Note that you need a valid registration on the poracle server to get access to this service</p>\n";
+  echo "<br><p>Note that you need a valid registration on the $title server to get access to this service</p>\n";
   echo "</center>\n";
   exit();
 

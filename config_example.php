@@ -35,6 +35,6 @@ $mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.github
 // Other Configuration Items
 
 $max_pokemon="721";
-$raid_bosses="6,68,94,105,297,303,306,460,530,532,599,646,661,667,677"; 
+#$custom_title="";
 
 ?>
