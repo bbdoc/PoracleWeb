@@ -374,3 +374,12 @@ label img {
     width: 60px;
 }
 
+/* Transparent Button */
+
+.button_switch {
+   background-color: Transparent;
+   border: none;
+   cursor:pointer;
+   width: 60;
+}
+

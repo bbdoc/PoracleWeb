@@ -148,7 +148,7 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { ech
   echo "<h2>Welcome to $title</h2>\n";
   echo "<h4><font color='darkred'>Please Log In to access your current Alarm Config</font></h4>\n";
   echo "<h4>Click on below Discord icon to log in</h4>\n";
-  echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./discord.jpg'></a></p>\n";
+  echo "<p><a href='./discord_auth.php?action=login'><img width=100 src='./img/discord.jpg'></a></p>\n";
   echo "<br><p>Note that you need a valid registration on the $title server to get access to this service</p>\n";
   echo "</center>\n";
   exit();

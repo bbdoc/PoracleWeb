@@ -40,7 +40,7 @@ include "./db_connect.php";
 <center>
 <div style="max-width:90%">
 <font size=6 color="darkred">Oops...</font><br><br>
-<img src='homer.png' width=250><br><br>
+<img src='img/homer.png' width=250><br><br>
 Looks like Something went wrong, you shouldn't be here.<br><br>
 Please get back to homepage:<br><br>
 <a href="<?php echo $redirect_url; ?>"><font size=5>PoracleWeb</font></a>
