@@ -465,7 +465,7 @@ if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
 
     $stmt = $conn->prepare("UPDATE humans set area = ?  WHERE id = ?");
     if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UA1&sql=$stmt->error"); exit(); }
-    $rs = $stmt->bind_param("si", $area_list, $_SESSION['id'] );
+    $rs = $stmt->bind_param("ss", $area_list, $_SESSION['id'] );
     if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UA2&sql=$stmt->error"); exit(); }
     $rs = $stmt->execute();
     if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UA3&sql=$stmt->error"); exit(); }
