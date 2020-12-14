@@ -37,4 +37,8 @@ $mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.github
 $max_pokemon="721";
 #$custom_title="";
 
+// Debug Mode (True/False)
+$debug='False';
+
+
 ?>
