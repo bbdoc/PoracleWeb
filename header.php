@@ -74,8 +74,8 @@ if(isset($_SESSION['username'])) {
           echo "</div>";
           echo "<center>";
 	  echo "<br><font color='darkred'><b>Please Register to Poracle first before using this tool.</font></b><br>";
-
 	  echo "</center>";
+	  exit();
   }
 
   // Check for Cleaned
@@ -132,6 +132,7 @@ if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_raids' ) { ech
 if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_raid' ) { echo "<div class='success_msg'>Successfully Deleted Raid Alarm</div>"; }
 if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_egg' ) { echo "<div class='success_msg'>Successfully Deleted Egg Alarm</div>"; }
 if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'sql_error' ) { echo "<div class='error_msg'>You Request couldn't not be handled. Error #".$_GET['phase']."</div>"; }
 
 } else {
 

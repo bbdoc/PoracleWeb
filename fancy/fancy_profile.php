@@ -54,7 +54,7 @@ echo " <div style='display: none;' id='profile'>";
   if ( $all_raid_cleaned == "1") {
     echo "<a href='./form_action.php?action=disable_raid_clean' onclick='return confirm_raid_cleaning();'><button class='button_switch'><img src='img/switch-on.svg'></button></a><br>\n";
   } else {
-    echo "<a href='./form_action.php?action=enable_raid_clean'><button class='button_enable'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
+    echo "<a href='./form_action.php?action=enable_raid_clean'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
   }
   echo "</td>\n";
   echo "</tr><tr>\n";

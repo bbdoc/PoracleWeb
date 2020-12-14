@@ -157,6 +157,7 @@ label {
 .error_msg {
   background-color: red;
   color: white;
+  padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
   text-align:center;
@@ -188,11 +189,9 @@ input[type="checkbox"][id^="mon"], input[type="checkbox"][id^="egg"], input[type
   display: none;
 }
 
-/*
-input[type="radio"][id^="gender"], input[type="radio"][id^="clean"], input[type="radio"][id^="form"]   {
+input[type="radio"][id^="area"] {
   display: none;
 }
-*/
 
 label[for^="mon"], label[for^="egg"], label[for^="raid"], label[for^="area"] {
   border: 1px solid grey;
