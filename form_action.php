@@ -81,7 +81,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UM1"); exit(); }
 
-  $rs = $stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", 
+  $rs = $stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiis", 
 	  $_POST['distance'], $_POST['min_iv'], $_POST['max_iv'], $_POST['min_cp'] , $_POST['max_cp'],
 	  $_POST['min_level'], $_POST['max_level'], $_POST['min_weight'], $_POST['max_weight'],
 	  $_POST['atk'], $_POST['def'], $_POST['sta'], $_POST['max_atk'], $_POST['max_def'], $_POST['max_sta'],
@@ -123,7 +123,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UR1"); exit(); }
 
-  $rs = $stmt->bind_param("iiiiiiii",
+  $rs = $stmt->bind_param("iiiiiiis",
 	  $_POST['distance'], $clean,
 	  $_POST['pokemon_id'], $_POST['level'], $_POST['cur_form'], $_POST['cur_distance'], $_POST['cur_team'],
           $_SESSION['id'] );
@@ -157,7 +157,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UE1"); exit(); }
 
-  $rs = $stmt->bind_param("iiiiii",
+  $rs = $stmt->bind_param("iiiiis",
           $_POST['distance'], $clean,
           $_POST['level'], $_POST['cur_distance'], $_POST['cur_team'],
           $_SESSION['id'] );
@@ -189,7 +189,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DM1"); exit(); }
 
-  $rs = $stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiii",
+  $rs = $stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiis",
           $_POST['pokemon_id'], $_POST['cur_form'], $_POST['cur_distance'], $_POST['cur_gender'],
           $_POST['cur_min_iv'], $_POST['cur_max_iv'], $_POST['cur_min_cp'], $_POST['cur_max_cp'],
           $_POST['cur_min_level'], $_POST['cur_max_level'], $_POST['cur_min_weight'], $_POST['cur_max_weight'],
@@ -219,7 +219,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DR1"); exit(); }
 
-  $rs = $stmt->bind_param("iiiiii",
+  $rs = $stmt->bind_param("iiiiis",
           $_POST['pokemon_id'], $_POST['level'], $_POST['cur_form'], $_POST['cur_distance'], $_POST['cur_team'],
           $_SESSION['id'] );
 
@@ -245,7 +245,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DE1"); exit(); }
 
-  $rs = $stmt->bind_param("iiii",
+  $rs = $stmt->bind_param("iiis",
           $_POST['level'], $_POST['cur_distance'], $_POST['cur_team'],
           $_SESSION['id'] );
 
@@ -297,7 +297,7 @@ if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
 
 	if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AM1"); exit(); }
 
-	$rs = $stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiii",
+	$rs = $stmt->bind_param("siiiiiiiiiiiiiiiiiiiiii",
 		$_SESSION['id'], $pokemon_id, $_POST['distance'], $_POST['min_iv'], $_POST['max_iv'], 
 		$_POST['min_cp'], $_POST['max_cp'], $_POST['min_level'], $_POST['max_level'], $_POST['atk'], $_POST['def'], $_POST['sta'], $clean,
 		$_POST['min_weight'], $_POST['max_weight'], $_POST['max_atk'], $_POST['max_def'], $_POST['max_sta'], $gender, 
@@ -336,7 +336,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
 	$stmt = $conn->prepare("INSERT INTO egg ( id, ping, clean, template, distance, team, level)
 	                       VALUES ( ?, '', ? , 1, ?, 4, ?)");
         if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AE1"); exit(); }
-        $rs = $stmt->bind_param("iiii", $_SESSION['id'],$clean, $_POST['distance'], $level );
+        $rs = $stmt->bind_param("siii", $_SESSION['id'],$clean, $_POST['distance'], $level );
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AE2"); exit(); }
         $rs = $stmt->execute();
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AE3"); exit(); }
@@ -352,7 +352,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
                                VALUES ( ?, '', ? , 1, 9000, ?, 4, ?, 0)");
         if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AR1"); exit(); }
-        $rs = $stmt->bind_param("iiii", $_SESSION['id'],$clean, $_POST['distance'], $level );
+        $rs = $stmt->bind_param("siii", $_SESSION['id'],$clean, $_POST['distance'], $level );
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AR2"); exit(); }
         $rs = $stmt->execute();
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AR3"); exit(); }
@@ -370,7 +370,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
                                VALUES ( ?, '', ? , 1, ? , ?, 4, 9000, ?)");
         if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=ARM1"); exit(); }
-        $rs = $stmt->bind_param("iiiii", $_SESSION['id'],$clean, $boss_id, $_POST['distance'], $boss_form );
+        $rs = $stmt->bind_param("siiii", $_SESSION['id'],$clean, $boss_id, $_POST['distance'], $boss_form );
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=ARM2"); exit(); }
         $rs = $stmt->execute();
         if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=ARM3"); exit(); }
@@ -390,7 +390,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
 
   $stmt = $conn->prepare("DELETE FROM monsters WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DAM1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAM2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAM3"); exit(); }
@@ -403,7 +403,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
 
   $stmt = $conn->prepare("DELETE FROM raid WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DAR1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAR2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAR3"); exit(); }
@@ -411,7 +411,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
 
   $stmt = $conn->prepare("DELETE FROM egg WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DAE1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAE2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAE3"); exit(); }
@@ -425,7 +425,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable' ) {
 
   $stmt = $conn->prepare("UPDATE humans set enabled = 1  WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=E1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=E2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=E3"); exit(); }
@@ -439,7 +439,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable' ) {
 
   $stmt = $conn->prepare("UPDATE humans set enabled = 0  WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=D1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=D2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=D3"); exit(); }
@@ -465,7 +465,7 @@ if ( isset($_POST['action']) && $_POST['action'] == 'areas' ) {
 
     $stmt = $conn->prepare("UPDATE humans set area = ?  WHERE id = ?");
     if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UA1"); exit(); }
-    $rs = $stmt->bind_param("si", $area_list, $_SESSION['id'] );
+    $rs = $stmt->bind_param("ss", $area_list, $_SESSION['id'] );
     if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UA2"); exit(); }
     $rs = $stmt->execute();
     if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UA3"); exit(); }
@@ -482,7 +482,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable_mon_clean' ) {
 
   $stmt = $conn->prepare("UPDATE monsters set clean = 0 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DC3"); exit(); }
@@ -495,7 +495,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_mon_clean' ) {
 
   $stmt = $conn->prepare("UPDATE monsters set clean = 1 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=EC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EC3"); exit(); }
@@ -509,7 +509,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
 
   $stmt = $conn->prepare("UPDATE raid set clean = 0 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DRC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DRC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DRC3"); exit(); }
@@ -519,7 +519,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
 
   $stmt = $conn->prepare("UPDATE egg set clean = 0 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DEC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DEC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DEC3"); exit(); }
@@ -532,7 +532,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
 
   $stmt = $conn->prepare("UPDATE raid set clean = 1 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=ERC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=ERC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=ERC3"); exit(); }
@@ -542,7 +542,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
 
   $stmt = $conn->prepare("UPDATE egg set clean = 1 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=EEC1"); exit(); }
-  $rs = $stmt->bind_param("i", $_SESSION['id'] );
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EEC2"); exit(); }
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EEC3"); exit(); }
