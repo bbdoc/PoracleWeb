@@ -293,7 +293,7 @@ if ( isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit' ) {
              great_league_ranking, great_league_ranking_min_cp,
              ultra_league_ranking, ultra_league_ranking_min_cp
            )
-	   VALUES (?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 	if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error"); exit(); }
 
