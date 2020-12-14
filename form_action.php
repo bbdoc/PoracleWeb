@@ -152,7 +152,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
   $stmt = $conn->prepare("
       UPDATE egg 
       SET distance = ?, clean = ?
-      WHERE AND level = ? AND distance = ? AND team = ?
+      WHERE level = ? AND distance = ? AND team = ?
       AND id = ?");
 
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UE1&sql=$stmt->error"); exit(); }
@@ -514,8 +514,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'disable_raid_clean' ) {
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DRC3&sql=$stmt->error"); exit(); }
   $stmt->close();
-  header("Location: $redirect_url"); exit();
-
 
   $stmt = $conn->prepare("UPDATE egg set clean = 0 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DEC1&sql=$stmt->error"); exit(); }
@@ -537,8 +535,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
   $rs = $stmt->execute();
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=ERC3&sql=$stmt->error"); exit(); }
   $stmt->close();
-  header("Location: $redirect_url"); exit();
-
 
   $stmt = $conn->prepare("UPDATE egg set clean = 1 WHERE id = ?");
   if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=EEC1&sql=$stmt->error"); exit(); }
