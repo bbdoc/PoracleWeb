@@ -19,5 +19,3 @@ include "./config.php";
    }
 }
 
-?>
-

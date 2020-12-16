@@ -16,4 +16,3 @@ if ($conn->connect_errno) {
    exit();
 }
 
-?>

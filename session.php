@@ -17,4 +17,3 @@ foreach ($dbnames as &$db) {
   }
 }
 
-?>

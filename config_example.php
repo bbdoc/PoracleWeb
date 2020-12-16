@@ -41,4 +41,3 @@ $max_pokemon="721";
 $debug='False';
 
 
-?>
