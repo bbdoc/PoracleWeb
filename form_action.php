@@ -91,7 +91,7 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 	  $_POST['cur_min_iv'], $_POST['cur_max_iv'], $_POST['cur_min_cp'], $_POST['cur_max_cp'],
 	  $_POST['cur_min_level'], $_POST['cur_max_level'], $_POST['cur_min_weight'], $_POST['cur_max_weight'],
 	  $_POST['cur_atk'], $_POST['cur_def'], $_POST['cur_sta'], $_POST['cur_max_atk'], $_POST['cur_max_def'], $_POST['cur_max_sta'],
-	  $_POST['cur_great_league_ranking'], $_POST['great_league_ranking_min_cp'], $_POST['cur_ultra_league_ranking'], $_POST['ultra_league_ranking_min_cp'], 
+	  $_POST['cur_great_league_ranking'], $_POST['cur_great_league_ranking_min_cp'], $_POST['cur_ultra_league_ranking'], $_POST['cur_ultra_league_ranking_min_cp'], 
 	  $_SESSION['id'] );
   
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UM2&sql=$stmt->error"); exit(); }
