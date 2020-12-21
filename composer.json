@@ -8,6 +8,9 @@
 			"name": "bbdoc"
 		}
 	],
+	"require": {
+		"php": ">= 7.0"
+	},
 	"require-dev": {
 		"php-parallel-lint/php-console-highlighter": "0.5.0",
 		"php-parallel-lint/php-parallel-lint": "1.2.0"
