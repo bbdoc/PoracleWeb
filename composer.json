@@ -1,7 +1,7 @@
 {
 	"name": "bbdoc/poracleweb",
 	"description": "Web Inteface to handle alarms configuration in PoracleJS",
-	"license": "",
+	"license": "AGPL-3.0-or-later",
 	"homepage": "https://github.com/bbdoc/PoracleWeb",
 	"authors": [
 		{
