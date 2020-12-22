@@ -491,7 +491,7 @@ if ( isset($_POST['add_quest']) && $_POST['add_quest'] == 'Submit' ) {
 }
 
 
-// DELETE ALL MONSTERS OR RAIDS
+// DELETE ALL MONSTERS 
 
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
 
@@ -505,6 +505,8 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
   header("Location: $redirect_url?return=success_delete_mons"); exit();
 
 }
+
+// DELETE ALL RAIDS AND EGGS
 
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
 
@@ -527,6 +529,8 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
   header("Location: $redirect_url?return=success_delete_raids"); exit();
 
 }
+
+// DELETE ALL QUESTS
 
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_quests' ) {
 
