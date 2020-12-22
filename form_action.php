@@ -277,17 +277,17 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
       WHERE level = ? AND distance = ? AND team = ?
       AND id = ?");
 
-  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error"); exit(); }
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DE1&sql=$stmt->error"); exit(); }
 
   $rs = $stmt->bind_param("iiis",
           $_POST['level'], $_POST['cur_distance'], $_POST['cur_team'],
           $_SESSION['id'] );
 
-  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ2&sql=$stmt->error"); exit(); }
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE2&sql=$stmt->error"); exit(); }
 
   $rs = $stmt->execute();
 
-  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ3&sql=$stmt->error"); exit(); }
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE3&sql=$stmt->error"); exit(); }
 
   $stmt->close();
   header("Location: $redirect_url?return=success_delete_egg"); exit();
@@ -303,17 +303,17 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
       WHERE reward = ? AND reward_type = ? AND distance = ? 
       AND id = ?");
 
-  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DE1&sql=$stmt->error"); exit(); }
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error"); exit(); }
 
   $rs = $stmt->bind_param("iiis",
           $_POST['cur_reward'], $_POST['cur_reward_type'], $_POST['cur_distance'],
           $_SESSION['id'] );
 
-  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE2&sql=$stmt->error"); exit(); }
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ2&sql=$stmt->error"); exit(); }
 
   $rs = $stmt->execute();
 
-  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE3&sql=$stmt->error"); exit(); }
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ3&sql=$stmt->error"); exit(); }
 
   $stmt->close();
   header("Location: $redirect_url?return=success_delete_quest"); exit();
