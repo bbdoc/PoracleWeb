@@ -4,7 +4,9 @@ include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
 include "./tooltips.php";
-include "./db_mad.php";
+
+if ( $scan_dbtype == "MAD" ) { include "./db_mad.php"; }
+if ( $scan_dbtype == "RDM" ) { include "./db_rdm.php"; }
 
 if(isset($custom_title)) { $title = $custom_title; } else { $title = "PoracleWeb"; }
 

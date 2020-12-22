@@ -242,7 +242,7 @@ echo "<center><br>";
 
   // Show Quests
 
-  if ($disable_quests <> "True" && $scan_dbtype == "MAD" ) {
+  if ($disable_quests <> "True" ) {
 
   echo "<br><hr><br><p><b>Quests you are tracking</b></p>\n";
   echo "<i><font size=2>Click on any Alarm to edit your tracking parameters</font></i></p><br>";
