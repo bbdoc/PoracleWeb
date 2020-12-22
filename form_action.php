@@ -444,7 +444,7 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
 }
 
 
-// ADD RAID
+// ADD QUESTS
 
 if ( isset($_POST['add_quest']) && $_POST['add_quest'] == 'Submit' ) {
 
