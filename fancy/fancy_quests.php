@@ -1,7 +1,7 @@
 
 <?php
 
-    // Add Hidden Fancy Box Content for Eggs
+    // Add Hidden Fancy Box Content for Quests
 
     echo "
     <div style='display: none;' id='".$quest_unique_id."'>
