@@ -185,7 +185,7 @@ li {
   display: inline-block;
 }
 
-input[type="checkbox"][id^="mon"], input[type="checkbox"][id^="egg"], input[type="checkbox"][id^="raid"], input[type="checkbox"][id^="area"]  {
+input[type="checkbox"][id^="mon"], input[type="checkbox"][id^="egg"], input[type="checkbox"][id^="raid"], input[type="checkbox"][id^="area"], input[type="checkbox"][id^="item"]  {
   display: none;
 }
 
@@ -193,7 +193,7 @@ input[type="radio"][id^="area"] {
   display: none;
 }
 
-label[for^="mon"], label[for^="egg"], label[for^="raid"], label[for^="area"] {
+label[for^="mon"], label[for^="egg"], label[for^="raid"], label[for^="area"], label[for^="item"] {
   border: 1px solid grey;
   background-color: lightgrey;
   border-radius: 5px;
@@ -250,7 +250,7 @@ label img {
   position: relative;
 }
 
-:checked+label[for^="area"]::before, :checked+label[for^="mon"]::before {
+:checked+label[for^="area"]::before, :checked+label[for^="mon"]::before, :checked+label[for^="item"]::before {
   content: "✓";
   background-color: darkgrey;
   transform: scale(1);

@@ -173,6 +173,40 @@ if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['ty
 
 }
 
+// UPDATE QUESTS
+
+if ( isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'quests' ) {
+
+  foreach ($_POST as $key => $value) {
+    if ( substr( $value, 0, 6 ) === "clean_" ) {
+      $clean = ltrim($value,'clean_');
+    }
+  }
+
+  $stmt = $conn->prepare("
+      UPDATE quest
+      SET distance = ?, clean = ?
+      WHERE reward = ? AND reward_type = ? AND distance = ? 
+      AND id = ?");
+
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=UQ1&sql=$stmt->error"); exit(); }
+
+  $rs = $stmt->bind_param("iiiiis",
+          $_POST['distance'], $clean,
+          $_POST['cur_reward'], $_POST['cur_reward_type'], $_POST['cur_distance'],
+          $_SESSION['id'] );
+
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UQ2&sql=$stmt->error"); exit(); }
+
+  $rs = $stmt->execute();
+
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=UQ3&sql=$stmt->error"); exit(); }
+
+  $stmt->close();
+  header("Location: $redirect_url?return=success_update_quest"); exit();
+
+}
+
 
 // DELETE MONSTERS
 
@@ -243,10 +277,36 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
       WHERE level = ? AND distance = ? AND team = ?
       AND id = ?");
 
-  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DE1&sql=$stmt->error"); exit(); }
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error"); exit(); }
 
   $rs = $stmt->bind_param("iiis",
           $_POST['level'], $_POST['cur_distance'], $_POST['cur_team'],
+          $_SESSION['id'] );
+
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ2&sql=$stmt->error"); exit(); }
+
+  $rs = $stmt->execute();
+
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DQ3&sql=$stmt->error"); exit(); }
+
+  $stmt->close();
+  header("Location: $redirect_url?return=success_delete_egg"); exit();
+
+}
+
+// DELETE QUESTS
+
+if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'quests' ) {
+
+  $stmt = $conn->prepare("
+      DELETE FROM quest
+      WHERE reward = ? AND reward_type = ? AND distance = ? 
+      AND id = ?");
+
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DE1&sql=$stmt->error"); exit(); }
+
+  $rs = $stmt->bind_param("iiis",
+          $_POST['cur_reward'], $_POST['cur_reward_type'], $_POST['cur_distance'],
           $_SESSION['id'] );
 
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE2&sql=$stmt->error"); exit(); }
@@ -256,7 +316,7 @@ if ( isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['ty
   if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DE3&sql=$stmt->error"); exit(); }
 
   $stmt->close();
-  header("Location: $redirect_url?return=success_delete_egg"); exit();
+  header("Location: $redirect_url?return=success_delete_quest"); exit();
 
 }
 
@@ -384,6 +444,53 @@ if ( isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit' ) {
 }
 
 
+// ADD RAID
+
+if ( isset($_POST['add_quest']) && $_POST['add_quest'] == 'Submit' ) {
+
+  foreach ($_POST as $key => $value) {
+    if ( substr( $value, 0, 6 ) === "clean_" ) {
+      $clean = ltrim($value,'clean_');
+    }
+  }
+
+  foreach ($_POST as $key => $value) {
+     if ( substr( $key, 0, 4 ) === "mon_" ) {
+        $mon_id = ltrim($key,'mon_');
+
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
+                               VALUES ( ?, '', ? , ?, 1, 0, 7, ?)");
+        if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AQM1&sql=$stmt->error"); exit(); }
+        $rs = $stmt->bind_param("siii", $_SESSION['id'],$clean, $mon_id, $_POST['distance'] );
+        if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AQM2&sql=$stmt->error"); exit(); }
+        $rs = $stmt->execute();
+        if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AQM3&sql=$stmt->error"); exit(); }
+        $stmt->close();
+
+    }
+  }
+
+  foreach ($_POST as $key => $value) {
+     if ( substr( $key, 0, 5 ) === "item_" ) {
+        $item = ltrim($key,'item_');
+
+	$stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
+                               VALUES ( ?, '', ? , ?, 1, 0, 2, ?)");
+        if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error"); exit(); }
+        $rs = $stmt->bind_param("siii", $_SESSION['id'],$clean, $item, $_POST['distance'] );
+        if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error"); exit(); }
+        $rs = $stmt->execute();
+        if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=AQI3&sql=$stmt->error"); exit(); }
+        $stmt->close();
+
+    }
+  }
+
+  header("Location: $redirect_url?return=success_added_quest"); exit();
+
+}
+
+
 // DELETE ALL MONSTERS OR RAIDS
 
 if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_mons' ) {
@@ -420,6 +527,24 @@ if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_raids' ) {
   header("Location: $redirect_url?return=success_delete_raids"); exit();
 
 }
+
+if ( isset($_GET['action']) && $_GET['action'] == 'delete_all_quests' ) {
+
+  $stmt = $conn->prepare("DELETE FROM quest WHERE id = ?");
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DAQ1&sql=$stmt->error"); exit(); }
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAQ2&sql=$stmt->error"); exit(); }
+  $rs = $stmt->execute();
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DAQ3&sql=$stmt->error"); exit(); }
+  $stmt->close();
+
+  header("Location: $redirect_url?return=success_delete_quest"); exit();
+
+}
+
+
+
+// Start and Stop Alarms
 
 if ( isset($_GET['action']) && $_GET['action'] == 'enable' ) {
 
@@ -545,7 +670,31 @@ if ( isset($_GET['action']) && $_GET['action'] == 'enable_raid_clean' ) {
   $stmt->close();
   header("Location: $redirect_url"); exit();
 
+}
+
+if ( isset($_GET['action']) && $_GET['action'] == 'disable_quest_clean' ) {
+
+  $stmt = $conn->prepare("UPDATE quest set clean = 0 WHERE id = ?");
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=DC1&sql=$stmt->error"); exit(); }
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DC2&sql=$stmt->error"); exit(); }
+  $rs = $stmt->execute();
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=DC3&sql=$stmt->error"); exit(); }
+  $stmt->close();
+  header("Location: $redirect_url"); exit();
 
 }
 
+if ( isset($_GET['action']) && $_GET['action'] == 'enable_quest_clean' ) {
+
+  $stmt = $conn->prepare("UPDATE quest set clean = 1 WHERE id = ?");
+  if ( false===$stmt ) { header("Location: $redirect_url?return=sql_error&phase=EC1&sql=$stmt->error"); exit(); }
+  $rs = $stmt->bind_param("s", $_SESSION['id'] );
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EC2&sql=$stmt->error"); exit(); }
+  $rs = $stmt->execute();
+  if ( false===$rs ) { header("Location: $redirect_url?return=sql_error&phase=EC3&sql=$stmt->error"); exit(); }
+  $stmt->close();
+  header("Location: $redirect_url"); exit();
+
+}
 

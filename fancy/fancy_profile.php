@@ -33,7 +33,9 @@ echo " <div style='display: none;' id='profile'>";
     echo "<a href='./form_action.php?action=enable'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
   }
   echo "</td>\n";
-  echo "</tr><tr>\n";
+  echo "</tr>\n";
+
+  echo "<tr>\n";
   echo "<td>\n";
   echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_pkmn."</span></div>&nbsp;\n";
   echo "All Monsters Cleaning\n";
@@ -45,7 +47,9 @@ echo " <div style='display: none;' id='profile'>";
     echo "<a href='./form_action.php?action=enable_mon_clean'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
   }
   echo "</td>\n";
-  echo "</tr><tr>\n";
+  echo "</tr>\n";
+
+  echo "<tr>\n";
   echo "<td>\n";
   echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_raid."</span></div>&nbsp;\n";
   echo "All Raids/Eggs Cleaning\n";
@@ -57,7 +61,26 @@ echo " <div style='display: none;' id='profile'>";
     echo "<a href='./form_action.php?action=enable_raid_clean'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
   }
   echo "</td>\n";
-  echo "</tr><tr>\n";
+  echo "</tr>\n";
+
+  if ($disable_quests <> "True" && $scan_dbtype == "MAD" ) {
+  echo "<tr>\n";
+  echo "<td>\n";
+  echo "<div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_clean_quest."</span></div>&nbsp;\n";
+  echo "All Quests Cleaning\n";
+  echo "</td>\n";
+  echo "<td style='padding:0px;'>\n";
+  if ( $all_quest_cleaned == "1") {
+    echo "<a href='./form_action.php?action=disable_quest_clean' onclick='return confirm_quest_cleaning();'><button class='button_switch'><img src='img/switch-on.svg'></button></a><br>\n";
+  } else {
+    echo "<a href='./form_action.php?action=enable_quest_clean'><button class='button_switch'><img src='img/switch-off.svg'></button></a><br>\n";
+  }
+  echo "</td>\n";
+  echo "</tr>\n";
+  }
+
+
+  echo "<tr>\n";
   echo "</tr></table>\n";
 
   if ( $latitude == "0.0000000000" && $longitude == "0.0000000000" ) {

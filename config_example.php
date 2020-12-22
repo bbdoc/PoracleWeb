@@ -12,6 +12,21 @@ $dbuser     = "";
 $dbpass     = "";
 $dbport     = "3306";
 
+// Scanner DB Configuration (scan_dbtype should be MAD or RDM)
+
+$scan_dbtype     = "MAD";
+$scan_dbhost     = "127.0.0.1";
+$scan_dbname     = "";
+$scan_dbuser     = "";
+$scan_dbpass     = "";
+$scan_dbport     = "3306";
+
+// Enable Disable Elements
+
+$disable_mons    = "False";
+$disable_raids   = "False";
+$disable_quests  = "False";
+
 // Poracle Install Directoyy
 
 $poracle_dir="";

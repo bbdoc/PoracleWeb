@@ -39,6 +39,8 @@ echo "<center><br>";
 
   // Show Monsters Alarms
 
+  if ($disable_mons <> "True") {
+
   echo "<hr><br><p><b>Monsters you are tracking</b></p>\n";
   echo "<font size=2><i>Click on any Alarm to edit your tracking parameters</i></font></p><br>\n";
   if ($all_mon_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Monsters</code></p><br>\n"; }
@@ -139,8 +141,11 @@ echo "<center><br>";
     echo "</a>";
 
   }
+  } // End of Disable
 
   // Show Eggs & Raids
+
+  if ($disable_raids <> "True") {
 
   echo "<hr><br><p><b>Eggs & Raids you are tracking</b></p>\n";
   echo "<i><font size=2>Click on any Alarm to edit your tracking parameters</font></i></p><br>";
@@ -155,14 +160,14 @@ echo "<center><br>";
   while($row = $result->fetch_assoc()) {
 
     // Build a Unique Index
-    $egg_unique_id="raid_".$row['pokemon_id']."_".
-         $row['distance'].
+    $egg_unique_id="egg_".$row['pokemon_id']."_".
+         $row['distance']."_".
          $row['team']."_".$row['level'];
 
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_eggs.php";
 
-    echo "<a data-fancybox data-src='#egg_".$egg_unique_id."' href='javascript:;' style='text-decoration: none;'>";
+    echo "<a data-fancybox data-src='#".$egg_unique_id."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
     echo "<img width=50 src='$imgUrl/egg".$row['level'].".png'><br><br>\n";
     echo "<font size=1>";
@@ -191,7 +196,7 @@ echo "<center><br>";
     // Add Hidden Fancy Boxes
     include "./fancy/fancy_raids.php";
 
-    echo "<a data-fancybox class='various' data-src='#raid_".$raid_unique_id."' href='javascript:;' style='text-decoration: none;'>";
+    echo "<a data-fancybox class='various' data-src='#".$raid_unique_id."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
     echo "<img width=50 src='$imgUrl/egg".$row['level'].".png'><br><br>\n";
     echo "<font size=1>";
@@ -220,7 +225,7 @@ echo "<center><br>";
     include "./fancy/fancy_raids.php";
 
     $pokemon_name=get_mons($row['pokemon_id']);
-    echo "<a data-fancybox class='various' data-src='#raid_".$raid_unique_id."' href='javascript:;' style='text-decoration: none;'>";
+    echo "<a data-fancybox class='various' data-src='#".$raid_unique_id."' href='javascript:;' style='text-decoration: none;'>";
     echo "<button style='width:100px; height:130px;'>\n";
     echo "<font size=1>";
     echo "<img width=50 src='$imgUrl/pokemon_icon_".str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT)."_00.png'><br><br>$pokemon_name\n";
@@ -233,6 +238,76 @@ echo "<center><br>";
     echo "</a>\n";
 
   }
+  } // End of Disable
+
+  // Show Quests
+
+  if ($disable_quests <> "True" && $scan_dbtype == "MAD" ) {
+
+  echo "<br><hr><br><p><b>Quests you are tracking</b></p>\n";
+  echo "<i><font size=2>Click on any Alarm to edit your tracking parameters</font></i></p><br>";
+  if ($all_quest_cleaned == '1' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaning activated on all Quests</code></p><br>"; }
+  echo "<a href='./add_quests.php'><button class='button_update' style='width:150px;'>Add New</button></a>\n";
+  echo "<a href='./form_action.php?action=delete_all_quests'><button class='button_delete' style='width:150px;' onclick='return confirm_quest_delete();'>Delete All</button></a>\n";
+  echo "<br><br>\n";
+
+  $sql = "select * FROM quest WHERE id = '".$_SESSION['id']."' AND reward_type = 7 ORDER BY reward";
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_assoc()) {
+
+    // Build a Unique Index
+    $quest_unique_id="quest_".$row['reward']."_".
+         $row['reward_type']."_".$row['distance'];
+
+    // Add Hidden Fancy Boxes
+    $mon_id=str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
+    $pokemon_name=get_mons($row['reward']);
+    include "./fancy/fancy_quests.php";
+
+    echo "<a data-fancybox data-src='#".$quest_unique_id."' href='javascript:;' style='text-decoration: none;'>";
+    echo "<button style='width:100px; height:130px;'>\n";
+    echo "<img width=50 src='$imgUrl/pokemon_icon_".$mon_id."_00.png'><br><br>\n";
+    echo "<font size=1>";
+    echo $pokemon_name;
+    if ($row['distance'] <> '0' ) {
+      echo "<br>Distance : ".$row['distance']."<br>";
+    }
+    if ($row['clean'] == '1' && $all_quest_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
+
+    echo "</font>\n";
+    echo "</button>\n";
+    echo "</a>\n";
+
+  }
+
+  $sql = "select * FROM quest WHERE id = '".$_SESSION['id']."' AND reward_type = 2 ORDER BY reward";
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_assoc()) {
+
+    // Build a Unique Index
+    $quest_unique_id="quest_".$row['reward']."_".
+         $row['reward_type']."_".$row['distance'];
+
+    // Add Hidden Fancy Boxes
+    include "./fancy/fancy_quests.php";
+
+    echo "<a data-fancybox data-src='#".$quest_unique_id."' href='javascript:;' style='text-decoration: none;'>";
+    echo "<button style='width:100px; height:130px;'>\n";
+    echo "<img width=50 src='$imgUrl/rewards/reward_".$row['reward']."_1.png'><br><br>\n";
+    echo "<font size=1>";
+    if ($row['distance'] <> '0' ) {
+      echo "<br>Distance : ".$row['distance']."<br>";
+    }
+    if ($row['clean'] == '1' && $all_quest_cleaned == '0' ) { echo "<p style='margin-top:5px;'><code class='clean'>cleaned</code></p>"; }
+
+    echo "</font>\n";
+    echo "</button>\n";
+    echo "</a>\n";
+
+  }
+  } // End of Disable
 
 echo "<br><br>";
 ?>

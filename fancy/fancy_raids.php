@@ -4,7 +4,7 @@
     // Add Hidden Fancy Box Content for Eggs
 
     echo "
-    <div style='display: none;' id='raid_".$raid_unique_id."'>
+    <div style='display: none;' id='".$raid_unique_id."'>
     <form action='./form_action.php' method='POST'>
     ";
 

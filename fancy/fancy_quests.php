@@ -4,29 +4,35 @@
     // Add Hidden Fancy Box Content for Eggs
 
     echo "
-    <div style='display: none;' id='".$egg_unique_id."'>
+    <div style='display: none;' id='".$quest_unique_id."'>
     <form action='./form_action.php' method='POST'>
     ";
 
     echo "<center>";
-    echo "<img width=100 src='$imgUrl/egg".$row['level'].".png'><br>";
-    echo "<font size=1>Eggs Level ".$row['level']."</font>";
+    
+    if ( $row['reward_type'] == "7") {
+       echo "<img width=100 src='$imgUrl/pokemon_icon_".str_pad($mon_id, 3, "0", STR_PAD_LEFT)."_00.png'><br>";
+    } elseif ( $row['reward_type'] == "2") {   
+       echo "<img width=100 src='$imgUrl/rewards/reward_".$row['reward']."_1.png'><br>";
+
+    }
     echo "</center>";
 
     echo "
 
         <br>
-        <input type='hidden' id='type' name='type' value='eggs'>
-	<input type='hidden' id='level' name='level' value='".$row['level']."'>
+        <input type='hidden' id='type' name='type' value='quests'>
+        <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
+        <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
         <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
-        <input type='hidden' id='cur_team' name='cur_team' value='".$row['team']."'>
 
 	<table width=130% style='margin-left:-30px;'>
 
-        <tr><td>
+	<tr><td>
+        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
 	<label for='fname'>Distance:</label>
         </td><td>
-	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:5em' min='0'><br>
+	<input type='number' id='distance' name='distance' value='".$row['distance']."' style='width:5em' min='0'>&nbsp;meters<br>
         </td></tr>
 
         <tr><td>";

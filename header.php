@@ -4,6 +4,7 @@ include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
 include "./tooltips.php";
+include "./db_mad.php";
 
 if(isset($custom_title)) { $title = $custom_title; } else { $title = "PoracleWeb"; }
 
@@ -46,6 +47,13 @@ if(isset($custom_title)) { $title = $custom_title; } else { $title = "PoracleWeb
     }
     function confirm_raid_cleaning() {
        if (confirm('This will disable cleaning on ALL Raids & Eggs Alarms and cannot be undone, are you sure ?')) {
+           yourformelement.submit();
+       } else {
+           return false;
+       }
+    }
+    function confirm_quest_cleaning() {
+       if (confirm('This will disable cleaning on ALL Quests Alarms and cannot be undone, are you sure ?')) {
            yourformelement.submit();
        } else {
            return false;
@@ -94,6 +102,11 @@ if(isset($_SESSION['username'])) {
   while($row = $result->fetch_assoc()) { $all_raid_cleaned = $row['clean'];}
   if ( $all_raid_cleaned == "1") { $all_raid_cleaned_color="<span class='greendot'></span>";} else { $all_raid_cleaned_color="<span class='reddot'></span>";}
 
+  $sql = "select min(clean) clean FROM quest WHERE id = '".$_SESSION['id']."'";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) { $all_quest_cleaned = $row['clean'];}
+  if ( $all_quest_cleaned == "1") { $all_quest_cleaned_color="<span class='greendot'></span>";} else { $all_quest_cleaned_color="<span class='reddot'></span>";}
+
   $sql = "select area, latitude, longitude, enabled from humans WHERE id = '".$_SESSION['id']."'";
   $result = $conn->query($sql);
   while($row = $result->fetch_assoc()) {
@@ -126,16 +139,23 @@ if(isset($_SESSION['username'])) {
 
 <?php
 
-if ( isset($_GET['return']) && $_GET['return'] == 'success_added_raids' ) { echo "<div class='success_msg'>Successfully Added Raids Alarm(s)</div>"; }
-if ( isset($_GET['return']) && $_GET['return'] == 'success_update_mons' ) { echo "<div class='success_msg'>Successfully Updated Monster Alarm</div>"; }
-if ( isset($_GET['return']) && $_GET['return'] == 'success_update_raid' ) { echo "<div class='success_msg'>Successfully Updated Raid Alarm</div>"; }
-if ( isset($_GET['return']) && $_GET['return'] == 'success_update_egg' ) { echo "<div class='success_msg'>Successfully Updated Egg Alarm</div>"; }
-if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_mons' ) { echo "<div class='success_msg'>Successfully Deleted Monster Alarm(s)</div>"; }
 if ( isset($_GET['return']) && $_GET['return'] == 'success_added_mons' ) { echo "<div class='success_msg'>Successfully Added Monster Alarm(s)</div>"; }
-if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_raids' ) { echo "<div class='success_msg'>Successfully Deleted Eggs & Raids Alarm(s)</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_update_mons' ) { echo "<div class='success_msg'>Successfully Updated Monster Alarm</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_mons' ) { echo "<div class='success_msg'>Successfully Deleted Monster Alarm(s)</div>"; }
+
+if ( isset($_GET['return']) && $_GET['return'] == 'success_added_raids' ) { echo "<div class='success_msg'>Successfully Added Raids Alarm(s)</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_update_raid' ) { echo "<div class='success_msg'>Successfully Updated Raid Alarm</div>"; }
 if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_raid' ) { echo "<div class='success_msg'>Successfully Deleted Raid Alarm</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_raids' ) { echo "<div class='success_msg'>Successfully Deleted Eggs & Raids Alarm(s)</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_update_egg' ) { echo "<div class='success_msg'>Successfully Updated Egg Alarm</div>"; }
 if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_egg' ) { echo "<div class='success_msg'>Successfully Deleted Egg Alarm</div>"; }
+
+if ( isset($_GET['return']) && $_GET['return'] == 'success_added_quest' ) { echo "<div class='success_msg'>Successfully Added Quest Alarm(s)</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_update_quest' ) { echo "<div class='success_msg'>Successfully Updated Quest Alarm</div>"; }
+if ( isset($_GET['return']) && $_GET['return'] == 'success_delete_quest' ) { echo "<div class='success_msg'>Successfully Deleted Quest Alarm(s)</div>"; }
+
 if ( isset($_GET['return']) && $_GET['return'] == 'success_update_areas' ) { echo "<div class='success_msg'>Successfully Updated List of Areas</div>"; }
+
 if ( isset($_GET['return']) && $_GET['return'] == 'sql_error' ) { 
    echo "<div class='error_msg'>You Request couldn't not be handled. Error #".$_GET['phase']; 
    if ($debug=='True') { echo "<br><br>".$_GET['sql']; }  
