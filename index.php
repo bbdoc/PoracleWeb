@@ -481,8 +481,8 @@ if (isset($_SESSION['username'])) {
                                                 <?php
                                                         if ($row['pokemon_id'] == '0') {
                                                         ?>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"
-                                                    style="height: 50px;">
+                                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
+                                                    style="height: 43px;">
                                                     ALL
                                                 </div>
                                                 <?php
