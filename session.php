@@ -10,7 +10,7 @@ $dbnames = explode(",", $dbname);
 
 foreach ($dbnames as &$db) {
 
-   $conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+   $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
    
    // Check connection
    if ($conn->connect_errno) {
@@ -19,6 +19,7 @@ foreach ($dbnames as &$db) {
    }
 
    $sql = "SELECT * from humans WHERE id = '".$_SESSION['id']."'";
+   echo "SQL Query: ".$sql;
    $result = $conn->query($sql) or die(mysqli_error($db));
 
    if ( $result->num_rows > 0 ) {
