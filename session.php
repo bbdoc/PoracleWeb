@@ -19,7 +19,7 @@ foreach ($dbnames as &$db) {
    }
 
    $sql = "SELECT * from humans WHERE id = '".$_SESSION['id']."'";
-   $result = $conn->query($sql);
+   $result = $conn->query($sql) or die(mysqli_error($db));
 
    if ( $result->num_rows > 0 ) {
 	  $_SESSION['dbname'] = $db;
