@@ -16,4 +16,3 @@ foreach ($dbnames as &$db) {
 	  $_SESSION['dbname'] = $db;
   }
 }
-

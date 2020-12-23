@@ -109,4 +109,3 @@ function get($key, $default=NULL) {
 function session($key, $default=NULL) {
   return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
 }
-

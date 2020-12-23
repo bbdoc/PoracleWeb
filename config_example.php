@@ -51,6 +51,8 @@ $mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.github
 
 $max_pokemon="721";
 #$custom_title="";
+$register_command="!poracle";
+$location_command="!location";
 
 // Debug Mode (True/False)
 $debug='False';

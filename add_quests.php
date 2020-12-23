@@ -1,92 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<?php 
+<head>
 
-include "./header.php";
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-// Add Hidden Fancy Box Profile
-include "./fancy/fancy_profile.php";
+    <title>Alerts Manager - Add Quests</title>
 
-echo "<center><br>";
-echo "<font color='darkred'><b>ADD QUESTS POKEMONS / ITEMS to YOUR ALARMS</font></b><br><br>";
-echo "<form action='./form_action.php' method='POST'>";
-echo "<p>Set Parameters you want to use for those new alarms</p><br>";
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-echo "
-        <table width=90% style='max-width: 500px;'>
+    <!-- Custom styles for this template-->
+    <link href="css/custom-bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
-	<tr><td>
-        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>".$tt_distance."</span></div>
-        <label for='fname'>Distance:</label>
-        </td><td>
-        <input type='number' id='distance' name='distance' value='0' style='width:3em'>&nbsp;meters<br>
-        </td></tr>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-        <tr><td>";
-        if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
-        if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
-        $clean_0_checked = 0;
-        $clean_1_checked = 0;
-        if ($all_quest_cleaned == "1") { $clean_1_checked = 'checked'; } else { $clean_0_checked = 'checked'; }
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='checkbox']").change(function() {
+            var maxAllowed = 100;
+            var cnt = $("input[type='checkbox']:checked").length;
+            if (cnt > maxAllowed) {
+                $(this).prop("checked", "");
+                alert('Sorry, you cannot select more than ' + maxAllowed + ' Pokemons at a time!');
+            }
+        });
+    });
 
-        echo "
-        <div class='tooltip'><i class='fa fa-question-circle' style='color:darkgreen;'></i><span class='tooltiptext'>$tt_clean_quest</span></div>
-	<label for='fname'>Clean:</label>
-        </td><td style='max-width: 180px;'>
-        <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_0' value='clean_0' $clean_0_checked />
-        <label for='clean_0'>No</label>
+    $(document).ready(function() {
+        $(window).keydown(function(event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+    </script>
+
+</head>
+
+<?php
+if (isset($_SESSION['username'])) {
+    include "./header.php";
+?>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar fixed-top navbar-expand navbar-dark topbar mb-4 static-top shadow"
+                    style="background-color: #000000;">
+
+                    <a class="navbar-brand" href="/"><?php echo $title; ?></a>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow" id="Dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal"
+                                data-target="#profileSettingsModal">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+                                <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
+                            </a>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - Logout -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid col-lg-8 col-md-12">
+
+                    <!-- Profile Settings Modal -->
+                    <?php include "./modal/profile_settings_modal.php"; ?>
+
+                    <!-- Page Heading -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-secondary text-center" role="alert">
+                                <strong>NEW QUEST ALARM</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action='./form_action.php' method='POST'>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Distance</div>
+                                    </div>
+                                    <input type="number" id='distance' name='distance' value='0' min='0'
+                                        class="form-control text-center">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">m</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                    <?php
+
+                                        if ($row['clean'] == 0) {
+                                            $checked0 = 'checked';
+                                        } else {
+                                            $checked0 = '';
+                                        }
+                                        if ($row['clean'] == 1) {
+                                            $checked1 = 'checked';
+                                        } else {
+                                            $checked1 = '';
+                                        }
+                                        $clean_0_checked = 0;
+                                        $clean_1_checked = 0;
+                                        if ($all_quest_cleaned == "1") {
+                                            $clean_1_checked = 'checked';
+                                        } else {
+                                            $clean_0_checked = 'checked';
+                                        }
+
+                                        ?>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Clean</div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="clean" id="clean_0" value="clean_0"
+                                            <?php echo $clean_0_checked; ?>>
+                                        No
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="clean" id="clean_1" value="clean_1"
+                                            <?php echo $clean_1_checked; ?>>
+                                        Yes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Select Pokémon Quests you want to add
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class='selectionList'>
+                            <ul>
+                                <?php
+                                    $mons =  get_quest_mons();                                    
+                                    foreach ($mons as &$mon) {
+                                        $pokemon_name=get_mons($mon);  
+                                        $mon_id=str_pad($mon, 3, "0", STR_PAD_LEFT);
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='mon_<?php echo $mon; ?>'
+                                        id='mon_<?php echo $mon; ?>' />
+                                    <label for='mon_<?php echo $mon; ?>'>
+                                        <img src='<?php echo $imgUrl; ?>/pokemon_icon_<?php echo $mon_id; ?>_00.png' />
+                                        <br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Select Item Quests you want to add
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class='selectionList'>
+                            <ul>
+                                <?php
+                                    $items =  get_quest_items();
+                                    foreach ($items as &$item) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='item_<?php echo $item; ?>'
+                                        id='item_<?php echo $item; ?>' />
+                                    <label for='item_<?php echo $item; ?>'>
+                                        <img src='<?php echo $imgUrl; ?>/rewards/reward_<?php echo $item; ?>_1.png' />
+                                    </label>
+                                </li>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
+
+                        <div class="float-right mb-3 mt-3">
+                            <input class="btn btn-primary" type='submit' name='add_quest' value='Submit'>
+                            <a href='<?php echo $redirect_url ?>'>
+                                <button type="button" class="btn btn-secondary">Cancel</button>
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
         </div>
-        <div style='display:inline-block;'>
-        <input type='radio' name='clean' id='clean_1' value='clean_1' $clean_1_checked />
-        <label for='clean_1'>Yes</label>
-        </div>
-        </td></tr>
+        <!-- End of Content Wrapper -->
 
-	</table>
-	<br>
-";
+    </div>
+    <!-- End of Page Wrapper -->
 
-echo "Select Quest Pokemons you want to add to your alarms";
+    <!-- Logout Modal-->
+    <?php include "./modal/logout_modal.php"; ?>
 
-echo "<ul>";
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  $mons =  get_quest_mons();
-  foreach ($mons as &$mon) {
-     $pokemon_name=get_mons($mon);  
-     $mon_id=str_pad($mon, 3, "0", STR_PAD_LEFT);
-     echo "<li><input type='checkbox' name='mon_$mon' id='mon_$mon' />\n";
-     echo "<label for='mon_$mon'><img src='$imgUrl/pokemon_icon_".$mon_id."_00.png' />\n";
-     echo "<br>\n";
-     echo "<font size=2>".$mon_id."</font><br>\n";
-     echo "<font size=2>".$pokemon_name."</font>\n";
-     echo "</label>\n";
-     echo "</li>\n";
-  }
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-echo "</ul>";
+    <!-- Custom scripts for all pages-->
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-echo "Select Quest Items you want to add to your alarms";
+</body>
 
-echo "<ul>";
+<?php
+    // If not logged in import login page
+} else {
 
-  $items =  get_quest_items();
-  foreach ($items as &$item) {
-     echo "<li><input type='checkbox' name='item_$item' id='item_$item' />\n";
-     echo "<label for='item_$item'><img src='$imgUrl/rewards/reward_".$item."_1.png' />\n";
-     echo "</label>\n";
-     echo "</li>\n";
-  }
+    // Login Page
+    include "./login.php";
 
-echo "</ul>";
-
-echo "<input type='submit' name='add_quest' value='Submit' class='button_update' style='width:150px;'>";
-
-echo "</form>";
-
-echo "<a href='$redirect_url'><button class='button_other' style='width:150px;'>Cancel</button></a>";
-
-echo "</center>";
-echo "<br><br>";
+    exit();
+}
 
 ?>
-</table>
+
+</html>
