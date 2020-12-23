@@ -26,8 +26,7 @@
 </head>
 
 <?php
-    include "./config.php";
-    $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png";
+    include "./header.php";
 ?>
 
 <body id="page-top">

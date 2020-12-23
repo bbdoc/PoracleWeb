@@ -26,8 +26,8 @@
 </head>
 
 <?php
-if (isset($_SESSION['username'])) {
-    include "./header.php";
+include "./header.php";
+if (isset($_SESSION['username'])) {    
 ?>
 
 <body id="page-top">

@@ -22,6 +22,10 @@
 
 </head>
 
+<?php
+    include "./header.php";
+?>
+
 <body class="bg-gradient-dark">
 
     <div class="container">
