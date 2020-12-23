@@ -590,7 +590,14 @@ if (isset($_SESSION['username'])) {
                                                         WEIGHT
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_weight']; ?>
-                                                            - <?php echo $row['max_weight']; ?></span>
+                                                            - <?php 
+                                                                if ($row['max_weight'] == '9000000') {
+                                                                    echo "MAX"; 
+                                                                } else {
+                                                                    echo $row['max_weight'];
+                                                                }
+                                                                ?>
+                                                        </span>
                                                     </li>
                                                     <?php
                                                             }
