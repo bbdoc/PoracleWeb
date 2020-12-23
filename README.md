@@ -27,6 +27,6 @@ You will need to configure your Discord Bot settings in config.php. If you use P
 For those parameters go to :
 - https://discord.com/developers/applications
 - Select your Bot (or create a new one).
-- Go to OAuth2 and add your `http://yourdomain.com/discord_auth.php` (`http://yourdomain.com/`) being your `redirect_url`
+- Go to OAuth2 and add your `https://yourdomain.com/discord_auth.php` (`https://yourdomain.com/`) being your `redirect_url`
 - Client ID can be found under "General Information"
 - Client Secret can be found under "General Information" by clicking the "Click to reveal" link.
