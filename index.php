@@ -590,13 +590,13 @@ if (isset($_SESSION['username'])) {
                                                         WEIGHT
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_weight']; ?>
-                                                            - <?php 
-                                                                if ($row['max_weight'] == '9000000') {
-                                                                    echo "MAX"; 
-                                                                } else {
-                                                                    echo $row['max_weight'];
-                                                                }
-                                                                ?>
+                                                            - <?php
+                                                                            if ($row['max_weight'] == '9000000') {
+                                                                                echo "MAX";
+                                                                            } else {
+                                                                                echo $row['max_weight'];
+                                                                            }
+                                                                            ?>
                                                         </span>
                                                     </li>
                                                     <?php
@@ -672,7 +672,7 @@ if (isset($_SESSION['username'])) {
                         <!-- Content Row -->
 
                     </div>
-                    <?php 
+                    <?php
                     } // End of Mons Disable 
                     ?>
 
@@ -975,13 +975,13 @@ if (isset($_SESSION['username'])) {
                                 </div>
                             </div>
                             <?php
-                            }
-                            ?>
+                                }
+                                ?>
 
                         </div>
 
                     </div>
-                    <?php 
+                    <?php
                     } // End of Raids Disable 
                     ?>
 
@@ -1080,7 +1080,7 @@ if (isset($_SESSION['username'])) {
 
                                 ?>
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
@@ -1152,7 +1152,7 @@ if (isset($_SESSION['username'])) {
 
                                 ?>
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-warning shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
@@ -1197,57 +1197,57 @@ if (isset($_SESSION['username'])) {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- EDIT Raid Modal -->
-                                <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1"
-                                    role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <?php include "./modal/quests_modal.php"; ?>
-                                        </div>
+                            <!-- EDIT Raid Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/quests_modal.php"; ?>
                                     </div>
                                 </div>
-                                <?php
+                            </div>
+                            <?php
                                 }
                                 ?>
 
-                            </div>
-
                         </div>
-                        <?php 
+
+                    </div>
+                    <?php
                     } // End of Quests Disable 
                     ?>
 
-                    </div>
-
                 </div>
-                <!-- End of Main Content -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Main Content -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+    </div>
+    <!-- End of Page Wrapper -->
 
-        <!-- Logout Modal-->
-        <?php include "./modal/logout_modal.php"; ?>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Logout Modal-->
+    <?php include "./modal/logout_modal.php"; ?>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 </body>
 
