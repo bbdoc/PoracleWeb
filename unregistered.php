@@ -11,6 +11,8 @@
 
     <title>Alerts Manager - NOT REGISTERED</title>
 
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -24,10 +26,6 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
-
-<?php
-    include "./header.php";
-?>
 
 <body id="page-top">
 

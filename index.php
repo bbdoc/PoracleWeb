@@ -1,3 +1,19 @@
+<?php
+include "./header.php";
+if (isset($_SESSION['username'])) {
+    // Exit if user not registered to Poracle
+
+    $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
+
+        // Not-Registered Page
+        include "./unregistered.php";
+
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +25,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alerts Manager</title>
+    <title><?php echo $title; ?></title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,11 +42,6 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
-
-<?php
-include "./header.php";
-if (isset($_SESSION['username'])) {    
-?>
 
 <body id="page-top">
 
@@ -246,7 +259,15 @@ if (isset($_SESSION['username'])) {
                         <!-- Areas -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-dark">AREAS</h6>
+                                <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+
+                                    <h6 class="m-0 font-weight-bold text-dark">AREAS</h6>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
+                                        data-target="#areasModal">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -280,13 +301,6 @@ if (isset($_SESSION['username'])) {
                                                 }
                                             }
                                             ?>
-                                        </div>
-                                        <div class="row no-gutters align-items-center mt-2">
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-success btn-circle btn-md"
-                                                data-toggle="modal" data-target="#areasModal">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                         </div>
 
                                     </div>
@@ -459,15 +473,17 @@ if (isset($_SESSION['username'])) {
                                 ?>
 
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 mb-4">
-                                <div class="card border-left-dark shadow h-100 py-2">
-                                    <div class="card-body d-flex flex-column">
+                            <div class="col-xl-3 col-sm-4 col-6 mb-3 cardlist">
+                                <div class="card border-top-dark shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-4">
+                                            <div class="col">
                                                 <?php
                                                         if ($row['pokemon_id'] == '0') {
                                                         ?>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">ALL
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"
+                                                    style="height: 50px;">
+                                                    ALL
                                                 </div>
                                                 <?php
                                                         } else {
@@ -618,17 +634,16 @@ if (isset($_SESSION['username'])) {
                                                         ?>
 
                                             </div>
-                                            <div class="col-auto mr-3">
-                                                <div class="row">
-                                                    <a href="#" class="btn btn-success btn-circle btn-md m-1"
-                                                        data-toggle="modal"
-                                                        data-target="#<?php echo $pkm_unique_id ?>Modal">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $pkm_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -747,8 +762,8 @@ if (isset($_SESSION['username'])) {
                                 ?>
                             <!-- Card -->
                             <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
+                                <div class="card border-top-success shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
@@ -820,8 +835,8 @@ if (isset($_SESSION['username'])) {
                                 ?>
                             <!-- Card -->
                             <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
+                                <div class="card border-top-warning shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
@@ -895,8 +910,8 @@ if (isset($_SESSION['username'])) {
                                 ?>
                             <!-- Card -->
                             <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
-                                <div class="card border-left-danger shadow h-100 py-2">
-                                    <div class="card-body">
+                                <div class="card border-top-danger shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
@@ -1059,8 +1074,8 @@ if (isset($_SESSION['username'])) {
                                 ?>
                             <!-- Card -->
                             <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
+                                <div class="card border-top-dark shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
@@ -1131,8 +1146,8 @@ if (isset($_SESSION['username'])) {
                                 ?>
                             <!-- Card -->
                             <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
+                                <div class="card border-top-warning shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
@@ -1163,14 +1178,14 @@ if (isset($_SESSION['username'])) {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="row d-flex justify-content-center">
-                                                <div class="row">
-                                                    <a href="#" class="btn btn-success btn-circle btn-md m-1"
-                                                        data-toggle="modal"
-                                                        data-target="#<?php echo $quest_unique_id ?>Modal">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -1193,7 +1208,7 @@ if (isset($_SESSION['username'])) {
                             </div>
 
                         </div>
-                    <?php 
+                        <?php 
                     } // End of Quests Disable 
                     ?>
 
@@ -1229,6 +1244,8 @@ if (isset($_SESSION['username'])) {
 
 </body>
 
+</html>
+
 <?php
     // If not logged in import login page
 } else {
@@ -1240,5 +1257,3 @@ if (isset($_SESSION['username'])) {
 }
 
 ?>
-
-</html>

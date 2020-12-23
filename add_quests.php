@@ -1,3 +1,19 @@
+<?php
+include "./header.php";
+if (isset($_SESSION['username'])) {
+    // Exit if user not registered to Poracle
+
+    $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
+
+        // Not-Registered Page
+        include "./unregistered.php";
+
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +25,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alerts Manager - Add Quests</title>
+    <title><?php echo $title; ?> - Add Quests</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,11 +66,6 @@
     </script>
 
 </head>
-
-<?php
-include "./header.php";
-if (isset($_SESSION['username'])) {    
-?>
 
 <body id="page-top">
 
@@ -267,6 +280,8 @@ if (isset($_SESSION['username'])) {
 
 </body>
 
+</html>
+
 <?php
     // If not logged in import login page
 } else {
@@ -278,5 +293,3 @@ if (isset($_SESSION['username'])) {
 }
 
 ?>
-
-</html>

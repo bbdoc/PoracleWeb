@@ -124,3 +124,13 @@ label img {
     /* box-shadow: 0 0 5px #333; */
     z-index: -1;
 }
+
+.cardlist {
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+}
+
+.list-group-item {
+    padding: 0.2rem 0.3rem;
+    font-size: 13px;
+}

@@ -11,6 +11,8 @@
 
     <title>Alerts Manager - Login</title>
 
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -21,10 +23,6 @@
     <link href="css/custom-bootstrap.css" rel="stylesheet">
 
 </head>
-
-<?php
-    include "./header.php";
-?>
 
 <body class="bg-gradient-dark">
 

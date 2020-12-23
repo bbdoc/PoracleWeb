@@ -16,57 +16,45 @@
                 </div>
                 <div class="modal-body">
 
-                    <table class="table table-borderless text-center" style="margin: auto; width: 30% !important;">
+                    <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">
                         <tbody>
                             <tr>
                                 <th scope="row">Alerts</th>
-                                <th scope="row">Location</th>
-                            </tr>
-                            <tr>
                                 <td><input type="checkbox" name="alerts_toggle" id="alerts_toggle" <?php 
                                 if ($enabled == "1") {
                                     echo "checked";
                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 </td>
-                                <td><input type="checkbox" name="location_toggle" id="location_toggle" <?php 
-                                    if ($latitude != "0.0000000000" && $longitude != "0.0000000000") {
-                                        echo "checked";
-                                    } ?> disabled data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <h5>Cleaning Settings:</h5>
-                    <table class="table table-borderless text-center" style="margin: auto; width: 50% !important;">
-                        <tbody>
+                            <!-- <tr>
+                                <th scope="row">Location</th>
+                                <td><input type="checkbox" name="location_toggle" id="location_toggle" <?php 
+                                    // if ($latitude != "0.0000000000" && $longitude != "0.0000000000") {
+                                    //     echo "checked";
+                                    // } ?> disabled data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                        data-size="sm"></td>
+                            </tr> -->
                             <tr>
                                 <th scope="row">Monters Cleaning</th>
-                                <th scope="row">Raid/Egg Cleaning</th>
-
-                                <?php
-                                if ($disable_quests <> "True") {
-                                ?>
-                                <th scope="row">Quests Cleaning</th>
-                                <?php
-                                }
-                                ?>
-                            </tr>
-                            <tr>
                                 <td><input type="checkbox" name="pokes_clean_toggle" id="pokes_clean_toggle" <?php 
                                     if ($all_mon_cleaned == "1") {
                                         echo "checked";
                                     } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                         data-size="sm"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Raid/Egg Cleaning</th>
                                 <td><input type="checkbox" name="re_clean_toggle" id="re_clean_toggle" <?php 
                                     if ($all_raid_cleaned == "1") {
                                         echo "checked";
                                     } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                         data-size="sm"></td>
-
+                            </tr>
+                            <tr>
                                 <?php
                                 if ($disable_quests <> "True") {
                                 ?>
+                                <th scope="row">Quests Cleaning</th>
                                 <td><input type="checkbox" name="quests_clean_toggle" id="quests_clean_toggle" <?php 
                                     if ($all_quest_cleaned == "1") {
                                         echo "checked";
@@ -76,12 +64,10 @@
                                 }
                                 ?>
                             </tr>
-
                         </tbody>
                     </table>
 
                     <hr>
-                    <h5>Location Settings:</h5>
 
                     <?php
 
@@ -102,7 +88,9 @@
                         $mapURL = str_replace('#LAT#', $latitude, $mapURL);
                         $mapURL = str_replace('#LON#', $longitude, $mapURL);
                         ?>
-                    <img src='<?php echo $mapURL; ?>' width=300>
+                    <div class='text-center' >
+                        <img src='<?php echo $mapURL; ?>' width=300>
+                    </div>
                     <?php
                     }
 

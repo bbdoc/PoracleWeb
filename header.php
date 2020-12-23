@@ -19,18 +19,6 @@ if (isset($custom_title)) {
 
 $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png";
 
-// Exit if user not registered to Poracle
-
-$sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "'";
-$result = $conn->query($sql);
-if ($result->num_rows == 0) {
-
-    // Not-Registered Page
-    include "./unregistered.php";
-
-    exit();
-}
-
 // Check for Cleaned
 
 $sql = "select min(clean) clean FROM monsters WHERE id = '" . $_SESSION['id'] . "'";

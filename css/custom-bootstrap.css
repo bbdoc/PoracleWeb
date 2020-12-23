@@ -1604,7 +1604,7 @@ pre code {
 
 .table th,
 .table td {
-    padding: 0.75rem;
+    padding: 0.5rem;
     vertical-align: top;
     border-top: 1px solid #e3e6f0;
 }
@@ -4773,7 +4773,7 @@ input[type="button"].btn-block {
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 0.8rem;
+    padding: 0.5rem;
 }
 
 .card-body-areas {
@@ -10440,6 +10440,22 @@ a:focus {
 
 .border-bottom-dark {
     border-bottom: 0.25rem solid #5a5c69 !important;
+}
+
+.border-top-dark {
+    border-top: 0.25rem solid #5a5c69 !important;
+}
+
+.border-top-danger {
+    border-top: 0.25rem solid #e74a3b !important;
+}
+
+.border-top-warning {
+    border-top: 0.25rem solid #f6c23e !important;
+}
+
+.border-top-success {
+    border-top: 0.25rem solid #1cc88a !important;
 }
 
 .progress-sm {
