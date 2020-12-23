@@ -122,7 +122,7 @@ echo "<center><br>";
       echo "<p><b>Ultra : </b>top".$row['ultra_league_ranking']." @".$row['ultra_league_ranking_min_cp']."</p>";
     }
     if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000' ) {
-      echo "<p><b>CP : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";
+      echo "<p><b>Weight : </b>".$row['min_weight']." - ".$row['max_weight']."</p>";
     }
 
     if ($row['form'] <> '0' ) {
