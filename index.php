@@ -644,6 +644,11 @@ if (isset($_SESSION['username'])) {
                                         </div>
                                         <div class="row d-flex justify-content-center mt-2">
                                             <div class="row">
+                                                <!-- <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php //echo $pkm_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a> -->
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $pkm_unique_id ?>Modal">
@@ -664,6 +669,33 @@ if (isset($_SESSION['username'])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- DELETE MONSTER Modal -->
+                            <!-- <div class="modal fade" id="<?php //echo $pkm_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php //echo $pkm_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php //echo $pkm_unique_id ?>DeleteModalTitle">
+                                                Delete <?php //echo get_mons($row['pokemon_id']); ?> tracking?
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            This will delete <?php //echo get_mons($row['pokemon_id']); ?> tracking, are you sure?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="./form_action.php?action=delete_mon_tracking"
+                                                class="btn btn-danger">DELETE</a>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">CANCEL</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
 
                             <?php
                                 }
@@ -768,7 +800,7 @@ if (isset($_SESSION['username'])) {
 
                                 ?>
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-success shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
@@ -841,7 +873,7 @@ if (isset($_SESSION['username'])) {
 
                                 ?>
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-warning shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
@@ -916,7 +948,7 @@ if (isset($_SESSION['username'])) {
 
                                 ?>
                             <!-- Card -->
-                            <div class="col-xl-4 col-md-5 col-sm-6 col-6 mb-4">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-danger shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">

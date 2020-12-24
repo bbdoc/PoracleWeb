@@ -4,18 +4,17 @@
     aria-labelledby="profileSettingsModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action='./form_action.php' method='POST'>
-                <div class="modal-header">
-                    <?php $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png"; ?>
-                    <div><img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
-                    </div>
-                    <h5 class="modal-title m-2" id="profileSettingsModalLongTitle">Settings</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-header">
+                <?php $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png"; ?>
+                <div><img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
                 </div>
+                <h5 class="modal-title m-2" id="profileSettingsModalLongTitle">Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action='./form_action.php' method='POST'>
                 <div class="modal-body">
-
                     <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">
                         <tbody>
                             <tr>
@@ -88,7 +87,7 @@
                         $mapURL = str_replace('#LAT#', $latitude, $mapURL);
                         $mapURL = str_replace('#LON#', $longitude, $mapURL);
                         ?>
-                    <div class='text-center' >
+                    <div class='text-center'>
                         <img src='<?php echo $mapURL; ?>' width=300>
                     </div>
                     <?php
