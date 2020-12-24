@@ -642,7 +642,7 @@ if (isset($_SESSION['username'])) {
 
                                             </div>
                                         </div>
-                                        <div class="row d-flex justify-content-center">
+                                        <div class="row d-flex justify-content-center mt-2">
                                             <div class="row">
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"

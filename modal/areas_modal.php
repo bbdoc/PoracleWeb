@@ -40,7 +40,7 @@ echo "
         <hr>
         <div class='float-right'>            
             <input type='hidden' id='type' name='action' value='areas'>
-            <button type='submit' name='update' value='Update' class='btn btn-primary'>UPDATE</button>
+            <button type='submit' name='update' value='Update' class='btn btn-primary'>Update</button>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
         </div>
     </form>
