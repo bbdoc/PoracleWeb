@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alerts Manager - Login</title>
+    <title><?php echo $title; ?> - Login</title>
 
     <link rel="icon" type="image/x-icon" href="favicon.png" />
 
