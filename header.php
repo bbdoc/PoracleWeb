@@ -4,10 +4,10 @@ include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
 
-if ($scan_dbtype == "MAD") {
+if (isset($scan_dbtype) && $scan_dbtype == "MAD") {
     include "./db_mad.php";
 }
-if ($scan_dbtype == "RDM") {
+if (isset($scan_dbtype) && $scan_dbtype == "RDM") {
     include "./db_rdm.php";
 }
 
