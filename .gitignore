@@ -1,0 +1,7 @@
+config.php
+*.OLD
+*.swp
+test*
+subs*
+vendor/*
+composer.lock
