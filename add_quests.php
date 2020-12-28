@@ -24,10 +24,10 @@ include "./header.php";
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/custom-bootstrap.css" rel="stylesheet">
+    <link href="css/custom-bootstrap.css?v=<?=time();?>" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

@@ -21,6 +21,7 @@
 .selectionList ul {
     list-style-type: none;
     padding-inline-start: unset;
+    text-align:center;
 }
 
 .selectionList ul li {
