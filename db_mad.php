@@ -13,6 +13,15 @@ function get_quest_mons() {
       array_push($mons, $row['id']); 
    }
 
+   if (isset($additional_quest_mons) && !empty($additional_quest_mons)) {
+      $add_mons = explode(",", $additional_quest_mons);
+      foreach ($add_mons as &$mon) {
+	   array_push($mons, $mon);
+      }
+   }
+
+   $mons=array_unique($mons);
+   sort($mons);
    return $mons; 
 
 }

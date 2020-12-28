@@ -54,6 +54,13 @@ $max_pokemon="721";
 $register_command="!poracle";
 $location_command="!location";
 
+// Quests Options
+
+# Mons pokemons will be extracted from DB.
+# If you need other pokemons to added, use this setting.
+# List all Pokemon IDs separated by commas
+$additional_quest_mons="";
+
 // Debug Mode (True/False)
 $debug='False';
 
