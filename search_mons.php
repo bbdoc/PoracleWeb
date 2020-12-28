@@ -7,7 +7,7 @@ include "./config.php";
 
 $mons=get_all_mons();
 
-if ( $_POST['searchtype'] == "questmon" ) {
+if ( $_POST['searchtype'] == "questmon" ) { 
 	$quests_mons=get_quest_mons();
 	foreach($quests_mons as $key => $pokemon_id) {
 		unset($mons[$pokemon_id]);

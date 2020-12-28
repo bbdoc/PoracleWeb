@@ -30,7 +30,7 @@ include "./header.php";
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="search_mons.js"></script>
+    <script type="text/javascript" src="search_mons.js?v=<?=time();?>"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {
