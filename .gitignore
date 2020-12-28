@@ -3,5 +3,5 @@ config.php
 *.swp
 test*
 subs*
-vendor/*
 composer.lock
+node_modules/

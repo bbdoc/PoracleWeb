@@ -124,5 +124,3 @@ function get_grunts() {
 #foreach($grunts as $key => $grunt) {
 #	echo $key." | ".$grunt."<br>";
 #}
-
-

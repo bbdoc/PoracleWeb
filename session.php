@@ -26,4 +26,3 @@ foreach ($dbnames as &$db) {
    }
 
 }
-

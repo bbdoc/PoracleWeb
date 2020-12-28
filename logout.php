@@ -13,4 +13,3 @@ if(isset($_COOKIE[session_name()])) {
 session_destroy(); // finally destroy the session
 
 header("Location: $redirect_url?return=success_logout");
-
