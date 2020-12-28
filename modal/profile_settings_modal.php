@@ -13,7 +13,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 	    </div>
-            <?php include "subs_validity.php"; ?>
+            <?php 
+               if ( isset($subs_enable) && $subs_enable == 'True' ) {
+		       include "subs_validity.php"; 
+	       }
+            ?>
             <form action='./form_action.php' method='POST'>
                 <div class="modal-body">
                     <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">
