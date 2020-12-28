@@ -12,7 +12,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
+	    </div>
+            <?php include "subs_validity.php"; ?>
             <form action='./form_action.php' method='POST'>
                 <div class="modal-body">
                     <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">

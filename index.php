@@ -1,17 +1,5 @@
 <?php
 include "./header.php";
-if (isset($_SESSION['username'])) {
-    // Exit if user not registered to Poracle
-
-    $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "'";
-    $result = $conn->query($sql);
-    if ($result->num_rows == 0) {
-
-        // Not-Registered Page
-        include "./unregistered.php";
-
-        exit();
-    }
 ?>
 
 <!DOCTYPE html>
@@ -1285,14 +1273,3 @@ if (isset($_SESSION['username'])) {
 
 </html>
 
-<?php
-    // If not logged in import login page
-} else {
-
-    // Login Page
-    include "./login.php";
-
-    exit();
-}
-
-?>

@@ -62,3 +62,27 @@ while ($row = $result->fetch_assoc()) {
     $longitude = $row['longitude'];
     $enabled = $row['enabled'];
 }
+
+if (isset($_SESSION['username'])) {
+    // Exit if user not registered to Poracle
+
+    $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "' ".@$subs_clause;
+    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
+
+        // Not-Registered Page
+        if ( isset($subs_enable) && $subs_enable == 'True' ) {
+	    include "./subs_renew.php";
+            exit();
+	} else {
+	    include "./unregistered.php";
+	    exit();
+	}
+    }
+} else {
+    // If not logged in import login page
+    include "./login.php";
+    exit();
+}
+
+

@@ -5297,6 +5297,7 @@ a.badge-dark.focus {
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.35rem;
+    text-align: center;
 }
 
 .alert-heading {
