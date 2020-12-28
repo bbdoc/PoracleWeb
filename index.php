@@ -221,6 +221,26 @@ include "./header.php";
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+		    </div>
+                    <?php
+                        }
+                        if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
+                        ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Your location is not set. Distance settings won't be taken into account. Please set it in discord using <code><?php echo $location_command; ?></code> command. 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if ($enabled==0) {
+                        ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Your alarms are currently disabled !
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <?php
                         }
