@@ -384,7 +384,8 @@ include "./header.php";
                             </button>
                         </div>
 
-                        <!-- Add Search Box -->
+			<!-- Add Search Box -->
+                        <input type='hidden' id='search_type' value='mon'>
                         <div class='mb-3' id='dvSearchBox'>
                             <input type='text' class='form-control form-control-lg' id='search' placeholder='Search'>
                         </div>

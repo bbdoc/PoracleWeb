@@ -11,6 +11,7 @@ $(document).ready(function() {
    $("#search").keyup(function() {
        //Assigning search box value to javascript variable named as "name".
        var name = $('#search').val();
+       var type = $('#search_type').val();
        //Validating, if "name" is empty.
        if (name == "") {
            //Assigning empty value to "display" div in "search.php" file.
@@ -27,7 +28,8 @@ $(document).ready(function() {
                //Data, that will be sent to "add_mons.php".
                data: {
                    //Assigning value of "name" into "search" variable.
-                   search: name
+                   search: name,
+                   searchtype: type
                },
                //If result found, this funtion will be called.
                success: function(html) {

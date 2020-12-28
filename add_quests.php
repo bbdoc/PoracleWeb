@@ -30,6 +30,7 @@ include "./header.php";
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="search_mons.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {
@@ -51,6 +52,7 @@ include "./header.php";
             }
         });
     });
+
     </script>
 
 </head>
@@ -179,7 +181,7 @@ include "./header.php";
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Select Pokémon Quests you want to add
+                                    Select Pokémon Quests you want to add (Pokemons Currently available on Map)
                                 </li>
                             </ol>
                         </nav>
@@ -201,6 +203,28 @@ include "./header.php";
                                 <?php
                                     }
                                     ?>
+                            </ul>
+                        </div>
+
+			<!-- Add Search Box -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Or use search below to add another pokemon
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <input type='hidden' id='search_type' value='questmon'>
+                        <div class='mb-3' id='dvSearchBox'>
+                            <input type='text' class='form-control form-control-lg' id='search' placeholder='Search'>
+                        </div>
+
+                        <div class='searchmons text-center' id='dvMonsList'>
+                            <ul>
+                                <!-- Add Empty Div to be used by Ajax to display results -->
+                                <div id='display'></div>
+
                             </ul>
                         </div>
 

@@ -2,9 +2,17 @@
 <?php 
 
 include "./functions.php";
+include "./db_mad.php";
 include "./config.php";
 
-  $mons=get_all_mons();
+$mons=get_all_mons();
+
+if ( $_POST['searchtype'] == "questmon" ) {
+	$quests_mons=get_quest_mons();
+	foreach($quests_mons as $key => $pokemon_id) {
+		unset($mons[$pokemon_id]);
+	}
+}
 
   foreach($mons as $pokemon_id => $pokemon_name) {
     if ($pokemon_id <= $max_pokemon) {
