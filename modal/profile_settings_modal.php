@@ -19,7 +19,7 @@
                   echo "<div class='flags'>";
                   $languages = explode(",", $allowed_languages);
                   foreach ($languages as &$language) {
-                     echo "<a href='set_language.php?lng=$language'><img src='./img/$language.png' style='width:60px; height:40px; padding:5px;'></a>";
+                     echo "<a href='set_language.php?lng=$language'><img src='./img/$language.png' style='width:50px; height:50px;'></a>";
 	          }
 	          echo "</div>";
 	       }
