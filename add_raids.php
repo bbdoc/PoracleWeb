@@ -109,7 +109,7 @@ include "./header.php";
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>NEW RAID ALARM</strong>
+				<strong><?php echo i8ln("NEW RAID ALARM"); ?></strong>
                             </div>
                         </div>
                     </div>
@@ -120,12 +120,12 @@ include "./header.php";
                             <div class="col-sm-12 my-1">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">Distance</div>
+					<div class="input-group-text"><?php echo i8ln("Distance"); ?></div>
                                     </div>
                                     <input type="number" id='distance' name='distance' value='0' min='0'
                                         class="form-control text-center">
                                     <div class="input-group-append">
-                                        <span class="input-group-text">m</span>
+					<span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -157,18 +157,18 @@ include "./header.php";
                                         ?>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Clean</div>
+					    <div class="input-group-text"><?php echo i8ln("Clean"); ?></div>
                                         </div>
                                     </div>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="clean" id="clean_0" value="clean_0"
                                             <?php echo $clean_0_checked; ?>>
-                                        No
+					<?php echo i8ln("No"); ?>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="clean" id="clean_1" value="clean_1"
                                             <?php echo $clean_1_checked; ?>>
-                                        Yes
+					<?php echo i8ln("Yes"); ?>
                                     </label>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@ include "./header.php";
 
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active" aria-current="page">Select Egg Levels you want to add
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select Egg Levels you want to add"); ?>
                                 </li>
                             </ol>
                         </nav>
@@ -192,7 +192,7 @@ include "./header.php";
                                         id='egg_<?php echo $egg; ?>' />
                                     <label for='egg_<?php echo $egg; ?>'>
                                         <img src='<?php echo $imgUrl; ?>/egg<?php echo $egg; ?>.png' />
-                                        <br>Eggs<br>Level <?php echo $egg; ?>
+					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
                                     </label>
                                 </li>
                                 <?php
@@ -205,8 +205,7 @@ include "./header.php";
 
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active" aria-current="page">Select Raid Levels you want to
-                                    add
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select Raid Levels you want to add"); ?>
                                 </li>
                             </ol>
                         </nav>
@@ -220,7 +219,7 @@ include "./header.php";
                                         id='raid_<?php echo $raid; ?>' />
                                     <label for='raid_<?php echo $raid; ?>'>
                                         <img src='<?php echo $imgUrl; ?>/egg<?php echo $raid; ?>.png' />
-                                        <br>Raids<br>Level <?php echo $raid; ?>
+					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln("Level"); ?> <?php echo $raid; ?>
                                     </label>
                                 </li>
                                 <?php
@@ -233,8 +232,7 @@ include "./header.php";
 
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active" aria-current="page">Select the Raid Bosses you want
-                                    to add
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select the Raid Bosses you want to add"); ?>
                                 </li>
                             </ol>
                         </nav>
@@ -279,9 +277,9 @@ include "./header.php";
                         </div>
 
                         <div class="float-right mb-3 mt-3">
-                            <input class="btn btn-primary" type='submit' name='add_raid' value='Submit'>
+			    <input class="btn btn-primary" type='submit' name='add_raid' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
-                                <button type="button" class="btn btn-secondary">Cancel</button>
+				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>
                         </div>
 

@@ -3690,6 +3690,7 @@ input[type="button"].btn-block {
     background-color: #eaecf4;
     border: 1px solid #d1d3e2;
     border-radius: 0.35rem;
+    min-width:70px;
 }
 
 .input-group-text input[type="radio"],
@@ -5140,6 +5141,12 @@ a.badge:focus {
     color: #fff;
     background-color: #4e73df;
 }
+
+.badge-pkmn {
+    color: #fff;
+    background-color: #4e73df;
+}
+
 
 a.badge-primary:hover,
 a.badge-primary:focus {
@@ -7980,7 +7987,7 @@ button.bg-dark:focus {
 
 .mb-0,
 .my-0 {
-    margin-bottom: 0 !important;
+    margin-bottom: 0 !important; 
 }
 
 .ml-0,
@@ -9821,6 +9828,11 @@ button.bg-dark:focus {
 .text-center {
     text-align: center !important;
 }
+.flags {
+    text-align: center !important;
+    padding:10px;
+}
+
 
 @media (min-width: 576px) {
     .text-sm-left {

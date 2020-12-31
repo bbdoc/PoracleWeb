@@ -8,12 +8,22 @@
                 <?php $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png"; ?>
                 <div><img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
                 </div>
-                <h5 class="modal-title m-2" id="profileSettingsModalLongTitle">Settings</h5>
+		<h5 class="modal-title m-2" id="profileSettingsModalLongTitle"><?php echo i8ln("Settings"); ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
 	    </div>
             <?php 
+            
+               if (isset($allowed_languages)) {
+                  echo "<div class='flags'>";
+                  $languages = explode(",", $allowed_languages);
+                  foreach ($languages as &$language) {
+                     echo "<a href='set_language.php?lng=$language'><img src='./img/$language.png' style='width:60px; height:40px; padding:5px;'></a>";
+	          }
+	          echo "</div>";
+	       }
+
                if ( isset($subs_enable) && $subs_enable == 'True' ) {
 		       include "subs_validity.php"; 
 	       }
@@ -23,7 +33,7 @@
                     <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">
                         <tbody>
                             <tr>
-                                <th scope="row">Alerts</th>
+				<th scope="row"><?php echo i8ln("Alerts"); ?></th>
                                 <td><input type="checkbox" name="alerts_toggle" id="alerts_toggle" <?php 
                                 if ($enabled == "1") {
                                     echo "checked";
@@ -39,7 +49,7 @@
                                         data-size="sm"></td>
                             </tr> -->
                             <tr>
-                                <th scope="row">Monters Cleaning</th>
+				<th scope="row"><?php echo i8ln("ALL Monters Cleaning"); ?></th>
                                 <td><input type="checkbox" name="pokes_clean_toggle" id="pokes_clean_toggle" <?php 
                                     if ($all_mon_cleaned == "1") {
                                         echo "checked";
@@ -47,7 +57,7 @@
                                         data-size="sm"></td>
                             </tr>
                             <tr>
-                                <th scope="row">Raid/Egg Cleaning</th>
+				<th scope="row"><?php echo i8ln("ALL Raid/Egg Cleaning"); ?></th>
                                 <td><input type="checkbox" name="re_clean_toggle" id="re_clean_toggle" <?php 
                                     if ($all_raid_cleaned == "1") {
                                         echo "checked";
@@ -58,7 +68,7 @@
                                 <?php
                                 if ($disable_quests <> "True") {
                                 ?>
-                                <th scope="row">Quests Cleaning</th>
+				<th scope="row"><?php echo i8ln("ALL Quests Cleaning"); ?></th>
                                 <td><input type="checkbox" name="quests_clean_toggle" id="quests_clean_toggle" <?php 
                                     if ($all_quest_cleaned == "1") {
                                         echo "checked";
@@ -78,14 +88,14 @@
                     if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                     ?>
                     <div class="alert alert-warning" role="alert">
-                        Your Location is not set and cannot be set here!
+			<?php echo i8ln("Your Location is not set and cannot be set here!"); ?>
                     </div>
-                    <p>Please set it in discord using <code><?php echo $location_command; ?></code> command.</p>
+		    <p><?php echo i8ln("Please set it in discord using"); ?> <code><?php echo $location_command; ?></code> <?php echo i8ln("command"); ?>.</p>
                     <?php
                     } else if (isset($mapURL) && $mapURL <> "") {
                     ?>
                     <div class="alert alert-success" role="alert">
-                        Your Location is set to: <?php echo round($latitude, 4); ?>, <?php echo round($longitude, 4); ?>
+			<?php echo i8ln("Your Location is set to"); ?> <?php echo round($latitude, 4); ?>, <?php echo round($longitude, 4); ?>
                     </div>
 
                     <?php
@@ -104,9 +114,9 @@
                 <div class="modal-footer">
                     <input type="hidden" id="type" name="action" value="profile_settings">
                     <button type="submit" name='update' value='Update' class="btn btn-primary">
-                        Save changes
+			<?php echo i8ln("Save changes"); ?>
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo i8ln("Close"); ?></button>
                 </div>
             </form>
         </div>

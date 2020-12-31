@@ -40,8 +40,8 @@ echo "
         <hr>
         <div class='float-right'>            
             <input type='hidden' id='type' name='action' value='areas'>
-            <button type='submit' name='update' value='Update' class='btn btn-primary'>Update</button>
-            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+	    <button type='submit' name='update' value='Update' class='btn btn-primary'>".i8ln('Update')."</button>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal'>".i8ln('Close')."</button>
         </div>
     </form>
     </div>

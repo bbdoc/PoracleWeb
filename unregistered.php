@@ -74,10 +74,10 @@
                 <div class="container-fluid col-lg-8 col-md-12 text-center">
 
                     <div class="alert alert-danger" role="alert">
-                        YOU ARE NOT REGISTERED!
+			<?php echo i8ln("YOU ARE NOT REGISTERED!"); ?>
                     </div>
-                    <p>Please Register in Discord using <code><?php echo $register_command; ?></code> before using this
-                        tool.</p>
+		    <p><?php echo i8ln("Please Register in Discord using"); ?> <code><?php echo $register_command; ?></code> 
+		    <?php echo i8ln("before using this tool"); ?>.</p>
 
                 </div>
 

@@ -87,7 +87,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_added_mons') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Added Monster Alarm(s)
+			<?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -97,7 +97,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Updated Monster Alarm
+                        <?php echo i8ln("Successfully Updated Monster Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -107,7 +107,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_delete_mons') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Deleted Monster Alarm(s)
+                        <?php echo i8ln("Successfully Deleted Monster Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -117,7 +117,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_added_raids') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Added Raids Alarm(s)
+                        <?php echo i8ln("Successfully Added Raids Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -127,7 +127,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_raid') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Updated Raid Alarm
+                        <?php echo i8ln("Successfully Updated Raid Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -137,7 +137,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raid') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Deleted Raid Alarm
+                        <?php echo i8ln("Successfully Deleted Raid Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -147,7 +147,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raids') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Deleted Eggs & Raids Alarm(s)
+                        <?php echo i8ln("Successfully Deleted Eggs & Raids Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -157,7 +157,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_egg') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Updated Egg Alarm
+                        <?php echo i8ln("Successfully Updated Egg Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -167,7 +167,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_delete_egg') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Deleted Egg Alarm
+                        <?php echo i8ln("Successfully Deleted Egg Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -177,7 +177,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_added_quest') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Added Quest Alarm(s)
+                        <?php echo i8ln("Successfully Added Quest Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -187,7 +187,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_quest') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Updated Quest Alarm
+                        <?php echo i8ln("Successfully Updated Quest Alarm"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -197,7 +197,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_delete_quest') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Deleted Quest Alarm(s)
+                        <?php echo i8ln("Successfully Deleted Quest Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -207,7 +207,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_areas') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Successfully Updated List of Areas
+                        <?php echo i8ln("Successfully Updated List of Areas"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -217,7 +217,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_settings') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Settings updated successfully
+                        <?php echo i8ln("Settings updated successfully"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -227,7 +227,10 @@ include "./header.php";
                         if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Your location is not set. Distance settings won't be taken into account. Please set it in discord using <code><?php echo $location_command; ?></code> command. 
+			<?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
+			<?php echo i8ln("Please set it in discord using"); ?>
+			<code><?php echo $location_command; ?></code> 
+                        <?php echo i8ln("command"); ?>. 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -237,7 +240,7 @@ include "./header.php";
                         if ($enabled==0) {
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Your alarms are currently disabled !
+                        <?php echo i8ln("Your alarms are currently disabled !"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -245,7 +248,9 @@ include "./header.php";
                     <?php
                         }
                         if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {
-                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>You Request couldn't not be handled. Error #" . $_GET['phase'];
+			    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+			    echo i8ln("You Request couldn't not be handled"); 
+			    echo i8ln("Error"). " #" . $_GET['phase'];
                             if ($debug == 'True') {
                                 echo "<br><br>" . $_GET['sql'];
                             }
@@ -269,7 +274,7 @@ include "./header.php";
                             <div class="card-header py-3">
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
-                                    <h6 class="m-0 font-weight-bold text-dark">AREAS</h6>
+				    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
@@ -338,7 +343,7 @@ include "./header.php";
                     <?php if ($disable_mons <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-mons-tab" data-toggle="pill" href="#pills-mons" role="tab"
-                            aria-controls="pills-mons" aria-selected="true">POKÉMONS</a>
+			    aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
                     </li>
                     <?php
                     }
@@ -347,7 +352,7 @@ include "./header.php";
                     <?php if ($disable_raids <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-raids-tab" data-toggle="pill" href="#pills-raids" role="tab"
-                            aria-controls="pills-raids" aria-selected="false">RAIDS</a>
+			    aria-controls="pills-raids" aria-selected="false"><?php echo i8ln("RAIDS"); ?></a>
                     </li>
                     <?php
                     }
@@ -356,7 +361,7 @@ include "./header.php";
                     <?php if ($disable_quests <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-quests-tab" data-toggle="pill" href="#pills-quests" role="tab"
-                            aria-controls="pills-quests" aria-selected="false">QUESTS</a>
+                            aria-controls="pills-quests" aria-selected="false"><?php echo i8ln("QUESTS"); ?></a>
                     </li>
                     <?php
                     }
@@ -372,7 +377,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb">
-                                <h1 class="h3 mb-0 text-gray-800 ">POKÉMONS TRACKED</h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -382,7 +387,8 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    Cleaning activated on <strong>ALL Monsters</strong>!
+				    <?php echo i8ln("Cleaning activated on"); ?> 
+                                    <strong><?php echo i8ln("ALL Monsters"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -399,14 +405,14 @@ include "./header.php";
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-                                    <span class="text">ADD</span>
+                                    <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
                                     data-target="#deleteAllMonsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-                                    <span class="text">DELETE ALL</span>
+                                    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -417,20 +423,20 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteAllMonsModalTitle">Delete ALL tracked Mons?
+					<h5 class="modal-title" id="deleteAllMonsModalTitle"><?php echo i8ln("Delete ALL tracked Mons?"); ?>
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        This will delete all your Pokémon Alarms and cannot be undone, are you sure ?
+                                        <?php echo i8ln("This will delete all your Pokémon Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="./form_action.php?action=delete_all_mons"
-                                            class="btn btn-danger">DELETE</a>
+                                            class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">CANCEL</button>
+                                            data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -466,9 +472,8 @@ include "./header.php";
                                     $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
                                     if ($row['form'] <> 0) {
                                         if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
-                                            $pokemon_name = get_mons($row['pokemon_id']);
-                                            $PkmnImg_50 = "<font size=5><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font><br>$pokemon_name";
-                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font><br>$pokemon_name";
+                                            $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
+                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
                                         } else {
                                             $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
                                             $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
@@ -490,14 +495,23 @@ include "./header.php";
                                                         if ($row['pokemon_id'] == '0') {
                                                         ?>
                                                 <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
-                                                    style="height: 43px;">
-                                                    ALL
+                                                    style="height: 65px;">
+						    <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
                                                 </div>
                                                 <?php
                                                         } else {
                                                         ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php echo $PkmnImg_50; ?></div>
+						    <?php echo $PkmnImg_50; ?></div>
+						    <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
+                                                    <?php  
+                                                           $form_name = get_form_name($row['pokemon_id'], $row['form']);
+                                                    ?>
+                                                <div>
+                                                    <span
+                                                        class="badge badge-primary badge-pill w-100"><?php echo $pokemon_name." ".$form_name; ?></span>
+                                                </div>
+
                                                 <?php
                                                         }
                                                         ?>
@@ -508,7 +522,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        DISTANCE
+							<?php echo i8ln("DISTANCE"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['distance']; ?></span>
                                                     </li>
@@ -518,7 +532,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        IV
+							<?php echo i8ln("IV"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_iv']; ?>
                                                             -
@@ -529,8 +543,8 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        IV
-                                                        <span class="badge badge-primary badge-pill">ALL</span>
+							<?php echo i8ln("IV"); ?>
+							<span class="badge badge-primary badge-pill"><?php echo i8ln("ALL"); ?></span>
                                                     </li>
                                                     <?php
                                                             }
@@ -538,7 +552,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        CP
+							<?php echo i8ln("CP"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_cp']; ?>
                                                             -
@@ -550,7 +564,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        LEVEL
+							<?php echo i8ln("LEVEL"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_level']; ?>
                                                             - <?php echo $row['max_level']; ?></span>
@@ -561,7 +575,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        STATS
+							<?php echo i8ln("STATS"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['atk'] . "/" . $row['def'] . "/" . $row['sta']; ?>
                                                             -
@@ -573,7 +587,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        GREAT
+							<?php echo i8ln("GREAT"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill">top<?php echo $row['great_league_ranking']; ?>
                                                             @<?php echo $row['great_league_ranking_min_cp']; ?></span>
@@ -584,7 +598,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        ULTRA
+							<?php echo i8ln("ULTRA"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill">top<?php echo $row['ultra_league_ranking']; ?>
                                                             @<?php echo $row['ultra_league_ranking_min_cp']; ?></span>
@@ -595,7 +609,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        WEIGHT
+							<?php echo i8ln("WEIGHT"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_weight']; ?>
                                                             - <?php
@@ -610,39 +624,29 @@ include "./header.php";
                                                     <?php
                                                             }
                                                             ?>
-                                                </ul>
-                                                <?php
 
-                                                        if ($row['form'] <> '0') {
-                                                            $form_name = get_form_name($row['pokemon_id'], $row['form']);
-                                                        ?>
-                                                <div>
-                                                    <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo $form_name; ?></span>
-                                                </div>
+                                                    <?php
+                                                            if ($row['gender'] <> '0') {
+                                                            ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("GENDER"); ?>
+							<span class="badge badge-primary badge-pill">
+                                                        <?php 
+								    if ($row['gender'] == '1') {  echo i8ln("Male"); } 
+								    if ($row['gender'] == '2') {  echo i8ln("Female"); } 
+                                                        ?> 
+                                                        </span>
+                                                    </li>
+                                                    <?php } ?>
+
+
+
+						</ul>
                                                 <?php
-                                                        }
-                                                        if ($row['gender'] == '1') {
-                                                        ?>
-                                                <div>
-                                                    <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo "Male"; ?></span>
-                                                </div>
-                                                <?php
-                                                        }
-                                                        if ($row['gender'] == '2') {
-                                                        ?>
-                                                <div>
-                                                    <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo "Female"; ?></span>
-                                                </div>
-                                                <?php
-                                                        }
                                                         if ($row['clean'] == '1' && $all_mon_cleaned == '0') {
                                                         ?>
                                                 <div class="mt-1">
-                                                    <span class="badge badge-pill badge-info w-100">Cleaning
-                                                        Activated</span>
+						    <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                 </div>
                                                 <?php
                                                         }
@@ -724,7 +728,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb">
-                                <h1 class="h3 mb-0 text-gray-800 ">EGGS & RAIDS TRACKED</h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("EGGS & RAIDS TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -734,7 +738,7 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    Cleaning activated on <strong>ALL Raids/Eggs</strong>!
+				    <?php echo i8ln("Cleaning activated on"); ?> <strong><?php echo i8ln("ALL Raids/Eggs"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -751,14 +755,14 @@ include "./header.php";
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-                                    <span class="text">ADD</span>
+				    <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
                                     data-target="#deleteAllRaidEggsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-                                    <span class="text">DELETE ALL</span>
+				    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -769,21 +773,20 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteAllRaidEggsModalLabel">Delete ALL Raid/Eggs?
+					<h5 class="modal-title" id="deleteAllRaidEggsModalLabel"><?php echo i8ln("Delete ALL Raid/Eggs?"); ?>
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure
-                                        ?
+					<?php echo i8ln("This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="./form_action.php?action=delete_all_raids"
-                                            class="btn btn-danger">DELETE</a>
+					    class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">CANCEL</button>
+					    data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -818,7 +821,7 @@ include "./header.php";
                                                         src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    Eggs level <?php echo $row['level']; ?>
+                                                    <?php echo i8ln("Eggs"); ?> <?php echo $row['level']; ?>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -827,7 +830,7 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?> meters
+							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -835,8 +838,7 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Cleaning
-                                                            Activated</span>
+							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -891,7 +893,7 @@ include "./header.php";
                                                         src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    Raids level <?php echo $row['level']; ?>
+						    <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -900,7 +902,7 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?> meters
+							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -908,8 +910,7 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Cleaning
-                                                            Activated</span>
+							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -975,7 +976,7 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?> meters
+							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -983,8 +984,7 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Cleaning
-                                                            Activated</span>
+							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1035,7 +1035,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb">
-                                <h1 class="h3 mb-0 text-gray-800 ">QUESTS TRACKED</h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("QUESTS TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -1045,7 +1045,7 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    Cleaning activated on <strong>ALL Quests</strong>!
+				    <?php echo i8ln("Cleaning activated on"); ?> <strong><?php echo i8ln("ALL Quests"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -1062,14 +1062,14 @@ include "./header.php";
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-                                    <span class="text">ADD</span>
+				    <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
                                     data-target="#deleteAllQuestsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-                                    <span class="text">DELETE ALL</span>
+				    <span class="text"><?php echo i8ln("DELETE ALL") ?></span>
                                 </a>
                             </div>
                         </div>
@@ -1080,19 +1080,19 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteAllQuestsModalLabel">Delete ALL Quests?</h5>
+					<h5 class="modal-title" id="deleteAllQuestsModalLabel"><?php echo i8ln("Delete ALL Quests?"); ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        This will delete all your Quests Alarms and cannot be undone, are you sure ?
+					<?php echo i8ln("This will delete all your Quests Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="./form_action.php?action=delete_all_quests"
-                                            class="btn btn-danger">DELETE</a>
+					    class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">CANCEL</button>
+					    data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -1139,7 +1139,7 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?> meters
+							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1147,8 +1147,7 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Cleaning
-                                                            Activated</span>
+							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1208,7 +1207,7 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?> meters
+							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1216,8 +1215,7 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Cleaning
-                                                            Activated</span>
+							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }

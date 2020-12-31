@@ -37,6 +37,10 @@ $redirect_url="";
 $discordBotClientId = "";
 $discordBotClientSecret = "";
 
+// Language Settings
+
+$allowed_languages="en,fr";
+
 // Image Repository 
 $imgUrl="https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -32,7 +33,7 @@
         if (isset($_GET['return']) && $_GET['return'] == 'success_logout') {
         ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
-            You have been successfully <strong>logged out</strong>
+	    <?php echo i8ln("You have been successfully logged out"); ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -55,9 +56,9 @@
                                     <div class="text-center">
                                         <h1 class="h3 text-gray-900 mb-1"><?php echo $title; ?></h1>
                                     </div>
-                                    <p class="text-gray-900 mb-4">ALARM CONFIGURATION</p>
+				    <p class="text-gray-900 mb-4"><?php echo i8ln("ALARM CONFIGURATION"); ?></p>
 
-                                    <p class="mb-1"><small>LOGIN WITH DISCORD</small></p>
+				    <p class="mb-1"><small><?php echo i8ln("LOGIN WITH DISCORD"); ?></small></p>
 
                                     <a href="./discord_auth.php?action=login">
                                         <i class="fab fa-discord fa-5x fa-fw mr-2 text-white-400"></i>
@@ -68,8 +69,6 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-white"><strong>NOTE:</strong> you need a valid registration on the <?php echo $title; ?> server
-                    to access this service</p>
             </div>
 
         </div>

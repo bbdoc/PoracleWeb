@@ -30,12 +30,12 @@ echo "</div>";
         <div class="col-sm-12 my-1">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <div class="input-group-text">Distance</div>
+		    <div class="input-group-text"><?php echo i8ln("Distance"); ?></div>
                 </div>
                 <input type="number" id='distance' name='distance' value='<?php echo $row['distance'] ?>' min='0'
                     class="form-control text-center">
                 <div class="input-group-append">
-                    <span class="input-group-text">m</span>
+		    <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@ echo "</div>";
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">
-                <div class="input-group-text">Clear</div>
+		<div class="input-group-text"><?php echo i8ln("Clean"); ?></div>
             </div>
         </div>
         <?php
@@ -60,10 +60,10 @@ echo "</div>";
                 }
                 ?>
         <label class="btn btn-secondary">
-            <input type="radio" name="clean" id="clean_0" value="clean_0" <?php echo $checked0; ?>> No
+	    <input type="radio" name="clean" id="clean_0" value="clean_0" <?php echo $checked0; ?>> <?php echo i8ln("No"); ?>
         </label>
         <label class="btn btn-secondary">
-            <input type="radio" name="clean" id="clean_1" value="clean_1" <?php echo $checked1; ?>> Yes
+	    <input type="radio" name="clean" id="clean_1" value="clean_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
         </label>
     </div>
 
@@ -74,8 +74,8 @@ echo "</div>";
             <i class="fas fa-trash"></i>
         </span>
     </button>
-    <input class="btn btn-primary" type='submit' name='update' value='Update'>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    <input class="btn btn-primary" type='submit' name='update' value='<?php echo i8ln("Update"); ?>'>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo i8ln("Cancel"); ?></button>
 </div>
 
 </form>

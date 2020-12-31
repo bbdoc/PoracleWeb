@@ -111,7 +111,7 @@ include "./header.php";
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>NEW QUEST ALARM</strong>
+				<strong><?php echo i8ln("NEW QUEST ALARM"); ?></strong>
                             </div>
                         </div>
                     </div>
@@ -122,12 +122,12 @@ include "./header.php";
                             <div class="col-sm-12 my-1">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">Distance</div>
+					<div class="input-group-text"><?php echo i8ln("Distance"); ?></div>
                                     </div>
                                     <input type="number" id='distance' name='distance' value='0' min='0'
                                         class="form-control text-center">
                                     <div class="input-group-append">
-                                        <span class="input-group-text">m</span>
+					<span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -159,18 +159,18 @@ include "./header.php";
                                         ?>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Clean</div>
+					    <div class="input-group-text"><?php echo i8ln("Clean"); ?></div>
                                         </div>
                                     </div>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="clean" id="clean_0" value="clean_0"
                                             <?php echo $clean_0_checked; ?>>
-                                        No
+					<?php echo i8ln("No"); ?>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="clean" id="clean_1" value="clean_1"
                                             <?php echo $clean_1_checked; ?>>
-                                        Yes
+					<?php echo i8ln("Yes"); ?>
                                     </label>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@ include "./header.php";
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Select Pokémon Quests you want to add (Pokemons Currently available on Map)
+				    <?php echo i8ln("Select Pokémon Quests you want to add"); ?> (<?php echo i8ln("Pokemons Currently available on Map"); ?>)
                                 </li>
                             </ol>
                         </nav>
@@ -210,14 +210,14 @@ include "./header.php";
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Or use search below to add another pokemon
+				    <?php echo i8ln("Or use search below to add another pokemon"); ?>
                                 </li>
                             </ol>
                         </nav>
 
                         <input type='hidden' id='search_type' value='questmon'>
                         <div class='mb-3' id='dvSearchBox'>
-                            <input type='text' class='form-control form-control-lg' id='search' placeholder='Search'>
+			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search"); ?>'>
                         </div>
 
                         <div class='searchmons text-center' id='dvMonsList'>
@@ -233,7 +233,7 @@ include "./header.php";
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Select Item Quests you want to add
+				    <?php echo i8ln("Select Quests Items you want to add"); ?>
                                 </li>
                             </ol>
                         </nav>
@@ -256,9 +256,9 @@ include "./header.php";
                         </div>
 
                         <div class="float-right mb-3 mt-3">
-                            <input class="btn btn-primary" type='submit' name='add_quest' value='Submit'>
+			    <input class="btn btn-primary" type='submit' name='add_quest' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
-                                <button type="button" class="btn btn-secondary">Cancel</button>
+				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>
                         </div>
 

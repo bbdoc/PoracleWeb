@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 function get_form_name($pokemon_id, $form_id) {
 
@@ -41,7 +42,12 @@ function get_all_forms($pokemon_id) {
 function get_all_mons() {
 
    include "./config.php";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   if (file_exists("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json")) {
+           $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json"); 
+   } else {
+           $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
+   }
+
    $json = json_decode($monsters, true);
    $monsters=array();
 
@@ -57,7 +63,11 @@ function get_all_mons() {
 function get_mons($pokemon_id) {
 
    include "./config.php";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   if (file_exists("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json")) {
+	   $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json");
+   } else {
+	   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   }
    $json = json_decode($monsters, true);
    $monsters=array();
 
@@ -120,7 +130,51 @@ function get_grunts() {
 
 }
 
+function set_locale() {
+
+   include "./config.php";
+   $config = file_get_contents("$poracle_dir/config/local.json");
+   $json = json_decode($config, true);
+   foreach ($json as $key => $value) { 
+      if ($key == "locale") {
+     	   $_SESSION['locale']=$value['language'];
+      }
+   }
+
+}
+
+
+$localeData = null;
+function i8ln($word)
+{
+    $locale = $_SESSION['locale'];
+    if ($locale == "en") {
+        return $word;
+    }
+
+    global $localeData;
+    if ($localeData == null) {
+        $filepath = 'locales/' . $locale . '.json';
+        if (file_exists($filepath)) {
+            $json_contents = file_get_contents($filepath);
+            $localeData = json_decode($json_contents, true);
+        } else {
+            return $word;
+        }
+    }
+
+    if (isset($localeData[$word])) {
+        return $localeData[$word];
+    } else {
+        return $word;
+    }
+}
+
+
+
+
 #$grunts=get_grunts();
 #foreach($grunts as $key => $grunt) {
 #	echo $key." | ".$grunt."<br>";
 #}
+

@@ -54,7 +54,7 @@
 
   // UPDATE POKEMON
 
-  if (isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'monsters') {
+  if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 5) === "form_") {
@@ -155,7 +155,7 @@
 
   // UPDATE RAIDS
 
-  if (isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'raids') {
+  if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'raids') {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 6) === "clean_") {
@@ -205,7 +205,7 @@
 
   // UPDATE EGGS
 
-  if (isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'eggs') {
+  if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'eggs') {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 6) === "clean_") {
@@ -253,7 +253,7 @@
 
   // UPDATE QUESTS
 
-  if (isset($_POST['update']) && $_POST['update'] == 'Update' && isset($_POST['type']) && $_POST['type'] == 'quests') {
+  if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'quests') {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 6) === "clean_") {
@@ -484,7 +484,7 @@
 
   // ADD MONSTER
 
-  if (isset($_POST['add_mon']) && $_POST['add_mon'] == 'Submit') {
+  if (isset($_POST['add_mon'])) {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 7) === "gender_") {
@@ -572,7 +572,7 @@
 
   // ADD RAID
 
-  if (isset($_POST['add_raid']) && $_POST['add_raid'] == 'Submit') {
+  if (isset($_POST['add_raid'])) {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 6) === "clean_") {
@@ -662,7 +662,7 @@
 
   // ADD QUESTS
 
-  if (isset($_POST['add_quest']) && $_POST['add_quest'] == 'Submit') {
+  if (isset($_POST['add_quest'])) {
 
     foreach ($_POST as $key => $value) {
       if (substr($value, 0, 6) === "clean_") {
