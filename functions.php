@@ -136,8 +136,8 @@ function set_locale() {
    $config = file_get_contents("$poracle_dir/config/local.json");
    $json = json_decode($config, true);
    foreach ($json as $key => $value) { 
-      if ($key == "locale") {
-     	   $_SESSION['locale']=$value['language'];
+      if ($key == "general") {
+     	   $_SESSION['locale']=$value['locale'];
       }
    }
 
