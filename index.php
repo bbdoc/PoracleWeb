@@ -291,7 +291,7 @@ include "./header.php";
                                             if ($area == "[]") {
                                             ?>
                                             <div class="alert alert-warning w-100 m-3" role="alert">
-                                                You have <strong>not</strong> set any area yet!
+						<?php echo i8ln("You have not set any area yet!"); ?>
                                             </div>
                                             <?php
                                                 $areas = "";
