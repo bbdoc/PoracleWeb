@@ -223,14 +223,31 @@ include "./header.php";
                         </button>
 		    </div>
                     <?php
+			}
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_location') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Location updated successfully"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'error_update_location') {
+                        ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Address not found. Try Again"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
                         }
                         if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
 			<?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
-			<?php echo i8ln("Please set it in discord using"); ?>
-			<code><?php echo $location_command; ?></code> 
-                        <?php echo i8ln("command"); ?>. 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -279,7 +296,14 @@ include "./header.php";
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
+				    </button>
+                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
+                                        data-target="#locationModal">
+                                        <i class="fas fa-edit"></i>
                                     </button>
+
                                 </div>
                             </div>
                             <div class="card-body">
@@ -291,7 +315,7 @@ include "./header.php";
                                             if ($area == "[]") {
                                             ?>
                                             <div class="alert alert-warning w-100 m-3" role="alert">
-						<?php echo i8ln("You have not set any area yet!"); ?>
+						<?php echo i8ln("Your Location is not set yet!"); ?>
                                             </div>
                                             <?php
                                                 $areas = "";
@@ -318,7 +342,38 @@ include "./header.php";
 
                                     </div>
                                 </div>
+			    </div>
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="row">
+
+                                            <?php
+                                            if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
+                                            ?>
+                                            <div class="alert alert-warning w-100 m-3" role="alert">
+                                                <?php echo i8ln("Your Location is not set yet!"); ?>
+                                            </div>
+                                            <?php
+					    } else {
+                                                ?>
+                                            <div class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
+					       <div class="alert alert-success" role="alert">
+                                               <?php $address=get_address($latitude, $longitude); ?>
+					       <?php echo i8ln("Your Location is set to"); ?><br> 
+                                               <?php echo "<b>".$address."</b><br>"; ?>
+                                               <?php echo "[ ".round($latitude, 4); ?>, <?php echo round($longitude, 4)." ]"; ?>
+                                               </div>
+                                            </div>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -332,7 +387,20 @@ include "./header.php";
                                 </div>
                             </div>
                         </div>
+		    </div>
+
+                    <!-- EDIT LOCATION Modal -->
+                    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog"
+                        aria-labelledby="locationModalTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <?php include "./modal/location_modal.php"; ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
                 </div>
                 <!-- Content Row -->

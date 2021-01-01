@@ -82,35 +82,6 @@
                         </tbody>
                     </table>
 
-                    <hr>
-
-                    <?php
-
-                    if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
-                    ?>
-                    <div class="alert alert-warning" role="alert">
-			<?php echo i8ln("Your Location is not set and cannot be set here!"); ?>
-                    </div>
-		    <p><?php echo i8ln("Please set it in discord using"); ?> <code><?php echo $location_command; ?></code> <?php echo i8ln("command"); ?>.</p>
-                    <?php
-                    } else if (isset($mapURL) && $mapURL <> "") {
-                    ?>
-                    <div class="alert alert-success" role="alert">
-			<?php echo i8ln("Your Location is set to"); ?> <?php echo round($latitude, 4); ?>, <?php echo round($longitude, 4); ?>
-                    </div>
-
-                    <?php
-                        $mapURL = str_replace('#LAT#', $latitude, $mapURL);
-                        $mapURL = str_replace('#LON#', $longitude, $mapURL);
-                        ?>
-                    <div class='text-center'>
-                        <img src='<?php echo $mapURL; ?>' width=300>
-                    </div>
-                    <?php
-                    }
-
-                    ?>
-
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" id="type" name="action" value="profile_settings">

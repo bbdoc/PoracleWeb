@@ -60,4 +60,28 @@ function get_quest_energy() {
 
 }
 
+function get_raid_bosses() {
+
+   include "./config.php";
+
+   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   $sql = "SELECT pokemon_id, form, evolution, costume FROM raid 
+	   WHERE pokemon_id is not null and last_scanned > now() - INTERVAL 1 DAY 
+           GROUP BY level, pokemon_id, form, costume ORDER BY level, pokemon_id;";
+   $result = $conn->query($sql);
+
+   $bosses=array();
+   while($row = $result->fetch_assoc()) {
+      $pokemon_id=str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT);;
+      $form=str_pad($row['form'], 2, "0", STR_PAD_LEFT);
+      $costume=$row['costume'];
+      $evolution=$row['evolution'];
+      if ( $evolution <> '0' ) { $boss = $pokemon_id."_".$form."_".$evolution; } 
+      else { $boss = $pokemon_id."_".$form."_".$costume; }
+      array_push($bosses, $boss);
+   }
+
+   return $bosses;
+
+}
 

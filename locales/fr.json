@@ -104,8 +104,8 @@
     "ALL Monters Cleaning":"Nettoyer TOUS les Pokémons",
     "ALL Raid/Egg Cleaning":"Nettoyer TOUS les Raids/Oeufs",
     "ALL Quests Cleaning":"Nettoyer TOUTES les Quêtes",
-    "Your Location is not set and cannot be set here!":"Votre Localisation n'est pas configurée et ne peut pas l'être ici!",
-    "Your Location is set to":"Votre Localisation est configurée sur",
+    "Your Location is not set and cannot be set here!":"Votre Position n'est pas configurée et ne peut pas l'être ici!",
+    "Your Location is set to":"Votre Position est configurée sur",
     "You have not set any area yet!": "Vous n'avez pas encore configuré de zones!",
     "Save changes":"Sauvegarder",
     "YOU ARE NOT REGISTERED!":"VOUS N'ÊTES PAS ENREGISTRÉ",
@@ -114,5 +114,13 @@
     "Do you really want to Leave?":"Voulez-vous vraiment quitter?",
     "Click 'Logout' below if you are ready to end your current session":"Cliquez sur 'Se déconnecter' ci-dessous pour terminer votre session",
     "Logout":"Se déconnecter",
-    "Settings":"Paramètres"
+    "Settings":"Paramètres",
+    "Address not found. Try Again":"Addresse Introuvable. Réessayez",
+    "Location updated successfully":"Position Mise à Jour",
+    "Your Location is not set yet!":"Votre Position n'est pas encore configurée",
+    "It can be set hereunder":"Vous pouvez la configurer ci-dessous",
+    "Update My Location":"Mettre à Jour ma Position",
+    "Street Name":"Nom de la Rue",
+    "City":"Ville",
+    "LOCATION":"POSITION"
 }

@@ -93,7 +93,7 @@ function get_areas() {
    return $areas;
 }
 
-function get_raid_bosses() {
+function get_raid_bosses_json() {
 
    include "./config.php";
    $bosses = file_get_contents("https://raw.githubusercontent.com/ccev/pogoinfo/info/raid-bosses.json");
@@ -143,6 +143,34 @@ function set_locale() {
 
 }
 
+function get_address($lat, $lon) {
+
+   include "./config.php";
+
+   $config = file_get_contents("$poracle_dir/config/local.json");
+   $json = json_decode($config, true);
+   foreach ($json as $key => $value) {
+      if ($key == "geocoding") {
+        $nominatim=$value['providerURL'];
+      }
+   }
+
+   $filepath="$nominatim/reverse?lat=$lat&lon=$lon&format=json";
+   $request = file_get_contents($filepath);
+
+   $json = json_decode($request, true);
+
+   foreach ($json as $key => $value) {
+      foreach ($value as $key => $value2) {
+         if ( "$key" == "road") { $road = $value2;} 
+         if ( "$key" == "city_district") { $city=$value2;} 
+         if ( "$key" == "country_code") { $country=strtoupper($value2);} 
+      }
+   }
+   $address = $road." | ".$city." | ".$country;
+   return $address;
+}
+
 
 $localeData = null;
 function i8ln($word)
@@ -169,8 +197,6 @@ function i8ln($word)
         return $word;
     }
 }
-
-
 
 
 #$grunts=get_grunts();
