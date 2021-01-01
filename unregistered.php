@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo $title; ?> - NOT REGISTERED</title>
+    <title><?php echo $title; ?> - <?php echo i8ln("NOT REGISTERED")</title>
 
     <link rel="icon" type="image/x-icon" href="favicon.png" />
 

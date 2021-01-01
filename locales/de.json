@@ -114,5 +114,9 @@
     "Do you really want to Leave?":"Möchtest du die Seite wirklich verlassen?",
     "Click 'Logout' below if you are ready to end your current session":"Klicke auf 'Abmelden' um die Session zu beenden",
     "Logout":"Abmelden",
-    "Settings":"Einstellungen"
+    "Settings":"Einstellungen",
+	"NOT REGISTERED":"NICHT REGISTRIERT",
+	"You have been successfully logged out":"Du wurdest erfolgreich abgemeldet",
+	"ALARM CONFIGURATION":"ALARM KONFIGURATION",
+	"LOGIN WITH DISCORD":"MIT DISCORD ANMELDEN"
 }
