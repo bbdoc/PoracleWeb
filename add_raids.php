@@ -260,8 +260,14 @@ include "./header.php";
                                 <li class='text-center'><input type='checkbox'
                                         name='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'
                                         id='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>' />
-                                    <label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
-                                        <img src='<?php echo $imgUrl; ?>/pokemon_icon_<?php echo $boss; ?>.png' />
+				    <label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
+                                        <?php 
+					   $img=$imgUrl."/pokemon_icon_".$boss.".png";
+					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
+					      $img=$imgUrl."/pokemon_icon_".$boss_id."_00.png";
+					   }
+                                        ?>
+                                        <img src='<?php echo $img; ?>' />
                                         <br>
                                         <?php echo str_pad($boss_id, 3, "0", STR_PAD_LEFT); ?>
                                         <br>
