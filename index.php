@@ -46,7 +46,7 @@ include "./header.php";
                 <nav class="navbar fixed-top navbar-expand navbar-dark topbar mb-4 static-top shadow"
                     style="background-color: #000000;">
 
-                    <a class="navbar-brand" href="/"><?php echo $title; ?></a>
+                    <a class="navbar-brand" href="<?php echo $redirect_url; ?>"><?php echo $title; ?></a>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

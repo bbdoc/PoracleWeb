@@ -14,7 +14,7 @@
                 </button>
 	    </div>
             <?php 
-            
+
                if (isset($allowed_languages)) {
                   echo "<div class='flags'>";
                   $languages = explode(",", $allowed_languages);
@@ -25,8 +25,9 @@
 	       }
 
                if ( isset($subs_enable) && $subs_enable == 'True' ) {
-		       include "subs_validity.php"; 
-	       }
+                       include "subs_validity.php";
+               }
+
             ?>
             <form action='./form_action.php' method='POST'>
                 <div class="modal-body">
