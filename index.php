@@ -81,7 +81,6 @@ include "./header.php";
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
-
                     <!-- Success Alerts-->
                     <?php
                         if (isset($_GET['return']) && $_GET['return'] == 'success_added_mons') {
