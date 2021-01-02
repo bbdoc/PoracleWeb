@@ -315,7 +315,7 @@ include "./header.php";
                                             if ($area == "[]") {
                                             ?>
                                             <div class="alert alert-warning w-100 m-3" role="alert">
-						<?php echo i8ln("Your Location is not set yet!"); ?>
+						<?php echo i8ln("You have not set any area yet!"); ?>
                                             </div>
                                             <?php
                                                 $areas = "";
