@@ -243,16 +243,6 @@ include "./header.php";
                     </div>
                     <?php
                         }
-                        if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-			<?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
                         if ($enabled==0) {
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -358,8 +348,10 @@ include "./header.php";
                                             <?php
                                             if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                                             ?>
-                                            <div class="alert alert-warning w-100 m-3" role="alert">
-                                                <?php echo i8ln("Your Location is not set yet!"); ?>
+                                            <div class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
+					       <div class="alert alert-warning" role="alert">
+                                                  <?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
+                                               </div>
                                             </div>
                                             <?php
 					    } else {
