@@ -125,5 +125,8 @@
    "Address not found. Try Again":"Adresse konnte nicht gefunden werden. Versuche es nochmal",
    "Street Name":"Straße",
    "City":"Stadt",
-   "It can be set hereunder":"Es kann hierunter eingestellt werden"
+   "It can be set hereunder":"Es kann hierunter eingestellt werden",
+   "Delete tracking for":"Tracking löschen für",
+   "This will delete tracking for":"Das löscht das Tracking für",
+   "Are you sure?":"Bist du sicher?"
 }
