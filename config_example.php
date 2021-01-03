@@ -23,9 +23,11 @@ $scan_dbport     = "3306";
 
 // Enable Disable Elements
 
-$disable_mons    = "False";
-$disable_raids   = "False";
-$disable_quests  = "False";
+$disable_areas       = "False";
+$disable_location    = "False";
+$disable_mons        = "False";
+$disable_raids       = "False";
+$disable_quests      = "False";
 
 // Poracle Install Directoyy
 
