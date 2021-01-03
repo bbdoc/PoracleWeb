@@ -283,28 +283,34 @@ include "./header.php";
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Card -->
+		    <!-- Card -->
+		    <?php if ($disable_areas."-".$disable_location <> "True-True" ) { ?>
                     <div class="col-xl-12 col-md-12">
-                        <!-- Areas -->
+                        <!-- Areas & Locations -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
-
+                                    
+                                    <?php if ($disable_areas <> "True") { ?>
 				    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
 				    </button>
+                                    <?php } ?>
+                                    <?php if ($disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#locationModal">
                                         <i class="fas fa-edit"></i>
                                     </button>
+                                    <?php } ?>
 
                                 </div>
-                            </div>
+			    </div>
+                            <?php if ($disable_areas <> "True") { ?>
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -342,6 +348,8 @@ include "./header.php";
                                     </div>
                                 </div>
 			    </div>
+                            <?php } ?>
+                            <?php if ($disable_location <> "True") { ?>
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -372,9 +380,11 @@ include "./header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                         </div>
                     </div>
+                    <?php } ?>
 
                     <!-- EDIT AREAS Modal -->
                     <div class="modal fade" id="areasModal" tabindex="-1" role="dialog"

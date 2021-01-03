@@ -118,6 +118,7 @@ include "./header.php";
 
                     <form action='./form_action.php' method='POST'>
 
+                        <?php if ($disable_location <> "True") { ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="input-group">
@@ -131,7 +132,10 @@ include "./header.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>
+			</div>
+                        <?php } else { ?>
+                           <input type="hidden" id='distance' name='distance' value='0' min='0'>
+                        <?php } ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">

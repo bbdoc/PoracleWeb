@@ -24,6 +24,7 @@ echo "</div>";
         ";
         ?>
 
+    <?php if ($disable_location <> "True") { ?>
     <div class="form-row align-items-center">
         <div class="col-sm-12 my-1">
             <div class="input-group">
@@ -38,6 +39,10 @@ echo "</div>";
             </div>
         </div>
     </div>
+    <?php } else { ?>
+        <input type="hidden" id='distance' name='distance' value='<?php echo $row['distance'] ?>' min='0'>
+    <?php } ?>
+
     <hr>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">

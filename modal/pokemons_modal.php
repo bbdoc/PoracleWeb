@@ -66,7 +66,8 @@ if ($row['pokemon_id'] == '0') {
     </ul>
     <div class="tab-content" id="pills-tab-<?php echo $pkm_unique_id ?>Content">
         <div class="tab-pane fade show active" id="pills-stats-<?php echo $pkm_unique_id ?>" role="tabpanel"
-            aria-labelledby="pills-stats-tab-<?php echo $pkm_unique_id ?>">
+	    aria-labelledby="pills-stats-tab-<?php echo $pkm_unique_id ?>">
+            <?php if ($disable_location <> "True") { ?>
             <div class="form-row align-items-center">
                 <div class="col-sm-12 my-1">
                     <div class="input-group">
@@ -80,7 +81,11 @@ if ($row['pokemon_id'] == '0') {
                         </div>
                     </div>
                 </div>
-            </div>
+	    </div>
+            <?php } else { ?>
+                <input type="hidden" id='distance' name='distance' value='<?php echo $row['distance'] ?>' min='0'>
+            <?php } ?>
+
             <div class="form-row align-items-center">
                 <div class="col-sm-12 my-1">
                     <div class="input-group">
