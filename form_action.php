@@ -20,18 +20,18 @@
 
   <?php
 
-  #echo "<table>";
-  #    foreach ($_POST as $key => $value) {
-  #        echo "<tr>";
-  #        echo "<td>";
-  #        echo $key;
-  #        echo "</td>";
-  #        echo "<td>";
-  #        echo $value;
-  #        echo "</td>";
-  #        echo "</tr>";
-  #    }
-  #echo "</table>";
+#  echo "<table>";
+#      foreach ($_POST as $key => $value) {
+#          echo "<tr>";
+#          echo "<td>";
+#          echo $key;
+#          echo "</td>";
+#          echo "<td>";
+#          echo $value;
+#          echo "</td>";
+#          echo "</tr>";
+#      }
+#  echo "</table>";
 
   include "./config.php";
   include "./db_connect.php";
@@ -302,7 +302,7 @@
 
   // DELETE MONSTERS
 
-  if (isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'monsters') {
+  if (isset($_POST['delete']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
 
     $stmt = $conn->prepare("
       DELETE FROM monsters
@@ -339,9 +339,9 @@
       $_POST['cur_max_def'],
       $_POST['cur_max_sta'],
       $_POST['cur_great_league_ranking'],
-      $_POST['great_league_ranking_min_cp'],
+      $_POST['cur_great_league_ranking_min_cp'],
       $_POST['cur_ultra_league_ranking'],
-      $_POST['ultra_league_ranking_min_cp'],
+      $_POST['cur_ultra_league_ranking_min_cp'],
       $_SESSION['id']
     );
 

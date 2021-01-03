@@ -123,5 +123,8 @@
     "Update My Location":"Mettre à Jour ma Position",
     "Street Name":"Nom de la Rue",
     "City":"Ville",
-    "LOCATION":"POSITION"
+    "LOCATION":"POSITION",
+    "Delete tracking for":"Supprimer le Suivi de",
+    "This will delete tracking for":"Cette action supprimera le suivi de",
+    "Are you sure?":"Êtes-vous certain?"
 }
