@@ -910,7 +910,7 @@ include "./header.php";
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $egg_unique_id = "raid_" . $row['pokemon_id'] . "_" .
+                                    $egg_unique_id = "raid_00_" .
                                         $row['distance'] .
                                         $row['team'] . "_" . $row['level'];
 
