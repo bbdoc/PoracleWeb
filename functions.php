@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)){
+	session_start();
+}
 
 function get_form_name($pokemon_id, $form_id) {
 
@@ -63,6 +65,7 @@ function get_all_mons() {
 function get_mons($pokemon_id) {
 
    include "./config.php";
+   $found_name="";
    if (file_exists("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json")) {
 	   $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json");
    } else {
@@ -161,15 +164,17 @@ function get_address($lat, $lon) {
    $json = json_decode($request, true);
 
    foreach ($json as $key => $value) {
-      foreach ($value as $key => $value2) {
-         if ( "$key" == "road") { $road = $value2;} 
-         if ( "$key" == "village") { $village=$value2;} 
-         if ( "$key" == "city") { $city=$value2;} 
-         if ( "$key" == "city_district") { $city_district=$value2;} 
-         if ( "$key" == "country_code") { $country=strtoupper($value2);} 
+      if ( is_array($value) ) {
+         foreach ($value as $key => $value2) {
+            if ( "$key" == "road") { $road = $value2;} 
+            if ( "$key" == "village") { $village=$value2;} 
+            if ( "$key" == "city") { $city=$value2;} 
+            if ( "$key" == "city_district") { $city_district=$value2;} 
+            if ( "$key" == "country_code") { $country=strtoupper($value2);} 
+         }
       }
-      if ( $city_district <> "" ) {  $city=$city_district; }
-      if ( $village <> "" ) {  $city=$village; }
+      if ( @$city_district <> "" ) {  $city=$city_district; }
+      if ( @$village <> "" ) {  $city=$village; }
    }
    $address = $road." | ".$city." | ".$country;
    return $address;

@@ -26,7 +26,7 @@ echo "</div>";
         ";
         ?>
 
-    <?php if ($disable_location <> "True") { ?>
+    <?php if (@$disable_location <> "True") { ?>
     <div class="form-row align-items-center">
         <div class="col-sm-12 my-1">
             <div class="input-group">

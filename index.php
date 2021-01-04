@@ -272,14 +272,14 @@ include "./header.php";
                 <div class="row">
 
                     <!-- Card -->
-                    <?php if ($disable_areas."-".$disable_location <> "True-True" ) { ?>
+                    <?php if (@$disable_areas."-".@$disable_location <> "True-True" ) { ?>
                     <div class="col-xl-12 col-md-12">
                         <!-- Areas & Locations -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
-                                    <?php if ($disable_areas <> "True") { ?>
+                                    <?php if (@$disable_areas <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
@@ -287,7 +287,7 @@ include "./header.php";
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <?php } ?>
-                                    <?php if ($disable_location <> "True") { ?>
+                                    <?php if (@$disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <div align="right">
@@ -300,7 +300,7 @@ include "./header.php";
                                             <i class="fas fa-map-marker-alt"></i>
                                         </button>
                                         <?php } ?>
-                                        <?php if ($disable_nominatim <> "True") { ?>
+                                        <?php if (@$disable_nominatim <> "True") { ?>
                                         <button type="button" class="btn btn-success btn-circle btn-md"
                                             data-toggle="modal" data-target="#locationModal">
                                             <i class="fas fa-edit"></i>
@@ -312,7 +312,7 @@ include "./header.php";
                                 </div>
                             </div>
                             <div class="card-body">
-                                <?php if ($disable_areas <> "True") { ?>
+                                <?php if (@$disable_areas <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col">
                                         <div class="row">
@@ -349,7 +349,7 @@ include "./header.php";
                                     </div>
                                 </div>
                                 <?php } ?>
-                                <?php if ($disable_location <> "True") { ?>
+                                <?php if (@$disable_location <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col">
                                         <div class="row">
@@ -393,10 +393,14 @@ include "./header.php";
                                             <?php
 					                        } else {
                                                 ?>
-                                            <div class="alert alert-success w-100 m-3" role="alert">
-                                                <?php $address=get_address($latitude, $longitude); ?>
-                                                <?php echo i8ln("Your Location is set to"); ?><br>
-                                                <?php echo "<b>".$address."</b><br>"; ?>
+					    <div class="alert alert-success w-100 m-3" role="alert">
+						<?php echo i8ln("Your Location is set to"); ?><br>
+                                                <?php 
+					        if (@$disable_nominatim <> "True") { 
+                                                   $address=get_address($latitude, $longitude); 
+						   echo "<b>".$address."</b><br>"; 
+						} 
+                                                ?>
                                                 <?php echo "[ ".round($latitude, 4); ?>,
                                                 <?php echo round($longitude, 4)." ]"; ?>
                                             </div>
@@ -444,7 +448,7 @@ include "./header.php";
                 <hr>
 
                 <ul class="nav nav-pills mb-3 mx-auto justify-content-center" id="pills-tab-home" role="tablist">
-                    <?php if ($disable_mons <> "True") { ?>
+                    <?php if (@$disable_mons <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-mons-tab" data-toggle="pill" href="#pills-mons" role="tab"
                             aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
@@ -453,7 +457,7 @@ include "./header.php";
                     }
                     ?>
 
-                    <?php if ($disable_raids <> "True") { ?>
+                    <?php if (@$disable_raids <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-raids-tab" data-toggle="pill" href="#pills-raids" role="tab"
                             aria-controls="pills-raids" aria-selected="false"><?php echo i8ln("RAIDS"); ?></a>
@@ -462,7 +466,7 @@ include "./header.php";
                     }
                     ?>
 
-                    <?php if ($disable_quests <> "True") { ?>
+                    <?php if (@$disable_quests <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-quests-tab" data-toggle="pill" href="#pills-quests" role="tab"
                             aria-controls="pills-quests" aria-selected="false"><?php echo i8ln("QUESTS"); ?></a>
@@ -472,7 +476,7 @@ include "./header.php";
                     ?>
                 </ul>
                 <div class="tab-content mb-5" id="pills-tab-homeContent">
-                    <?php if ($disable_mons <> "True") { ?>
+                    <?php if (@$disable_mons <> "True") { ?>
                     <div class="tab-pane fade show active" id="pills-mons" role="tabpanel"
                         aria-labelledby="pills-mons-tab">
 
@@ -861,7 +865,7 @@ include "./header.php";
                     } // End of Mons Disable 
                     ?>
 
-                    <?php if ($disable_raids <> "True") { ?>
+                    <?php if (@$disable_raids <> "True") { ?>
                     <div class="tab-pane fade" id="pills-raids" role="tabpanel" aria-labelledby="pills-raids-tab">
 
                         <hr>
@@ -1309,7 +1313,7 @@ include "./header.php";
                     ?>
 
                     <?php
-                    if ($disable_quests <> "True") {
+                    if (@$disable_quests <> "True") {
                     ?>
                     <div class="tab-pane fade" id="pills-quests" role="tabpanel" aria-labelledby="pills-quests-tab">
 

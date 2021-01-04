@@ -67,7 +67,7 @@
                             </tr>
                             <tr>
                                 <?php
-                                if ($disable_quests <> "True") {
+                                if (@$disable_quests <> "True") {
                                 ?>
 				<th scope="row"><?php echo i8ln("ALL Quests Cleaning"); ?></th>
                                 <td><input type="checkbox" name="quests_clean_toggle" id="quests_clean_toggle" <?php 

@@ -67,7 +67,7 @@ if ($row['pokemon_id'] == '0') {
     <div class="tab-content" id="pills-tab-<?php echo $pkm_unique_id ?>Content">
         <div class="tab-pane fade show active" id="pills-stats-<?php echo $pkm_unique_id ?>" role="tabpanel"
 	    aria-labelledby="pills-stats-tab-<?php echo $pkm_unique_id ?>">
-            <?php if ($disable_location <> "True") { ?>
+            <?php if (@$disable_location <> "True") { ?>
             <div class="form-row align-items-center">
                 <div class="col-sm-12 my-1">
                     <div class="input-group">
