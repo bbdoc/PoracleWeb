@@ -74,9 +74,8 @@ include "./header.php";
 
                 </nav>
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
-                <div class="container-fluid col-lg-8 col-md-12">
+		<div class="container-fluid col-lg-8 col-md-12">
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
@@ -291,14 +290,18 @@ include "./header.php";
                                     <?php if ($disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
 				    <!-- Button trigger modal -->
-                                    <div align="right">
-                                    <button type="button" class="btn btn-success btn-circle btn-md" onclick="getLocation()"> 
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </button>
+				    <div align="right">
+                                    <?php if( isset($_SERVER['HTTPS'] ) ) { ?>
+                                       <button type="button" class="btn btn-success btn-circle btn-md" onclick="getLocation()"> 
+                                           <i class="fas fa-map-marker-alt"></i>
+                                       </button>
+				    <?php } ?>
+                                    <?php if ($disable_nominatim <> "True") { ?>
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#locationModal">
                                         <i class="fas fa-edit"></i>
 				    </button>
+                                    <?php } ?>
                                     </div>
                                     <?php } ?>
 
