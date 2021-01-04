@@ -364,7 +364,7 @@
 
   // DELETE RAIDS
 
-  if (isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'raids') {
+  if (isset($_POST['delete']) && isset($_POST['type']) && $_POST['type'] == 'raids') {
 
     $stmt = $conn->prepare("
       DELETE FROM raid
@@ -405,7 +405,7 @@
 
   // DELETE EGGS
 
-  if (isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'eggs') {
+  if (isset($_POST['delete']) && isset($_POST['type']) && $_POST['type'] == 'eggs') {
 
     $stmt = $conn->prepare("
       DELETE FROM egg
@@ -444,7 +444,7 @@
 
   // DELETE QUESTS
 
-  if (isset($_POST['delete']) && $_POST['delete'] == 'Delete' && isset($_POST['type']) && $_POST['type'] == 'quests') {
+  if (isset($_POST['delete']) && isset($_POST['type']) && $_POST['type'] == 'quests') {
 
     $stmt = $conn->prepare("
       DELETE FROM quest

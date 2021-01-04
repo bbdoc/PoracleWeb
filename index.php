@@ -946,7 +946,12 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="row">
+					    <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $egg_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $egg_unique_id ?>Modal">
@@ -966,7 +971,43 @@ include "./header.php";
                                         <?php include "./modal/eggs_modal.php"; ?>
                                     </div>
                                 </div>
+			    </div>
+
+                            <!-- DELETE EGG Modal -->
+                            <div class="modal fade" id="<?php echo $egg_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $egg_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $egg_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete tracking for Eggs Level"); ?> <?php echo $row['level']; ?>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete tracking for Eggs Level"); ?> <?php echo $row['level']; ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                    <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='eggs'>
+                                                    <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
+                                                    <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
+                                                    " ?>
+                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                             <?php
                                 }
 
@@ -981,7 +1022,8 @@ include "./header.php";
                                         $row['team'] . "_" . $row['level'];
 
                                 ?>
-                            <!-- Card -->
+
+			    <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-warning shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -1018,7 +1060,12 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="row">
+					    <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $raid_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $raid_unique_id ?>Modal">
@@ -1036,6 +1083,42 @@ include "./header.php";
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/raids_modal.php"; ?>
+                                    </div>
+                                </div>
+			    </div>
+                            <!-- DELETE RAID Modal -->
+                            <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete tracking for Raids Level"); ?> <?php echo $row['level']; ?>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete tracking for Raids Level"); ?> <?php echo $row['level']; ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                    <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='raids'>
+                                                    <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
+                                                    <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
+                                                    <input type='hidden' id='cur_form' name='cur_form' value='" . $row['form'] . "'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
+                                                    <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
+                                                    " ?>
+                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1092,7 +1175,12 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="row">
+					    <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $raid_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $raid_unique_id ?>Modal">
@@ -1110,6 +1198,43 @@ include "./header.php";
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/raids_modal.php"; ?>
+                                    </div>
+                                </div>
+			    </div>
+			    <!-- DELETE Monster RAID Modal -->
+                            <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
+                            <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete Raid tracking for"); ?> <?php echo $pokemon_name; ?>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete Raid tracking for"); ?> <?php echo $pokemon_name; ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                    <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='raids'>
+                                                    <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
+                                                    <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
+                                                    <input type='hidden' id='cur_form' name='cur_form' value='" . $row['form'] . "'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
+                                                    <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
+                                                    " ?>
+                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1255,7 +1380,12 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="row">
+					    <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $quest_unique_id ?>Modal">
@@ -1275,7 +1405,43 @@ include "./header.php";
                                         <?php include "./modal/quests_modal.php"; ?>
                                     </div>
                                 </div>
+			    </div>
+                            <!-- DELETE QUEST Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete Quests tracking for"); ?> <?php echo $pokemon_name; ?>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete Quests tracking for"); ?> <?php echo $pokemon_name; ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                    <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='quests'>
+                                                    <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
+                                                    <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
+                                                    " ?>
+                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                             <?php
                                 }
 
@@ -1324,7 +1490,12 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="row">
+					    <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $quest_unique_id ?>Modal">
@@ -1336,12 +1507,46 @@ include "./header.php";
                                 </div>
                             </div>
 
-                            <!-- EDIT Raid Modal -->
+                            <!-- EDIT QUEST Item Modal -->
                             <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
                                 aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/quests_modal.php"; ?>
+                                    </div>
+                                </div>
+			    </div>
+                            <!-- DELETE QUEST Item Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete Quests Item tracking"); ?> 
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete Quests tracking for this item"); ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                    <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='quests'>
+                                                    <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
+                                                    <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
+                                                    " ?>
+                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

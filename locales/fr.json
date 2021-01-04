@@ -126,5 +126,15 @@
     "LOCATION":"POSITION",
     "Delete tracking for":"Supprimer le Suivi de",
     "This will delete tracking for":"Cette action supprimera le suivi de",
-    "Are you sure?":"Êtes-vous certain?"
+    "Are you sure?":"Êtes-vous certain?",
+    "Delete tracking for Eggs Level":"Supprimer le Suivi des Oeufs Niveau",
+    "This will delete tracking for Eggs Level":"Cette action supprimrea le suivi des Oeufs Niveau",
+    "Delete tracking for Raids Level":"Supprimer le Suivi des Raids Niveau",
+    "This will delete tracking for Raids Level":"Cette action supprimrea le suivi des Raids Niveau",
+    "Delete Raid tracking for":"Supprimer le Suivi des Raids",
+    "This will delete Raid tracking for":"Cette action supprimrea le suivi des Raids",
+    "Delete Quests tracking for":"Supprimer le Suivi des Quêtes",
+    "This will delete Quests tracking for":"Cette action supprimrea le suivi des Quêtes",
+    "Delete Quests Item tracking":"Supprimer le Suivi de l'object de Quêtes",
+    "This will delete Quests tracking for this item":"Cette action supprimrea le suivi de l'object de Quêtes"
 }
