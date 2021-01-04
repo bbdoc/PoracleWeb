@@ -30,6 +30,8 @@ $disable_mons        = "False";
 $disable_raids       = "False";
 $disable_quests      = "False";
 
+$site_is_https       = "True";
+
 // Poracle Install Directoyy
 
 $poracle_dir="";
