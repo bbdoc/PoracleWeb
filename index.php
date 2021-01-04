@@ -280,17 +280,17 @@ include "./header.php";
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                     <?php if (@$disable_areas <> "True") { ?>
-                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
+                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
-                                    </button>
-                                    <?php } ?>
+				    </button>
+                                    </h6>
+				    <?php } ?>
                                     <?php if (@$disable_location <> "True") { ?>
-                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
+                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?>
                                     <!-- Button trigger modal -->
-                                    <div align="right">
                                         <?php 
 			                   if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
 			                   if( isset($site_is_https) && $site_is_https == "True") { 
@@ -304,9 +304,9 @@ include "./header.php";
                                         <button type="button" class="btn btn-success btn-circle btn-md"
                                             data-toggle="modal" data-target="#locationModal">
                                             <i class="fas fa-edit"></i>
-                                        </button>
+					</button>
+                                        </h6>
                                         <?php } ?>
-                                    </div>
                                     <?php } ?>
 
                                 </div>
