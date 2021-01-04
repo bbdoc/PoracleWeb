@@ -291,7 +291,10 @@ include "./header.php";
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <div align="right">
-                                        <?php if( isset($site_is_https) && $site_is_https == "True") { ?>
+                                        <?php 
+			                   if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
+			                   if( isset($site_is_https) && $site_is_https == "True") { 
+                                        ?>
                                         <button type="button" class="btn btn-success btn-circle btn-md"
                                             onclick="getLocation()">
                                             <i class="fas fa-map-marker-alt"></i>
