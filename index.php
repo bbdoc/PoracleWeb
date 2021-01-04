@@ -77,7 +77,6 @@ include "./header.php";
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid col-lg-8 col-md-12">
-
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
@@ -246,7 +245,7 @@ include "./header.php";
                         if ($enabled==0) {
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Your alarms are currently disabled !"); ?>
+                        <?php echo i8ln("Your alarms are currently disabled!"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -288,14 +287,19 @@ include "./header.php";
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
 				    </button>
-                                    <?php } ?>
+				    <?php } ?>
                                     <?php if ($disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
-                                    <!-- Button trigger modal -->
+				    <!-- Button trigger modal -->
+                                    <div align="right">
+                                    <button type="button" class="btn btn-success btn-circle btn-md" onclick="getLocation()"> 
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#locationModal">
                                         <i class="fas fa-edit"></i>
-                                    </button>
+				    </button>
+                                    </div>
                                     <?php } ?>
 
                                 </div>
@@ -344,6 +348,30 @@ include "./header.php";
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="row">
+
+					    <div id="position_error_div" style="display:none;" class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
+                                               <div id="PERMISSION_DENIED" style="display:none;" class="alert alert-danger" role="alert">
+                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                  <?php echo i8ln("User denied the request for Geolocation"); ?>.
+                                               </div>
+                                               <div id="POSITION_UNAVAILABLE" style="display:none;" class="alert alert-danger" role="alert">
+                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                  <?php echo i8ln("Location information is unavailable"); ?>.
+                                               </div>
+                                               <div id="TIMEOUT" style="display:none;" class="alert alert-danger" role="alert">
+                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                  <?php echo i8ln("The request to get user location timed out"); ?>.
+                                               </div>
+                                               <div id="UNKNOWN_ERROR" style="display:none;" class="alert alert-danger" role="alert">
+                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                  <?php echo i8ln("An unknown error occurred"); ?>.
+                                               </div>
+                                               <div id="NOT_SUPPORTED" style="display:none;" class="alert alert-danger" role="alert">
+                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                  <?php echo i8ln("Geolocation is not supported by this browser"); ?>.
+                                               </div>
+                                            </div>
+
 
                                             <?php
                                             if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
@@ -1589,6 +1617,7 @@ include "./header.php";
 
     <!-- Custom scripts for all pages-->
     <script src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/get_position.js?v=<?=time();?>"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 </body>
