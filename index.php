@@ -282,10 +282,12 @@ include "./header.php";
                                     <?php if (@$disable_areas <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?>
                                     <!-- Button trigger modal -->
+                                    <div style="text-align:left; margin-top:5px;">
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
 				    </button>
+			    	    </div>
                                     </h6>
 				    <?php } ?>
                                     <?php if (@$disable_location <> "True") { ?>
@@ -295,6 +297,7 @@ include "./header.php";
 			                   if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
 			                   if( isset($site_is_https) && $site_is_https == "True") { 
                                         ?>
+                                        <div style="text-align:right; margin-top:5px;">
                                         <button type="button" class="btn btn-success btn-circle btn-md"
                                             onclick="getLocation()">
                                             <i class="fas fa-map-marker-alt"></i>
@@ -305,6 +308,7 @@ include "./header.php";
                                             data-toggle="modal" data-target="#locationModal">
                                             <i class="fas fa-edit"></i>
 					</button>
+					</div>
                                         </h6>
                                         <?php } ?>
                                     <?php } ?>
