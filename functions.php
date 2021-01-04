@@ -163,11 +163,13 @@ function get_address($lat, $lon) {
    foreach ($json as $key => $value) {
       foreach ($value as $key => $value2) {
          if ( "$key" == "road") { $road = $value2;} 
-         if ( "$key" == "city_district") { $city_district=$value2;} 
+         if ( "$key" == "village") { $village=$value2;} 
          if ( "$key" == "city") { $city=$value2;} 
+         if ( "$key" == "city_district") { $city_district=$value2;} 
          if ( "$key" == "country_code") { $country=strtoupper($value2);} 
       }
       if ( $city_district <> "" ) {  $city=$city_district; }
+      if ( $village <> "" ) {  $city=$village; }
    }
    $address = $road." | ".$city." | ".$country;
    return $address;

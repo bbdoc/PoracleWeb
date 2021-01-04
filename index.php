@@ -75,7 +75,7 @@ include "./header.php";
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-		<div class="container-fluid col-lg-8 col-md-12">
+                <div class="container-fluid col-lg-8 col-md-12">
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
@@ -84,7 +84,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_added_mons') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-			<?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
+                        <?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -218,7 +218,7 @@ include "./header.php";
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-		    </div>
+                    </div>
                     <?php
 			}
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_location') {
@@ -271,53 +271,54 @@ include "./header.php";
                 <!-- Content Row -->
                 <div class="row">
 
-		    <!-- Card -->
-		    <?php if ($disable_areas."-".$disable_location <> "True-True" ) { ?>
+                    <!-- Card -->
+                    <?php if ($disable_areas."-".$disable_location <> "True-True" ) { ?>
                     <div class="col-xl-12 col-md-12">
                         <!-- Areas & Locations -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
-                                    
+
                                     <?php if ($disable_areas <> "True") { ?>
-				    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
+                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?></h6>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
                                         data-target="#areasModal">
                                         <i class="fas fa-edit"></i>
-				    </button>
-				    <?php } ?>
+                                    </button>
+                                    <?php } ?>
                                     <?php if ($disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?></h6>
-				    <!-- Button trigger modal -->
-				    <div align="right">
-                                    <?php if( isset($_SERVER['HTTPS'] ) ) { ?>
-                                       <button type="button" class="btn btn-success btn-circle btn-md" onclick="getLocation()"> 
-                                           <i class="fas fa-map-marker-alt"></i>
-                                       </button>
-				    <?php } ?>
-                                    <?php if ($disable_nominatim <> "True") { ?>
-                                    <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
-                                        data-target="#locationModal">
-                                        <i class="fas fa-edit"></i>
-				    </button>
-                                    <?php } ?>
+                                    <!-- Button trigger modal -->
+                                    <div align="right">
+                                        <?php if( isset($_SERVER['HTTPS'] ) ) { ?>
+                                        <button type="button" class="btn btn-success btn-circle btn-md"
+                                            onclick="getLocation()">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </button>
+                                        <?php } ?>
+                                        <?php if ($disable_nominatim <> "True") { ?>
+                                        <button type="button" class="btn btn-success btn-circle btn-md"
+                                            data-toggle="modal" data-target="#locationModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <?php } ?>
                                     </div>
                                     <?php } ?>
 
                                 </div>
-			    </div>
-                            <?php if ($disable_areas <> "True") { ?>
+                            </div>
                             <div class="card-body">
+                                <?php if ($disable_areas <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
+                                    <div class="col">
                                         <div class="row">
 
                                             <?php
                                             if ($area == "[]") {
                                             ?>
                                             <div class="alert alert-warning w-100 m-3" role="alert">
-						<?php echo i8ln("You have not set any area yet!"); ?>
+                                                <?php echo i8ln("You have not set any area yet!"); ?>
                                             </div>
                                             <?php
                                                 $areas = "";
@@ -344,56 +345,57 @@ include "./header.php";
 
                                     </div>
                                 </div>
-			    </div>
-                            <?php } ?>
-                            <?php if ($disable_location <> "True") { ?>
-                            <div class="card-body">
+                                <?php } ?>
+                                <?php if ($disable_location <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
+                                    <div class="col">
                                         <div class="row">
 
-					    <div id="position_error_div" style="display:none;" class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
-                                               <div id="PERMISSION_DENIED" style="display:none;" class="alert alert-danger" role="alert">
-                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
-                                                  <?php echo i8ln("User denied the request for Geolocation"); ?>.
-                                               </div>
-                                               <div id="POSITION_UNAVAILABLE" style="display:none;" class="alert alert-danger" role="alert">
-                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
-                                                  <?php echo i8ln("Location information is unavailable"); ?>.
-                                               </div>
-                                               <div id="TIMEOUT" style="display:none;" class="alert alert-danger" role="alert">
-                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
-                                                  <?php echo i8ln("The request to get user location timed out"); ?>.
-                                               </div>
-                                               <div id="UNKNOWN_ERROR" style="display:none;" class="alert alert-danger" role="alert">
-                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
-                                                  <?php echo i8ln("An unknown error occurred"); ?>.
-                                               </div>
-                                               <div id="NOT_SUPPORTED" style="display:none;" class="alert alert-danger" role="alert">
-                                                  <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
-                                                  <?php echo i8ln("Geolocation is not supported by this browser"); ?>.
-                                               </div>
+                                            <div id="position_error_div" style="display:none;"
+                                                class="text-center w-100 m-3">
+                                                <div id="PERMISSION_DENIED" style="display:none;"
+                                                    class="alert alert-danger" role="alert">
+                                                    <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                    <?php echo i8ln("User denied the request for Geolocation"); ?>.
+                                                </div>
+                                                <div id="POSITION_UNAVAILABLE" style="display:none;"
+                                                    class="alert alert-danger" role="alert">
+                                                    <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                    <?php echo i8ln("Location information is unavailable"); ?>.
+                                                </div>
+                                                <div id="TIMEOUT" style="display:none;" class="alert alert-danger"
+                                                    role="alert">
+                                                    <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                    <?php echo i8ln("The request to get user location timed out"); ?>.
+                                                </div>
+                                                <div id="UNKNOWN_ERROR" style="display:none;" class="alert alert-danger"
+                                                    role="alert">
+                                                    <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                    <?php echo i8ln("An unknown error occurred"); ?>.
+                                                </div>
+                                                <div id="NOT_SUPPORTED" style="display:none;" class="alert alert-danger"
+                                                    role="alert">
+                                                    <b><?php echo i8ln("Could not set Location"); ?></b>.<br>
+                                                    <?php echo i8ln("Geolocation is not supported by this browser"); ?>.
+                                                </div>
                                             </div>
 
 
                                             <?php
                                             if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                                             ?>
-                                            <div class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
-					       <div class="alert alert-warning" role="alert">
-                                                  <?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
-                                               </div>
-                                            </div>
+                                                <div class="alert alert-warning w-100 m-3" role="alert">
+                                                    <?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
+                                                </div>
                                             <?php
-					    } else {
+					                        } else {
                                                 ?>
-                                            <div class="col-xl-12 col-lg-4 col-md-6 col-sm-12 text-center">
-					       <div class="alert alert-success" role="alert">
-                                               <?php $address=get_address($latitude, $longitude); ?>
-					       <?php echo i8ln("Your Location is set to"); ?><br> 
-                                               <?php echo "<b>".$address."</b><br>"; ?>
-                                               <?php echo "[ ".round($latitude, 4); ?>, <?php echo round($longitude, 4)." ]"; ?>
-                                               </div>
+                                            <div class="alert alert-success w-100 m-3" role="alert">
+                                                <?php $address=get_address($latitude, $longitude); ?>
+                                                <?php echo i8ln("Your Location is set to"); ?><br>
+                                                <?php echo "<b>".$address."</b><br>"; ?>
+                                                <?php echo "[ ".round($latitude, 4); ?>,
+                                                <?php echo round($longitude, 4)." ]"; ?>
                                             </div>
                                             <?php
                                             }
@@ -402,9 +404,8 @@ include "./header.php";
 
                                     </div>
                                 </div>
+                                <?php } ?>
                             </div>
-                            <?php } ?>
-
                         </div>
                     </div>
                     <?php } ?>
@@ -419,7 +420,7 @@ include "./header.php";
                                 </div>
                             </div>
                         </div>
-		    </div>
+                    </div>
 
                     <!-- EDIT LOCATION Modal -->
                     <div class="modal fade" id="locationModal" tabindex="-1" role="dialog"
@@ -443,7 +444,7 @@ include "./header.php";
                     <?php if ($disable_mons <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-mons-tab" data-toggle="pill" href="#pills-mons" role="tab"
-			    aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
+                            aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
                     </li>
                     <?php
                     }
@@ -452,7 +453,7 @@ include "./header.php";
                     <?php if ($disable_raids <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-raids-tab" data-toggle="pill" href="#pills-raids" role="tab"
-			    aria-controls="pills-raids" aria-selected="false"><?php echo i8ln("RAIDS"); ?></a>
+                            aria-controls="pills-raids" aria-selected="false"><?php echo i8ln("RAIDS"); ?></a>
                     </li>
                     <?php
                     }
@@ -487,7 +488,7 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-				    <?php echo i8ln("Cleaning activated on"); ?> 
+                                    <?php echo i8ln("Cleaning activated on"); ?>
                                     <strong><?php echo i8ln("ALL Monsters"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -523,7 +524,8 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-					<h5 class="modal-title" id="deleteAllMonsModalTitle"><?php echo i8ln("Delete ALL tracked Mons?"); ?>
+                                        <h5 class="modal-title" id="deleteAllMonsModalTitle">
+                                            <?php echo i8ln("Delete ALL tracked Mons?"); ?>
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -596,15 +598,15 @@ include "./header.php";
                                                         ?>
                                                 <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
                                                     style="height: 65px;">
-						    <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
+                                                    <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
                                                 </div>
                                                 <?php
                                                         } else {
                                                         ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-						    <?php echo $PkmnImg_50; ?></div>
-						    <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
-                                                    <?php  
+                                                    <?php echo $PkmnImg_50; ?></div>
+                                                <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
+                                                <?php  
                                                            $form_name = get_form_name($row['pokemon_id'], $row['form']);
                                                     ?>
                                                 <div>
@@ -622,7 +624,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("DISTANCE"); ?>
+                                                        <?php echo i8ln("DISTANCE"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['distance']; ?></span>
                                                     </li>
@@ -632,7 +634,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("IV"); ?>
+                                                        <?php echo i8ln("IV"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_iv']; ?>
                                                             -
@@ -643,8 +645,9 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("IV"); ?>
-							<span class="badge badge-primary badge-pill"><?php echo i8ln("ALL"); ?></span>
+                                                        <?php echo i8ln("IV"); ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo i8ln("ALL"); ?></span>
                                                     </li>
                                                     <?php
                                                             }
@@ -652,7 +655,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("CP"); ?>
+                                                        <?php echo i8ln("CP"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_cp']; ?>
                                                             -
@@ -664,7 +667,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("LEVEL"); ?>
+                                                        <?php echo i8ln("LEVEL"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_level']; ?>
                                                             - <?php echo $row['max_level']; ?></span>
@@ -675,7 +678,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("STATS"); ?>
+                                                        <?php echo i8ln("STATS"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['atk'] . "/" . $row['def'] . "/" . $row['sta']; ?>
                                                             -
@@ -687,7 +690,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("GREAT"); ?>
+                                                        <?php echo i8ln("GREAT"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill">top<?php echo $row['great_league_ranking']; ?>
                                                             @<?php echo $row['great_league_ranking_min_cp']; ?></span>
@@ -698,7 +701,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("ULTRA"); ?>
+                                                        <?php echo i8ln("ULTRA"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill">top<?php echo $row['ultra_league_ranking']; ?>
                                                             @<?php echo $row['ultra_league_ranking_min_cp']; ?></span>
@@ -709,7 +712,7 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-							<?php echo i8ln("WEIGHT"); ?>
+                                                        <?php echo i8ln("WEIGHT"); ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['min_weight']; ?>
                                                             - <?php
@@ -728,25 +731,27 @@ include "./header.php";
                                                     <?php
                                                             if ($row['gender'] <> '0') {
                                                             ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("GENDER"); ?>
-							<span class="badge badge-primary badge-pill">
-                                                        <?php 
+                                                        <span class="badge badge-primary badge-pill">
+                                                            <?php 
 								    if ($row['gender'] == '1') {  echo i8ln("Male"); } 
 								    if ($row['gender'] == '2') {  echo i8ln("Female"); } 
-                                                        ?> 
+                                                        ?>
                                                         </span>
                                                     </li>
                                                     <?php } ?>
 
 
 
-						</ul>
+                                                </ul>
                                                 <?php
                                                         if ($row['clean'] == '1' && $all_mon_cleaned == '0') {
                                                         ?>
                                                 <div class="mt-1">
-						    <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    <span
+                                                        class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                 </div>
                                                 <?php
                                                         }
@@ -760,7 +765,7 @@ include "./header.php";
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $pkm_unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
-                                                </a> 
+                                                </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $pkm_unique_id ?>Modal">
@@ -782,7 +787,7 @@ include "./header.php";
                                 </div>
                             </div>
 
-			    <!-- DELETE MONSTER Modal -->
+                            <!-- DELETE MONSTER Modal -->
                             <?php $form=get_form_name($row['pokemon_id'],$row['form']); ?>
                             <div class="modal fade" id="<?php echo $pkm_unique_id ?>DeleteModal" tabindex="-1"
                                 role="dialog" aria-labelledby="<?php echo $pkm_unique_id ?>DeleteModalLabel"
@@ -791,21 +796,23 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $pkm_unique_id ?>DeleteModalTitle">
-						<?php echo i8ln("Delete tracking for"); ?> <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
-						<?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?> ?
+                                                <?php echo i8ln("Delete tracking for"); ?>
+                                                <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
+                                                <?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?> ?
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-					    <?php echo i8ln("This will delete tracking for"); ?> <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
+                                            <?php echo i8ln("This will delete tracking for"); ?>
+                                            <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
                                             <?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?>.<br>
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
-					<div class="modal-footer">
-					    <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                        <div class="modal-footer">
+                                            <form action='./form_action.php' method='POST'>
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='monsters'>
                                                     <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
                                                     <input type='hidden' id='cur_form' name='cur_form' value='" . $row['form'] . "'>
@@ -830,14 +837,15 @@ include "./header.php";
                                                     <input type='hidden' id='cur_ultra_league_ranking' name='cur_ultra_league_ranking' value='" . $row['ultra_league_ranking'] . "'>
 						    <input type='hidden' id='cur_ultra_league_ranking_min_cp' name='cur_ultra_league_ranking_min_cp' value='" . $row['ultra_league_ranking_min_cp'] . "'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
-						data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                             <?php
                                 }
@@ -858,7 +866,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb">
-				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("EGGS & RAIDS TRACKED"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("EGGS & RAIDS TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -868,7 +876,8 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-				    <?php echo i8ln("Cleaning activated on"); ?> <strong><?php echo i8ln("ALL Raids/Eggs"); ?></strong>!
+                                    <?php echo i8ln("Cleaning activated on"); ?>
+                                    <strong><?php echo i8ln("ALL Raids/Eggs"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -885,14 +894,14 @@ include "./header.php";
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-				    <span class="text"><?php echo i8ln("ADD"); ?></span>
+                                    <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
                                     data-target="#deleteAllRaidEggsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-				    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
+                                    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -903,20 +912,21 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-					<h5 class="modal-title" id="deleteAllRaidEggsModalLabel"><?php echo i8ln("Delete ALL Raid/Eggs?"); ?>
+                                        <h5 class="modal-title" id="deleteAllRaidEggsModalLabel">
+                                            <?php echo i8ln("Delete ALL Raid/Eggs?"); ?>
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-					<?php echo i8ln("This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure ?"); ?>
+                                        <?php echo i8ln("This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="./form_action.php?action=delete_all_raids"
-					    class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
+                                            class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
-					    data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                            data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -960,7 +970,8 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -968,7 +979,8 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -977,7 +989,7 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-					    <div class="row">
+                                            <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $egg_unique_id ?>DeleteModal">
@@ -1002,7 +1014,7 @@ include "./header.php";
                                         <?php include "./modal/eggs_modal.php"; ?>
                                     </div>
                                 </div>
-			    </div>
+                            </div>
 
                             <!-- DELETE EGG Modal -->
                             <div class="modal fade" id="<?php echo $egg_unique_id ?>DeleteModal" tabindex="-1"
@@ -1012,25 +1024,28 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $egg_unique_id ?>DeleteModalTitle">
-                                                <?php echo i8ln("Delete tracking for Eggs Level"); ?> <?php echo $row['level']; ?>
+                                                <?php echo i8ln("Delete tracking for Eggs Level"); ?>
+                                                <?php echo $row['level']; ?>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo i8ln("This will delete tracking for Eggs Level"); ?> <?php echo $row['level']; ?><br>
+                                            <?php echo i8ln("This will delete tracking for Eggs Level"); ?>
+                                            <?php echo $row['level']; ?><br>
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
                                             <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='eggs'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
                                                     <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
                                                     <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1054,7 +1069,7 @@ include "./header.php";
 
                                 ?>
 
-			    <!-- Card -->
+                            <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-warning shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -1065,7 +1080,7 @@ include "./header.php";
                                                         src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-						    <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>
+                                                    <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -1074,7 +1089,8 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1082,7 +1098,8 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1091,7 +1108,7 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-					    <div class="row">
+                                            <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $raid_unique_id ?>DeleteModal">
@@ -1116,7 +1133,7 @@ include "./header.php";
                                         <?php include "./modal/raids_modal.php"; ?>
                                     </div>
                                 </div>
-			    </div>
+                            </div>
                             <!-- DELETE RAID Modal -->
                             <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
                                 role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
@@ -1125,19 +1142,21 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
-                                                <?php echo i8ln("Delete tracking for Raids Level"); ?> <?php echo $row['level']; ?>
+                                                <?php echo i8ln("Delete tracking for Raids Level"); ?>
+                                                <?php echo $row['level']; ?>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo i8ln("This will delete tracking for Raids Level"); ?> <?php echo $row['level']; ?><br>
+                                            <?php echo i8ln("This will delete tracking for Raids Level"); ?>
+                                            <?php echo $row['level']; ?><br>
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
                                             <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='raids'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
                                                     <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
@@ -1145,7 +1164,8 @@ include "./header.php";
                                                     <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
                                                     <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1189,7 +1209,8 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1197,7 +1218,8 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1206,7 +1228,7 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-					    <div class="row">
+                                            <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $raid_unique_id ?>DeleteModal">
@@ -1231,8 +1253,8 @@ include "./header.php";
                                         <?php include "./modal/raids_modal.php"; ?>
                                     </div>
                                 </div>
-			    </div>
-			    <!-- DELETE Monster RAID Modal -->
+                            </div>
+                            <!-- DELETE Monster RAID Modal -->
                             <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
                             <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
                                 role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
@@ -1241,19 +1263,21 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
-                                                <?php echo i8ln("Delete Raid tracking for"); ?> <?php echo $pokemon_name; ?>
+                                                <?php echo i8ln("Delete Raid tracking for"); ?>
+                                                <?php echo $pokemon_name; ?>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo i8ln("This will delete Raid tracking for"); ?> <?php echo $pokemon_name; ?><br>
+                                            <?php echo i8ln("This will delete Raid tracking for"); ?>
+                                            <?php echo $pokemon_name; ?><br>
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
                                             <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='raids'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
                                                     <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
@@ -1261,7 +1285,8 @@ include "./header.php";
                                                     <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
                                                     <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1290,7 +1315,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb">
-				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("QUESTS TRACKED"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("QUESTS TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -1300,7 +1325,8 @@ include "./header.php";
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-				    <?php echo i8ln("Cleaning activated on"); ?> <strong><?php echo i8ln("ALL Quests"); ?></strong>!
+                                    <?php echo i8ln("Cleaning activated on"); ?>
+                                    <strong><?php echo i8ln("ALL Quests"); ?></strong>!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -1317,14 +1343,14 @@ include "./header.php";
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-				    <span class="text"><?php echo i8ln("ADD"); ?></span>
+                                    <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
                                     data-target="#deleteAllQuestsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-				    <span class="text"><?php echo i8ln("DELETE ALL") ?></span>
+                                    <span class="text"><?php echo i8ln("DELETE ALL") ?></span>
                                 </a>
                             </div>
                         </div>
@@ -1335,19 +1361,20 @@ include "./header.php";
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-					<h5 class="modal-title" id="deleteAllQuestsModalLabel"><?php echo i8ln("Delete ALL Quests?"); ?></h5>
+                                        <h5 class="modal-title" id="deleteAllQuestsModalLabel">
+                                            <?php echo i8ln("Delete ALL Quests?"); ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-					<?php echo i8ln("This will delete all your Quests Alarms and cannot be undone, are you sure ?"); ?>
+                                        <?php echo i8ln("This will delete all your Quests Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="./form_action.php?action=delete_all_quests"
-					    class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
+                                            class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
-					    data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                            data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -1394,7 +1421,8 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1402,7 +1430,8 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1411,7 +1440,7 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-					    <div class="row">
+                                            <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $quest_unique_id ?>DeleteModal">
@@ -1436,7 +1465,7 @@ include "./header.php";
                                         <?php include "./modal/quests_modal.php"; ?>
                                     </div>
                                 </div>
-			    </div>
+                            </div>
                             <!-- DELETE QUEST Modal -->
                             <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
                                 role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
@@ -1445,25 +1474,28 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
-                                                <?php echo i8ln("Delete Quests tracking for"); ?> <?php echo $pokemon_name; ?>
+                                                <?php echo i8ln("Delete Quests tracking for"); ?>
+                                                <?php echo $pokemon_name; ?>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo i8ln("This will delete Quests tracking for"); ?> <?php echo $pokemon_name; ?><br>
+                                            <?php echo i8ln("This will delete Quests tracking for"); ?>
+                                            <?php echo $pokemon_name; ?><br>
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
                                             <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='quests'>
                                                     <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
                                                     <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
                                                     <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1503,7 +1535,8 @@ include "./header.php";
                                                             ?>
                                                     <div class="mb-2">
                                                         <span class="badge badge-primary p-2">
-							    <?php echo $row['distance']; ?> <?php echo i8ln("meters"); ?>
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
                                                         </span>
                                                     </div>
                                                     <?php
@@ -1511,7 +1544,8 @@ include "./header.php";
                                                             if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
-							<span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
                                                     <?php
                                                             }
@@ -1521,7 +1555,7 @@ include "./header.php";
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
-					    <div class="row">
+                                            <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
                                                     data-target="#<?php echo $quest_unique_id ?>DeleteModal">
@@ -1546,7 +1580,7 @@ include "./header.php";
                                         <?php include "./modal/quests_modal.php"; ?>
                                     </div>
                                 </div>
-			    </div>
+                            </div>
                             <!-- DELETE QUEST Item Modal -->
                             <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
                                 role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
@@ -1555,7 +1589,7 @@ include "./header.php";
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
-                                                <?php echo i8ln("Delete Quests Item tracking"); ?> 
+                                                <?php echo i8ln("Delete Quests Item tracking"); ?>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -1567,13 +1601,14 @@ include "./header.php";
                                         </div>
                                         <div class="modal-footer">
                                             <form action='./form_action.php' method='POST'>
-                                                    <?php echo "
+                                                <?php echo "
                                                     <input type='hidden' id='type' name='type' value='quests'>
                                                     <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
                                                     <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
                                                     <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
                                                     " ?>
-                                                    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("DELETE"); ?>'>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
                                             </form>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1626,4 +1661,3 @@ include "./header.php";
 </body>
 
 </html>
-
