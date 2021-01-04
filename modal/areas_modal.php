@@ -30,7 +30,7 @@ foreach ($areas as $key => $area) {
         $checked = '';
     };
     echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
-    echo "<label for='area_$area' style='width:160px;'>$area</label>\n";
+    echo "<label for='area_$area' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
     echo "</li>\n";
 }
 
