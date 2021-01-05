@@ -65,9 +65,9 @@ function get_raid_bosses() {
    include "./config.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
-   $sql = "SELECT pokemon_id, form, evolution, costume FROM raid 
+   $sql = "SELECT level, pokemon_id, form, evolution, costume FROM raid 
 	   WHERE pokemon_id is not null and last_scanned > now() - INTERVAL 1 DAY 
-           GROUP BY level, pokemon_id, form, costume ORDER BY level, pokemon_id;";
+           GROUP BY level, pokemon_id, form, evolution, costume ORDER BY level, pokemon_id;";
    $result = $conn->query($sql);
 
    $bosses=array();
