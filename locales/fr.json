@@ -128,7 +128,7 @@
     "This will delete tracking for":"Cette action supprimera le suivi de",
     "Are you sure?":"Êtes-vous certain?",
     "Delete tracking for Eggs Level":"Supprimer le Suivi des Oeufs Niveau",
-    "This will delete tracking for Eggs Level":"Cette action supprimrea le suivi des Oeufs Niveau",
+    "This will delete tracking for Eggs Level":"Cette action supprimera le suivi des Oeufs Niveau",
     "Delete tracking for Raids Level":"Supprimer le Suivi des Raids Niveau",
     "This will delete tracking for Raids Level":"Cette action supprimera le suivi des Raids Niveau",
     "Delete Raid tracking for":"Supprimer le Suivi des Raids",
@@ -142,5 +142,16 @@
     "Location information is unavailable":"L'information de localisation n'est pas disponible",
     "The request to get user location timed out":"La demande de localisation a expiré",
     "An unknown error occurred":"Une erreur inconnue s'est produite",
-    "Geolocation is not supported by this browser":"La géolocalisation n'est pas supportée par ce navigateur"
+    "Geolocation is not supported by this browser":"La géolocalisation n'est pas supportée par ce navigateur",
+    "Update Distance for all tracked Pokémons?":"Modifier la Distance pour tous les Pokémons suivis?",
+    "This will update Distance settings for ALL tracked Pokémons":"Cette action modifiera la distance de suivi pour TOUS les Pokémons",
+    "Please Set New Distance":"Veuillez indiquer la nouvelle distance",
+    "Update Distance for all tracked Raids & Eggs?":"Modifier la Distance pour TOUS les Raids et Oeufs suivis?",
+    "This will update Distance settings for ALL tracked Raids & Eggs":"Cette action modifiera la distance de suivi pour TOUS les Raids et Oeufs suivis",
+    "Update Distance for all tracked Quests?":"Modifier la Distance pour TOUTES les quêtes?",
+    "This will update Distance settings for ALL tracked Quests":"Cette action modifiera la distance de suivi pour TOUTES les quêtes suivies",
+    "Successfully Update Distance on ALL Pokémons":"Distance Mise à Jour avec Succès pour TOUS les Pokémons",
+    "Successfully Update Distance on ALL Raids & Eggs":"Distance Mise à Jour avec Succès pour TOUS les Raids et Oeufs",
+    "Successfully Update Distance on ALL Quests":"Distance Mise à Jour avec Succès pour TOUTES les quêtes",
+    "UPDATE":"MAJ"
 }

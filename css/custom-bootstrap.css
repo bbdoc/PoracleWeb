@@ -5943,10 +5943,10 @@ a.close.disabled {
 .modal {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 2%;
     z-index: 1050;
     display: none;
-    width: 100%;
+    width: 96%;
     height: 100%;
     overflow: hidden;
     outline: 0;

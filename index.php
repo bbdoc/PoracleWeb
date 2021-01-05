@@ -228,6 +228,36 @@ include "./header.php";
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+		    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons_distance') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Update Distance on ALL Pokémons"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_raids_distance') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Update Distance on ALL Raids & Eggs"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_quests_distance') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Update Distance on ALL Quests"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <?php
                         }
@@ -525,6 +555,13 @@ include "./header.php";
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
+				</a>
+                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                    data-target="#DistanceMonsModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("UPDATE DISTANCE"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -554,6 +591,17 @@ include "./header.php";
                                 </div>
                             </div>
                         </div>
+
+			<!-- UPDATE MONS DISTANCE MODAL -->
+                        <div class="modal fade" id="DistanceMonsModal" tabindex="-1" role="dialog"
+                            aria-labelledby="DistanceMonsModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+                                        <?php include "./modal/distance_pokemons_modal.php"; ?>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <!-- Content Row -->
                         <div class="row">
@@ -913,6 +961,13 @@ include "./header.php";
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
+				</a>
+                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                    data-target="#DistanceRaidsModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("UPDATE DISTANCE"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -939,6 +994,16 @@ include "./header.php";
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPDATE RAIDS_EGGS DISTANCE MODAL -->
+                        <div class="modal fade" id="DistanceRaidsModal" tabindex="-1" role="dialog"
+                            aria-labelledby="DistanceRaidsModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                        <?php include "./modal/distance_raids_modal.php"; ?>
                                 </div>
                             </div>
                         </div>
@@ -1362,6 +1427,13 @@ include "./header.php";
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL") ?></span>
+				</a>
+                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                    data-target="#DistanceQuestsModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("UPDATE DISTANCE"); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -1387,6 +1459,16 @@ include "./header.php";
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPDATE QUESTS DISTANCE MODAL -->
+                        <div class="modal fade" id="DistanceQuestsModal" tabindex="-1" role="dialog"
+                            aria-labelledby="DistanceQuestsModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                        <?php include "./modal/distance_quests_modal.php"; ?>
                                 </div>
                             </div>
                         </div>

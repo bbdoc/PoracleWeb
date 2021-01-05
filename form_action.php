@@ -1063,3 +1063,95 @@
     exit();
 
   }
+
+
+  // UPDATE ALL MONSTERS DISTANCE
+
+  if (isset($_GET['action']) && $_GET['action'] == 'update_mons_distance') {
+
+    $stmt = $conn->prepare("UPDATE monsters set distance = ? WHERE id = ?");
+    if (false === $stmt) {
+      header("Location: $redirect_url?return=sql_error&phase=UMD1&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UMD2&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->execute();
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UMD3&sql=$stmt->error");
+      exit();
+    }
+    $stmt->close();
+    header("Location: $redirect_url?return=success_update_mons_distance");
+    exit();
+  }
+
+  // UPDATE ALL RAIDS & EGGS DISTANCE
+
+  if (isset($_GET['action']) && $_GET['action'] == 'update_raids_distance') {
+
+    $stmt = $conn->prepare("UPDATE raid set distance = ? WHERE id = ?");
+    if (false === $stmt) {
+      header("Location: $redirect_url?return=sql_error&phase=URD1&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=URD2&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->execute();
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=URD3&sql=$stmt->error");
+      exit();
+    }
+    $stmt->close();
+
+    $stmt = $conn->prepare("UPDATE egg set distance = ? WHERE id = ?");
+    if (false === $stmt) {
+      header("Location: $redirect_url?return=sql_error&phase=UED1&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UED2&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->execute();
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UED3&sql=$stmt->error");
+      exit();
+    }
+    $stmt->close();
+    header("Location: $redirect_url?return=success_update_raids_distance");
+    exit();
+
+  }
+
+    // UPDATE ALL QUEST DISTANCE
+
+  if (isset($_GET['action']) && $_GET['action'] == 'update_quests_distance') {
+
+    $stmt = $conn->prepare("UPDATE quest set distance = ? WHERE id = ?");
+    if (false === $stmt) {
+      header("Location: $redirect_url?return=sql_error&phase=UQD1&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UQD2&sql=$stmt->error");
+      exit();
+    }
+    $rs = $stmt->execute();
+    if (false === $rs) {
+      header("Location: $redirect_url?return=sql_error&phase=UQD3&sql=$stmt->error");
+      exit();
+    }
+    $stmt->close();
+    header("Location: $redirect_url?return=success_update_quests_distance");
+    exit();
+  }
+
