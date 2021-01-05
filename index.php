@@ -543,20 +543,20 @@ include "./header.php";
 
                         <div class="row">
                             <div class="row no-gutters align-items-center p-3">
-                                <a href="./add_mons.php" class="btn btn-success btn-icon-split mr-2">
+                                <a href="./add_mons.php" class="btn btn-success btn-icon-split mr-2 mt-1">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
+                                <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#deleteAllMonsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
 				</a>
-                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#DistanceMonsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-crosshairs"></i>
@@ -949,20 +949,20 @@ include "./header.php";
 
                         <div class="row">
                             <div class="row no-gutters align-items-center p-3">
-                                <a href="./add_raids.php" class="btn btn-success btn-icon-split mr-2">
+                                <a href="./add_raids.php" class="btn btn-success btn-icon-split mr-2 mt-1">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
+                                <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#deleteAllRaidEggsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
 				</a>
-                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#DistanceRaidsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-crosshairs"></i>
@@ -1415,20 +1415,20 @@ include "./header.php";
 
                         <div class="row">
                             <div class="row no-gutters align-items-center p-3">
-                                <a href="./add_quests.php" class="btn btn-success btn-icon-split mr-2">
+                                <a href="./add_quests.php" class="btn btn-success btn-icon-split mr-2 mt-1">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("ADD"); ?></span>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
+                                <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#deleteAllQuestsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text"><?php echo i8ln("DELETE ALL") ?></span>
 				</a>
-                                <a href="#" class="btn btn-primary btn-icon-split mt-1" data-toggle="modal"
+                                <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1" data-toggle="modal"
                                     data-target="#DistanceQuestsModal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-crosshairs"></i>
