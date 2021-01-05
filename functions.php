@@ -152,7 +152,6 @@ function set_locale() {
          }
       }
    }
-   echo $_SESSION['locale'];
 }
 
 
