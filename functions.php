@@ -136,15 +136,25 @@ function get_grunts() {
 function set_locale() {
 
    include "./config.php";
-   $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode($config, true);
-   foreach ($json as $key => $value) { 
-      if ($key == "general") {
-     	   $_SESSION['locale']=$value['locale'];
+   include "./db_connect.php";
+   $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
+   $result = $conn->query($sql) or die(mysqli_error($conn));
+   while ($row = $result->fetch_assoc()) {  
+      if ( $row['language'] <> "" ) { 
+         $_SESSION['locale'] = $row['language'];
+      } else { 
+         $config = file_get_contents("$poracle_dir/config/local.json");
+         $json = json_decode($config, true);
+         foreach ($json as $key => $value) {
+            if ($key == "general") {
+              $_SESSION['locale']=$value['locale'];
+            }
+         }
       }
    }
-
+   echo $_SESSION['locale'];
 }
+
 
 function get_address($lat, $lon) {
 
@@ -212,4 +222,3 @@ function i8ln($word)
 #foreach($grunts as $key => $grunt) {
 #	echo $key." | ".$grunt."<br>";
 #}
-
