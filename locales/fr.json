@@ -154,5 +154,7 @@
     "Successfully Update Distance on ALL Raids & Eggs":"Distance Mise à Jour avec Succès pour TOUS les Raids et Oeufs",
     "Successfully Update Distance on ALL Quests":"Distance Mise à Jour avec Succès pour TOUTES les quêtes",
     "UPDATE":"MAJ",
-    "UPDATE DISTANCE":"MODIFIER LA DISTANCE"
+    "UPDATE DISTANCE":"MODIFIER LA DISTANCE",
+    "You have not set any Alarm for ALL Pokemons, Please select a Gen!":"Vous n'avez configuré aucune Alarme pour TOUS les Pokémons. Sélectionnez une Génération!",
+    "You have not set any Alarms for this Generation!":"Vous n'avez configuré aucune Alarme pour cette génération!"
 }

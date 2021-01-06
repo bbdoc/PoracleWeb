@@ -66,7 +66,7 @@ function get_mons($pokemon_id) {
 
    include "./config.php";
    $found_name="";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json")) {
+   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
 	   $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json");
    } else {
 	   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
@@ -195,7 +195,7 @@ function get_address($lat, $lon) {
 $localeData = null;
 function i8ln($word)
 {
-    $locale = $_SESSION['locale'];
+    $locale = @$_SESSION['locale'];
     if ($locale == "en") {
         return $word;
     }

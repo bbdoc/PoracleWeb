@@ -54,6 +54,7 @@ if(session('access_token')) {
   $user = apiRequest($apiURLBase);
 
   $_SESSION['username']=$user->username;
+  $_SESSION['type']="discord";
   $_SESSION['id']=$user->id;
   $_SESSION['avatar_id']=$user->avatar;
   $_SESSION['avatar'] = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar_id'] . ".png";

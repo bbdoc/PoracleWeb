@@ -603,6 +603,41 @@ include "./header.php";
                         </div>
 
 
+                        <!-- GEN SELECTOR -->
+
+                        <?php
+
+                           if (!isset($_GET['gen1']) && !isset($_GET['gen2']) && !isset($_GET['gen3'])
+                                   && !isset($_GET['gen4']) && !isset($_GET['gen5']) && !isset($_GET['gen6']) )
+			   { 
+				$_GET['allgen'] = "active";
+
+                                // If Tracking More than 50 pokemons, show only ALL
+                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $result = $conn->query($sql);
+                                if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0";; }
+			   }
+                           if ( @$_GET['gen1'] == "active" ) { $gen_selector = "AND pokemon_id <= 151"; }
+                           if ( @$_GET['gen2'] == "active" ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
+                           if ( @$_GET['gen3'] == "active" ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
+                           if ( @$_GET['gen4'] == "active" ) { $gen_selector = "AND pokemon_id between 387 and 493"; }
+                           if ( @$_GET['gen5'] == "active" ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
+                           if ( @$_GET['gen6'] == "active" ) { $gen_selector = "AND pokemon_id >= 650"; }
+
+                        ?>
+                        
+                        <nav aria-label="Gen Selector">
+                          <ul class="pagination justify-content-left ml-1">
+                            <li class="page-item <?php echo @$_GET['allgen']; ?>"><a class="page-link" href="?allgen=active"><center>ALL</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen1']; ?>"><a class="page-link" href="?gen1=active"><center>G1</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen2']; ?>"><a class="page-link" href="?gen2=active"><center>G2</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen3']; ?>"><a class="page-link" href="?gen3=active"><center>G3</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen4']; ?>"><a class="page-link" href="?gen4=active"><center>G4</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen5']; ?>"><a class="page-link" href="?gen5=active"><center>G5</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen6']; ?>"><a class="page-link" href="?gen6=active"><center>G6</center></a></li>
+                          </ul>
+			</nav>
+
                         <!-- Content Row -->
                         <div class="row">
 
@@ -610,8 +645,18 @@ include "./header.php";
 
                                 // Show Monsters Alarms         
 
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' ORDER BY pokemon_id, form";
+                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' " . @$gen_selector ." ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
+				if ($result->num_rows == 0 && isset($_GET['allgen']))
+				{ 
+                                   echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
+                                   echo i8ln("You have not set any Alarm for ALL Pokemons, Please select a Gen!");
+                                   echo "</div>";
+				} else if ($result->num_rows == 0) {
+                                   echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
+                                   echo i8ln("You have not set any Alarms for this Generation!");
+                                   echo "</div>";
+				} 
 
                                 while ($row = $result->fetch_assoc()) {
 
