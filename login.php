@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<?php include "./config.php"; ?>
+
 <html lang="en">
 
 <head>
@@ -58,15 +60,26 @@
                                     </div>
 				    <p class="text-gray-900 mb-4"><?php echo i8ln("ALARM CONFIGURATION"); ?></p>
 
-				    <p class="mb-1"><small><?php echo i8ln("LOGIN WITH DISCORD"); ?></small></p>
+				    <p class="mb-3"><small><?php echo i8ln("LOGIN WITH DISCORD"); ?></small></p>
 
                                     <a href="./discord_auth.php?action=login">
                                         <i class="fab fa-discord fa-5x fa-fw mr-2 text-white-400"></i>
                                     </a>
-                                    <!-- <a href='./discord_auth.php?action=login'><img width=100 src='./img/discord.jpg'></a> -->
-                                </div>
+				    <!-- <a href='./discord_auth.php?action=login'><img width=100 src='./img/discord.jpg'></a> -->
+                                    <?php if ( isset($enable_telegram) && $enable_telegram == 'True' ){ ?>
+				    <hr>
+                                    <p class="mb-3"><small><?php echo i8ln("LOGIN WITH TELEGRAM"); ?></small></p>
+				    <script async src="https://telegram.org/js/telegram-widget.js?14" 
+	                                    data-telegram-login="<?php echo $telegram_bot; ?>" 
+					    data-size="medium" 
+					    data-auth-url="<?php echo $redirect_url; ?>/telegram_auth.php" 
+                                            data-request-access="write">
+				    </script>
+                                    <?php } ?>
+				</div>
+
                             </div>
-                        </div>
+			</div>
                     </div>
                 </div>
             </div>

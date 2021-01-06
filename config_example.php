@@ -32,6 +32,11 @@ $disable_quests      = "False";
 
 $site_is_https       = "True";
 
+// Telegram Login
+
+$enable_telegram    = "False";
+$telegram_bot       = "MyBot_bot";
+
 // Poracle Install Directoyy
 
 $poracle_dir="";

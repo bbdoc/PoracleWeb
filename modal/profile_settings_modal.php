@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <?php $avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png"; ?>
+                <?php $avatar = $_SESSION['avatar']; ?>
                 <div><img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
                 </div>
 		<h5 class="modal-title m-2" id="profileSettingsModalLongTitle"><?php echo i8ln("Settings"); ?></h5>

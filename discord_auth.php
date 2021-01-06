@@ -55,7 +55,8 @@ if(session('access_token')) {
 
   $_SESSION['username']=$user->username;
   $_SESSION['id']=$user->id;
-  $_SESSION['avatar']=$user->avatar;
+  $_SESSION['avatar_id']=$user->avatar;
+  $_SESSION['avatar'] = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar_id'] . ".png";
 
   echo '<h3>Welcome, ' . $user->username . '</h3>';
   echo '<h4>You are now successfully logged In</h4>';

@@ -17,7 +17,7 @@ if (isset($custom_title)) {
     $title = "PoracleWeb";
 }
 
-$avatar = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar'] . ".png";
+$avatar = $_SESSION['avatar'];
 
 // Check for Cleaned
 
@@ -71,8 +71,8 @@ if (isset($_SESSION['username'])) {
     if ($result->num_rows == 0) {
 
         // Not-Registered Page
-        if ( isset($subs_enable) && $subs_enable == 'True' ) {
-	    include "./subs_renew.php";
+        if ( isset($subs_enable) && $subs_enable == 'True' ) { 
+	    include "./subs_renew.php"; 
             exit();
 	} else {
 	    include "./unregistered.php";
@@ -84,5 +84,4 @@ if (isset($_SESSION['username'])) {
     include "./login.php";
     exit();
 }
-
 
