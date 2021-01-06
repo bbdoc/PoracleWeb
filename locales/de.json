@@ -156,5 +156,7 @@
    "Successfully Update Distance on ALL Raids & Eggs":"Distanzeinstellungen wurden erfolgreich für alle Raids & Eier gespeichert",
    "Successfully Update Distance on ALL Quests":"Distanzeinstellungen wurden erfolgreich für alle Quests gespeichert",
    "UPDATE":"AKTUALISIEREN",
-   "UPDATE DISTANCE":"DISTANZ AKTUALISIEREN"
+   "UPDATE DISTANCE":"DISTANZ AKTUALISIEREN",
+   "You have not set any Alarm for ALL Pokemons, Please select a Gen!":"Du hast noch keine Benachrichtung für ALLE Pokémon erstellt, bitte wähle eine Generation!",
+   "You have not set any Alarms for this Generation!":"Für diese Generation existiert noch keine Benachrichtigung!"
 }
