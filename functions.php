@@ -44,7 +44,7 @@ function get_all_forms($pokemon_id) {
 function get_all_mons() {
 
    include "./config.php";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json")) {
+   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
            $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json"); 
    } else {
            $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
