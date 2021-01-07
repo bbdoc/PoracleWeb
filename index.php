@@ -42,40 +42,13 @@ include "./header.php";
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar fixed-top navbar-expand navbar-dark topbar mb-4 static-top shadow"
-                    style="background-color: #000000;">
+		<?php include "topbar.php" ?>
 
-                    <a class="navbar-brand" href="<?php echo $redirect_url; ?>"><?php echo $title; ?></a>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow" id="Dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal"
-                                data-target="#profileSettingsModal">
-                                <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
-                                <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
-                            </a>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - Logout -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-fw"></i>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid col-lg-8 col-md-12">
+		<div class="container-fluid col-lg-8 col-md-12">
+
+		<?php echo @$admin_alarm; ?>
+
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
@@ -265,6 +238,16 @@ include "./header.php";
                         ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <?php echo i8ln("Address not found. Try Again"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+		    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'user_not_found') {
+                        ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("User not found. Try Again"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -617,7 +600,7 @@ include "./header.php";
                                 $result = $conn->query($sql);
                                 if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0";; }
 			   }
-                           if ( @$_GET['gen1'] == "active" ) { $gen_selector = "AND pokemon_id <= 151"; }
+                           if ( @$_GET['gen1'] == "active" ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
                            if ( @$_GET['gen2'] == "active" ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
                            if ( @$_GET['gen3'] == "active" ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
                            if ( @$_GET['gen4'] == "active" ) { $gen_selector = "AND pokemon_id between 387 and 493"; }

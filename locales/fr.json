@@ -156,5 +156,11 @@
     "UPDATE":"MAJ",
     "UPDATE DISTANCE":"MODIFIER LA DISTANCE",
     "You have not set any Alarm for ALL Pokemons, Please select a Gen!":"Vous n'avez configuré aucune Alarme pour TOUS les Pokémons. Sélectionnez une Génération!",
-    "You have not set any Alarms for this Generation!":"Vous n'avez configuré aucune Alarme pour cette génération!"
+    "You have not set any Alarms for this Generation!":"Vous n'avez configuré aucune Alarme pour cette génération!",
+    "User & Channel Management":"Gestion Utilisateurs et Canaux",
+    "Back to own Account":"Retour à mon compte personnel",
+    "Discord or Telegram ID":"ID Discord ou Telegram",
+    "ADMIN MODE ACTIVE":"MODE ADMIN ACTIF",
+    "User not found. Try Again":"Utilisateur Introuvable. Réessayez"
+
 }

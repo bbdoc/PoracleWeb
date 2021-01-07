@@ -81,38 +81,7 @@ include "./header.php";
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar fixed-top navbar-expand navbar-dark topbar mb-4 static-top shadow"
-                    style="background-color: #000000;">
-
-                    <a class="navbar-brand" href="<?php echo $redirect_url; ?>"><?php echo $title; ?></a>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow" id="Dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal"
-                                data-target="#profileSettingsModal">
-                                <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
-                                <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
-                            </a>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - Logout -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-fw"></i>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
+                <?php include "topbar.php" ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid col-lg-8 col-md-12">
