@@ -13,6 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 	    </div>
+            <?php echo @$admin_alarm; ?>
             <?php 
 
                if (isset($allowed_languages)) {

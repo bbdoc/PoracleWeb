@@ -69,7 +69,8 @@ include "./header.php";
                 <?php include "topbar.php" ?>
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid col-lg-8 col-md-12">
+		<div class="container-fluid col-lg-8 col-md-12">
+                <?php echo @$admin_alarm; ?>
 
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
