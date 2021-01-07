@@ -41,6 +41,10 @@ $telegram_bot       = "MyBot_bot";
 
 $poracle_dir="";
 
+// Admin User
+
+$admin_id = "";
+
 // Discord Configuration
 
 $redirect_url="";
