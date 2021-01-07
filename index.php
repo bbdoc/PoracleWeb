@@ -628,7 +628,8 @@ include "./header.php";
                         
                         <nav aria-label="Gen Selector">
                           <ul class="pagination justify-content-left ml-1">
-                            <li class="page-item <?php echo @$_GET['allgen']; ?>"><a class="page-link" href="?allgen=active"><center>ALL</center></a></li>
+			    <li class="page-item <?php echo @$_GET['allgen']; ?>"><a class="page-link" href="?allgen=active">
+			    <center><?php echo i8ln("ALL"); ?></center></a></li>
                             <li class="page-item <?php echo @$_GET['gen1']; ?>"><a class="page-link" href="?gen1=active"><center>G1</center></a></li>
                             <li class="page-item <?php echo @$_GET['gen2']; ?>"><a class="page-link" href="?gen2=active"><center>G2</center></a></li>
                             <li class="page-item <?php echo @$_GET['gen3']; ?>"><a class="page-link" href="?gen3=active"><center>G3</center></a></li>
