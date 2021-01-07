@@ -4,6 +4,12 @@ include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
 
+if (!isset($_SESSION['admin_id'])) {
+        header("Location: $redirect_url");
+        exit();
+}
+
+
 if ( isset($_GET['id']) ) {
    $search_id = $_GET['id'];
 } else if ( isset($_POST['id']) ) {
