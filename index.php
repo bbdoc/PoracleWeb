@@ -627,11 +627,23 @@ include "./header.php";
 
                             <?php
 
+                                // Check if User is already tracking something
+
+                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $result = $conn->query($sql);
+				while ($row = $result->fetch_assoc()) {
+					$num_mon_tracked = $row['count'];
+				}
+
                                 // Show Monsters Alarms         
 
                                 $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' " . @$gen_selector ." ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
-				if ($result->num_rows == 0 && isset($_GET['allgen']))
+				if ($num_mon_tracked == 0) {
+                                   echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
+                                   echo i8ln("You have not set any Alarm yet!");
+                                   echo "</div>";
+				} else if ($result->num_rows == 0 && isset($_GET['allgen']))
 				{ 
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm for ALL Pokemons, Please select a Gen!");
