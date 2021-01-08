@@ -4,6 +4,13 @@ if (!isset($_SESSION['admin_id'])) {
 	header("Location: $redirect_url"); 
 	exit();
 } 
+
+$num_dbs=0;
+$dbnames = explode(",", $dbname);
+foreach ($dbnames as &$db) {
+	$num_dbs=$num_dbs+1;
+}
+
 ?>
 
 
@@ -94,12 +101,14 @@ if (!isset($_SESSION['admin_id'])) {
                     <!-- Discord Users List -->
 
                     <?php
+                    
+                    if (@$admin_disable_userlist <> "True" ) {
 
                     $dbnames = explode(",", $dbname);
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $sql = "select id, name, type FROM humans WHERE type like 'discord:user' ORDER by name";
+                       $sql = "select id, name, type FROM humans WHERE type like '%:user' ORDER by type,name";
                        $result = $conn->query($sql);
                        ?>
 
@@ -111,28 +120,29 @@ if (!isset($_SESSION['admin_id'])) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>USERS LIST</strong>
+				<strong><?php echo i8ln("USERS LIST"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
                             </div>
                         </div>
                     </div>
 
                     <div class='text-uppercase text-center'>
 
-                        <?php while ($row = $result->fetch_assoc()) { ?>
+			<?php while ($row = $result->fetch_assoc()) { ?>
 
                         <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
-                            class="btn btn-primary btn-icon-split m-1">
-                            <span class="icon text-white-50">
-                                <i class="fab fa-discord"></i>
+			class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
+			    <span class="icon text-white-50">
+			    <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i>
                             </span>
-                            <span class="text" style="min-width: 200px;"><?php echo $row['name']; ?></span>
+                            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
                         </a>
 
                         <?php } ?>
                     </div>
 
                     <?php } ?>
-
+                    <?php } ?>
                     <?php } ?>
 
 
@@ -156,7 +166,8 @@ if (!isset($_SESSION['admin_id'])) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>DISCORD CHANNELS LIST</strong>
+				<strong><?php echo i8ln("DISCORD CHANNELS LIST"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
                             </div>
                         </div>
                     </div>
@@ -201,7 +212,8 @@ if (!isset($_SESSION['admin_id'])) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>TELEGRAM CHANNELS LIST</strong>
+				<strong><?php echo i8ln("TELEGRAM CHANNELS LIST"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
                             </div>
                         </div>
                     </div>
@@ -246,7 +258,8 @@ if (!isset($_SESSION['admin_id'])) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <strong>WEBHOOKS LIST</strong>
+				<strong><?php echo i8ln("WEBHOOKS LIST"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
                             </div>
                         </div>
                     </div>

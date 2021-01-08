@@ -162,6 +162,8 @@
     "Back to own Account":"Retour à mon compte personnel",
     "Discord or Telegram ID":"ID Discord ou Telegram",
     "ADMIN MODE ACTIVE":"MODE ADMIN ACTIF",
-    "User not found. Try Again":"Utilisateur Introuvable. Réessayez"
-
+    "User not found. Try Again":"Utilisateur Introuvable. Réessayez",
+    "USERS LIST":"LISTE D'UTILISATEURS",
+    "DISCORD CHANNELS LIST":"LISTE DE CANAUX DISCORD",
+    "TELEGRAM CHANNELS LIST":"LISTE DE CANAUX TELEGRAM"
 }

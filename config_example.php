@@ -43,7 +43,9 @@ $poracle_dir="";
 
 // Admin User
 
-$admin_id = "";
+$admin_id                = "";
+$admin_disable_userlist  = "False";
+
 
 // Discord Configuration
 
