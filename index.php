@@ -322,8 +322,8 @@ include "./header.php";
                                             <i class="fas fa-edit"></i>
 					</button>
 					</div>
-                                        </h6>
                                         <?php } ?>
+                                    </h6>
                                     <?php } ?>
 
                                 </div>
