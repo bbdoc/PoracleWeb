@@ -1,5 +1,10 @@
 <?php
 include "./header.php";
+if ( $disable_quests = "True" ) {
+        header("Location: $redirect_url");
+        exit();
+}
+
 ?>
 
 <!DOCTYPE html>

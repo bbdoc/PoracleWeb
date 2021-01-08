@@ -1,5 +1,10 @@
 <?php
 include "./header.php";
+if ( $disable_raids = "True" ) {
+        header("Location: $redirect_url");
+        exit();
+}
+
 ?>
 
 <!DOCTYPE html>

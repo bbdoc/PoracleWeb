@@ -162,7 +162,46 @@ if (!isset($_SESSION['admin_id'])) {
                     
 		       <?php } ?>
 
-   	           <?php } ?>
+		   <?php } ?>
+
+                    <!--  Webhooks -->
+
+                    <?php
+
+                    $dbnames = explode(",", $dbname);
+                    foreach ($dbnames as &$db) {
+
+                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
+                       $sql = "select id, name, type FROM humans WHERE type like 'webhook' ORDER by name";
+                       $result = $conn->query($sql);
+                       ?>
+
+                       <?php if ($result->num_rows <> 0) { ?>
+
+                          <hr>
+                          <div id='discord' class='areasform text-uppercase text-center'>
+                          <ul>
+
+                          <?php while ($row = $result->fetch_assoc()) { ?>
+
+                             <a href="admin_connect.php?id=<?php echo $row['id']; ?>" class="btn btn-secondary btn-icon-split mr-2 mt-1">
+                                <span class="icon text-white-50">
+                                   WH
+                                </span>
+                                <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                             </a>
+                             <br>
+
+                          <?php } ?>
+
+                       </ul>
+                       </div>
+
+                       <?php } ?>
+
+                   <?php } ?>
+
+
 
                 </div>
 
@@ -189,6 +228,7 @@ if (!isset($_SESSION['admin_id'])) {
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
+<br>
 </body>
 
 </html>

@@ -34,10 +34,15 @@ foreach ($dbnames as &$db) {
 
 // Set Admin Variables
 
-if (isset($admin_id) && $_SESSION['id'] == $admin_id)
-{
+if (isset($admin_id)) {
+	$admins = explode(",", $admin_id);
+}
+foreach ($admins as &$admin) { 
+   if ($_SESSION['id'] == $admin)
+   {
 	$_SESSION['admin_id'] = $_SESSION['id'];
 	$_SESSION['admin_username'] = $_SESSION['username'];
 	$_SESSION['admin_dbname'] = $_SESSION['dbname'];
 	$_SESSION['admin_type'] = $_SESSION['type'];
-}
+   } 
+} 
