@@ -186,7 +186,7 @@ if (!isset($_SESSION['admin_id'])) {
 
                              <a href="admin_connect.php?id=<?php echo $row['id']; ?>" class="btn btn-secondary btn-icon-split mr-2 mt-1">
                                 <span class="icon text-white-50">
-                                   WH
+                                   <font size=1>WH</font>
                                 </span>
                                 <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
                              </a>

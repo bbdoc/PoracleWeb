@@ -130,7 +130,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("LVL"); ?>&nbsp;&nbsp;&nbsp;</div>
                         </div>
-                        <input type='number' id='min_level' name='min_level' size=1 value='<?php echo $row['min_cp'] ?>'
+                        <input type='number' id='min_level' name='min_level' size=1 value='<?php echo $row['min_level'] ?>'
                             min='0' max='50' class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
