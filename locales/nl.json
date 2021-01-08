@@ -154,5 +154,16 @@
     "Successfully Update Distance on ALL Raids & Eggs":"Afstand alle raids en eieren succesvol bijgewerkt",
     "Successfully Update Distance on ALL Quests":"Afstand alle quests succesvol bijgewerkt",
     "UPDATE":"BIJWERKEN",
-    "UPDATE DISTANCE":"BIJWERKEN AFSTAND"
+    "UPDATE DISTANCE":"BIJWERKEN AFSTAND",
+    "You have not set any Alarm for ALL Pokemons, Please select a Gen!":"Je hebt nog geen alarm ingesteld voor ALLE Pokemon, selecteer een generatie aub!",
+    "You have not set any Alarm yet!":"Je hebt nog geen alarm ingesteld!",
+    "You have not set any Alarms for this Generation!":"Je hebt nog geen alarm ingesteld voor deze generatie!",
+    "User & Channel Management":"Gebruiker en kanaal onderhoud",
+    "Back to own Account":"Terug naar eigen account",
+    "Discord or Telegram ID":"Dicord of Telegram ID",
+    "ADMIN MODE ACTIVE":"Beheerder modus actief",
+    "User not found. Try Again":"Gebruiker niet gevonden, probeer nogmaals",
+    "USERS LIST":"GEBRUIKERS",
+    "DISCORD CHANNELS LIST":"DICORD KANALEN",
+    "TELEGRAM CHANNELS LIST":"TELEGRAM KANALEN"
 }
