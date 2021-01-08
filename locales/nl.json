@@ -162,5 +162,8 @@
     "Back to own Account":"Terug naar eigen account",
     "Discord or Telegram ID":"Dicord of Telegram ID",
     "ADMIN MODE ACTIVE":"Beheerder modus actief",
-    "User not found. Try Again":"Gebruiker niet gevonden, probeer nogmaals"
+    "User not found. Try Again":"Gebruiker niet gevonden, probeer nogmaals",
+    "USERS LIST":"GEBRUIKERS",
+    "DISCORD CHANNELS LIST":"DICORD KANALEN",
+    "TELEGRAM CHANNELS LIST":"TELEGRAM KANALEN"
 }
