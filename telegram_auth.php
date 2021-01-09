@@ -4,7 +4,7 @@ include "./config.php";
 
 session_start();
 
-$_SESSION['type']="telegram";
+$_SESSION['type']="telegram:user";
 $_SESSION['id']=$_GET['id'];
 $_SESSION['avatar']=$_GET['photo_url'];
 if (isset($_SESSION['username'])) { 
