@@ -677,12 +677,12 @@ include "./header.php";
                                             $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
                                             $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
                                         } else {
-                                            $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
-                                            $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
+                                            $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
+                                            $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
                                         }
                                     } else {
-                                        $PkmnImg_50 = "<img width=50 src='$PkmnImg'>";
-                                        $PkmnImg_100 = "<img width=100 src='$PkmnImg'>";
+                                        $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
+                                        $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
                                     }
 
                                 ?>
@@ -1074,7 +1074,7 @@ include "./header.php";
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50
+                                                    <img width=50 loading=lazy
                                                         src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -1193,7 +1193,7 @@ include "./header.php";
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50
+                                                    <img width=50 loading=lazy
                                                         src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -1313,7 +1313,7 @@ include "./header.php";
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50
+                                                    <img width=50 loading=lazy
                                                         src='<?php echo $imgUrl . "/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_00.png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -1542,7 +1542,7 @@ include "./header.php";
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50
+                                                    <img width=50 loading=lazy
                                                         src='<?php echo $imgUrl . "/pokemon_icon_" . $mon_id . "_00.png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -1659,7 +1659,7 @@ include "./header.php";
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50
+                                                    <img width=50 loading=lazy
                                                         src='<?php echo $imgUrl . "/rewards/reward_" . $row['reward'] . "_1.png"; ?>'>
                                                 </div>
                                                 <div class="mt-2 text-center">
