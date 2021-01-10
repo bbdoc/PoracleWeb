@@ -165,5 +165,16 @@
     "User not found. Try Again":"Utilisateur Introuvable. Réessayez",
     "USERS LIST":"LISTE D'UTILISATEURS",
     "DISCORD CHANNELS LIST":"LISTE DE CANAUX DISCORD",
-    "TELEGRAM CHANNELS LIST":"LISTE DE CANAUX TELEGRAM"
+    "TELEGRAM CHANNELS LIST":"LISTE DE CANAUX TELEGRAM",
+    "Migrate":"Migrer",
+    "Migrate Your Account":"Migrer votre Compte",
+    "You are currently connected as":"Vous êtes actuellement connecté en tant que",
+    "Your account will be migrated to":"Votre compte sera migré vers",
+    "Migration is definitive and cannot be reversed":"La migration est définitive et ne pourra pas être inversée",
+    "Start account migration by":"Finaliser la migration du compte en",
+    "logging into your target telegram account":"vous connectant sur la compte Telegram cible",
+    "Sorry Migration From Telegram to Discord is not available yet":"Désolé, la migration Telegram vers Discord n'est pas encore disponible",
+    "User Already Exist":"L'utilisateur existe déjà",
+    "Cannot Migrate to an existing User":"Impossible de Migrer vers un compte existant",
+    "CONFIRM ACCOUNT MIGRATION":"CONFIRMER LA MIGRATION DU COMPTE"
 }

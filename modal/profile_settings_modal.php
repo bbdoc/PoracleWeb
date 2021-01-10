@@ -6,14 +6,29 @@
         <div class="modal-content">
             <div class="modal-header">
                 <?php $avatar = $_SESSION['avatar']; ?>
-                <div><img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
+		<div>
+		   <img src='./img/<?php echo rtrim($_SESSION['type'], ':user');?>.png' style='border-radius: 50%; width:40px;'>
+                   <img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
                 </div>
 		<h5 class="modal-title m-2" id="profileSettingsModalLongTitle"><?php echo i8ln("Settings"); ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
 	    </div>
-            <?php echo @$admin_alarm; ?>
+	    <?php echo @$admin_alarm; ?>
+
+            <?php 
+               if ($_SESSION['type']=="discord:user" && !isset($admin_alarm) && $enable_telegram == "True") {
+                  echo "<center>";
+                  echo "<a href='migrate.php'>";
+                  echo "<button type='button' class='btn btn-primary mt-2' style='width:95%;'>";
+                  echo i8ln("Migrate")." Discord <i class='fas fa-arrow-circle-right'></i> Telegram</i>"; 
+                  echo "</button>";
+                  echo "</a>";
+                  echo "</center>";
+	       }
+            ?>
+
             <?php 
 
                if (isset($allowed_languages)) {

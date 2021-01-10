@@ -187,7 +187,7 @@ function get_address($lat, $lon) {
       if ( @$town <> "" ) {  $city=$town; }
       if ( @$village <> "" ) {  $city=$village; }
    }
-   $address = $road." | ".$city." | ".$country;
+   $address = @$road." | ".@$city." | ".@$country;
    return $address;
 }
 

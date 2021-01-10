@@ -231,6 +231,17 @@ include "./header.php";
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+		    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_migrate') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+			<?php echo i8ln("Successfully Migrated account")."<br>".$_GET['mig_source']."
+                           <i class='fas fa-arrow-circle-right'></i> ".$_GET['mig_target']."!"; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <?php
                         }

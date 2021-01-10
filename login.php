@@ -68,7 +68,7 @@
 				    <!-- <a href='./discord_auth.php?action=login'><img width=100 src='./img/discord.jpg'></a> -->
                                     <?php if ( isset($enable_telegram) && $enable_telegram == 'True' ){ ?>
 				    <hr>
-                                    <p class="mb-3"><small><?php echo i8ln("LOGIN WITH TELEGRAM"); ?></small></p>
+				    <p class="mb-3"><small><?php echo i8ln("LOGIN WITH TELEGRAM"); ?></small></p>
 				    <script async src="https://telegram.org/js/telegram-widget.js?14" 
 	                                    data-telegram-login="<?php echo $telegram_bot; ?>" 
 					    data-size="medium" 
