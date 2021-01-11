@@ -64,7 +64,7 @@
         $gender = ltrim($value, 'gender_');
       }
       if (substr($value, 0, 6) == "clean_") {
-        $clean = ltrim($value, 'clean_'); echo "TEST"; exit();
+        $clean = ltrim($value, 'clean_'); 
       }
     }
 
