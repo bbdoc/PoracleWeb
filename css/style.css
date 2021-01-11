@@ -32,6 +32,7 @@ input[type="checkbox"][id^="mon"],
 input[type="checkbox"][id^="egg"],
 input[type="checkbox"][id^="raid"],
 input[type="checkbox"][id^="area"],
+input[type="checkbox"][id^="target"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
@@ -60,6 +61,20 @@ label[for^="item"] {
     user-select: none;
     min-width: 90px;
 }
+
+label[for^="target"] {
+    color: #ffffff;
+    display: block;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 18px;
+}
+
 
 
 /* label[for^="mon"] {
@@ -102,16 +117,27 @@ label img {
     transform-origin: 50% 50%;
 }
 
-:checked+label {
+:checked+label[for^="mon"], 
+:checked+label[for^="egg"], 
+:checked+label[for^="raid"], 
+:checked+label[for^="area"], 
+:checked+label[for^="item"] {
     border-color: #ddd;
     position: relative;
     background-color: #5a5c69;
 }
 
+:checked+label[for^="target"] {
+    border-color: #ddd;
+    position: relative;
+}
+
+
 :checked+label[for^="mon"]::before,
  :checked+label[for^="egg"]::before,
  :checked+label[for^="raid"]::before,
  :checked+label[for^="area"]::before,
+ :checked+label[for^="target"]::before,
  :checked+label[for^="item"]::before {
     content: "✓";
     color: #ffffff;

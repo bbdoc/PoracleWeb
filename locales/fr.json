@@ -176,5 +176,13 @@
     "Sorry Migration From Telegram to Discord is not available yet":"Désolé, la migration Telegram vers Discord n'est pas encore disponible",
     "User Already Exist":"L'utilisateur existe déjà",
     "Cannot Migrate to an existing User":"Impossible de Migrer vers un compte existant",
-    "CONFIRM ACCOUNT MIGRATION":"CONFIRMER LA MIGRATION DU COMPTE"
+    "CONFIRM ACCOUNT MIGRATION":"CONFIRMER LA MIGRATION DU COMPTE",
+    "Channel Synchronization":"Synchronisation des Canaux",
+    "Successfully Synchronized Channels":"Canaux Synchronisés avec Succès",
+    "Please select channels you want to synchronize with current channel":"Sélectionnez les canaux à synchroniser avec le canal actuel",
+    "This will DELETE AND REPLACE all current tracking from ALL chosen channels":"Cette action SUPPRIMERA ET REMPLACERA tous les suivis des canaux choisis",
+    "TELEGRAM CHANNELS TO SYNC WITH":"CANAUX TELEGRAM A SYNCHRONISER",
+    "TELEGRAM DISCORD TO SYNC WITH":"CANAUX DISCORD A SYNCHRONISER",
+    "CONFIRM CHANNEL SYNCHRONIZATION":"CONFIRMER LA SYNCHRONISATION",
+    "Synchronize Other Channels with this one":"Synchroniser d'autres canaux avec celui-ci"
 }

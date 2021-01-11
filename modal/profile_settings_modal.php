@@ -7,7 +7,11 @@
             <div class="modal-header">
                 <?php $avatar = $_SESSION['avatar']; ?>
 		<div>
-		   <img src='./img/<?php echo rtrim($_SESSION['type'], ':user');?>.png' style='border-radius: 50%; width:40px;'>
+		   <?php 
+                      if ( strpos($_SESSION['type'],"discord") !== false ) { $type_img="./img/discord.png"; } 
+                      if ( strpos($_SESSION['type'],"telegram") !== false ) { $type_img="./img/telegram.png"; } 
+                   ?>
+		   <img src='<?php echo $type_img; ?>' style='border-radius: 50%; width:40px;'>
                    <img src='<?php echo $avatar; ?>' style='border-radius: 50%; width:40px;'>
                 </div>
 		<h5 class="modal-title m-2" id="profileSettingsModalLongTitle"><?php echo i8ln("Settings"); ?></h5>
@@ -15,7 +19,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 	    </div>
+  
+            <center><div style="width:95%;">
 	    <?php echo @$admin_alarm; ?>
+            </div></center>
 
             <?php 
                if ($_SESSION['type']=="discord:user" && !isset($admin_alarm) && $enable_telegram == "True") {
