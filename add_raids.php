@@ -89,7 +89,7 @@ if ( $disable_raids == "True" ) {
                         </div>
                     </div>
 
-                    <form action='./form_action.php' method='POST'>
+                    <form action='./actions/raids.php' method='POST'>
 
                         <?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">

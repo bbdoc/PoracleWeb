@@ -577,7 +577,7 @@ include "./header.php";
                                         <?php echo i8ln("This will delete all your Pokémon Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="./form_action.php?action=delete_all_mons"
+                                        <a href="./actions/monsters.php?action=delete_all_mons"
                                             class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -922,7 +922,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/monsters.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='monsters'>
                                                     <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
@@ -1041,7 +1041,7 @@ include "./header.php";
                                         <?php echo i8ln("This will delete all your Eggs & Raids Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="./form_action.php?action=delete_all_raids"
+                                        <a href="./actions/raids.php?action=delete_all_raids"
                                             class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1165,7 +1165,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/raids.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='eggs'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
@@ -1283,7 +1283,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/raids.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='raids'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
@@ -1404,7 +1404,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/raids.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='raids'>
                                                     <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
@@ -1506,7 +1506,7 @@ include "./header.php";
                                         <?php echo i8ln("This will delete all your Quests Alarms and cannot be undone, are you sure ?"); ?>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="./form_action.php?action=delete_all_quests"
+                                        <a href="./actions/quests.php?action=delete_all_quests"
                                             class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
@@ -1632,7 +1632,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/quests.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='quests'>
                                                     <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
@@ -1745,7 +1745,7 @@ include "./header.php";
                                             <?php echo i8ln("Are you sure?"); ?>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action='./form_action.php' method='POST'>
+                                            <form action='./actions/quests.php' method='POST'>
                                                 <?php echo "
                                                     <input type='hidden' id='type' name='type' value='quests'>
                                                     <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>

@@ -3,7 +3,7 @@
 $form_name = get_form_name($row['pokemon_id'], $row['form']);
 
 echo "
-    <form action='./form_action.php' method='POST'>
+    <form action='./actions/monsters.php' method='POST'>
     ";
 
 if ($row['pokemon_id'] == '0') {

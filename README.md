@@ -24,12 +24,6 @@ Please note that I'm not a professional Web Developer, so the code might look ug
 - [x] Quests
 - [ ] Invasions
 
-A few other features that might make their way into the tool :
-
-- Ability to set a Location.
-- Ability to set a Distance globally for all Monsters and/or all Raids/Eggs.
-- A way to visualize distances drawing a radius on the map from current position.
-
 Any other suggestions are welcome, please use [GitHub Issues][issues-url] for your suggestions.
 
 ---
@@ -59,7 +53,7 @@ Any other suggestions are welcome, please use [GitHub Issues][issues-url] for yo
 For those parameters go to :
 - [Discord application Portal](https://discord.com/developers/applications)
 - Select your Bot (or create a new one).
-- Go to OAuth2 and add your `http://yourdomain.com/discord_auth.php` (`http://yourdomain.com/`) being your `redirect_url`
+- Go to OAuth2 and add your `https://yourdomain.com/discord_auth.php` (`https://yourdomain.com`) being your `redirect_url`
 - Client ID can be found under "General Information"
 - Client Secret can be found under "General Information" by clicking the "Click to reveal" link.
 

@@ -1,7 +1,7 @@
 <?php
 
 echo "
-    <form action='./form_action.php' method='POST'>
+    <form action='./actions/quests.php' method='POST'>
     ";
 
 echo "<div class='text-center mt-3'>";

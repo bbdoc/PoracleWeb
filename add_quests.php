@@ -91,7 +91,7 @@ if ( $disable_quests == "True" ) {
                         </div>
                     </div>
 
-                    <form action='./form_action.php' method='POST'>
+                    <form action='./actions/quests.php' method='POST'>
 
                         <?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">

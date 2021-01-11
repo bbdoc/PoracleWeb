@@ -116,7 +116,7 @@ if ( $disable_mons == "True" ) {
 
                         ?>
 
-                    <form action='./form_action.php' method='POST'>
+                    <form action='./actions/monsters.php' method='POST'>
 
                         <?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">

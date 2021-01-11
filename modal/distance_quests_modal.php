@@ -18,7 +18,7 @@
             $distance_set = 0;
     }
 ?>
-<form action='./form_action.php?action=update_quests_distance' method='POST'>
+<form action='./actions/quests.php?action=update_quests_distance' method='POST'>
 <div class="modal-body">
     <?php echo i8ln("This will update Distance settings for ALL tracked Quests"); ?>.<br><br>
     <?php echo i8ln("Please Set New Distance"); ?>:

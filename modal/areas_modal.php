@@ -12,7 +12,7 @@ while ($row = $result->fetch_assoc()) {
 
 echo "
     <div id='areas' class='areasform text-uppercase text-center'>
-    <form action='./form_action.php' method='POST'>
+    <form action='./actions/areas.php' method='POST'>
     ";
 
 

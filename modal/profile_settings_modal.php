@@ -45,7 +45,7 @@
                }
 
             ?>
-            <form action='./form_action.php' method='POST'>
+            <form action='./actions/profile.php' method='POST'>
                 <div class="modal-body">
                     <table class="table table-borderless text-center" style="margin: auto; width: 90% !important;">
                         <tbody>

@@ -19,7 +19,7 @@
             $distance_set = 0;
     }
 ?>
-<form action='./form_action.php?action=update_raids_distance' method='POST'>
+<form action='./actions/raids.php?action=update_raids_distance' method='POST'>
 <div class="modal-body">
     <?php echo i8ln("This will update Distance settings for ALL tracked Raids & Eggs"); ?>.<br><br>
     <?php echo i8ln("Please Set New Distance"); ?>:

@@ -18,7 +18,7 @@
             $distance_set = 0;
     }
 ?>
-<form action='./form_action.php?action=update_mons_distance' method='POST'>
+<form action='./actions/monsters.php?action=update_mons_distance' method='POST'>
 <div class="modal-body">
     <?php echo i8ln("This will update Distance settings for ALL tracked Pokémons"); ?>.<br><br>
     <?php echo i8ln("Please Set New Distance"); ?>:
