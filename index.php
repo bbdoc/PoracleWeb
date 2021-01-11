@@ -1813,6 +1813,21 @@ include "./header.php";
     <script type="text/javascript" src="js/get_position.js?v=<?=time();?>"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
+    <!-- Custom scripts for Deep Linking Tabs -->
+    <script type='text/javascript'>
+        window.onhashchange=hashTriggerTab;
+        window.onload=hashTriggerTab;
+
+        function hashTriggerTab(){
+            var current_hash=window.location.hash;
+            if(current_hash.substring(0,1)=='#')current_hash=current_hash.substring(1);
+            if(current_hash!=''){
+                var trigger=document.querySelector('.nav-pills a[href="#'+current_hash+'"]');
+                if(trigger)trigger.click();
+            }
+        }
+    </script>
+
 </body>
 
 </html>

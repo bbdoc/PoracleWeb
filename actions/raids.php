@@ -98,7 +98,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_raid");
+    header("Location: $redirect_url?return=success_update_raid#pills-raids");
     exit();
   }
 
@@ -146,7 +146,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_egg");
+    header("Location: $redirect_url?return=success_update_egg#pills-raids");
     exit();
   }
 
@@ -188,7 +188,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_delete_raid");
+    header("Location: $redirect_url?return=success_delete_raid#pills-raids");
     exit();
   }
 
@@ -227,7 +227,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_delete_egg");
+    header("Location: $redirect_url?return=success_delete_egg#pills-raids");
     exit();
   }
 
@@ -316,7 +316,7 @@
       }
     }
 
-    header("Location: $redirect_url?return=success_added_raids");
+    header("Location: $redirect_url?return=success_added_raids#pills-raids");
     exit();
   }
 
@@ -358,7 +358,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?return=success_delete_raids");
+    header("Location: $redirect_url?return=success_delete_raids#pills-raids");
     exit();
   }
 
@@ -400,7 +400,7 @@
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_raids_distance");
+    header("Location: $redirect_url?return=success_update_raids_distance#pills-raids");
     exit();
 
   }
