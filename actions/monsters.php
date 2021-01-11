@@ -20,18 +20,18 @@
 
   <?php
 
-#  echo "<table>";
-#      foreach ($_POST as $key => $value) {
-#          echo "<tr>";
-#          echo "<td>";
-#          echo $key;
-#          echo "</td>";
-#          echo "<td>";
-#          echo $value;
-#          echo "</td>";
-#          echo "</tr>";
-#      }
-#  echo "</table>";
+  echo "<table>";
+      foreach ($_POST as $key => $value) {
+          echo "<tr>";
+          echo "<td>";
+          echo $key;
+          echo "</td>";
+          echo "<td>";
+          echo $value;
+          echo "</td>";
+          echo "</tr>";
+      }
+  echo "</table>";
 
   include "../config.php";
   include "../db_connect.php";
@@ -56,15 +56,15 @@
 
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
 
-    foreach ($_POST as $key => $value) {
-      if (substr($value, 0, 5) === "form_") {
+    foreach ($_POST as $key => $value) { 
+      if (substr($value, 0, 5) == "form_") {
         $form = ltrim($value, 'form_');
       }
-      if (substr($value, 0, 7) === "gender_") {
+      if (substr($value, 0, 7) == "gender_") {
         $gender = ltrim($value, 'gender_');
       }
-      if (substr($value, 0, 6) === "clean_") {
-        $clean = ltrim($value, 'clean_');
+      if (substr($value, 0, 6) == "clean_") {
+        $clean = ltrim($value, 'clean_'); echo "TEST"; exit();
       }
     }
 
@@ -220,15 +220,12 @@
 
   if (isset($_POST['add_mon'])) {
 
-    foreach ($_POST as $key => $value) {
+    foreach ($_POST as $key => $value) { 
       if (substr($value, 0, 7) === "gender_") {
         $gender = ltrim($value, 'gender_');
       }
-    }
-
-    foreach ($_POST as $key => $value) {
-      if (substr($value, 0, 6) === "clean_") {
-        $clean = ltrim($value, 'clean_');
+      if (substr($value, 0, 6) === "clean_") { 
+        $clean = ltrim($value, 'clean_'); 
       }
     }
 
@@ -248,7 +245,7 @@
              great_league_ranking, great_league_ranking_min_cp,
              ultra_league_ranking, ultra_league_ranking_min_cp
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error");

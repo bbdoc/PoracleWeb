@@ -106,8 +106,8 @@ if ( $disable_mons == "True" ) {
                     </div>
 
                     <?php
-                        $clean_0_checked = 0;
-                        $clean_1_checked = 0;
+                        $clean_0_checked = "";
+                        $clean_1_checked = "";
                         if ($all_mon_cleaned == "1") {
                             $clean_1_checked = 'checked';
                         } else {
