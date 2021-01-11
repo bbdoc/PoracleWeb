@@ -11,7 +11,7 @@ function getLocation() {
 }
 
 function setPosition(position) {
-   window.location = './set_location.php?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
+   window.location = './actions/set_location.php?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
 }
 
 function showError(error) {

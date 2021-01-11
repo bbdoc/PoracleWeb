@@ -38,7 +38,7 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
     </div>
 </div>
 
-<form action='./set_location.php' method='POST'>
+<form action='./actions/set_location.php' method='POST'>
 
 <div class='mb-3' id='dvStreet'>
     <input type='text' class='form-control form-control-lg' id='street' name='street' placeholder='<?php echo i8ln("Street Name") ?>'>

@@ -1,7 +1,7 @@
 <?php
 
-include "./config.php";
-include "./db_connect.php";
+include "../config.php";
+include "../db_connect.php";
 
 if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 
