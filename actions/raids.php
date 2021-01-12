@@ -294,7 +294,7 @@
         $arr = explode("_", $key);
         $boss_id = $arr[1];
         $boss_form = $arr[2];
-        $boss_mega = $arr[3];
+        if (isset($arr[3])) { $boss_mega = $arr[3];} 
 
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
                                VALUES ( ?, '', ? , 1, ? , ?, 4, 9000, ?)");

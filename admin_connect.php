@@ -59,9 +59,6 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['type']=$row['type'];
 }
 
-echo $$_SESSION['id'];
-echo $$_SESSION['username'];
-
 // Reset Admin Account
 
 if ( $_SESSION['id'] == $_SESSION['admin_id'] )
