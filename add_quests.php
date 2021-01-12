@@ -234,6 +234,41 @@ if ( $disable_quests == "True" ) {
                             </ul>
                         </div>
 
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <?php echo i8ln("Select Energy Rewards you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <div class='selectionList'>
+			    <ul>
+                                <li class='text-center'><input type='checkbox' name='energy_0'
+                                        id='energy_0' />
+                                    <label for='energy_0'>
+                                        <img src='<?php echo $imgUrl; ?>/rewards/reward_mega_energy.png' />
+					<br><br><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    $energy_rewards =  get_quest_energy();
+                                    foreach ($energy_rewards as &$energy) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='energy_<?php echo $energy; ?>'
+                                        id='energy_<?php echo $energy; ?>' />
+                                    <label for='energy_<?php echo $energy; ?>'>
+					<img src='<?php echo $imgUrl; ?>/rewards/reward_mega_energy_<?php echo $energy; ?>.png' />
+					<?php $pokemon_name=get_mons($energy); ?>
+                                        <br><?php echo str_pad($energy, 3, "0", STR_PAD_LEFT); ?><br><?php echo $pokemon_name; ?>
+                                    </label>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+
                         <div class="float-right mb-3 mt-3">
 			    <input class="btn btn-primary" type='submit' name='add_quest' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>

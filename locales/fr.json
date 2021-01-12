@@ -184,5 +184,7 @@
     "TELEGRAM CHANNELS TO SYNC WITH":"CANAUX TELEGRAM A SYNCHRONISER",
     "TELEGRAM DISCORD TO SYNC WITH":"CANAUX DISCORD A SYNCHRONISER",
     "CONFIRM CHANNEL SYNCHRONIZATION":"CONFIRMER LA SYNCHRONISATION",
-    "Synchronize Other Channels with this one":"Synchroniser d'autres canaux avec celui-ci"
+    "Synchronize Other Channels with this one":"Synchroniser d'autres canaux avec celui-ci",
+    "Select Energy Rewards you want to add":"Sélectionnez les types de Méga Energie à ajouter",
+    "Mega Energy":"Mega Energie"
 }

@@ -1771,9 +1771,126 @@ include "./header.php";
                                     </div>
                                 </div>
                             </div>
+
                             <?php
                                 }
+
+                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 12 ORDER BY reward";
+                                $result = $conn->query($sql);
+
+                                while ($row = $result->fetch_assoc()) {
+
+                                    // Build a Unique Index
+                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
+                                        $row['reward_type'] . "_" . $row['distance'];
+
                                 ?>
+                            <!-- Card -->
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <div class="card border-top-warning shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    <img width=50 loading=lazy
+							<?php if ($row['reward'] <> 0) { $pokemon_name = get_mons($row['reward']); ?>
+                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy_" . $row['reward'] . ".png"; ?>'>
+							<?php } else  { $pokemon_name = i8ln("ALL"); ?>
+                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy.png"; ?>'>
+							<?php } ?>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <?php echo $pokemon_name; ?>
+						    <span class='badge badge-light m-1'><?php echo i8ln("Mega Energy"); ?></span>
+                                                </div>
+                                                <div class="mt-2 text-center">
+
+                                                    <?php
+                                                            if ($row['distance'] <> '0') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span class="badge badge-primary p-2">
+                                                            <?php echo $row['distance']; ?>
+                                                            <?php echo i8ln("meters"); ?>
+                                                        </span>
+                                                    </div>
+                                                    <?php
+                                                            }
+                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    </div>
+                                                    <?php
+                                                            }
+                                                            ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- EDIT QUEST Item Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/quests_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- DELETE QUEST Item Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
+                                                <?php echo i8ln("Delete Quests Item tracking"); ?>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo i8ln("This will delete Quests tracking for this item"); ?><br>
+                                            <?php echo i8ln("Are you sure?"); ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action='./actions/quests.php' method='POST'>
+                                                <?php echo "
+                                                    <input type='hidden' id='type' name='type' value='quests'>
+                                                    <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
+                                                    <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
+                                                    <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
+                                                    " ?>
+                                                <input class="btn btn-danger" type='submit' name='delete'
+                                                    value='<?php echo i8ln("DELETE"); ?>'>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
 
                         </div>
 

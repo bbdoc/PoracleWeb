@@ -197,6 +197,30 @@
       }
     }
 
+    foreach ($_POST as $key => $value) {
+      if (substr($key, 0, 7) === "energy_") {
+        $item = ltrim($key, 'energy_');
+
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
+                               VALUES ( ?, '', ? , ?, 1, 0, 12, ?)");
+        if (false === $stmt) {
+          header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
+          exit();
+        }
+        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $item, $_POST['distance']);
+        if (false === $rs) {
+          header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
+          exit();
+        }
+        $rs = $stmt->execute();
+        if (false === $rs) {
+          header("Location: $redirect_url?return=sql_error&phase=AQI3&sql=$stmt->error");
+          exit();
+        }
+        $stmt->close();
+      }
+    }
+
     header("Location: $redirect_url?return=success_added_quest#pills-quests");
     exit();
   }
