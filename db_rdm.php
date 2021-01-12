@@ -48,7 +48,7 @@ function get_quest_energy() {
    include "./config.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
-   $sql = "SELECT distinct json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS quest_energy_pokemon_id
+   $sql = "SELECT distinct json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS id
            FROM pokestop WHERE quest_reward_type = 12;";
    $result = $conn->query($sql);
 
