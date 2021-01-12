@@ -1800,7 +1800,7 @@ include "./header.php";
 							<?php } ?>
 						</div>
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo $pokemon_name; ?>
+                                                    <?php echo $pokemon_name; ?><br>
 						    <span class='badge badge-light m-1'><?php echo i8ln("Mega Energy"); ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
