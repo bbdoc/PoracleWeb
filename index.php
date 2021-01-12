@@ -1215,7 +1215,7 @@ include "./header.php";
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl . "/egg" . $row['level'] . ".png"; ?>'>
+                                                        src='<?php echo "./img/raid_" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>

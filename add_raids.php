@@ -197,7 +197,7 @@ if ( $disable_raids == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='raid_<?php echo $raid; ?>'
                                         id='raid_<?php echo $raid; ?>' />
                                     <label for='raid_<?php echo $raid; ?>'>
-                                        <img src='<?php echo $imgUrl; ?>/egg<?php echo $raid; ?>.png' />
+                                        <img src='./img/raid_<?php echo $raid; ?>.png' />
 					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln("Level"); ?> <?php echo $raid; ?>
                                     </label>
                                 </li>

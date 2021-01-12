@@ -8,7 +8,7 @@ echo "<div class='text-center mt-3'>";
 if ($row['level'] == "9000") {
         echo "<img width=100 src='$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_00.png'><br>";
 } else {
-        echo "<img width=100 src='$imgUrl/egg" . $row['level'] . ".png'><br>";
+        echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'><br>";
 
         echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>".
                 i8ln("Raids Level")." " . $row['level'] . "</div>";
