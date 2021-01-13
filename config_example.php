@@ -84,4 +84,6 @@ $additional_quest_mons="";
 // Debug Mode (True/False)
 $debug='False';
 
+// Google Analytics
+$gAnalyticsId = "";
 
