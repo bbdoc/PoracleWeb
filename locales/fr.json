@@ -186,5 +186,7 @@
     "CONFIRM CHANNEL SYNCHRONIZATION":"CONFIRMER LA SYNCHRONISATION",
     "Synchronize Other Channels with this one":"Synchroniser d'autres canaux avec celui-ci",
     "Select Energy Rewards you want to add":"Sélectionnez les types de Méga Energie à ajouter",
-    "Mega Energy":"Mega Energie"
+    "Mega Energy":"Mega Energie",
+    "Delete Quests tracking for this Mega Energy":"Supprimer le Suivi des Quêtes pour cette Mega Energie",
+    "Delete Quests tracking for this item":"Supprimer le Suivi des Quêtes pour cet object"
 }
