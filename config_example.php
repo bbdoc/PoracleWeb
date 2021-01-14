@@ -29,6 +29,7 @@ $disable_nominatim   = "False";
 $disable_mons        = "False";
 $disable_raids       = "False";
 $disable_quests      = "False";
+$disable_invasions   = "False";
 
 $site_is_https       = "True";
 
