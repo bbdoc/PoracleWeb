@@ -10,7 +10,7 @@ if (!isset($_SESSION['admin_id']) ) {
 
 # Page is only available if on a Channel
 
-if ( $_SESSION['type'] <> 'telegram:channel' $_SESSION['type'] <> 'telegram:group' && $_SESSION['type'] <> 'discord:channel') {
+if ( $_SESSION['type'] <> 'telegram:channel' && $_SESSION['type'] <> 'telegram:group' && $_SESSION['type'] <> 'discord:channel') {
         header("Location: $redirect_url");
         exit();
 }
