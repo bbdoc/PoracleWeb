@@ -10,7 +10,7 @@ if (!isset($_SESSION['admin_id']) ) {
 
 # Page is only available if on a Channel
 
-if ( $_SESSION['type'] <> 'telegram:channel' && $_SESSION['type'] <> 'discord:channel') {
+if ( $_SESSION['type'] <> 'telegram:channel' && $_SESSION['type'] <> 'telegram:group' && $_SESSION['type'] <> 'discord:channel') {
         header("Location: $redirect_url");
         exit();
 }
@@ -148,7 +148,8 @@ foreach ($dbnames as &$db) {
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      		       $sql = "select id, name, type FROM humans WHERE type like 'telegram:channel' AND id <> '".$_SESSION['id']."' ORDER by name";
+      		       $sql = "select id, name, type FROM humans WHERE (type like 'telegram:channel' OR type like 'telegram:channel')
+		       	       AND id <> '".$_SESSION['id']."' ORDER by name";
                        $result = $conn->query($sql);
                        ?>
 
