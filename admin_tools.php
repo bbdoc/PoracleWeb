@@ -200,7 +200,8 @@ foreach ($dbnames as &$db) {
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      		       $sql = "select id, name, type FROM humans WHERE type like 'telegram:channel' ORDER by name";
+      		       $sql = "select id, name, type FROM humans WHERE ( type like 'telegram:channel' OR 
+		       							 type like 'telegram:channel' ) ORDER by name";
                        $result = $conn->query($sql);
                        ?>
 
