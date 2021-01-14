@@ -149,7 +149,7 @@ foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
       		       $sql = "select id, name, type FROM humans WHERE (type like 'telegram:channel' OR type like 'telegram:channel')
-		       	       AND id <> '".$_SESSION['id']."' ORDER by name";
+      		       		AND id <> '".$_SESSION['id']."' ORDER by name";
                        $result = $conn->query($sql);
                        ?>
 
