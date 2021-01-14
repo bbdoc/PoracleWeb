@@ -159,7 +159,7 @@
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 6) === "grunt_") {
-        $grunt = ltrim($key, 'grunt_');
+        $grunt = substr($key, 6); 
 
         $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type)
 	                       VALUES ( ?, '', ? , ?, 1, ?, ?)");
@@ -177,7 +177,7 @@
           header("Location: $redirect_url?return=sql_error&phase=AI3&sql=$stmt->error");
           exit();
         }
-        $stmt->close();
+        $stmt->close(); 
       }
     }
 
