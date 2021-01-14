@@ -4,11 +4,11 @@
 include "./config.php";
 include "./functions.php";
 
-set_locale();
-
 if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
+
+set_locale();
 
 $dbnames = explode(",", $dbname);
 

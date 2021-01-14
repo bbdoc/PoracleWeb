@@ -4,6 +4,8 @@ include "./config.php";
 include "./db_connect.php";
 include "./functions.php";
 
+set_locale();
+
 if (isset($scan_dbtype) && $scan_dbtype == "MAD") {
     include "./db_mad.php";
 }
@@ -59,7 +61,19 @@ if (isset($_SESSION['id'])) {
    } else {
        $all_quest_cleaned_color = "<span class='reddot'></span>";
    }
-   
+
+   $sql = "select min(clean) clean FROM invasion WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $all_invasion_cleaned = $row['clean'];
+   }
+   if ($all_invasion_cleaned == "1") {
+       $all_invasion_cleaned_color = "<span class='greendot'></span>";
+   } else {
+       $all_invasion_cleaned_color = "<span class='reddot'></span>";
+   }
+
+
    $sql = "select area, latitude, longitude, enabled from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {

@@ -101,7 +101,22 @@
                                 <?php
                                 }
                                 ?>
+			    </tr>
+                            <tr>
+                                <?php
+                                if (@$disable_invasions <> "True") {
+                                ?>
+                                <th scope="row"><?php echo i8ln("ALL Invasions Cleaning"); ?></th>
+                                <td><input type="checkbox" name="invasions_clean_toggle" id="invasions_clean_toggle" <?php
+                                    if ($all_invasion_cleaned == "1") {
+                                        echo "checked";
+                                    } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                        data-size="sm"></td>
+                                <?php
+                                }
+                                ?>
                             </tr>
+
                         </tbody>
                     </table>
 

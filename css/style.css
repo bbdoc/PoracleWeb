@@ -34,6 +34,7 @@ input[type="checkbox"][id^="raid"],
 input[type="checkbox"][id^="area"],
 input[type="checkbox"][id^="target"],
 input[type="checkbox"][id^="energy"],
+input[type="checkbox"][id^="grunt"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
@@ -47,6 +48,7 @@ label[for^="egg"],
 label[for^="raid"],
 label[for^="area"],
 label[for^="energy"],
+label[for^="grunt"],
 label[for^="item"] {
     background-color: #858796;
     color: #ffffff;
@@ -124,6 +126,7 @@ label img {
 :checked+label[for^="raid"], 
 :checked+label[for^="area"], 
 :checked+label[for^="energy"], 
+:checked+label[for^="grunt"], 
 :checked+label[for^="item"] {
     border-color: #ddd;
     position: relative;
@@ -142,6 +145,7 @@ label img {
  :checked+label[for^="area"]::before,
  :checked+label[for^="target"]::before,
  :checked+label[for^="energy"]::before,
+ :checked+label[for^="grunt"]::before,
  :checked+label[for^="item"]::before {
     content: "✓";
     color: #ffffff;

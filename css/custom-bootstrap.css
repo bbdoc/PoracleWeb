@@ -2564,7 +2564,7 @@ fieldset:disabled a.btn {
 .btn-secondary:not(:disabled):not(.disabled).active,
 .show>.btn-secondary.dropdown-toggle {
     color: #fff;
-    background-color: #6b6d7d;
+    background-color: #1cc88a;
     border-color: #656776;
 }
 
@@ -4235,7 +4235,7 @@ input[type="button"].btn-block {
 
 .nav-link {
     display: block;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 0.4rem 0.7rem 0.4rem;
 }
 
 .nav-link:hover,
