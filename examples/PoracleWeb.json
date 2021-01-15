@@ -19,8 +19,8 @@
   ],
   "circles": [
     {
-      "fill_color": "transparent",
-      "stroke_color": "red",
+      "fill_color": "rgba(46,204,113,0.3)",
+      "stroke_color": "rgba(46,204,113)",
       "stroke_width": 2,
       "radius": #(distance),
       "latitude": #(latitude),
