@@ -127,6 +127,20 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
            $admin_alarm.="</a>";
 
    } 
-   
 }
+
+// Check I Distance Map should be displayed
+
+
+if (isset($mapPoracleWeb)) {
+   if ($latitude == "0.0000000000" && $longitude == "0.0000000000")
+   { 
+	   $distance_map = "False"; 
+   }
+   else { 
+	   $distance_map = "True"; 
+   }
+}
+
+
 

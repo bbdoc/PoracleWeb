@@ -492,7 +492,6 @@ include "./header.php";
                         </div>
                     </div>
 
-
                 </div>
                 <!-- Content Row -->
 
@@ -547,7 +546,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?></h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?><?php echo $distance_map ?></h1>
                             </div>
                         </div>
 
@@ -769,10 +768,33 @@ include "./header.php";
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("DISTANCE"); ?>
+							<?php echo i8ln("DISTANCE"); ?>
+							<?php if ( @$distance_map <> "True" ) { ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?></span>
-                                                    </li>
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+							</span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowPokemons" data-toggle="modal" data-target="#DistanceShowPokemons_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+							</a>
+                                                        <?php } ?>
+						    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <?php
                                                             }
                                                             if ($row['min_iv'] <> '-1' || $row['max_iv'] <> '100') {
@@ -1077,17 +1099,41 @@ include "./header.php";
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <?php echo i8ln("Eggs"); ?> <?php echo $row['level']; ?>
                                                 </div>
-                                                <div class="mt-2 text-center">
+                                                <ul class="list-group mt-2">
 
                                                     <?php
+
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
-                                                    </div>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowEggs" data-toggle="modal" data-target="#DistanceShowEggs_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowEggs_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowEggsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+						    </div>
+
                                                     <?php
                                                             }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
@@ -1099,7 +1145,7 @@ include "./header.php";
                                                     <?php
                                                             }
                                                             ?>
-                                                </div>
+                                                </ul>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
@@ -1170,15 +1216,37 @@ include "./header.php";
                                                     <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>
                                                 </div>
                                                 <div class="mt-2 text-center">
-
                                                     <?php
+
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowPokemons" data-toggle="modal" data-target="#DistanceShowPokemons_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1188,9 +1256,7 @@ include "./header.php";
                                                         <span
                                                             class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
-                                                    <?php
-                                                            }
-                                                            ?>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1263,13 +1329,36 @@ include "./header.php";
                                                 <div class="mt-2 text-center">
 
                                                     <?php
+
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowRaidMons" data-toggle="modal" data-target="#DistanceShowRaidMons_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowRaidMons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowRaidMonsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1463,13 +1552,36 @@ include "./header.php";
                                                 <div class="mt-2 text-center">
 
                                                     <?php
+
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1879,11 +1991,34 @@ include "./header.php";
                                                     <?php } ?>
                                                     <?php if ($row['distance'] <> '0') { ?>
                                                     <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
+							class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                        </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowInvasions" data-toggle="modal" data-target="#DistanceShowInvasions_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+							</a>
+							<?php } ?>
                                                     </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowInvasions_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowInvasions" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
 
                                                     <?php
                                                             }
