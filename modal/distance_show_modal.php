@@ -8,11 +8,12 @@ else if ( $row['distance'] < 12000 )  { $zoom="10"; }
 else if ( $row['distance'] < 24000 )  { $zoom="9"; }
 else { $zoom="8"; }
 
-$mapPoracleWeb.="?img=$redirect_url/img/position.png";
-$mapPoracleWeb.="&latitude=$latitude";
-$mapPoracleWeb.="&longitude=$longitude";
-$mapPoracleWeb.="&distance=".$row['distance'];
-$mapPoracleWeb.="&zoom=$zoom";
+$map=$mapPoracleWeb;
+$map.="?img=$redirect_url/img/position.png";
+$map.="&latitude=$latitude";
+$map.="&longitude=$longitude";
+$map.="&distance=".$row['distance'];
+$map.="&zoom=$zoom";
 
 if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 ?>
@@ -46,7 +47,7 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 
 
 <div class='text-center'>
-    <img src='<?php echo $mapPoracleWeb; ?>' width=350>
+    <img src='<?php echo $map; ?>' width=350>
 </div>
 <?php
 }
