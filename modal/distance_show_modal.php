@@ -1,12 +1,19 @@
 <?php
 
 if ( $row['distance'] < 750 ) { $zoom="14"; }
-else if ( $row['distance'] < 1500  ) { $zoom="13"; }
-else if ( $row['distance'] < 3000  ) { $zoom="12"; }
-else if ( $row['distance'] < 6000  )  { $zoom="11"; }
-else if ( $row['distance'] < 12000 )  { $zoom="10"; }
-else if ( $row['distance'] < 24000 )  { $zoom="9"; }
-else { $zoom="8"; }
+else if ( $row['distance'] < 1500  )    { $zoom="13"; }
+else if ( $row['distance'] < 3000  )    { $zoom="12"; }
+else if ( $row['distance'] < 6000  )    { $zoom="11"; }
+else if ( $row['distance'] < 12000 )    { $zoom="10"; }
+else if ( $row['distance'] < 24000 )    { $zoom="9"; }
+else if ( $row['distance'] < 48000 )    { $zoom="8"; }
+else if ( $row['distance'] < 96000 )    { $zoom="7"; }
+else if ( $row['distance'] < 192000 )   { $zoom="6"; }
+else if ( $row['distance'] < 384000 )   { $zoom="5"; }
+else if ( $row['distance'] < 768000 )   { $zoom="4"; }
+else if ( $row['distance'] < 1536000    { $zoom="3"; }
+else if ( $row['distance'] < 3072000 )  { $zoom="2"; }
+else { $zoom="1"; }
 
 $map=$mapPoracleWeb;
 $map.="?img=$redirect_url/img/position.png";
