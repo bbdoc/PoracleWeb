@@ -11,7 +11,7 @@ else if ( $row['distance'] < 96000 )    { $zoom="7"; }
 else if ( $row['distance'] < 192000 )   { $zoom="6"; }
 else if ( $row['distance'] < 384000 )   { $zoom="5"; }
 else if ( $row['distance'] < 768000 )   { $zoom="4"; }
-else if ( $row['distance'] < 1536000    { $zoom="3"; }
+else if ( $row['distance'] < 1536000 )  { $zoom="3"; }
 else if ( $row['distance'] < 3072000 )  { $zoom="2"; }
 else { $zoom="1"; }
 
