@@ -546,7 +546,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?><?php echo $distance_map ?></h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?></h1>
                             </div>
                         </div>
 
