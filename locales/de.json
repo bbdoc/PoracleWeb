@@ -219,5 +219,8 @@
    "grass":"Grass",
    "flying":"Flug",
    "dragon":"Drache",
-   "everything":"alles"
+   "everything":"alles",
+   "Configured Distance:":"Eingestellte Distanz:",
+   "Distance Display":"Distanzvisualisierung",
+   "meters around your position":"Meter um deine Position"
 }
