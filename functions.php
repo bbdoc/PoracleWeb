@@ -154,6 +154,7 @@ function set_locale() {
    }
 }
 
+get_address(51.1107967, 4.4007576);
 function get_address($lat, $lon) {
 
    include "./config.php";
@@ -163,13 +164,14 @@ function get_address($lat, $lon) {
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
         $nominatim=$value['providerURL']; 
-	$key=$value['staticKey'][0]; 
+	$statickey=$value['staticKey'][0]; 
       }
    }
+   echo $nominatim." | ".$statickey."<br>";
 
    $filepath="$nominatim/reverse?lat=$lat&lon=$lon&format=json";
    if ( mb_strlen($key, "UTF-8") == 32  ) {
-           $filepath.="&key=".$key;
+           $filepath.="&key=".$statickey;
    }
 
    $request = file_get_contents($filepath);
