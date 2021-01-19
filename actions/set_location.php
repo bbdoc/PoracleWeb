@@ -14,14 +14,20 @@ if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
    $json = json_decode($config, true);
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
-     $nominatim=$value['providerURL'];
+         $nominatim=$value['providerURL'];
+         $key=$value['staticKey'];
       }
    }
+
 
    $street = str_replace(" ", "%20", $_POST['street']);
    $city = str_replace(" ", "%20", $_POST['city']);
 
    $filepath="$nominatim/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
+   if ( mb_strlen($key, "UTF-8") == 32  ) { 
+	   $filepath.="&key=".$key;
+   }
+
    $request = file_get_contents($filepath);
 
    if ( $request == "[]" ) { 

@@ -164,10 +164,15 @@ function get_address($lat, $lon) {
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
         $nominatim=$value['providerURL'];
+        $key=$value['staticKey'];
       }
    }
 
    $filepath="$nominatim/reverse?lat=$lat&lon=$lon&format=json";
+   if ( mb_strlen($key, "UTF-8") == 32  ) {
+           $filepath.="&key=".$key;
+   }
+
    $request = file_get_contents($filepath);
 
    $json = json_decode($request, true);
