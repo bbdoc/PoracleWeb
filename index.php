@@ -1283,7 +1283,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $raid_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/raids_modal.php"; ?>
+                                        <?php include "./modal/edit_raids_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1397,7 +1397,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $raid_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/raids_modal.php"; ?>
+                                        <?php include "./modal/edit_raids_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>

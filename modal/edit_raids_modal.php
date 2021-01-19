@@ -79,11 +79,13 @@ echo "</div>";
 
 </div>
 <div class="modal-footer">
+    <!--
     <button class="btn btn-danger" type="submit" name='delete' value='Delete'>
         <span class="icon text-white-50">
             <i class="fas fa-trash"></i>
         </span>
     </button>
+    -->
     <input class="btn btn-primary" type='submit' name='update' value='<?php echo i8ln("Update"); ?>'>
     <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo i8ln("Cancel"); ?></button>
 </div>
