@@ -154,7 +154,6 @@ function set_locale() {
    }
 }
 
-
 function get_address($lat, $lon) {
 
    include "./config.php";
@@ -163,8 +162,8 @@ function get_address($lat, $lon) {
    $json = json_decode($config, true);
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
-        $nominatim=$value['providerURL'];
-        $key=$value['staticKey'];
+        $nominatim=$value['providerURL']; 
+	$key=$value['staticKey'][0]; 
       }
    }
 
