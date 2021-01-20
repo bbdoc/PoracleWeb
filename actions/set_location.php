@@ -24,7 +24,7 @@ if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
    $city = str_replace(" ", "%20", $_POST['city']);
 
    $filepath="$nominatim/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
-   if ( mb_strlen($key, "UTF-8") == 32  ) { 
+   if ( mb_strlen($statickey, "UTF-8") == 32  ) { 
 	   $filepath.="&key=".$statickey;
    }
 
