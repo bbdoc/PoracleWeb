@@ -168,7 +168,7 @@ function get_address($lat, $lon) {
    }
 
    $filepath="$nominatim/reverse?lat=$lat&lon=$lon&format=json";
-   if ( strlen($statickey, "UTF-8") == 32  ) {
+   if ( strlen($statickey) == 32  ) {
            $filepath.="&key=".$statickey;
    }
 
