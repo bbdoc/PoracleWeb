@@ -15,7 +15,7 @@ if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
          $nominatim=$value['providerURL'];
-         $key=$value['staticKey'];
+         $statickey=$value['staticKey'][0];
       }
    }
 
@@ -25,7 +25,7 @@ if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 
    $filepath="$nominatim/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
    if ( mb_strlen($key, "UTF-8") == 32  ) { 
-	   $filepath.="&key=".$key;
+	   $filepath.="&key=".$statickey;
    }
 
    $request = file_get_contents($filepath);
