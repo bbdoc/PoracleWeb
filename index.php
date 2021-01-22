@@ -42,6 +42,24 @@ include "./header.php";
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
 
+    <script>
+
+    function areas(type) { 
+       var distance = "distance_".concat(type); 
+       var label = "distance_label_".concat(type); 
+       var value = document.querySelector('input[id="use_areas_' + type + '"]:checked').value; 
+       if(value == "areas"){  
+          document.getElementById(distance).style.display = "none";
+          document.getElementById(label).style.display = "none";
+          document.getElementById(distance).value = 0;
+       } else {
+          document.getElementById(distance).style.display = "block";
+          document.getElementById(label).style.display = "block";
+       }
+    }
+
+    </script>
+
 </head>
 
 <body id="page-top">

@@ -60,6 +60,20 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
             }
         });
     });
+
+    function areas() {
+       var value = document.querySelector('input[name="use_areas"]:checked').value;
+       if(value == "areas"){
+          document.getElementById('distance').style.display = "none";
+          document.getElementById('distance_label').style.display = "none";
+          document.getElementById('distance').value = 0;
+       } else {
+          document.getElementById('distance').style.display = "block";
+          document.getElementById('distance_label').style.display = "block";
+       }
+    }
+
+
     </script>
 
 </head>
@@ -95,21 +109,27 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                     <form action='./actions/invasions.php' method='POST'>
 
-                        <?php if (@$disable_location <> "True") { ?>
+			<?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-					<div class="input-group-text"><?php echo i8ln("Distance"); ?></div>
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas()"><?php echo i8ln("Areas"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary mr-2">
+                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas()"><?php echo i8ln("Distance"); ?>
+                                    </label>
                                     </div>
-                                    <input type="number" id='distance' name='distance' value='0' min='0'
+                                    <input type="number" id='distance' name='distance' value='0' min='0' style="display:none;"
                                         class="form-control text-center">
-                                    <div class="input-group-append">
-					<span class="input-group-text"><?php echo i8ln("meters"); ?></span>
+                                    <div class="input-group-append" id="distance_label" style="display:none;">
+                                        <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                                     </div>
                                 </div>
                             </div>
-			</div>
+                        </div>
+
                         <?php } else { ?>
                            <input type="hidden" id='distance' name='distance' value='0' min='0'>
 			<?php } ?>

@@ -14,7 +14,6 @@ if (isset($_SESSION['username'])) {
 }
 
 include "./session.php";
-
 header("Location: $redirect_url");
 
 ?>

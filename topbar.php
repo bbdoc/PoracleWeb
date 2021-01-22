@@ -11,11 +11,9 @@
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow" id="Dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal"
-data-target="#profileSettingsModal">
-<span
-    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
-<img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#profileSettingsModal">
+               <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+               <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
             </a>
         </li>
 

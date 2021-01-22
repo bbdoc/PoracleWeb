@@ -1,6 +1,6 @@
 {
-    "ADD":"AJOUTER",
     "ALL":"TOUS",
+    "ADD":"AJOUTER",
     "ALL Monsters":"TOUS LES POKEMONS",
     "ALL Quests":"TOUTES LES QUETES",
     "ALL Raids/Eggs":"TOUS LES RAIDS & OEUFS",
@@ -221,6 +221,6 @@
     "everything":"tous",
     "Configured Distance:":"Distance Configurée:",
     "Distance Display":"Visualisation de la Distance",
-    "meters around your position":"mètres autour de votre position"
-
+    "meters around your position":"mètres autour de votre position",
+    "Areas":"Zones"
 }
