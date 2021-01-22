@@ -196,7 +196,7 @@
    "This will delete all your Invasions Alarms and cannot be undone":"Dadurch werden alle Invastionsalarme gelöscht und kann nicht rückgängig gemacht werden",
    "Update Distance for all tracked Invasions?":"Möchstest du die Distanz für alle getrackteten Invasionen aktualisieren?",
    "This will update Distance settings for ALL tracked Invasions":"Dadurch werden alle Distanzeinstellungen für Invasionen aktualisiert",
-   "ALL Invasions Cleaning":"ALLE INVASIONEN SÄUBERN",
+   "ALL Invasions Cleaning":"Alle Invasionen säubern",
    "NEW INVASIONS ALARM":"NEUE INVASION EINSTELLUNG",
    "INVASIONS TRACKED":"INVASIONS EINSTELLUNGEN",
    "ALL INVASIONS":"ALLE INVASIONEN",
@@ -222,5 +222,6 @@
    "everything":"alles",
    "Configured Distance:":"Eingestellte Distanz:",
    "Distance Display":"Distanzvisualisierung",
-   "meters around your position":"Meter um deine Position"
+   "meters around your position":"Meter um deine Position",
+   "Areas":"Gebiete"
 }
