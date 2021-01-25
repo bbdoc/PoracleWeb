@@ -85,15 +85,23 @@ function get_mons($pokemon_id) {
 
 function get_areas() {
 
-   include "./config.php";
-   $areas = file_get_contents("$poracle_dir/config/geofence.json");
-   $json = json_decode($areas, true);
-   $areas=array();
+    include "./config.php";
+    $areas = file_get_contents("$poracle_dir/config/geofence.json");
+    $json = json_decode($areas, true);
+    $areas = array();
 
-   foreach ($json as $id => $area) {
-	array_push($areas, $area['name']);
-   } 
-   return $areas;
+    if ($json['type'] == "FeatureCollection" || isset($json['features'])) {
+        $listOfFeatures = $json['features'];
+        foreach ($listOfFeatures as $i => $feature) {
+            array_push($areas, $feature['properties']['name']);
+        }
+    } else {
+        foreach ($json as $i => $area) {
+            array_push($areas, $area['name']);
+        }
+    }
+
+    return $areas;
 }
 
 function get_raid_bosses_json() {
