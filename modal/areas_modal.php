@@ -18,13 +18,20 @@ echo "
 $areas = get_areas();
 
 echo "<div class='accordion' id='accordion'>";
+$collapsedState = 'collapsed';
+
+// Do not collapse the only section, if it has no label as this is for user with no group set in their geofences
+if(count(array_keys($areas)) === 1 && array_key_exists("", $areas)){
+    $collapsedState = '';
+}
+
 foreach ($areas as $group => $areaList) {
     $updatedGroup = str_replace(' ', '_', $group);
 
     echo "<div class='card'>
              <div class='card-header' id='heading$updatedGroup'>
                   <h5 class='mb-0'>
-                <button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse$updatedGroup' aria-expanded='false' aria-controls='collapse$updatedGroup'>
+                <button class='btn btn-link $collapsedState' type='button' data-toggle='collapse' data-target='#collapse$updatedGroup' aria-expanded='false' aria-controls='collapse$updatedGroup'>
                   $group
                 </button>
               </h5>
