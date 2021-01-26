@@ -110,7 +110,13 @@ function get_areas() {
         }
     } else {
         foreach ($json as $i => $area) {
-            array_push($areas, $area['name']);
+            if(array_key_exists("", $areas)){
+                $groupAreas = $areas[""];
+                array_push($groupAreas,  $area['name']);
+                $areas[""] = $groupAreas;
+            }else{
+                $areas[""] = array( $area['name']);
+            }
         }
     }
     ksort($areas);
