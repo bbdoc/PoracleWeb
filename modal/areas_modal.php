@@ -15,26 +15,42 @@ echo "
     <form action='./actions/areas.php' method='POST'>
     ";
 
-
-echo "<ul>\n";
-
 $areas = get_areas();
-sort($areas);
-foreach ($areas as $key => $area) {
 
-    $area = str_replace(' ', '_', $area);
+echo "<div class='accordion' id='accordion'>";
+foreach ($areas as $group => $areaList) {
+    $updatedGroup = str_replace(' ', '_', $group);
 
-    if (in_array(strtolower($area), $existing_area)) {
-        $checked = 'checked';
-    } else {
-        $checked = '';
-    };
-    echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
-    echo "<label for='area_$area' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
-    echo "</li>\n";
+    echo "<div class='card'>
+             <div class='card-header' id='heading$updatedGroup'>
+                  <h5 class='mb-0'>
+                <button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse$updatedGroup' aria-expanded='false' aria-controls='collapse$updatedGroup'>
+                  $group
+                </button>
+              </h5>
+            </div>
+    
+            <div id='collapse$updatedGroup' class='collapse' aria-labelledby='heading$updatedGroup' data-parent='#accordion'>
+                <div class='card-body'>";
+    sort($areaList);
+    echo "<ul>\n";
+    foreach ($areaList as $i => $area) {
+        $area = str_replace(' ', '_', $area);
+
+        if (in_array(strtolower($area), $existing_area)) {
+            $checked = 'checked';
+        } else {
+            $checked = '';
+        }
+        echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
+        echo "<label for='area_$area' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
+        echo "</li>\n";
+    }
+    echo "</ul>\n</div>";
+    echo "</div>";
+    echo "</div>";
 }
-
-echo "</ul>\n";
+echo "</div>";
 
 echo "
         <hr>

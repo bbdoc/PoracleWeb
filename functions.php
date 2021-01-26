@@ -1,7 +1,7 @@
 <?php
 
 if(!isset($_SESSION)){
-	session_start();
+    session_start();
 }
 
 function get_form_name($pokemon_id, $form_id) {
@@ -18,7 +18,6 @@ function get_form_name($pokemon_id, $form_id) {
          }
       }
    }
-
 }
 
 function get_all_forms($pokemon_id) {
@@ -93,13 +92,28 @@ function get_areas() {
     if ($json['type'] == "FeatureCollection" || isset($json['features'])) {
         $listOfFeatures = $json['features'];
         foreach ($listOfFeatures as $i => $feature) {
-            array_push($areas, $feature['properties']['name']);
+            $areaName = $feature['properties']['name'];
+
+            if(isset($feature['properties']['group'])) {
+                $group = $feature['properties']['group'];
+            }else {
+                $group = "";
+            }
+
+            if(array_key_exists($group, $areas)){
+                $groupAreas = $areas[$group];
+                array_push($groupAreas, $areaName);
+                $areas[$group] = $groupAreas;
+            }else{
+                $areas[$group] = array($areaName);
+            }
         }
     } else {
         foreach ($json as $i => $area) {
             array_push($areas, $area['name']);
         }
     }
+    ksort($areas);
 
     return $areas;
 }
