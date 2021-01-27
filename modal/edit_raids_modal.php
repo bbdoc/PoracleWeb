@@ -46,18 +46,20 @@ echo "</div>";
             }
             ?>
             <div class="input-group">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                 <label class="btn btn-secondary">
 		    <input type="radio" name="use_areas_raid" id="use_areas_<?php echo $raid_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
                     onclick="areas('<?php echo $raid_unique_id; ?>')">
-                    <?php echo i8ln("Areas"); ?>
+                    <?php echo i8ln("Use Areas"); ?>
                 </label>
                 <label class="btn btn-secondary mr-2">
 		    <input type="radio" name="use_areas_raid" id="use_areas_<?php echo $raid_unique_id; ?>" value="distance" <?php echo $distance_check; ?> 
                     onclick="areas('<?php echo $raid_unique_id; ?>')">
-                    <?php echo i8ln("Distance"); ?>
+                    <?php echo i8ln("Set Distance"); ?>
                 </label>
                 </div>
+            </div>
+            <div class="input-group mt-2">
                 <input type="number" id='distance_<?php echo $raid_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
                     min='0' class="form-control text-center">
                 <div class="input-group-append" id="distance_label_<?php echo $raid_unique_id; ?>" <?php echo $style; ?>>
