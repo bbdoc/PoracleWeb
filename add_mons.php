@@ -58,7 +58,7 @@ if ( $disable_mons == "True" ) {
             var cnt = $("input[type='checkbox']:checked").length;
             if (cnt > maxAllowed) {
                 $(this).prop("checked", "");
-                alert('Sorry, you cannot select more than ' + maxAllowed + ' Pokemons at a time!');
+                alert('Sorry, you cannot select more than ' + maxAllowed + ' Pokémon at a time!');
             }
         });
     });
