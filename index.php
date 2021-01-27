@@ -238,7 +238,7 @@ include "./header.php";
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons_distance') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Pokémons"); ?>
+                        <?php echo i8ln("Successfully Update Distance on ALL Pokémon"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -519,7 +519,7 @@ include "./header.php";
                     <?php if (@$disable_mons <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-mons-tab" data-toggle="pill" href="#pills-mons" role="tab"
-                            aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
+                            aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMON"); ?></a>
                     </li>
                     <?php
                     }
@@ -564,7 +564,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?></h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMON TRACKED"); ?></h1>
                             </div>
                         </div>
 
@@ -657,7 +657,7 @@ include "./header.php";
 			   { 
 				$_GET['allgen'] = "active";
 
-                                // If Tracking More than 50 pokemons, show only ALL
+                                // If Tracking More than 50 Pokémon, show only ALL
                                 $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
                                 $result = $conn->query($sql);
                                 if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0";; }
@@ -708,7 +708,7 @@ include "./header.php";
 				} else if ($result->num_rows == 0 && isset($_GET['allgen']))
 				{ 
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
-                                   echo i8ln("You have not set any Alarm for ALL Pokemons, Please select a Gen!");
+                                   echo i8ln("You have not set any Alarm for ALL Pokémon, Please select a Gen!");
                                    echo "</div>";
 				} else if ($result->num_rows == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
