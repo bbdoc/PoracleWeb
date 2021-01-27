@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title" id="DistanceMonsModal">
-        <?php echo i8ln("Update Distance for all tracked Pokémons?"); ?>
+        <?php echo i8ln("Update Distance for all tracked Pokémon?"); ?>
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -20,7 +20,7 @@
 ?>
 <form action='./actions/monsters.php?action=update_mons_distance' method='POST'>
 <div class="modal-body">
-    <?php echo i8ln("This will update Distance settings for ALL tracked Pokémons"); ?>.<br><br>
+    <?php echo i8ln("This will update Distance settings for ALL tracked Pokémon"); ?>.<br><br>
     <?php echo i8ln("Please Set New Distance"); ?>:
     <div class="form-row align-items-center">
        <div class="col-sm-12 my-1 mt-2">
