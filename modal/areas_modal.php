@@ -22,15 +22,15 @@ $areas = get_areas();
 sort($areas);
 foreach ($areas as $key => $area) {
 
-    $area = str_replace(' ', '_', $area);
+    $area_var = str_replace(' ', '%20', $area);
 
     if (in_array(strtolower($area), $existing_area)) {
         $checked = 'checked';
     } else {
         $checked = '';
     };
-    echo "<li><input type='checkbox' name='area_$area' id='area_$area' $checked/>\n";
-    echo "<label for='area_$area' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
+    echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
+    echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
     echo "</li>\n";
 }
 

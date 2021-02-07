@@ -13,7 +13,7 @@ function get_form_name($pokemon_id, $form_id) {
    foreach ($json as $name => $pokemon) {
 
       if ($pokemon['id'] == "$pokemon_id") { 
-         if ( $pokemon['form']['id'] == "$form_id") {
+         if ( $pokemon['form']['id'] == "$form_id" && $pokemon['form']['id'] <> 0) {
             return $pokemon['form']['name'];
          }
       }
@@ -33,7 +33,7 @@ function get_all_forms($pokemon_id) {
    foreach ($json as $name => $pokemon) {
 
       if ($pokemon['id'] == "$pokemon_id") {
-         if ( $pokemon['form']['id'] <> "0" && !in_array( $pokemon['form']['name'], $form_exclude ) ) {
+         if ( $pokemon['form']['id'] <> "0" && !in_array( ucfirst($pokemon['form']['name']), $form_exclude ) ) {
             $forms[$pokemon['form']['id']] = $pokemon['form']['name'];
          }
       }
@@ -44,19 +44,14 @@ function get_all_forms($pokemon_id) {
 function get_all_mons() {
 
    include "./config.php";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
-           $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json"); 
-   } else {
-           $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
-   }
-
+   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
    $json = json_decode($monsters, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
 	$arr = explode("_", $name, 2);
         $pokemon_id = $arr[0];
-	$monsters[$pokemon_id] = $pokemon['name'];
+	$monsters[$pokemon_id] = translate_mon($pokemon['name']);
    }
    $monsters=array_unique($monsters);
    return $monsters;
@@ -66,22 +61,45 @@ function get_mons($pokemon_id) {
 
    include "./config.php";
    $found_name="";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
-	   $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json");
-   } else {
-	   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
-   }
+   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
    $json = json_decode($monsters, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
       $arr = explode("_", $name, 2);
       if ($arr['0'] == "$pokemon_id") {
-         $found_name = $pokemon['name']; 
+         $found_name = translate_mon($pokemon['name']); 
       }
    }
   return $found_name; 
 }
+
+$localeData = null;
+function translate_mon($word)
+{
+    include "./config.php";
+    $locale = @$_SESSION['locale'];
+    if ($locale == "en") {
+        return $word;
+    }
+
+    if ($localeData == null) {
+        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json"; 
+        if (file_exists($filepath)) {
+            $json_contents = file_get_contents($filepath);
+            $localeData = json_decode($json_contents, true);
+        } else {
+            return $word;
+        }
+    }
+
+    if (isset($localeData[$word])) {
+        return $localeData[$word];
+    } else {
+        return $word;
+    }
+}
+
 
 function get_areas() {
 

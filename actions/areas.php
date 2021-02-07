@@ -41,7 +41,7 @@
   <center>
     <div style="max-width:90%">
       <font size=6 color="darkred">Oops...</font><br><br>
-      <img src='img/homer.png' width=250><br><br>
+      <img src='../img/homer.png' width=250><br><br>
       Looks like Something went wrong, you shouldn't be here.<br><br>
       Please get back to homepage:<br><br>
       <a href="<?php echo $redirect_url; ?>">
@@ -61,7 +61,8 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 5) === "area_") {
         $area = substr($key, 5);
-        $area = strtolower($area);
+	$area = strtolower($area);
+	$area = str_replace('%20', ' ', $area);
         array_push($area_list, "\"$area\"");
         echo $area . "<br>";
       }
