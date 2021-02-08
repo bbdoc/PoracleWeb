@@ -43,7 +43,6 @@ foreach ($dbnames as &$db) {
 
 }
 
-echo $_SESSION['dbname'];
 $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $_SESSION['dbname']);
 $sql = "select id, name, type FROM humans WHERE id = '".$search_id."'"; 
 $result = $conn->query($sql);
