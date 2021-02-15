@@ -3,6 +3,28 @@
 include "../config.php";
 include "../db_connect.php";
 
+
+if ( isset($_POST['delete']) ) {
+
+  $lat = "0.0000000000";
+  $lon = "0.0000000000";
+
+  $sql = "UPDATE monsters set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $result = $conn->query($sql);
+  $sql = "UPDATE raid set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $result = $conn->query($sql);
+  $sql = "UPDATE egg set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $result = $conn->query($sql);
+  $sql = "UPDATE quest set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $result = $conn->query($sql);
+  $sql = "UPDATE invasion set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $result = $conn->query($sql);
+
+  header("Location: $redirect_url?return=success_delete_location");
+  exit();
+
+} 
+
 if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 
    $lat = $_GET['lat'];

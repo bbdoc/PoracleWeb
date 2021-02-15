@@ -234,6 +234,17 @@ include "./header.php";
 		    </div>
                     <?php
                         }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_location') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Location deleted successfully"); ?><br>
+                        <?php echo i8ln("All your distance settings have been reset"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
                         if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons_distance') {
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
