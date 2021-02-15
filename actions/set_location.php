@@ -20,12 +20,7 @@ if ( isset($_POST['delete']) ) {
   $sql = "UPDATE invasion set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
   $result = $conn->query($sql);
 
-  header("Location: $redirect_url?return=success_delete_location");
-  exit();
-
-} 
-
-if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
+} else if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 
    $lat = $_GET['lat'];
    $lon = $_GET['lon'];
@@ -84,8 +79,13 @@ if (false === $rs) {
   exit();
 }
 
-header("Location: $redirect_url?return=success_update_location");
-exit();
+if ( isset($_POST['delete']) ) {
+    header("Location: $redirect_url?return=success_delete_location");
+    exit();
+} else {
+    header("Location: $redirect_url?return=success_update_location");
+    exit();
+}
 
 
 ?>
