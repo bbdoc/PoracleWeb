@@ -4,7 +4,7 @@ include "../config.php";
 include "../db_connect.php";
 
 
-if ( isset($_POST['delete']) ) {
+if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
   $lat = "0.0000000000";
   $lon = "0.0000000000";

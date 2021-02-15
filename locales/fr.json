@@ -230,5 +230,7 @@
     "Alarms will only be triggered if ALL Filters are met":"Une alarme ne sera générée que si les 2 conditions sont remplies",
     "Delete":"Supprimer",
     "Location deleted successfully":"Position Supprimée",
-    "All your distance settings have been reset":"Tous vos paramètres de distance ont été réinitialisés"
+    "All your distance settings have been reset":"Tous vos paramètres de distance ont été réinitialisés",
+    "Delete Location and Distance Settings":"Supprimer Position et Distances",
+    "This will delete your location AND all your distance settings":"Cette action supprimera la position ET tous les paramètres de distance"
 }

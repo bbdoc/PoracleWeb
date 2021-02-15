@@ -49,7 +49,6 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 
 <div class="modal-footer">
     <input class="btn btn-primary" type='submit' name='update' value='<?php echo i8ln("Update"); ?>'>
-    <input class="btn btn-danger" type='submit' name='delete' value='<?php echo i8ln("Delete"); ?>'>
     <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo i8ln("Cancel"); ?></button>
 </div>
 

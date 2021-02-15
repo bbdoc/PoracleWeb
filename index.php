@@ -367,12 +367,17 @@ include "./header.php";
 				    <?php } ?>
                                     <?php if (@$disable_location <> "True") { ?>
                                     <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?>
-                                    <!-- Button trigger modal -->
+				    <!-- Button trigger modal -->
+                                        <div style="text-align:right; margin-top:5px;">
+                                        <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                            data-toggle="modal"
+                                            data-target="#DeleteLocationModal">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                         <?php 
 			                   if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
 			                   if( isset($site_is_https) && $site_is_https == "True") { 
                                         ?>
-                                        <div style="text-align:right; margin-top:5px;">
                                         <button type="button" class="btn btn-success btn-circle btn-md"
                                             onclick="getLocation()">
                                             <i class="fas fa-map-marker-alt"></i>
@@ -383,13 +388,14 @@ include "./header.php";
                                             data-toggle="modal" data-target="#locationModal">
                                             <i class="fas fa-edit"></i>
 					</button>
-					</div>
                                         <?php } ?>
+					</div>
                                     </h6>
                                     <?php } ?>
 
                                 </div>
-                            </div>
+			    </div>
+
                             <div class="card-body">
                                 <?php if (@$disable_areas <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
@@ -495,6 +501,33 @@ include "./header.php";
                         </div>
                     </div>
                     <?php } ?>
+
+                    <!-- DELETE LOCATION Modal -->
+                    <div class="modal fade" id="DeleteLocationModal" tabindex="-1" role="dialog"
+                        aria-labelledby="DeleteLocationLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="DeleteLocationModalTitle">
+                                        <?php echo i8ln("Delete Location and Distance Settings"); ?>
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+				    <?php echo i8ln("This will delete your location AND all your distance settings"); ?><br>
+                                    <?php echo i8ln("Are you sure?"); ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="./actions/set_location.php?action=delete"
+                                        class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- EDIT AREAS Modal -->
                     <div class="modal fade" id="areasModal" tabindex="-1" role="dialog"
