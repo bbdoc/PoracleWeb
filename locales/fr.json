@@ -101,7 +101,7 @@
     "Renew":"Renouveler",
     "Subscription valid until":"Abonnement Valide jusqu'au",
     "Alerts":"Alarmes",
-    "ALL Monters Cleaning":"Nettoyer TOUS les Pokémons",
+    "ALL Monsters Cleaning":"Nettoyer TOUS les Pokémons",
     "ALL Raid/Egg Cleaning":"Nettoyer TOUS les Raids/Oeufs",
     "ALL Quests Cleaning":"Nettoyer TOUTES les Quêtes",
     "Your Location is not set and cannot be set here!":"Votre Position n'est pas configurée et ne peut pas l'être ici!",
@@ -222,5 +222,15 @@
     "Configured Distance:":"Distance Configurée:",
     "Distance Display":"Visualisation de la Distance",
     "meters around your position":"mètres autour de votre position",
-    "Areas":"Zones"
+    "Areas":"Zones",
+    "Use Areas":"Utiliser les Zones",
+    "Set Distance":"Définir une Distance",
+    "Some of your alarms contains both IV and PvP Filters":"Certaines de vos alarmes contiennent à la fois des Filtres IV et PvP",
+    "Some of your alarms contains both PvP Great and PvP Ultra Filters":"Certaines de vos alarmes contiennent à la fois des Filtres PvP Super et Ultra",
+    "Alarms will only be triggered if ALL Filters are met":"Une alarme ne sera générée que si les 2 conditions sont remplies",
+    "Delete":"Supprimer",
+    "Location deleted successfully":"Position Supprimée",
+    "All your distance settings have been reset":"Tous vos paramètres de distance ont été réinitialisés",
+    "Delete Location and Distance Settings":"Supprimer Position et Distances",
+    "This will delete your location AND all your distance settings":"Cette action supprimera la position ET tous les paramètres de distance"
 }

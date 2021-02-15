@@ -148,14 +148,16 @@ if ( $disable_mons == "True" ) {
                         <div class="form-row align-items-center">
 			    <div class="col-sm-12 my-1">
 				<div class="input-group">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
 				    <label class="btn btn-secondary">
-					<input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas()"><?php echo i8ln("Areas"); ?>
+					<input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas()"><?php echo i8ln("Use Areas"); ?>
 				    </label>
                                     <label class="btn btn-secondary mr-2">
-                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas()"><?php echo i8ln("Distance"); ?>
+                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas()"><?php echo i8ln("Set Distance"); ?>
                                     </label>
                                     </div>
+                                </div>
+				<div class="input-group mt-2">
                                     <input type="number" id='distance' name='distance' value='0' min='0' style="display:none;"
                                         class="form-control text-center">
                                     <div class="input-group-append" id="distance_label" style="display:none;">
@@ -303,12 +305,12 @@ if ( $disable_mons == "True" ) {
 					<div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                                     </div>
                                     <input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-                                        value='4096' min='0' max='4096' class="form-control text-center">
+				        value='<?php echo $MaxRank; ?>' min='0' max='<?php echo $MaxRank; ?>' class="form-control text-center">
                                     <div class="input-group-prepend">
 					<span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                                     </div>
                                     <input type='number' id='great_league_ranking_min_cp'
-                                        name='great_league_ranking_min_cp' size=1 value='0' min='0' max='4096'
+                                        name='great_league_ranking_min_cp' size=1 value='<?php echo $GreatMinCP; ?>' min='<?php echo $GreatMinCP; ?>' max='4096'
                                         class="form-control text-center">
                                 </div>
                             </div>
@@ -321,12 +323,12 @@ if ( $disable_mons == "True" ) {
 					<div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                                     </div>
                                     <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1
-                                        value='4096' min='0' max='4096' class="form-control text-center">
+                                        value='<?php echo $MaxRank; ?>' min='0' max='<?php echo $MaxRank; ?>' class="form-control text-center">
                                     <div class="input-group-prepend">
 					<span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                                     </div>
                                     <input type='number' id='ultra_league_ranking_min_cp'
-                                        name='ultra_league_ranking_min_cp' size=1 value='0' min='0' max='4096'
+                                        name='ultra_league_ranking_min_cp' size=1 value='<?php echo $UltraMinCP; ?>' min='<?php echo $UltraMinCP; ?>' max='4096'
                                         class="form-control text-center">
                                 </div>
                             </div>

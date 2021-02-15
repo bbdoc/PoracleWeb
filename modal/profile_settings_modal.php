@@ -73,7 +73,7 @@
                                         data-size="sm"></td>
                             </tr> -->
                             <tr>
-				<th scope="row"><?php echo i8ln("ALL Monters Cleaning"); ?></th>
+				<th scope="row"><?php echo i8ln("ALL Monsters Cleaning"); ?></th>
                                 <td><input type="checkbox" name="pokes_clean_toggle" id="pokes_clean_toggle" <?php 
                                     if ($all_mon_cleaned == "1") {
                                         echo "checked";

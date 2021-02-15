@@ -82,18 +82,20 @@ if ($row['pokemon_id'] == '0') {
 		    } 
                     ?>
 		    <div class="input-group">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                         <label class="btn btn-secondary">
 			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
                             onclick="areas('<?php echo $pkm_unique_id; ?>')">
-                            <?php echo i8ln("Areas"); ?>
+                            <?php echo i8ln("Use Areas"); ?>
                         </label>
                         <label class="btn btn-secondary mr-2">
 			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="distance" <?php echo $distance_check; ?> 
                             onclick="areas('<?php echo $pkm_unique_id; ?>')">
-                            <?php echo i8ln("Distance"); ?>
+                            <?php echo i8ln("Set Distance"); ?>
                         </label>
                         </div>
+                    </div>
+		    <div class="input-group mt-2">
 			<input type="number" id='distance_<?php echo $pkm_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
                             min='0' class="form-control text-center">
                         <div class="input-group-append" id="distance_label_<?php echo $pkm_unique_id; ?>" <?php echo $style; ?>>
@@ -240,13 +242,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
                         <input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-                            value='<?php echo $row['great_league_ranking'] ?>' min='0' max='4096'
+                            value='<?php echo $row['great_league_ranking'] ?>' min='<?php echo $MaxRank; ?>' max='4096'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1
-                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $GreatMinCP; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -260,13 +262,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
                         <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1
-                            value='<?php echo $row['ultra_league_ranking'] ?>' min='0' max='4096'
+                            value='<?php echo $row['ultra_league_ranking'] ?>' min='<?php echo $MaxRank; ?>' max='4096'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1
-                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $UltraMinCP; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>

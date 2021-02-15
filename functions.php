@@ -4,6 +4,8 @@ if(!isset($_SESSION)){
     session_start();
 }
 
+global $localeData;
+
 function get_form_name($pokemon_id, $form_id) {
 
    include "./config.php";
@@ -13,7 +15,7 @@ function get_form_name($pokemon_id, $form_id) {
    foreach ($json as $name => $pokemon) {
 
       if ($pokemon['id'] == "$pokemon_id") { 
-         if ( $pokemon['form']['id'] == "$form_id") {
+         if ( $pokemon['form']['id'] == "$form_id" && $pokemon['form']['id'] <> 0) {
             return $pokemon['form']['name'];
          }
       }
@@ -32,7 +34,7 @@ function get_all_forms($pokemon_id) {
    foreach ($json as $name => $pokemon) {
 
       if ($pokemon['id'] == "$pokemon_id") {
-         if ( $pokemon['form']['id'] <> "0" && !in_array( $pokemon['form']['name'], $form_exclude ) ) {
+         if ( $pokemon['form']['id'] <> "0" && !in_array( ucfirst($pokemon['form']['name']), $form_exclude ) ) {
             $forms[$pokemon['form']['id']] = $pokemon['form']['name'];
          }
       }
@@ -43,19 +45,14 @@ function get_all_forms($pokemon_id) {
 function get_all_mons() {
 
    include "./config.php";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
-           $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json"); 
-   } else {
-           $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
-   }
-
+   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
    $json = json_decode($monsters, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
 	$arr = explode("_", $name, 2);
         $pokemon_id = $arr[0];
-	$monsters[$pokemon_id] = $pokemon['name'];
+	$monsters[$pokemon_id] = translate_mon($pokemon['name']);
    }
    $monsters=array_unique($monsters);
    return $monsters;
@@ -65,22 +62,45 @@ function get_mons($pokemon_id) {
 
    include "./config.php";
    $found_name="";
-   if (file_exists("$poracle_dir/src/util/locale/monsters".@$_SESSION['locale'].".json")) {
-	   $monsters = file_get_contents("$poracle_dir/src/util/locale/monsters".$_SESSION['locale'].".json");
-   } else {
-	   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
-   }
+   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
    $json = json_decode($monsters, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
       $arr = explode("_", $name, 2);
       if ($arr['0'] == "$pokemon_id") {
-         $found_name = $pokemon['name']; 
+         $found_name = translate_mon($pokemon['name']); 
       }
    }
   return $found_name; 
 }
+
+function translate_mon($word)
+{
+    include "./config.php";
+    $locale = @$_SESSION['locale'];
+    if ($locale == "en") {
+        return $word;
+    }
+
+    global $localeData;
+    if ($localeData == null) {
+        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json"; 
+        if (file_exists($filepath)) {
+            $json_contents = file_get_contents($filepath);
+            $localeData = json_decode($json_contents, true);
+        } else {
+            return $word;
+        }
+    }
+
+    if (isset($localeData[$word])) {
+        return $localeData[$word];
+    } else {
+        return $word;
+    }
+}
+
 
 function get_areas() {
 
@@ -89,7 +109,7 @@ function get_areas() {
     $json = json_decode($areas, true);
     $areas = array();
 
-    if ($json['type'] == "FeatureCollection" || isset($json['features'])) {
+    if (@$json['type'] == "FeatureCollection" || isset($json['features'])) {
         $listOfFeatures = $json['features'];
         foreach ($listOfFeatures as $i => $feature) {
             $areaName = $feature['properties']['name'];
@@ -224,7 +244,6 @@ function get_address($lat, $lon) {
 }
 
 
-$localeData = null;
 function i8ln($word)
 {
     $locale = @$_SESSION['locale'];
@@ -250,6 +269,24 @@ function i8ln($word)
     }
 }
 
+function set_defaults()
+{
+   include "./config.php"; 
+   global $MaxRank, $GreatMinCP, $UltraMinCP;
+   $config = file_get_contents("$poracle_dir/config/local.json");
+   $json = json_decode($config, true);
+   foreach ($json as $key => $value) {
+      if ($key == "pvp") {
+        if (isset($value['pvpFilterMaxRank'])) { $pvpFilterMaxRank=$value['pvpFilterMaxRank']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterGreatMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterGreatMinCP']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterUltraMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterUltraMinCP']; } else { $MaxRank = 4096; }
+      }
+   }
+}
+
+
+# Execute Set Defaults so defaults are available on all pages
+set_defaults();
 
 #$grunts=get_grunts();
 #foreach($grunts as $key => $grunt) {

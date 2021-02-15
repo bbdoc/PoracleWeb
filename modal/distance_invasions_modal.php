@@ -10,7 +10,7 @@
 <?php
     $sql = "SELECT distance from invasions WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
     $result = $conn->query($sql);
-    if ($result->num_rows == 1) {
+    if (!empty($result) && $result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
                     $distance_set = $row['distance'];
             }
