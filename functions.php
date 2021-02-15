@@ -257,9 +257,9 @@ function set_defaults()
    $json = json_decode($config, true);
    foreach ($json as $key => $value) {
       if ($key == "pvp") {
-        if (isset($value['pvpFilterMaxRank'])) { $pvpFilterMaxRank=$value['pvpFilterMaxRank']; } else { $MaxRank = 4096; }
-        if (isset($value['pvpFilterGreatMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterGreatMinCP']; } else { $MaxRank = 4096; }
-        if (isset($value['pvpFilterUltraMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterUltraMinCP']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterMaxRank'])) { $MaxRank=$value['pvpFilterMaxRank']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterGreatMinCP'])) { $GreatMinCP=$value['pvpFilterGreatMinCP']; } else { $GreatMinCP = 0; }
+        if (isset($value['pvpFilterUltraMinCP'])) { $UltraMinCP=$value['pvpFilterUltraMinCP']; } else { $UltraMinCP = 0; }
       }
    }
 }
