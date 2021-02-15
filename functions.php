@@ -110,7 +110,7 @@ function get_areas() {
     $json = json_decode($areas, true);
     $areas = array();
 
-    if ($json['type'] == "FeatureCollection" || isset($json['features'])) {
+    if (@$json['type'] == "FeatureCollection" || isset($json['features'])) {
         $listOfFeatures = $json['features'];
         foreach ($listOfFeatures as $i => $feature) {
             array_push($areas, $feature['properties']['name']);

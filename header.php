@@ -141,7 +141,7 @@ $sql = "SELECT * FROM monsters
 
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+if (!empty($result) && $result->num_rows > 0) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
    $config_alarm.="&#x26A0;<br>";
    $config_alarm.=i8ln("Some of your alarms contains both IV and PvP Filters").".<br>";
@@ -158,7 +158,7 @@ $sql = "SELECT * FROM monsters
 
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+if (!empty($result) && $result->num_rows > 0) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
    $config_alarm.="&#x26A0;<br>";
    $config_alarm.=i8ln("Some of your alarms contains both PvP Great and PvP Ultra Filters").".<br>";
