@@ -255,11 +255,14 @@ function set_defaults()
    global $MaxRank, $GreatMinCP, $UltraMinCP;
    $config = file_get_contents("$poracle_dir/config/local.json");
    $json = json_decode($config, true);
+   $MaxRank = 4096;
+   $GreatMinCP = 0;
+   $UltraMinCP = 0;
    foreach ($json as $key => $value) {
       if ($key == "pvp") {
-        if (isset($value['pvpFilterMaxRank'])) { $MaxRank=$value['pvpFilterMaxRank']; } else { $MaxRank = 4096; }
-        if (isset($value['pvpFilterGreatMinCP'])) { $GreatMinCP=$value['pvpFilterGreatMinCP']; } else { $GreatMinCP = 0; }
-        if (isset($value['pvpFilterUltraMinCP'])) { $UltraMinCP=$value['pvpFilterUltraMinCP']; } else { $UltraMinCP = 0; }
+        if (isset($value['pvpFilterMaxRank'])) { $MaxRank=$value['pvpFilterMaxRank']; } 
+        if (isset($value['pvpFilterGreatMinCP'])) { $GreatMinCP=$value['pvpFilterGreatMinCP']; } 
+        if (isset($value['pvpFilterUltraMinCP'])) { $UltraMinCP=$value['pvpFilterUltraMinCP']; }
       }
    }
 }
