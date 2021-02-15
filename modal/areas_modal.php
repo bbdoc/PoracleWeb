@@ -17,7 +17,7 @@ echo "
 
 $areas = get_areas();
 
-    $area_var =
+
 $collapsedState = 'collapsed';
 
 // Show no accordions when there is only one list of areas (likely a user with no grouping)
