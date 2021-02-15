@@ -134,8 +134,8 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 $sql = "SELECT * FROM monsters
 	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15) 
 	AND (
-	  great_league_ranking < ".$MaxRank." OR great_league_ranking_min_cp > ".$GreatMinCP." 
-          OR ultra_league_ranking < ".$MaxRank." OR ultra_league_ranking_min_cp > ".$UltraMinCP."
+	  great_league_ranking < 4096 OR great_league_ranking_min_cp > 0
+          OR ultra_league_ranking < 4096 OR ultra_league_ranking_min_cp > 0
         )
         AND id = '" . $_SESSION['id'] . "'";
 
@@ -152,8 +152,8 @@ if (!empty($result) && $result->num_rows > 0) {
 // Check if Both PvP are used
 
 $sql = "SELECT * FROM monsters 
-	WHERE (great_league_ranking < ".$MaxRank." OR great_league_ranking_min_cp > ".$GreatMinCP." ) 
-	AND ( ultra_league_ranking < ".$MaxRank." OR ultra_league_ranking_min_cp > ".$UltraMinCP.")
+	WHERE (great_league_ranking < 4096 OR great_league_ranking_min_cp > 0 ) 
+	AND ( ultra_league_ranking < 4096 OR ultra_league_ranking_min_cp > 0 )
         AND id = '" . $_SESSION['id'] . "'";
 
 $result = $conn->query($sql);

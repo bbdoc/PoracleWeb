@@ -85,7 +85,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                         <label class="btn btn-secondary">
 			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
-                            onclick="areas('<?php echo $pkm_unique_id; ?>')">
+                            oalert("Hello! I am an alert box!!");nclick="areas('<?php echo $pkm_unique_id; ?>')">
                             <?php echo i8ln("Use Areas"); ?>
                         </label>
                         <label class="btn btn-secondary mr-2">
@@ -231,24 +231,25 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
             </div>
-        </div>
+	</div>
+
         <div class="tab-pane fade" id="pills-pvp-<?php echo $pkm_unique_id ?>" role="tabpanel"
             aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
             <div class="form-row align-items-center">
-                <div class="col-sm-12 my-1">
+		<div class="col-sm-12 my-1">
 		    <label><?php echo i8ln("PvP Great"); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
-                        <input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-                            value='<?php echo $row['great_league_ranking'] ?>' min=0 max='<?php echo $MaxRank; ?>' max='4096'
+			<input type='number' id='great_league_ranking' name='great_league_ranking' size=1
+                            value='<?php echo $row['great_league_ranking'] ?>' min='0' max='4096' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1
-                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $GreatMinCP; ?>' max='4096'
+                        <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1 
+                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='0' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -261,14 +262,14 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
-                        <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1
-                            value='<?php echo $row['ultra_league_ranking'] ?>' min=0 max='<?php echo $MaxRank; ?>' max='4096'
+                        <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1 
+                            value='<?php echo $row['ultra_league_ranking'] ?>' min=0 max='4096'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1
-                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $UltraMinCP; ?>' max='4096'
+                        <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 
+                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min=0 max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -341,18 +342,15 @@ if ($row['pokemon_id'] == '0') {
 			<div class="input-group-text"><?php echo i8ln("Clean"); ?></div>
                     </div>
                 </div>
+
                 <?php
-                                if ($row['clean'] == 0) {
-                                        $checked0 = 'checked';
-                                } else {
-                                        $checked0 = '';
-                                }
-                                if ($row['clean'] == 1) {
-                                        $checked1 = 'checked';
-                                } else {
-                                        $checked1 = '';
-                                }
-                                ?>
+
+                   if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+	  	   if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+
+
+                ?>
+
                 <label class="btn btn-secondary">
 		    <input type="radio" name="clean" id="clean_0" value="clean_0" <?php echo $checked0; ?>> <?php echo i8ln("No"); ?>
                 </label>

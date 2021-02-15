@@ -299,26 +299,6 @@ i
 
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
-                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><?php echo i8ln("Enable PvP Tracking"); ?></div>
-                                        </div>
-                                    </div>
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="pvp" id="pvp_0" value="pvp_0" checked >
-                                        <?php echo i8ln("No"); ?>
-                                    </label>
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="pvp" id="pvp_1" value="pvp_1" >
-                                        <?php echo i8ln("Yes"); ?>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row align-items-center">
-                            <div class="col-sm-12 my-1">
 				<label><?php echo i8ln("PvP Great"); ?></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">

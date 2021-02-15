@@ -3,21 +3,6 @@
    include "../config.php";
    include "../db_connect.php";
 
-   // UPDATE DEFAULT PVP VALUES
-
-   foreach ($_POST as $key => $value) {
-     if (substr($value, 0, 4) == "pvp_") {
-       $pvp = ltrim($value, 'pvp_');
-     }
-   }
-
-   if ( $pvp == 0 ) { 
-     $_POST['great_league_ranking'] = 4096;
-     $_POST['ultra_league_ranking'] = 4096;
-     $_POST['great_league_ranking_min_cp'] = 0;
-     $_POST['ultra_league_ranking_min_cp'] = 0;
-   }
-
   // UPDATE POKEMON
 
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
