@@ -2,6 +2,16 @@
 
    include "../config.php";
    include "../db_connect.php";
+   include "../functions.php";
+
+
+  // UPDATE DEFAULT PVP VALUES
+
+
+  if ( $_POST['great_league_ranking'] == $MaxRank ) { $_POST['great_league_ranking'] = 4096; }
+  if ( $_POST['great_league_ranking_min_cp'] == $GreatMinCP ) { $_POST['great_league_ranking_min_cp'] = 0; }
+  if ( $_POST['ultra_league_ranking'] == $MaxRank ) { $_POST['ultra_league_ranking'] = 4096; }
+  if ( $_POST['ultra_league_ranking_min_cp'] ==  $UltraMinCP ) { $_POST['ultra_league_ranking_min_cp'] = 0; }
 
   // UPDATE POKEMON
 
