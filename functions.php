@@ -4,6 +4,8 @@ if(!isset($_SESSION)){
 	session_start();
 }
 
+global $localeData;
+
 function get_form_name($pokemon_id, $form_id) {
 
    include "./config.php";
@@ -74,7 +76,6 @@ function get_mons($pokemon_id) {
   return $found_name; 
 }
 
-$localeData = null;
 function translate_mon($word)
 {
     include "./config.php";
@@ -83,6 +84,7 @@ function translate_mon($word)
         return $word;
     }
 
+    global $localeData;
     if ($localeData == null) {
         $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json"; 
         if (file_exists($filepath)) {
@@ -222,7 +224,6 @@ function get_address($lat, $lon) {
 }
 
 
-$localeData = null;
 function i8ln($word)
 {
     $locale = @$_SESSION['locale'];
@@ -256,14 +257,11 @@ function set_defaults()
    $json = json_decode($config, true);
    foreach ($json as $key => $value) {
       if ($key == "pvp") {
-        $pvpFilterMaxRank=$value['pvpFilterMaxRank'];
-        $pvpFilterGreatMinCP=$value['pvpFilterGreatMinCP'];
-        $pvpFilterUltraMinCP=$value['pvpFilterUltraMinCP'];
+        if (isset($value['pvpFilterMaxRank'])) { $pvpFilterMaxRank=$value['pvpFilterMaxRank']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterGreatMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterGreatMinCP']; } else { $MaxRank = 4096; }
+        if (isset($value['pvpFilterUltraMinCP'])) { $pvpFilterMaxRank=$value['pvpFilterUltraMinCP']; } else { $MaxRank = 4096; }
       }
    }
-   if (isset($pvpFilterMaxRank))    { $MaxRank = $pvpFilterMaxRank; } else { $MaxRank = 4096; }
-   if (isset($pvpFilterGreatMinCP)) { $GreatMinCP = $pvpFilterGreatMinCP; } else { $GreatMinCP = 0; }
-   if (isset($pvpFilterUltraMinCP)) { $UltraMinCP = $pvpFilterUltraMinCP; } else { $UltraMinCP = 0; }
 }
 
 
