@@ -2,16 +2,23 @@
 
    include "../config.php";
    include "../db_connect.php";
-   include "../functions.php";
-
 
   // UPDATE DEFAULT PVP VALUES
 
+   $config = file_get_contents("$poracle_dir/config/local.json");
+   $json = json_decode($config, true);
+   $MaxRank = 4096;
+   $GreatMinCP = 0;
+   $UltraMinCP = 0;
+   foreach ($json as $key => $value) {
+      if ($key == "pvp") {
+        if (@$value['pvpFilterMaxRank'] == $_POST['great_league_ranking'] ) { $_POST['great_league_ranking'] = 4096; }
+        if (@$value['pvpFilterMaxRank'] == $_POST['ultra_league_ranking'] ) { $_POST['ultra_league_ranking'] = 4096; } 
+        if (@$value['pvpFilterGreatMinCP'] == $_POST['great_league_ranking_min_cp']) { $_POST['great_league_ranking_min_cp'] = 0; }
+        if (@$value['pvpFilterUltraMinCP'] == $_POST['ultra_league_ranking_min_cp']) { $_POST['ultra_league_ranking_min_cp'] = 0; }
+      }
+   }
 
-  if ( $_POST['great_league_ranking'] == $MaxRank ) { $_POST['great_league_ranking'] = 4096; }
-  if ( $_POST['great_league_ranking_min_cp'] == $GreatMinCP ) { $_POST['great_league_ranking_min_cp'] = 0; }
-  if ( $_POST['ultra_league_ranking'] == $MaxRank ) { $_POST['ultra_league_ranking'] = 4096; }
-  if ( $_POST['ultra_league_ranking_min_cp'] ==  $UltraMinCP ) { $_POST['ultra_league_ranking_min_cp'] = 0; }
 
   // UPDATE POKEMON
 
