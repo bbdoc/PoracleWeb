@@ -366,7 +366,7 @@ include "./header.php";
                                     </h6>
 				    <?php } ?>
                                     <?php if (@$disable_location <> "True") { ?>
-                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("LOCATION"); ?>
+                                    <h6 class="m-0 font-weight-bold text-dark" style="text-align:right;"><?php echo i8ln("LOCATION"); ?>
 				    <!-- Button trigger modal -->
                                         <div style="text-align:right; margin-top:5px;">
                                         <a href="#" class="btn btn-danger btn-circle btn-md m-1"
