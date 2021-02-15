@@ -15,6 +15,8 @@ echo "
     <form action='./actions/areas.php' method='POST'>
     ";
 
+
+echo "</ul>\n";
 $areas = get_areas();
 
 
@@ -25,25 +27,25 @@ if(count(array_keys($areas)) === 1){
     $collapsedState = '';
     $areaList = $areas[0];
     echo "<ul>\n";
-        sort($areaList);
-        foreach ($areaList as $i => $area) {
-            $area_var = str_replace(' ', '%20', $area);
+    sort($areaList);
+    foreach ($areaList as $i => $area) {
+        $area_var = str_replace(' ', '%20', $area);
 
-            if (in_array(strtolower($area), $existing_area)) {
-                $checked = 'checked';
-            } else {
-                $checked = '';
-            };
-            echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
-            echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
-            echo "</li>\n";
-        }
-echo "</ul>\n";
+        if (in_array(strtolower($area), $existing_area)) {
+            $checked = 'checked';
+        } else {
+            $checked = '';
+        };
+        echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
+        echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
+        echo "</li>\n";
+    }
+
 } else {
     echo "<div class='accordion' id='accordion'>";
 
     foreach ($areas as $group => $areaList) {
-        $updatedGroup = str_replace(' ', '%20', $group);
+        $updatedGroup = str_replace(' ', '_', $group);
 
         echo "<div class='card'>
              <div class='card-header' id='heading$updatedGroup'>
