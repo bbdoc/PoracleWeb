@@ -242,13 +242,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
                         <input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-                            value='<?php echo $row['great_league_ranking'] ?>' min='0' max='4096'
+                            value='<?php echo $row['great_league_ranking'] ?>' min='<?php echo $MaxRank; ?>' max='4096'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1
-                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $GreatMinCP; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -262,13 +262,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
                         <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1
-                            value='<?php echo $row['ultra_league_ranking'] ?>' min='0' max='4096'
+                            value='<?php echo $row['ultra_league_ranking'] ?>' min='<?php echo $MaxRank; ?>' max='4096'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1
-                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $UltraMinCP; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>

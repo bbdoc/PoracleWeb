@@ -248,6 +248,27 @@ function i8ln($word)
     }
 }
 
+function set_defaults()
+{
+   include "./config.php"; 
+   global $MaxRank, $GreatMinCP, $UltraMinCP;
+   $config = file_get_contents("$poracle_dir/config/local.json");
+   $json = json_decode($config, true);
+   foreach ($json as $key => $value) {
+      if ($key == "pvp") {
+        $pvpFilterMaxRank=$value['pvpFilterMaxRank'];
+        $pvpFilterGreatMinCP=$value['pvpFilterGreatMinCP'];
+        $pvpFilterUltraMinCP=$value['pvpFilterUltraMinCP'];
+      }
+   }
+   if (isset($pvpFilterMaxRank))    { $MaxRank = $pvpFilterMaxRank; } else { $MaxRank = 4096; }
+   if (isset($pvpFilterGreatMinCP)) { $GreatMinCP = $pvpFilterGreatMinCP; } else { $GreatMinCP = 0; }
+   if (isset($pvpFilterUltraMinCP)) { $UltraMinCP = $pvpFilterUltraMinCP; } else { $UltraMinCP = 0; }
+}
+
+
+# Execute Set Defaults so defaults are available on all pages
+set_defaults();
 
 #$grunts=get_grunts();
 #foreach($grunts as $key => $grunt) {

@@ -79,7 +79,6 @@ include "./header.php";
 		<div class="container-fluid col-lg-8 col-md-12">
 
 		<?php echo @$admin_alarm; ?>
-
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
@@ -684,6 +683,8 @@ include "./header.php";
                           </ul>
 			</nav>
 
+                        <?php echo @$config_alarm; ?>
+                        
                         <!-- Content Row -->
                         <div class="row">
 
