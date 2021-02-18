@@ -9,15 +9,15 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
   $lat = "0.0000000000";
   $lon = "0.0000000000";
 
-  $sql = "UPDATE monsters set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $sql = "UPDATE monsters set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
   $result = $conn->query($sql);
-  $sql = "UPDATE raid set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $sql = "UPDATE raid set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
   $result = $conn->query($sql);
-  $sql = "UPDATE egg set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $sql = "UPDATE egg set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
   $result = $conn->query($sql);
-  $sql = "UPDATE quest set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $sql = "UPDATE quest set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
   $result = $conn->query($sql);
-  $sql = "UPDATE invasion set distance = 0 WHERE id = '" . $_SESSION['id'] . "'";
+  $sql = "UPDATE invasion set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
   $result = $conn->query($sql);
 
 } else if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
@@ -63,21 +63,42 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 }
 
-$stmt = $conn->prepare("UPDATE humans set latitude = ?, longitude = ? WHERE id = ?");
+// Update Lat and Lon from Humans if current profile is active
+
+$stmt = $conn->prepare("UPDATE humans set latitude = ?, longitude = ? WHERE id = ? AND current_profile_no = ?");
 if (false === $stmt) {
-  header("Location: $redirect_url?return=sql_error&phase=ESL1&sql=$stmt->error");
+  header("Location: $redirect_url?return=sql_error&phase=ESLH1&sql=$stmt->error");
   exit();
 }
-$rs = $stmt->bind_param("sss", $lat, $lon, $_SESSION['id']);
+$rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESL2&sql=$stmt->error");
+  header("Location: $redirect_url?return=sql_error&phase=ESLH2&sql=$stmt->error");
   exit();
 }
 $rs = $stmt->execute();
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESL3&sql=$stmt->error");
+  header("Location: $redirect_url?return=sql_error&phase=ESLH3&sql=$stmt->error");
   exit();
 }
+
+// Update Lat and Lon from Profile if exist
+
+$stmt = $conn->prepare("UPDATE profiles set latitude = ?, longitude = ? WHERE id = ? AND profile_no = ?");
+if (false === $stmt) {
+  header("Location: $redirect_url?return=sql_error&phase=ESLP1&sql=$stmt->error");
+  exit();
+}
+$rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
+if (false === $rs) {
+  header("Location: $redirect_url?return=sql_error&phase=ESLP2&sql=$stmt->error");
+  exit();
+}
+$rs = $stmt->execute();
+if (false === $rs) {
+  header("Location: $redirect_url?return=sql_error&phase=ESLP3&sql=$stmt->error");
+  exit();
+}
+
 
 if ( isset($_POST['delete']) ) {
     header("Location: $redirect_url?return=success_delete_location");
