@@ -25,6 +25,18 @@ if (false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 	$avatar = $_SESSION['avatar'];
 }
 
+// Set Profile to current if not yet set
+
+if (!isset($_SESSION['profile'])) {
+
+   $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $_SESSION['profile'] = $row['current_profile_no'];
+   }
+
+}
+
 // Check for Cleaned
 
 if (isset($_SESSION['id'])) {
@@ -179,14 +191,3 @@ if (isset($mapPoracleWeb)) {
    }
 }
 
-// Set Profile to current if not yet set
-
-if (!isset($_SESSION['profile'])) {
-
-   $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
-   while ($row = $result->fetch_assoc()) {
-       $_SESSION['profile'] = $row['current_profile_no'];
-   }
-
-}

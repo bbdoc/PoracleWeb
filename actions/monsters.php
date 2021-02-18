@@ -140,9 +140,10 @@
              min_weight, max_weight, form,
              max_atk, max_def, max_sta, gender,
              great_league_ranking, great_league_ranking_min_cp,
-             ultra_league_ranking, ultra_league_ranking_min_cp
+	     ultra_league_ranking, ultra_league_ranking_min_cp,
+             profile_no
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error");
@@ -150,7 +151,7 @@
         }
 
         $rs = $stmt->bind_param(
-          "ssiiiiiiiiiiiiiiiiiiiii",
+          "ssiiiiiiiiiiiiiiiiiiiiii",
           $_SESSION['id'],
           $pokemon_id,
           $_POST['distance'],
@@ -173,7 +174,8 @@
           $_POST['great_league_ranking'],
           $_POST['great_league_ranking_min_cp'],
           $_POST['ultra_league_ranking'],
-          $_POST['ultra_league_ranking_min_cp']
+	  $_POST['ultra_league_ranking_min_cp'],
+	  $_SESSION['profile']
         );
 
         if (false === $rs) {
@@ -203,12 +205,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'delete_all_mons') {
 
-    $stmt = $conn->prepare("DELETE FROM monsters WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM monsters WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DAM1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("s", $_SESSION['id']);
+    $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=DAM2&sql=$stmt->error");
       exit();
@@ -228,12 +230,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_mons_distance') {
 
-    $stmt = $conn->prepare("UPDATE monsters set distance = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE monsters set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UMD1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=UMD2&sql=$stmt->error");
       exit();
