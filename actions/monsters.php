@@ -26,12 +26,7 @@
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           great_league_ranking = ?, great_league_ranking_min_cp = ?, ultra_league_ranking = ?, ultra_league_ranking_min_cp = ?,
           form = ?, gender = ?, clean = ? 
-      WHERE pokemon_id = ? AND form = ?  AND distance = ? AND gender = ?  
-      AND min_iv = ? AND max_iv = ?  AND min_cp = ? AND max_cp = ?
-      AND min_level = ? AND max_level = ? AND min_weight = ? AND max_weight = ?  
-      AND atk = ? AND def = ? AND sta = ? AND max_atk = ? AND max_def = ? AND max_sta = ?
-      AND great_league_ranking = ? AND great_league_ranking_min_cp = ?  AND ultra_league_ranking = ? AND ultra_league_ranking_min_cp = ?  
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UM1&sql=$stmt->error");
@@ -39,7 +34,7 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiis",
+      "iiiiiiiiiiiiiiiiiiiiiii",
       $_POST['distance'],
       $_POST['min_iv'],
       $_POST['max_iv'],
@@ -62,29 +57,7 @@
       $form,
       $gender,
       $clean,
-      $_POST['pokemon_id'],
-      $_POST['cur_form'],
-      $_POST['cur_distance'],
-      $_POST['cur_gender'],
-      $_POST['cur_min_iv'],
-      $_POST['cur_max_iv'],
-      $_POST['cur_min_cp'],
-      $_POST['cur_max_cp'],
-      $_POST['cur_min_level'],
-      $_POST['cur_max_level'],
-      $_POST['cur_min_weight'],
-      $_POST['cur_max_weight'],
-      $_POST['cur_atk'],
-      $_POST['cur_def'],
-      $_POST['cur_sta'],
-      $_POST['cur_max_atk'],
-      $_POST['cur_max_def'],
-      $_POST['cur_max_sta'],
-      $_POST['cur_great_league_ranking'],
-      $_POST['cur_great_league_ranking_min_cp'],
-      $_POST['cur_ultra_league_ranking'],
-      $_POST['cur_ultra_league_ranking_min_cp'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -110,12 +83,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM monsters
-      WHERE pokemon_id = ? AND form = ?  AND distance = ? AND gender = ?
-      AND min_iv = ? AND max_iv = ?  AND min_cp = ? AND max_cp = ?
-      AND min_level = ? AND max_level = ? AND min_weight = ? AND max_weight = ?
-      AND atk = ? AND def = ? AND sta = ? AND max_atk = ? AND max_def = ? AND max_sta = ?
-      AND great_league_ranking = ? AND great_league_ranking_min_cp = ?  AND ultra_league_ranking = ? AND ultra_league_ranking_min_cp = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DM1&sql=$stmt->error");
@@ -123,30 +91,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiis",
-      $_POST['pokemon_id'],
-      $_POST['cur_form'],
-      $_POST['cur_distance'],
-      $_POST['cur_gender'],
-      $_POST['cur_min_iv'],
-      $_POST['cur_max_iv'],
-      $_POST['cur_min_cp'],
-      $_POST['cur_max_cp'],
-      $_POST['cur_min_level'],
-      $_POST['cur_max_level'],
-      $_POST['cur_min_weight'],
-      $_POST['cur_max_weight'],
-      $_POST['cur_atk'],
-      $_POST['cur_def'],
-      $_POST['cur_sta'],
-      $_POST['cur_max_atk'],
-      $_POST['cur_max_def'],
-      $_POST['cur_max_sta'],
-      $_POST['cur_great_league_ranking'],
-      $_POST['cur_great_league_ranking_min_cp'],
-      $_POST['cur_ultra_league_ranking'],
-      $_POST['cur_ultra_league_ranking_min_cp'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {

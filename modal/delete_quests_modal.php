@@ -16,9 +16,7 @@
     <form action='./actions/quests.php' method='POST'>
         <?php echo "
             <input type='hidden' id='type' name='type' value='quests'>
-            <input type='hidden' id='cur_reward' name='cur_reward' value='".$row['reward']."'>
-            <input type='hidden' id='cur_reward_type' name='cur_reward_type' value='".$row['reward_type']."'>
-            <input type='hidden' id='cur_distance' name='cur_distance' value='".$row['distance']."'>
+            <input type='hidden' id='uid' name='uid' value='".$row['uid']."'>
             " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>

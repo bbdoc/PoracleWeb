@@ -16,8 +16,7 @@
     $stmt = $conn->prepare("
       UPDATE raid
       SET distance = ?, clean = ?
-      WHERE pokemon_id = ? AND level = ? AND form = ? AND distance = ? AND team = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UR1&sql=$stmt->error");
@@ -25,15 +24,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiis",
+      "iii",
       $_POST['distance'],
       $clean,
-      $_POST['pokemon_id'],
-      $_POST['level'],
-      $_POST['cur_form'],
-      $_POST['cur_distance'],
-      $_POST['cur_team'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -66,8 +60,7 @@
     $stmt = $conn->prepare("
       UPDATE egg 
       SET distance = ?, clean = ?
-      WHERE level = ? AND distance = ? AND team = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UE1&sql=$stmt->error");
@@ -75,13 +68,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
+      "iii",
       $_POST['distance'],
       $clean,
-      $_POST['level'],
-      $_POST['cur_distance'],
-      $_POST['cur_team'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -108,8 +98,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM raid
-      WHERE pokemon_id = ? AND level = ? AND form = ? AND distance = ? AND team = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DR1&sql=$stmt->error");
@@ -117,13 +106,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
-      $_POST['pokemon_id'],
-      $_POST['level'],
-      $_POST['cur_form'],
-      $_POST['cur_distance'],
-      $_POST['cur_team'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -149,8 +133,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM egg
-      WHERE level = ? AND distance = ? AND team = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DE1&sql=$stmt->error");
@@ -158,11 +141,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiis",
-      $_POST['level'],
-      $_POST['cur_distance'],
-      $_POST['cur_team'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {

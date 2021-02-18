@@ -32,6 +32,7 @@ input[type="checkbox"][id^="mon"],
 input[type="checkbox"][id^="egg"],
 input[type="checkbox"][id^="raid"],
 input[type="checkbox"][id^="area"],
+input[type="checkbox"][id^="profile"],
 input[type="checkbox"][id^="target"],
 input[type="checkbox"][id^="energy"],
 input[type="checkbox"][id^="grunt"],
@@ -39,7 +40,9 @@ input[type="checkbox"][id^="item"] {
     display: none;
 }
 
-input[type="radio"][id^="area"] {
+input[type="radio"][id^="area"],
+input[type="radio"][id^="profile"]
+{
     display: none;
 }
 
@@ -47,6 +50,7 @@ label[for^="mon"],
 label[for^="egg"],
 label[for^="raid"],
 label[for^="area"],
+label[for^="profile"],
 label[for^="energy"],
 label[for^="grunt"],
 label[for^="item"] {
@@ -125,6 +129,7 @@ label img {
 :checked+label[for^="egg"], 
 :checked+label[for^="raid"], 
 :checked+label[for^="area"], 
+:checked+label[for^="profile"], 
 :checked+label[for^="energy"], 
 :checked+label[for^="grunt"], 
 :checked+label[for^="item"] {
@@ -143,6 +148,7 @@ label img {
  :checked+label[for^="egg"]::before,
  :checked+label[for^="raid"]::before,
  :checked+label[for^="area"]::before,
+ :checked+label[for^="profile"]::before,
  :checked+label[for^="target"]::before,
  :checked+label[for^="energy"]::before,
  :checked+label[for^="grunt"]::before,
@@ -168,4 +174,17 @@ label img {
 .list-group-item {
     padding: 0.2rem 0.3rem;
     font-size: 13px;
+}
+.numberCircle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    margin-left: -10px;
+
+    border: 2px solid #666;
+    color: #FFF;
+    text-align: center;
+
+    font: 14px Arial, sans-serif;
 }

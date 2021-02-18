@@ -96,7 +96,8 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                 <?php echo @$admin_alarm; ?>
 
                     <!-- Profile Settings Modal -->
-                    <?php include "./modal/profile_settings_modal.php"; ?>
+		    <?php include "./modal/profile_settings_modal.php"; ?>
+                    <?php include "./modal/switch_profile_modal.php"; ?>
 
                     <!-- Page Heading -->
                     <div class="row">

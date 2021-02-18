@@ -72,8 +72,8 @@ foreach ($dbnames as &$db) {
                 <div class="container-fluid col-lg-8 col-md-12">
 
                     <!-- Profile Settings Modal -->
-                    <?php include "./modal/profile_settings_modal.php"; ?>
-
+		    <?php include "./modal/profile_settings_modal.php"; ?>
+                    <?php include "./modal/switch_profile_modal.php"; ?>
 
                     <!-- Title -->
 

@@ -232,5 +232,17 @@
     "Location deleted successfully":"Position Supprimée",
     "All your distance settings have been reset":"Tous vos paramètres de distance ont été réinitialisés",
     "Delete Location and Distance Settings":"Supprimer Position et Distances",
-    "This will delete your location AND all your distance settings":"Cette action supprimera la position ET tous les paramètres de distance"
+    "This will delete your location AND all your distance settings":"Cette action supprimera la position ET tous les paramètres de distance",
+    "Switch Profile":"Changer de Profil",
+    "Create New Profile":"Créer un Nouveau Profil",
+    "You currently don't have any profile configured":"Vous n'avez pas encore configuré de Profil",
+    "Default Profile is being used":"Le Profil par défault est utilisé",
+    "By clcking 'Create New Profile' below you will assign a name to this default Profile":"Cliquez sur 'Créer un Nouveau Profil' pour assigner un nom au profil par défaut",
+    "You will then have the option to create additional Profiles":"Vous aurez ensuite la possibilité de créer des profils additionnels",
+    "Active Profile is shown in green below":"Le Profil actif est en vert ci-dessous",
+    "Choose Profile to view or activate":"Choisissez un Profile à visualiser ou à activer",
+    "Successfully Updated Active Profile":"Le Profil actif a été modifié",
+    "Successfully Switched Profile View":"Le Profil en cours de visualisation a été modifié",
+    "View":"Visualiser",
+    "Activate":"Activer"
 }

@@ -16,8 +16,7 @@
     $stmt = $conn->prepare("
       UPDATE quest
       SET distance = ?, clean = ?
-      WHERE reward = ? AND reward_type = ? AND distance = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UQ1&sql=$stmt->error");
@@ -25,13 +24,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
+      "iii",
       $_POST['distance'],
       $clean,
-      $_POST['cur_reward'],
-      $_POST['cur_reward_type'],
-      $_POST['cur_distance'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -57,8 +53,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM quest
-      WHERE reward = ? AND reward_type = ? AND distance = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error");
@@ -66,11 +61,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiis",
-      $_POST['cur_reward'],
-      $_POST['cur_reward_type'],
-      $_POST['cur_distance'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {

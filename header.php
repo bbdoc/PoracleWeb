@@ -179,3 +179,14 @@ if (isset($mapPoracleWeb)) {
    }
 }
 
+// Set Profile to current if not yet set
+
+if (!isset($_SESSION['profile'])) {
+
+   $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $_SESSION['profile'] = $row['current_profile_no'];
+   }
+
+}

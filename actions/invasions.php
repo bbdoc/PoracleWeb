@@ -19,8 +19,7 @@
     $stmt = $conn->prepare("
       UPDATE invasion
       SET distance = ?, clean = ?, gender = ?
-      WHERE grunt_type= ? AND clean = ? AND gender = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UI1&sql=$stmt->error");
@@ -28,14 +27,11 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiisiis",
+      "iiii",
       $_POST['distance'],
       $clean,
       $gender,
-      $_POST['grunt_type'],
-      $_POST['cur_clean'],
-      $_POST['cur_gender'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -62,8 +58,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM invasion
-      WHERE grunt_type = ? AND gender = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DI1&sql=$stmt->error");
@@ -71,10 +66,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "sis",
-      $_POST['grunt_type'],
-      $_POST['cur_gender'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {

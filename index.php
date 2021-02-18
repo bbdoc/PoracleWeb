@@ -81,6 +81,7 @@ include "./header.php";
 		<?php echo @$admin_alarm; ?>
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
+                    <?php include "./modal/switch_profile_modal.php"; ?>
 
                     <!-- Success Alerts-->
                     <?php
@@ -290,6 +291,26 @@ include "./header.php";
                         ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?php echo i8ln("Successfully Synchronized Channels"); ?> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+		    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_switch_profile_activate') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Updated Active Profile"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_switch_profile_view') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Switched Profile View"); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -701,7 +722,7 @@ include "./header.php";
 				$_GET['allgen'] = "active";
 
                                 // If Tracking More than 50 pokemons, show only ALL
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
                                 if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0";; }
 			   }
@@ -736,7 +757,7 @@ include "./header.php";
 
                                 // Check if User is already tracking something
 
-                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
 				while ($row = $result->fetch_assoc()) {
 					$num_mon_tracked = $row['count'];
@@ -744,7 +765,8 @@ include "./header.php";
 
                                 // Show Monsters Alarms         
 
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' " . @$gen_selector ." ORDER BY pokemon_id, form"; 
+				$sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
+					ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
 				if ($num_mon_tracked == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
@@ -765,17 +787,7 @@ include "./header.php";
 
                                     // Build a Unique Index
 
-                                    $pkm_unique_id = "mon_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] . "_" . $row['gender'] .
-                                        $row['min_cp'] . "_" . $row['max_cp'] . "_" .
-                                        $row['min_iv'] . "_" . $row['max_iv'] . "_" .
-                                        $row['min_level'] . "_" . $row['max_level'] . "_" .
-                                        $row['min_weight'] . "_" . $row['max_weight'] . "_" .
-                                        $row['atk'] . "_" . $row['def'] . "_" . $row['sta'] . "_" .
-                                        $row['max_atk'] . "_" . $row['max_def'] . "_" . $row['max_sta'] . "_" .
-                                        $row['great_league_ranking'] . "_" . $row['great_league_ranking_min_cp'] . "_" .
-                                        $row['ultra_league_ranking'] . "_" . $row['ultra_league_ranking_min_cp'];
-
+                                    $pkm_unique_id = "mon_" . $row['uid'];
 
                                     // Check Images only if Form <> Normal and Substitude if necessary
                                     $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
@@ -1138,15 +1150,13 @@ include "./header.php";
 
                                 // Show Eggs & Raids
 
-                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' ORDER BY level";
+                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ORDER BY level";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $egg_unique_id = "raid_00_" .
-                                        $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
+                                    $egg_unique_id = "raid_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1253,15 +1263,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND pokemon_id = 9000 ORDER BY level";
+				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' 
+					AND pokemon_id = 9000 ORDER BY level";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
+                                    $raid_unique_id = "raid_" . $row['uid'];
 
                                 ?>
 
@@ -1363,16 +1372,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND pokemon_id <> 9000 ORDER BY pokemon_id";
+				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+					AND pokemon_id <> 9000 ORDER BY pokemon_id";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
-
+                                    $raid_unique_id = "raid_" . $row['uid'];
                                     $pokemon_name = get_mons($row['pokemon_id']);
 
                                 ?>
@@ -1585,14 +1592,14 @@ include "./header.php";
 
                                 // Show Quests
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 7 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
+					AND reward_type = 7 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                     // Add Hidden Fancy Boxes
                                     $mon_id = str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
@@ -1703,14 +1710,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 2 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
+					AND reward_type = 2 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1728,11 +1735,33 @@ include "./header.php";
                                                     <?php
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1772,7 +1801,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/quests_modal.php"; ?>
+                                        <?php include "./modal/edit_quests_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1794,14 +1823,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 12 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+					AND reward_type = 12 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1827,11 +1856,33 @@ include "./header.php";
                                                     <?php
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1870,7 +1921,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/quests_modal.php"; ?>
+                                        <?php include "./modal/edit_quests_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1996,15 +2047,14 @@ include "./header.php";
 
                                 // Show Invasions
 
-                                $sql = "select * FROM invasion WHERE id = '" . $_SESSION['id'] . "' ORDER BY grunt_type";
+		                $sql = "SELECT * FROM invasion WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+			                ORDER BY grunt_type";
                                 $result = $conn->query($sql); 
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $invasion_unique_id = "invasion_" .
-                                        $row['distance'] .
-                                        $row['gender'] . "_" . $row['grunt_type'];
+                                    $invasion_unique_id = "invasion_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
