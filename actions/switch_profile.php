@@ -21,7 +21,9 @@
       }
   echo "</table>";
 
-  $_SESSION['profile'] = $_POST['profile'];
+  if (isset($_POST['profile'])) {
+	  $_SESSION['profile'] = $_POST['profile'];
+  }
 
   if ( isset($_POST['activate']) ) { 
 
@@ -47,6 +49,78 @@
 
 	  header("Location: $redirect_url?return=success_switch_profile_view");
 	  
+  }
+
+  if ( isset($_POST['create']) ) {
+
+	  // Get Next Profile Number
+          $sql = "SELECT IFNULL(max(profile_no),0)+1 next_profile from profiles WHERE id = '" . $_SESSION['id'] . "'";
+	  $result = $conn->query($sql);
+	  while ($row = $result->fetch_assoc()) {
+		  $next_profile = $row['next_profile'];
+	  }
+
+	  if ( $next_profile == 1 ) {
+             // Get Info on currently active Profile
+             $sql = "SELECT area, latitude, longitude from humans WHERE id = '" . $_SESSION['id'] . "'";
+             $result = $conn->query($sql);
+             while ($row = $result->fetch_assoc()) {
+                  $area = $row['area'];
+                  $latitude = $row['latitude'];
+		  $longitude = $row['longitude'];
+		  $_SESSION['profile_name'] = $_POST['profile_name'];
+             }
+	  } else {
+		  $area = "[]";
+		  $latitude = "0.0000000000";
+		  $longitude = "0.0000000000";
+	  }
+
+          // Create New Profile
+
+          $stmt = $conn->prepare("INSERT INTO profiles ( id, profile_no, name, area, latitude, longitude)
+                               VALUES ( ?, ?, ?, ?, ?, ?)");
+          if (false === $stmt) {
+            header("Location: $redirect_url?return=sql_error&phase=CP1&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->bind_param("sissdd", $_SESSION['id'], $next_profile, $_POST['profile_name'], $area, $latitude, $longitude);
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=CP2&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->execute();
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=CP3&sql=$stmt->error");
+            exit();
+          }
+	  $stmt->close();
+
+          header("Location: $redirect_url?return=success_create_profile");
+
+  }
+
+  if ( isset($_POST['rename']) ) {
+
+          $stmt = $conn->prepare("UPDATE profiles set name = ? where id = ? AND profile_no = ?");
+          if (false === $stmt) {
+            header("Location: $redirect_url?return=sql_error&phase=RP1&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->bind_param("ssi", $_POST['profile_name'], $_SESSION['id'], $_SESSION['profile']);
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=RP2&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->execute();
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=RP3&sql=$stmt->error");
+            exit();
+          }
+          $stmt->close();
+
+          header("Location: $redirect_url?return=success_rename_profile");
+
   }
 
 

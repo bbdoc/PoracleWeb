@@ -19,14 +19,6 @@
 
         </li>
 
-        <!-- Nav Item - Profile Selector -->
-        <li class="nav-item dropdown no-arrow">
-	    <a href="#" class="nav-link dropdown-toggle" data-toggle="modal" data-target="#SwitchProfile" >
-            <div class="numberCircle"><?php echo str_pad($_SESSION['profile'],2,0,STR_PAD_LEFT)?></div>
-            </a>
-        </li>
-        <?php include "./modal/switch_profile.php"; ?>
-
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <?php if (isset($_SESSION['admin_id'])) { ?>

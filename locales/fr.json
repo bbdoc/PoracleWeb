@@ -244,5 +244,14 @@
     "Successfully Updated Active Profile":"Le Profil actif a été modifié",
     "Successfully Switched Profile View":"Le Profil en cours de visualisation a été modifié",
     "View":"Visualiser",
-    "Activate":"Activer"
+    "Activate":"Activer",
+    "Create Profile":"Créer un Profil",
+    "Choose the name of your new Profile":"Choisissez un nom pour votre nouveau Profil",
+    "Please Name default Profile":"Veuillez donner un nom au profil par défault",
+    "Validate":"Valider",
+    "Active":"Actif",
+    "Default Profile":"Profil par Défaut",
+    "Rename Profile":"Renommer un Profil",
+    "Choose a New Profile Name":"Choisissez un nouveau Nom pour ce Profil"
+
 }

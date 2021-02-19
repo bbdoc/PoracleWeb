@@ -367,7 +367,45 @@ include "./header.php";
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Card -->
+		    <!-- PROFILE Card -->
+                    <?php if (@$disable_profiles <> "True") { ?>
+                    <div class="col-xl-12 col-md-12">
+                        <!-- Areas & Locations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+				<div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+				   <h6 class="m-0 text-dark">
+				   <span class="bg-dark text-white shadow profile_button">
+				   <?php echo $_SESSION['profile_name']; ?>
+				   </span>
+                                   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
+                                      <span class="text-white shadow ml-2 profile_button" style="background:darkgreen;">
+				      <?php echo i8ln("Active"); ?> 
+				      </span>
+                                   <?php } ?>
+                                   </h6>
+				   <button type="button" class="btn btn-success btn-circle btn-md" style="margin-left:auto;"  
+                                       data-toggle="modal" data-target="#AddProfile">
+                                       <i class="fas fa-plus-circle"></i>
+				   </button>&nbsp;
+				   <button type="button" class="btn btn-success btn-circle btn-md"  
+                                       data-toggle="modal" data-target="#RenameProfile">
+                                       <i class="fas fa-edit"></i>
+				   </button>&nbsp;
+				   <button type="button" class="btn btn-success btn-circle btn-md"  
+                                       data-toggle="modal" data-target="#SwitchProfile">
+                                       <i class="fas fa-random"></i>
+				   </button>
+				</div>
+                            </div>
+                        </div>
+		    </div>
+                    <?php } ?>
+
+                    <!-- PROFILE EDIT MODAL -->
+                    <?php include "./modal/edit_profile_modal.php"; ?>
+
+                    <!-- LOCATION AND AREAS Card -->
                     <?php if (@$disable_areas."-".@$disable_location <> "True-True" ) { ?>
                     <div class="col-xl-12 col-md-12">
                         <!-- Areas & Locations -->

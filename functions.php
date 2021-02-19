@@ -5,6 +5,7 @@ if(!isset($_SESSION)){
 }
 
 global $localeData;
+global $localePkmnData;
 
 function get_form_name($pokemon_id, $form_id) {
 

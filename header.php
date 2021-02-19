@@ -28,14 +28,33 @@ if (false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 // Set Profile to current if not yet set
 
 if (!isset($_SESSION['profile'])) {
-
    $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $_SESSION['profile'] = $row['current_profile_no'];
    }
-
 }
+
+// Get Profile Name
+
+$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+   while ($row = $result->fetch_assoc()) {
+      $_SESSION['profile_name'] = $row['name'];
+   }
+} else {
+      $_SESSION['profile_name'] = i8ln("Default Profile");
+}
+
+// Get Active Profile
+
+$sql = "SELECT current_profile_no from humans WHERE id = '" . $_SESSION['id'] . "'";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) {
+    $_SESSION['current_profile'] = $row['current_profile_no'];
+}
+
 
 // Check for Cleaned
 

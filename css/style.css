@@ -175,16 +175,10 @@ label img {
     padding: 0.2rem 0.3rem;
     font-size: 13px;
 }
-.numberCircle {
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-    margin-left: -10px;
 
-    border: 2px solid #666;
-    color: #FFF;
-    text-align: center;
-
-    font: 14px Arial, sans-serif;
+.profile_button {
+    padding:5px; 
+    padding-left:15px; 
+    padding-right:15px; 
+    border-radius: 5px;
 }

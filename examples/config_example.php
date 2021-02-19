@@ -23,6 +23,7 @@ $scan_dbport     = "3306";
 
 // Enable Disable Elements
 
+$disable_profiles    = "False";
 $disable_areas       = "False";
 $disable_location    = "False";
 $disable_nominatim   = "False";
