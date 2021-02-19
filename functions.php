@@ -83,24 +83,23 @@ function translate_mon($word)
         return $word;
     }
 
-    global $localeData;
-    if ($localeData == null) {
-        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json"; 
+    global $localePkmnData;
+    if ($localePkmnData == null) {
+        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json";
         if (file_exists($filepath)) {
             $json_contents = file_get_contents($filepath);
-            $localeData = json_decode($json_contents, true);
+            $localePkmnData = json_decode($json_contents, true);
         } else {
             return $word;
         }
     }
 
-    if (isset($localeData[$word])) {
-        return $localeData[$word];
+    if (isset($localePkmnData[$word])) {
+        return $localePkmnData[$word];
     } else {
         return $word;
     }
 }
-
 
 function get_areas() {
 
