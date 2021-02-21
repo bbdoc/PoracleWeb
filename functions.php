@@ -92,7 +92,7 @@ function translate_mon($word)
             $localePkmnData = json_decode($json_contents, true);
         } else {
             return $word;
-        }
+	}
     }
 
     if (isset($localePkmnData[$word])) {
