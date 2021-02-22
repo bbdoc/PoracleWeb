@@ -11,7 +11,9 @@ RUN apt-get update && apt-get -y install nodejs
 # Install PHP modules
 RUN docker-php-ext-install mysqli
 
-# Install PoracleWeb
-COPY . . 
+# Install Node depdencies
+COPY package.json . 
 COPY config.env.php config.php
 RUN npm install
+# Install PoracleWeb
+COPY . . 
