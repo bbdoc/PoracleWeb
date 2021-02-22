@@ -191,7 +191,7 @@
     "Delete Quests tracking for this item":"Supprimer le Suivi des Quêtes pour cet object",
     "This will delete tracking for invasion type":"Cette action supprimera les invasions de type",
     "Delete tracking for Invasions":"Supprimer les suivi des Invasions",
-    "Delete ALL Invasions?":"Supprimer toutes les Invasions?",
+    "Delete ALL Invasions?":"Supprimer toutes les Invasions suivies?",
     "This will delete all your Invasions Alarms and cannot be undone":"Cette action supprimera le suivi pour TOUTES les Invasions",
     "Update Distance for all tracked Invasions?":"Modifier la Distance pour toutes les Invasions?",
     "This will update Distance settings for ALL tracked Invasions":"Cette action modifiera la distance de suivi pour TOUTES les Invasions",
@@ -279,5 +279,8 @@
     "Successfully Added Lure Alarm(s)":"Alarme de Leure ajoutée avec succès",
     "Successfully Updated Lure Alarm":"La liste de Leures à été mise à jour",
     "Successfully Deleted Lure Alarm(s)":"Alarme de Leure supprimée avec succès",
-    "Successfully Updated Distance on ALL Lures":"Distance Mise à Jour avec Succès pour TOUS les Leures"
+    "Successfully Updated Distance on ALL Lures":"Distance Mise à Jour avec Succès pour TOUS les Leures",
+    "Delete ALL Lures?":"Supprimer TOUS les Leures suivis",
+    "NEW LURES ALARM":"NOUVELLE ALARME DE LEURE"
+
 }
