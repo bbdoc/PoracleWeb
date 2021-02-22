@@ -249,6 +249,47 @@
       $stmt->close();
     }
 
+
+    // ENABLE AND DISABLE LURES GLOBALLY
+    if (isset($_POST['leures_clean_toggle']) && $_POST['leures_clean_toggle'] == 'on') {
+
+      $stmt = $conn->prepare("UPDATE lures set clean = 1 WHERE id = ?");
+      if (false === $stmt) {
+        header("Location: $redirect_url?return=sql_error&phase=ELC1&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->bind_param("s", $_SESSION['id']);
+      if (false === $rs) {
+        header("Location: $redirect_url?return=sql_error&phase=ELC2&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->execute();
+      if (false === $rs) {
+        header("Location: $redirect_url?return=sql_error&phase=ELC3&sql=$stmt->error");
+        exit();
+      }
+      $stmt->close();
+    } else if (!isset($_POST['leures_clean_toggle'])) {
+
+      $stmt = $conn->prepare("UPDATE lures set clean = 0 WHERE id = ?");
+      if (false === $stmt) {
+        header("Location: $redirect_url?return=sql_error&phase=DLC1&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->bind_param("s", $_SESSION['id']);
+      if (false === $rs) {
+        header("Location: $redirect_url?return=sql_error&phase=DLC2&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->execute();
+      if (false === $rs) {
+        header("Location: $redirect_url?return=sql_error&phase=DLC3&sql=$stmt->error");
+        exit();
+      }
+      $stmt->close();
+    }
+
+
     header("Location: $redirect_url?return=success_update_settings");
     exit();
 

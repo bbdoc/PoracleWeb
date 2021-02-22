@@ -1979,7 +1979,7 @@ include "./header.php";
 
                         <div class="row">
                             <?php
-                                if ($all_lure_cleaned == '1') {
+                                if ($all_lures_cleaned == '1') {
                                 ?>
                             <div class="col">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
