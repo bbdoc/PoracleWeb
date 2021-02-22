@@ -139,7 +139,7 @@ if ( $disable_mons == "True" ) {
                         } else {
                             $clean_0_checked = 'checked';
                         }
-i
+
                     ?>
 
                     <form action='./actions/monsters.php' method='POST'>
