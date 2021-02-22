@@ -181,6 +181,24 @@ function get_grunts() {
 
 }
 
+function get_lure_name($id) {
+
+	if ( $id == "0") {
+                $lure_name = "ALL";
+        } else if ( $id == "501") { 
+		$lure_name = "Normal Lure";
+	} else if ( $id == "502") {
+		$lure_name = "Glacial Lure";
+	} else if ( $id == "503") {
+                $lure_name = "Mossy Lure";
+        } else if ( $id == "504") {
+                $lure_name = "Magnetic Lure";
+        }
+
+        return $lure_name;	
+
+}
+
 function set_locale() {
 
    include "./config.php";

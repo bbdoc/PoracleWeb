@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="DistanceInvasionsModal">
-        <?php echo i8ln("Update Distance for all tracked Invasions?"); ?>
+    <h5 class="modal-title" id="DistanceLuresModal">
+        <?php echo i8ln("Update Distance for all tracked Lures?"); ?>
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -8,7 +8,7 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $sql = "SELECT distance from invasions WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
+    $sql = "SELECT distance from lures WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
     $result = $conn->query($sql);
     if (!empty($result) && $result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
@@ -18,9 +18,9 @@
             $distance_set = 0;
     }
 ?>
-<form action='./actions/invasions.php?action=update_invasions_distance' method='POST'>
+<form action='./actions/lures.php?action=update_lures_distance' method='POST'>
 <div class="modal-body">
-    <?php echo i8ln("This will update Distance settings for ALL tracked Invasions"); ?>.<br><br>
+    <?php echo i8ln("This will update Distance settings for ALL tracked Lures"); ?>.<br><br>
     <?php echo i8ln("Please Set New Distance"); ?>:
     <div class="form-row align-items-center">
        <div class="col-sm-12 my-1 mt-2">

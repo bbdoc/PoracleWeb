@@ -83,286 +83,8 @@ include "./header.php";
                     <?php include "./modal/profile_settings_modal.php"; ?>
                     <?php include "./modal/switch_profile_modal.php"; ?>
 
-                    <!-- Success Alerts-->
-                    <?php
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Monster Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Monster Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_raids') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Raids Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_raid') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Raid Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raid') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Raid Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raids') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Eggs & Raids Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_egg') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Egg Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_egg') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Egg Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Quest Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Quest Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Quest Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_areas') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated List of Areas"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_settings') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Settings updated successfully"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-			}
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_location') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Location updated successfully"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_location') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Location deleted successfully"); ?><br>
-                        <?php echo i8ln("All your distance settings have been reset"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Pokémons"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_raids_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Raids & Eggs"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_quests_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Quests"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_migrate') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-			<?php echo i8ln("Successfully Migrated account")."<br>".$_GET['mig_source']."
-                           <i class='fas fa-arrow-circle-right'></i> ".$_GET['mig_target']."!"; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_channel_sync') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Synchronized Channels"); ?> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_switch_profile_activate') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Active Profile"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_switch_profile_view') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Switched Profile View"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'error_update_location') {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Address not found. Try Again"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'user_not_found') {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("User not found. Try Again"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if ($enabled==0) {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Your alarms are currently disabled!"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {
-			    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-			    echo i8ln("You Request couldn't not be handled"); 
-			    echo i8ln("Error"). " #" . $_GET['phase'];
-                            if ($debug == 'True') {
-                                echo "<br><br>" . $_GET['sql'];
-                            }
-                        ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <?php
-                        }
-
-                ?>
+		    <!-- Success Alerts-->
+		    <?php include "return_messages.php"; ?>
 
                 <!-- Content Row -->
                 <div class="row">
@@ -651,6 +373,15 @@ include "./header.php";
                     <li class="nav-item">
                         <a class="nav-link" id="pills-invasions-tab" data-toggle="pill" href="#pills-invasions" role="tab"
                             aria-controls="pills-invasions" aria-selected="false"><?php echo i8ln("INVASIONS"); ?></a>
+                    </li>
+                    <?php
+                    }
+                    ?>
+
+                    <?php if (@$disable_lures <> "True") { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-lures-tab" data-toggle="pill" href="#pills-lures" role="tab"
+                            aria-controls="pills-lures" aria-selected="false"><?php echo i8ln("LURES"); ?></a>
                     </li>
                     <?php
                     }
@@ -2233,6 +1964,260 @@ include "./header.php";
                     <?php
                     } // End of Invasions Disable
                     ?>
+
+                    <?php if (@$disable_lures <> "True") { ?> 
+                    <div class="tab-pane fade" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <hr>
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("LURES TRACKED"); ?></h1>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <?php
+                                if ($all_lure_cleaned == '1') {
+                                ?>
+                            <div class="col">
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <?php echo i8ln("Cleaning activated on"); ?>
+                                    <strong><?php echo i8ln("ALL LURES"); ?></strong>!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <?php
+                                }
+                                ?>
+                        </div>
+
+                        <div class="row">
+                            <div class="row no-gutters align-items-center p-3">
+                                <a href="./add_lures.php" class="btn btn-success btn-icon-split mr-2 mt-1">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("ADD"); ?></span>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1" data-toggle="modal"
+                                    data-target="#deleteAllLuresModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
+                                </a>
+                                <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1" data-toggle="modal"
+                                    data-target="#DistanceLuresModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("UPDATE DISTANCE"); ?></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- DELETE ALL LURES Modal -->
+                        <div class="modal fade" id="deleteAllLuresModal" tabindex="-1" role="dialog"
+                            aria-labelledby="deleteAllLuresModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteAllLuresModalLabel">
+                                            <?php echo i8ln("Delete ALL Lures?"); ?>
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php echo i8ln("This will delete all your Lures Alarms and cannot be undone"); ?><br>
+                                        <?php echo i8ln("Are you sure?"); ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="./actions/lures.php?action=delete_all_lures"
+                                            class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPDATE LURES DISTANCE MODAL -->
+                        <div class="modal fade" id="DistanceLuresModal" tabindex="-1" role="dialog"
+                            aria-labelledby="DistanceLuresModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                        <?php include "./modal/distance_lures_modal.php"; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+                            <?php
+
+                                // Show Lures
+
+                                $sql = "SELECT * FROM lures WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
+                                        ORDER BY lure_id";
+                                $result = $conn->query($sql);
+
+                                while ($row = $result->fetch_assoc()) {
+
+                                    // Build a Unique Index
+                                    $lure_unique_id = "lure_" . $row['uid'];
+
+                                ?>
+                            <!-- Card -->
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <div class="card border-top-success shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    <?php if ( $row['lure_id'] == "0") { ?>
+                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
+                                                         style="height: 70px;">
+                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
+                                                    </div>
+                                                    <?php } else { ?>
+                                                    <img width=50 loading=lazy src='<?php echo "./lures/" . $row['lure_id'] . ".png?"; ?>'>
+                                                    <?php } ?>
+						</div>
+
+                                                <?php if ( $row['lure_id'] <> "0") { ?>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <?php echo i8ln(get_lure_name($row['lure_id'])); ?>
+						</div>
+						<?php } ?>
+
+                                                <div class="mt-2 text-center">
+                                                <ul class="list-group mt-2 mb-2">
+                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                        </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowLures" data-toggle="modal" data-target="#DistanceShowLures_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowLures_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowLures" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <?php
+                                                            }
+                                                            if ($row['clean'] == '1' && $all_lures_cleaned == '0') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    </div>
+
+                                                    <?php } ?>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $lure_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $lure_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- EDIT LURE Modal -->
+                            <div class="modal fade" id="<?php echo $lure_unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $lure_unique_id ?>ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/edit_lures_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DELETE LURE Modal -->
+                            <div class="modal fade" id="<?php echo $lure_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $lure_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/delete_lures_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php } ?>
+
+                        </div>
+
+                    </div>
+                    <?php
+                    } // End of Lures Disable
+                    ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 </div>
 

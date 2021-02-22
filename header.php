@@ -65,21 +65,11 @@ if (isset($_SESSION['id'])) {
    while ($row = $result->fetch_assoc()) {
        $all_mon_cleaned = $row['clean'];
    }
-   if ($all_mon_cleaned == "1") {
-       $all_mon_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_mon_cleaned_color = "<span class='reddot'></span>";
-   }
    
    $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $all_raid_cleaned = $row['clean'];
-   }
-   if ($all_raid_cleaned == "1") {
-       $all_raid_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_raid_cleaned_color = "<span class='reddot'></span>";
    }
    
    $sql = "select min(clean) clean FROM quest WHERE id = '" . $_SESSION['id'] . "'";
@@ -87,23 +77,18 @@ if (isset($_SESSION['id'])) {
    while ($row = $result->fetch_assoc()) {
        $all_quest_cleaned = $row['clean'];
    }
-   if ($all_quest_cleaned == "1") {
-       $all_quest_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_quest_cleaned_color = "<span class='reddot'></span>";
-   }
 
    $sql = "select min(clean) clean FROM invasion WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $all_invasion_cleaned = $row['clean'];
    }
-   if ($all_invasion_cleaned == "1") {
-       $all_invasion_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_invasion_cleaned_color = "<span class='reddot'></span>";
-   }
 
+   $sql = "select min(clean) clean FROM lures WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $all_lures_cleaned = $row['clean'];
+   }
 
    // Get Areas, Lat, long and Enabled from Humans Table
    $sql = "select area, latitude, longitude, enabled from humans WHERE id = '" . $_SESSION['id'] . "'";
