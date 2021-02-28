@@ -14,7 +14,6 @@
 	$area = strtolower($area);
 	$area = str_replace('%20', ' ', $area);
         array_push($area_list, "\"$area\"");
-        echo $area . "<br>";
       }
     }
     $area_list = implode(',', $area_list);
