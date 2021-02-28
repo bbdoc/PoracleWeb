@@ -19,7 +19,17 @@
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
-        <?php if (isset($_SESSION['admin_id'])) { ?>
+        <?php
+            $isAdmin = false;
+            if (isset($admin_id) && !empty($admin_id)) {
+                $admin_ids = explode(",", $admin_id);
+                foreach ($admin_ids as &$id) {
+                    if (isset($_SESSION['id']))
+                        $isAdmin = true;
+                }
+           }
+
+           if ($isAdmin == true) { ?>
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="./admin_tools.php" >
 <i class="fas fa-user-shield fa-fw"></i>
