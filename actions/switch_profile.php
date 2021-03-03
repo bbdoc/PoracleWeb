@@ -55,15 +55,15 @@
 
 	  // Get Next Profile Number
           #$sql = "SELECT IFNULL(max(profile_no),0)+1 next_profile from profiles WHERE id = '" . $_SESSION['id'] . "'";
-	  $sql = "SELECT IFNULL(MIN(t1.profile_no),0)+1 AS next_profile
-		  FROM profiles t1 
-		  LEFT JOIN profiles t2
-		  ON t1.profile_no + 1 = t2.profile_no 
-		  WHERE t2.profile_no IS NULL 
-                  AND t1.id = '" . $_SESSION['id'] . "'";
+	  $sql = "SELECT MIN(t1.profile_no + 1) AS nextID
+                  FROM (select profile_no from profiles  WHERE id = '".$_SESSION['id']."' UNION select 0 profile_no) t1
+                  LEFT JOIN (select profile_no from profiles  WHERE id = '".$_SESSION['id']."' UNION select 0 profile_no) t2
+                  ON t1.profile_no + 1 = t2.profile_no
+                  WHERE t2.profile_no IS NULL";
+
 	  $result = $conn->query($sql);
 	  while ($row = $result->fetch_assoc()) {
-		  $next_profile = $row['next_profile'];
+		  $next_profile = $row['nextID'];
 	  }
 
 	  if ( $next_profile == 1 ) {
@@ -102,6 +102,7 @@
           }
 	  $stmt->close();
 
+	  $_SESSION['profile'] = $next_profile;
           header("Location: $redirect_url?return=success_create_profile");
 
   }

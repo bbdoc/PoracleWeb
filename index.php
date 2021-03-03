@@ -90,7 +90,8 @@ include "./header.php";
                 <div class="row">
 
 		    <!-- PROFILE Card -->
-                    <?php if (@$disable_profiles <> "True") { ?>
+		    <?php if (@$disable_profiles <> "True") { ?>
+
                     <div class="col-xl-12 col-md-12">
 			<!-- Current Profile -->
 
@@ -100,7 +101,7 @@ include "./header.php";
 				   <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("Profile"); ?>: 
 				   <strong><?php echo $_SESSION['profile_name']; ?></strong>
 				   </h6>
-                                   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
+				   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
 				   <span class="badge badge-success badge-pill ml-2" style="padding:5px; padding-right:15px; padding-left:15px;">
 				      <?php echo i8ln("Active"); ?>
                                    </span>
@@ -109,7 +110,7 @@ include "./header.php";
                                       <?php echo i8ln("Not Active"); ?>
                                    </span>
                                    <?php } ?>
-                               </div>
+                               </div><?php echo "<br>".@$profile_alarm; ?>
                             </div>
 
                             <div class="card-body">
