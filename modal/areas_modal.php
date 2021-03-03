@@ -2,7 +2,13 @@
 
 // Check Current Selection
 
-$sql = "select area FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+if ($_SESSION['profile'] == $_SESSION['current_profile'] ) {
+	$sql = "select area FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+}
+else {
+	$sql = "select area FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
+}
+
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
