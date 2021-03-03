@@ -165,6 +165,21 @@
 
 	  }
 
+          // Change Active Profile if Deleting Active one
+
+          $sql = "select current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+             $current_profile = $row['current_profile_no'];
+          }
+
+          if ( $current_profile == $_SESSION['profile'])  {
+                  $sql = "UPDATE humans set current_profile_no =
+                          (select IFNULL(min(profile_no),1) from profiles where id = '".$_SESSION['id']."')
+			  WHERE id = '" . $_SESSION['id'] . "'";
+                  $result = $conn->query($sql); echo $sql;
+          }
+
 	  // Check for smaller Profiles and redirect
 
           $sql = "select IFNULL(min(profile_no),1) min from profiles WHERE id = '" . $_SESSION['id'] . "'";

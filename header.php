@@ -203,27 +203,6 @@ if (!empty($result) && $result->num_rows > 0) {
    $config_alarm.="</div>";
 }
 
-// Check if Currently Activated Profile Exist
-
-$sql = "SELECT * from profiles WHERE profile_no = 
-        (select current_profile_no from humans WHERE id = '".$_SESSION['id']."') 
-	AND id = '".$_SESSION['id']."';";
-$result = $conn->query($sql);
-
-if ($result->num_rows==0) {
-   $profile_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
-   $profile_alarm.="&#x26A0;<br>";
-   $profile_alarm.=i8ln("You have deleted your active Profile").".<br>";
-   $profile_alarm.=i8ln("Please activate another profile to receive alarms").".<br>";
-   $profile_alarm.="</div>";
-} 
-
-$sql = "SELECT min(profile_no) profile_no from profiles WHERE id = '".$_SESSION['id']."'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) {
-   $_SESSION['profile'] = $row['profile_no'];
-}
-
 // Check If Distance Map should be displayed
 
 if (isset($mapPoracleWeb)) {

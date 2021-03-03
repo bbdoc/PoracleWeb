@@ -287,7 +287,5 @@
     "Default":"Défaut",
     "Delete Profile":"Supprimer le Profil",
     "This will delete this Profile":"Cette action supprimera le profil en cours",
-    "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES",
-    "You have deleted your active Profile":"Vous avez supprimé votre Profil actif",
-    "Please activate another profile to receive alarms":"Veuillez activer un autre profil pour recevoir des alarmes"
+    "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES"
 }
