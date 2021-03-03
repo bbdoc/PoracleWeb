@@ -311,6 +311,36 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+		    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_create_profile') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Created Profile"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_rename_profile') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Renamed Profile"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
+                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_profile') {
+                        ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo i8ln("Successfully Deleted Profile"); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <?php
                         }

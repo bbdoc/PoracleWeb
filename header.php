@@ -35,16 +35,23 @@ if (!isset($_SESSION['profile'])) {
    }
 }
 
+// Check if user has Multiple Profiles
+
+$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
+$result = $conn->query($sql);
+$_SESSION['number_of_profiles'] = $result->num_rows;
+
 // Get Profile Name
 
 $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
 $result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
    while ($row = $result->fetch_assoc()) {
       $_SESSION['profile_name'] = $row['name'];
    }
 } else {
-      $_SESSION['profile_name'] = i8ln("Default Profile");
+      $_SESSION['profile_name'] = i8ln("Default");
 }
 
 // Get Active Profile

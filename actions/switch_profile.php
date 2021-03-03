@@ -54,7 +54,13 @@
   if ( isset($_POST['create']) ) {
 
 	  // Get Next Profile Number
-          $sql = "SELECT IFNULL(max(profile_no),0)+1 next_profile from profiles WHERE id = '" . $_SESSION['id'] . "'";
+          #$sql = "SELECT IFNULL(max(profile_no),0)+1 next_profile from profiles WHERE id = '" . $_SESSION['id'] . "'";
+	  $sql = "SELECT IFNULL(MIN(t1.profile_no),0)+1 AS next_profile
+		  FROM profiles t1 
+		  LEFT JOIN profiles t2
+		  ON t1.profile_no + 1 = t2.profile_no 
+		  WHERE t2.profile_no IS NULL 
+                  AND t1.id = '" . $_SESSION['id'] . "'";
 	  $result = $conn->query($sql);
 	  while ($row = $result->fetch_assoc()) {
 		  $next_profile = $row['next_profile'];
@@ -122,6 +128,54 @@
           header("Location: $redirect_url?return=success_rename_profile");
 
   }
+
+  if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
+
+	  // DELETE PROFILE
+	 
+          $stmt = $conn->prepare("DELETE from profiles where id = ? AND profile_no = ?");
+          if (false === $stmt) {
+            header("Location: $redirect_url?return=sql_error&phase=DP1&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=DP2&sql=$stmt->error");
+            exit();
+          }
+          $rs = $stmt->execute();
+          if (false === $rs) {
+            header("Location: $redirect_url?return=sql_error&phase=DP3&sql=$stmt->error");
+            exit();
+          }
+          $stmt->close();
+
+	  // DELETE MONSTERS, EGG, RAID, QUEST, INVASION, LURES
+
+	  if ( $_SESSION['profile'] <> 1) {
+
+	     $tables = "monsters,egg,raid,quest,invasion,lures";
+             $tables_items = explode(',', $tables);
+	     foreach ($tables_items as &$table) {
+		  $stmt = $conn->prepare("DELETE from ".$table." where id = ? AND profile_no = ?");
+		  $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+		  $rs = $stmt->execute();
+	     }
+
+	  }
+
+	  // Check for smaller Profiles and redirect
+
+          $sql = "select IFNULL(min(profile_no),1) min from profiles WHERE id = '" . $_SESSION['id'] . "'";
+	  $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+             $_SESSION['profile'] = $row['min'];
+          }
+
+          header("Location: $redirect_url?return=success_delete_profile");
+
+  }
+
 
 
 ?>
