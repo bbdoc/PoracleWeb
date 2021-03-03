@@ -101,7 +101,6 @@ include "./header.php";
 				   <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("Profile"); ?>: 
 				   <strong><?php echo $_SESSION['profile_name']; ?></strong>
 				   </h6>
-<?php echo $_SESSION['profile']." | ".$_SESSION['current_profile']; ?>
 				   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
 				   <span class="badge badge-success badge-pill ml-2" style="padding:5px; padding-right:15px; padding-left:15px;">
 				      <?php echo i8ln("Active"); ?>
