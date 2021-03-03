@@ -8,19 +8,6 @@
     session_start();
   }
 
-  echo "<table>";
-      foreach ($_POST as $key => $value) {
-          echo "<tr>";
-          echo "<td>";
-          echo $key;
-          echo "</td>";
-          echo "<td>";
-          echo $value;
-          echo "</td>";
-          echo "</tr>";
-      }
-  echo "</table>";
-
   if (isset($_POST['profile'])) {
 	  $_SESSION['profile'] = $_POST['profile'];
   }
@@ -177,7 +164,7 @@
                   $sql = "UPDATE humans set current_profile_no =
                           (select IFNULL(min(profile_no),1) from profiles where id = '".$_SESSION['id']."')
 			  WHERE id = '" . $_SESSION['id'] . "'";
-                  $result = $conn->query($sql); echo $sql;
+                  $result = $conn->query($sql); 
           }
 
 	  // Check for smaller Profiles and redirect
@@ -192,6 +179,7 @@
 
   }
 
+  include "./action_error.php";
 
 
 ?>
