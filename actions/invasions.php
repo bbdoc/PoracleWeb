@@ -19,8 +19,7 @@
     $stmt = $conn->prepare("
       UPDATE invasion
       SET distance = ?, clean = ?, gender = ?
-      WHERE grunt_type= ? AND clean = ? AND gender = ?
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UI1&sql=$stmt->error");
@@ -28,14 +27,11 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiisiis",
+      "iiii",
       $_POST['distance'],
       $clean,
       $gender,
-      $_POST['grunt_type'],
-      $_POST['cur_clean'],
-      $_POST['cur_gender'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -62,8 +58,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM invasion
-      WHERE grunt_type = ? AND gender = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DI1&sql=$stmt->error");
@@ -71,10 +66,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "sis",
-      $_POST['grunt_type'],
-      $_POST['cur_gender'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -112,13 +105,13 @@
       if (substr($key, 0, 6) === "grunt_") {
         $grunt = substr($key, 6); 
 
-        $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type)
-	                       VALUES ( ?, '', ? , ?, 1, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type, profile_no)
+	                       VALUES ( ?, '', ? , ?, 1, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiis", $_SESSION['id'], $clean, $_POST['distance'], $gender, $grunt);
+        $rs = $stmt->bind_param("siiisi", $_SESSION['id'], $clean, $_POST['distance'], $gender, $grunt, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AI2&sql=$stmt->error");
           exit();
@@ -140,12 +133,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'delete_all_invasions') {
 
-    $stmt = $conn->prepare("DELETE FROM invasion WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM invasion WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DAI1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("s", $_SESSION['id']);
+    $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=DAI2&sql=$stmt->error");
       exit();
@@ -166,12 +159,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_invasions_distance') {
 
-    $stmt = $conn->prepare("UPDATE invasion set distance = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE invasion set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UID1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=UID2&sql=$stmt->error");
       exit();

@@ -63,62 +63,79 @@
                                     echo "checked";
                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 </td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row">Location</th>
-                                <td><input type="checkbox" name="location_toggle" id="location_toggle" <?php 
-                                    // if ($latitude != "0.0000000000" && $longitude != "0.0000000000") {
-                                    //     echo "checked";
-                                    // } ?> disabled data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
-                            </tr> -->
-                            <tr>
-				<th scope="row"><?php echo i8ln("ALL Monsters Cleaning"); ?></th>
-                                <td><input type="checkbox" name="pokes_clean_toggle" id="pokes_clean_toggle" <?php 
-                                    if ($all_mon_cleaned == "1") {
-                                        echo "checked";
-                                    } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
-                            </tr>
-                            <tr>
-				<th scope="row"><?php echo i8ln("ALL Raid/Egg Cleaning"); ?></th>
-                                <td><input type="checkbox" name="re_clean_toggle" id="re_clean_toggle" <?php 
-                                    if ($all_raid_cleaned == "1") {
-                                        echo "checked";
-                                    } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
-                            </tr>
-                            <tr>
-                                <?php
-                                if (@$disable_quests <> "True") {
-                                ?>
-				<th scope="row"><?php echo i8ln("ALL Quests Cleaning"); ?></th>
-                                <td><input type="checkbox" name="quests_clean_toggle" id="quests_clean_toggle" <?php 
-                                    if ($all_quest_cleaned == "1") {
-                                        echo "checked";
-                                    } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
-                                <?php
-                                }
-                                ?>
 			    </tr>
-                            <tr>
-                                <?php
-                                if (@$disable_invasions <> "True") {
-                                ?>
-                                <th scope="row"><?php echo i8ln("ALL Invasions Cleaning"); ?></th>
-                                <td><input type="checkbox" name="invasions_clean_toggle" id="invasions_clean_toggle" <?php
-                                    if ($all_invasion_cleaned == "1") {
-                                        echo "checked";
-                                    } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
-                                        data-size="sm"></td>
-                                <?php
-                                }
-                                ?>
-                            </tr>
-
                         </tbody>
                     </table>
+
+                    <div class="col-xl-12 col-md-12">
+                        <div class="card shadow mt-1">
+                            <div class="card-header py-3">
+
+            		    <center><strong><?php echo i8ln("ACTIVATE CLEANING ON ALL") ?></strong></center>
+                                <table class="table table-borderless text-center" style="padding:0px; margin: 0px; width: 100% !important;">
+                                    <tbody>
+                                        <tr>
+            				<td width="33%"><?php echo i8ln("Monsters"); ?><br>
+            				<input type="checkbox" name="pokes_clean_toggle" id="pokes_clean_toggle" <?php 
+                                                if ($all_mon_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm"></td>
+            				<td width="33%"><?php echo i8ln("Raid/Egg"); ?><br>
+            				<input type="checkbox" name="re_clean_toggle" id="re_clean_toggle" <?php 
+                                                if ($all_raid_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm"></td>
+                                            <?php
+                                            if (@$disable_quests <> "True") {
+                                            ?>
+            				<td width="33%"><?php echo i8ln("Quests"); ?><br>
+            				<input type="checkbox" name="quests_clean_toggle" id="quests_clean_toggle" <?php 
+                                                if ($all_quest_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm"></td>
+            			    </tr>
+            		    </table>
+                                <table class="table table-borderless text-center" style="margin: auto; width: 100%; align: center;">
+                                    <tbody>
+                                        <tr>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if (@$disable_invasions <> "True") {
+                                            ?>
+            				<td width="50%"><?php echo i8ln("Invasions"); ?><br>
+            				<input type="checkbox" name="invasions_clean_toggle" id="invasions_clean_toggle" <?php
+                                                if ($all_invasion_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm"></td>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if (@$disable_lures <> "True") {
+                                            ?>
+                                            <td width="50%"><?php echo i8ln("Lures"); ?><br>
+                                            <input type="checkbox" name="leures_clean_toggle" id="leures_clean_toggle" <?php
+                                                if ($all_lures_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm"></td>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tr>
+            
+                                    </tbody>
+    			    </table>
+ 
+                         </div>
+                      </div>
+                  </div>
 
                 </div>
                 <div class="modal-footer">

@@ -32,14 +32,18 @@ input[type="checkbox"][id^="mon"],
 input[type="checkbox"][id^="egg"],
 input[type="checkbox"][id^="raid"],
 input[type="checkbox"][id^="area"],
+input[type="checkbox"][id^="profile"],
 input[type="checkbox"][id^="target"],
 input[type="checkbox"][id^="energy"],
 input[type="checkbox"][id^="grunt"],
+input[type="checkbox"][id^="lure"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
 
-input[type="radio"][id^="area"] {
+input[type="radio"][id^="area"],
+input[type="radio"][id^="profile"]
+{
     display: none;
 }
 
@@ -47,8 +51,10 @@ label[for^="mon"],
 label[for^="egg"],
 label[for^="raid"],
 label[for^="area"],
+label[for^="profile"],
 label[for^="energy"],
 label[for^="grunt"],
+label[for^="lure"],
 label[for^="item"] {
     background-color: #858796;
     color: #ffffff;
@@ -125,8 +131,10 @@ label img {
 :checked+label[for^="egg"], 
 :checked+label[for^="raid"], 
 :checked+label[for^="area"], 
+:checked+label[for^="profile"], 
 :checked+label[for^="energy"], 
 :checked+label[for^="grunt"], 
+:checked+label[for^="lure"], 
 :checked+label[for^="item"] {
     border-color: #ddd;
     position: relative;
@@ -143,9 +151,11 @@ label img {
  :checked+label[for^="egg"]::before,
  :checked+label[for^="raid"]::before,
  :checked+label[for^="area"]::before,
+ :checked+label[for^="profile"]::before,
  :checked+label[for^="target"]::before,
  :checked+label[for^="energy"]::before,
  :checked+label[for^="grunt"]::before,
+ :checked+label[for^="lure"]::before,
  :checked+label[for^="item"]::before {
     content: "✓";
     color: #ffffff;
@@ -168,4 +178,11 @@ label img {
 .list-group-item {
     padding: 0.2rem 0.3rem;
     font-size: 13px;
+}
+
+.profile_button {
+    padding:5px; 
+    padding-left:15px; 
+    padding-right:15px; 
+    border-radius: 5px;
 }

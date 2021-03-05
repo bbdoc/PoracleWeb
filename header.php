@@ -25,6 +25,44 @@ if (false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 	$avatar = $_SESSION['avatar'];
 }
 
+// Set Profile to current if not yet set
+
+if (!isset($_SESSION['profile'])) {
+   $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $_SESSION['profile'] = $row['current_profile_no'];
+   }
+}
+
+// Check if user has Multiple Profiles
+
+$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
+$result = $conn->query($sql);
+$_SESSION['number_of_profiles'] = $result->num_rows;
+
+// Get Profile Name
+
+$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+   while ($row = $result->fetch_assoc()) {
+      $_SESSION['profile_name'] = $row['name'];
+   }
+} else {
+      $_SESSION['profile_name'] = i8ln("Default");
+}
+
+// Get Active Profile
+
+$sql = "SELECT current_profile_no from humans WHERE id = '" . $_SESSION['id'] . "'";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) {
+    $_SESSION['current_profile'] = $row['current_profile_no'];
+}
+
+
 // Check for Cleaned
 
 if (isset($_SESSION['id'])) {
@@ -34,21 +72,11 @@ if (isset($_SESSION['id'])) {
    while ($row = $result->fetch_assoc()) {
        $all_mon_cleaned = $row['clean'];
    }
-   if ($all_mon_cleaned == "1") {
-       $all_mon_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_mon_cleaned_color = "<span class='reddot'></span>";
-   }
    
    $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $all_raid_cleaned = $row['clean'];
-   }
-   if ($all_raid_cleaned == "1") {
-       $all_raid_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_raid_cleaned_color = "<span class='reddot'></span>";
    }
    
    $sql = "select min(clean) clean FROM quest WHERE id = '" . $_SESSION['id'] . "'";
@@ -56,24 +84,20 @@ if (isset($_SESSION['id'])) {
    while ($row = $result->fetch_assoc()) {
        $all_quest_cleaned = $row['clean'];
    }
-   if ($all_quest_cleaned == "1") {
-       $all_quest_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_quest_cleaned_color = "<span class='reddot'></span>";
-   }
 
    $sql = "select min(clean) clean FROM invasion WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $all_invasion_cleaned = $row['clean'];
    }
-   if ($all_invasion_cleaned == "1") {
-       $all_invasion_cleaned_color = "<span class='greendot'></span>";
-   } else {
-       $all_invasion_cleaned_color = "<span class='reddot'></span>";
+
+   $sql = "select min(clean) clean FROM lures WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $all_lures_cleaned = $row['clean'];
    }
 
-
+   // Get Areas, Lat, long and Enabled from Humans Table
    $sql = "select area, latitude, longitude, enabled from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
@@ -81,6 +105,19 @@ if (isset($_SESSION['id'])) {
        $latitude = $row['latitude'];
        $longitude = $row['longitude'];
        $enabled = $row['enabled'];
+   }
+
+   // Overwrite with Profile info if a profile is available
+
+   $sql = "select area, latitude, longitude from profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '". $_SESSION['profile'] ."'";
+   $result = $conn->query($sql);
+
+   if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          $area = $row['area'];
+          $latitude = $row['latitude'];
+          $longitude = $row['longitude'];
+      }
    }
 
 }
@@ -165,7 +202,6 @@ if (!empty($result) && $result->num_rows > 0) {
    $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
    $config_alarm.="</div>";
 }
-
 
 // Check If Distance Map should be displayed
 

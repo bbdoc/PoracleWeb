@@ -84,9 +84,9 @@ function translate_mon($word)
         return $word;
     }
 
-    global $localePkmnData; 
+    global $localePkmnData;
     if ($localePkmnData == null) {
-        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json"; 
+        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json";
         if (file_exists($filepath)) {
             $json_contents = file_get_contents($filepath);
             $localePkmnData = json_decode($json_contents, true);
@@ -101,7 +101,6 @@ function translate_mon($word)
         return $word;
     }
 }
-
 
 function get_areas() {
 
@@ -179,6 +178,24 @@ function get_grunts() {
       }
    }
    return $grunts;
+
+}
+
+function get_lure_name($id) {
+
+	if ( $id == "0") {
+                $lure_name = "ALL";
+        } else if ( $id == "501") { 
+		$lure_name = "Normal Lure";
+	} else if ( $id == "502") {
+		$lure_name = "Glacial Lure";
+	} else if ( $id == "503") {
+                $lure_name = "Mossy Lure";
+        } else if ( $id == "504") {
+                $lure_name = "Magnetic Lure";
+        }
+
+        return $lure_name;	
 
 }
 

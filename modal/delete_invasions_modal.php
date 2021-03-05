@@ -16,9 +16,7 @@
     <form action='./actions/invasions.php' method='POST'>
         <?php echo "
             <input type='hidden' id='type' name='type' value='invasions'>
-            <input type='hidden' id='grunt_type' name='grunt_type' value='" . $row['grunt_type'] . "'>
-            <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
-            <input type='hidden' id='cur_gender' name='cur_gender' value='" . $row['gender'] . "'>
+            <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
             " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>

@@ -16,8 +16,7 @@
     $stmt = $conn->prepare("
       UPDATE quest
       SET distance = ?, clean = ?
-      WHERE reward = ? AND reward_type = ? AND distance = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UQ1&sql=$stmt->error");
@@ -25,13 +24,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
+      "iii",
       $_POST['distance'],
       $clean,
-      $_POST['cur_reward'],
-      $_POST['cur_reward_type'],
-      $_POST['cur_distance'],
-      $_SESSION['id']
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -57,8 +53,7 @@
 
     $stmt = $conn->prepare("
       DELETE FROM quest
-      WHERE reward = ? AND reward_type = ? AND distance = ? 
-      AND id = ?");
+      WHERE uid = ?");
 
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error");
@@ -66,11 +61,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiis",
-      $_POST['cur_reward'],
-      $_POST['cur_reward_type'],
-      $_POST['cur_distance'],
-      $_SESSION['id']
+      "i",
+      $_POST['uid']
     );
 
     if (false === $rs) {
@@ -104,13 +96,13 @@
       if (substr($key, 0, 4) === "mon_") {
         $mon_id = ltrim($key, 'mon_');
 
-        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
-                               VALUES ( ?, '', ? , ?, 1, 0, 7, ?)");
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
+                               VALUES ( ?, '', ? , ?, 1, 0, 7, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AQM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $mon_id, $_POST['distance']);
+        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $mon_id, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AQM2&sql=$stmt->error");
           exit();
@@ -128,13 +120,13 @@
       if (substr($key, 0, 5) === "item_") {
         $item = ltrim($key, 'item_');
 
-        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
-                               VALUES ( ?, '', ? , ?, 1, 0, 2, ?)");
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
+                               VALUES ( ?, '', ? , ?, 1, 0, 2, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $item, $_POST['distance']);
+        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $item, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
           exit();
@@ -152,13 +144,13 @@
       if (substr($key, 0, 7) === "energy_") {
         $item = ltrim($key, 'energy_');
 
-        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
-                               VALUES ( ?, '', ? , ?, 1, 0, 12, ?)");
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
+                               VALUES ( ?, '', ? , ?, 1, 0, 12, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $item, $_POST['distance']);
+        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $item, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
           exit();
@@ -180,12 +172,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'delete_all_quests') {
 
-    $stmt = $conn->prepare("DELETE FROM quest WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM quest WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=DAQ1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("s", $_SESSION['id']);
+    $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=DAQ2&sql=$stmt->error");
       exit();
@@ -206,12 +198,12 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_quests_distance') {
 
-    $stmt = $conn->prepare("UPDATE quest set distance = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE quest set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
       header("Location: $redirect_url?return=sql_error&phase=UQD1&sql=$stmt->error");
       exit();
     }
-    $rs = $stmt->bind_param("is", $_POST['distance'], $_SESSION['id']);
+    $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
       header("Location: $redirect_url?return=sql_error&phase=UQD2&sql=$stmt->error");
       exit();

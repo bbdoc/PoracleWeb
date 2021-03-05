@@ -23,11 +23,7 @@ echo "</div>";
 
         echo "
         <input type='hidden' id='type' name='type' value='raids'>
-        <input type='hidden' id='level' name='level' value='" . $row['level'] . "'>
-        <input type='hidden' id='pokemon_id' name='pokemon_id' value='" . $row['pokemon_id'] . "'>
-        <input type='hidden' id='cur_form' name='cur_form' value='" . $row['form'] . "'>
-        <input type='hidden' id='cur_distance' name='cur_distance' value='" . $row['distance'] . "'>
-        <input type='hidden' id='cur_team' name='cur_team' value='" . $row['team'] . "'>
+        <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
         ";
         ?>
 

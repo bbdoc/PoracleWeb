@@ -81,272 +81,77 @@ include "./header.php";
 		<?php echo @$admin_alarm; ?>
                     <!-- Profile Settings Modal -->
                     <?php include "./modal/profile_settings_modal.php"; ?>
+                    <?php include "./modal/switch_profile_modal.php"; ?>
 
-                    <!-- Success Alerts-->
-                    <?php
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Monster Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_mons') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Monster Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_raids') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Raids Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_raid') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Raid Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raid') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Raid Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_raids') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Eggs & Raids Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_egg') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Egg Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_egg') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Egg Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_added_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Added Quest Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated Quest Alarm"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_quest') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Deleted Quest Alarm(s)"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_areas') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Updated List of Areas"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_settings') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Settings updated successfully"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-			}
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_location') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Location updated successfully"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_delete_location') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Location deleted successfully"); ?><br>
-                        <?php echo i8ln("All your distance settings have been reset"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Pokémons"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_raids_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Raids & Eggs"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_update_quests_distance') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Update Distance on ALL Quests"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_migrate') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-			<?php echo i8ln("Successfully Migrated account")."<br>".$_GET['mig_source']."
-                           <i class='fas fa-arrow-circle-right'></i> ".$_GET['mig_target']."!"; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'success_channel_sync') {
-                        ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Successfully Synchronized Channels"); ?> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'error_update_location') {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Address not found. Try Again"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-		    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'user_not_found') {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("User not found. Try Again"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if ($enabled==0) {
-                        ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo i8ln("Your alarms are currently disabled!"); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                        }
-                        if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {
-			    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-			    echo i8ln("You Request couldn't not be handled"); 
-			    echo i8ln("Error"). " #" . $_GET['phase'];
-                            if ($debug == 'True') {
-                                echo "<br><br>" . $_GET['sql'];
-                            }
-                        ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <?php
-                        }
-
-                ?>
+		    <!-- Success Alerts-->
+		    <?php include "return_messages.php"; ?>
 
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Card -->
+		    <!-- PROFILE Card -->
+		    <?php if (@$disable_profiles <> "True") { ?>
+
+                    <div class="col-xl-12 col-md-12">
+			<!-- Current Profile -->
+
+			<div class="card shadow mb-4">
+                            <div class="card-header py-3">
+				<div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+				   <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("Profile"); ?>: 
+				   <strong><?php echo $_SESSION['profile_name']; ?></strong>
+				   </h6>
+				   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
+				   <span class="badge badge-success badge-pill ml-2" style="padding:5px; padding-right:15px; padding-left:15px;">
+				      <?php echo i8ln("Active"); ?>
+                                   </span>
+				   <?php } else { ?>
+                                   <span class="badge badge-info badge-pill ml-2" style="padding:5px; padding-right:15px; padding-left:15px;">
+                                      <?php echo i8ln("Not Active"); ?>
+                                   </span>
+                                   <?php } ?>
+                               </div>
+                            </div>
+
+                            <div class="card-body">
+			      <div class="row no-gutters align-items-center">
+                                <div class="text-center w-100">
+				   <button type="button" class="btn btn-danger btn-circle btn-md m-1" 
+                                       data-toggle="modal" data-target="#DeleteProfile">
+                                       <i class="fas fa-trash"></i>
+				   </button>
+                                   <!--
+				   <button type="button" class="btn btn-info btn-circle btn-md m-1"  
+                                       data-toggle="modal" data-target="#ScheduleProfile">
+                                       <i class="fas fa-clock"></i>
+				   </button>
+                                   -->
+				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
+                                       data-toggle="modal" data-target="#AddProfile">
+                                       <i class="fas fa-plus-circle"></i>
+				   </button>
+				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
+                                       data-toggle="modal" data-target="#RenameProfile">
+                                       <i class="fas fa-edit"></i>
+				   </button>
+                                   <?php if ( $_SESSION['number_of_profiles'] > 1 ) { ?>
+				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
+                                       data-toggle="modal" data-target="#SwitchProfile">
+                                       <i class="fas fa-random"></i>
+				   </button>
+                                   <?php } ?>
+
+		   		 </div>
+		              </div>
+                            </div>
+                        </div>
+		    </div>
+                    <?php } ?>
+
+                    <!-- PROFILE EDIT MODAL -->
+                    <?php include "./modal/edit_profile_modal.php"; ?>
+
+                    <!-- LOCATION AND AREAS Card -->
                     <?php if (@$disable_areas."-".@$disable_location <> "True-True" ) { ?>
                     <div class="col-xl-12 col-md-12">
                         <!-- Areas & Locations -->
@@ -369,7 +174,7 @@ include "./header.php";
                                     <h6 class="m-0 font-weight-bold text-dark" style="text-align:right;"><?php echo i8ln("LOCATION"); ?>
 				    <!-- Button trigger modal -->
                                         <div style="text-align:right; margin-top:5px;">
-                                        <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                        <a href="#" class="btn btn-danger btn-circle btn-md"
                                             data-toggle="modal"
                                             data-target="#DeleteLocationModal">
                                             <i class="fas fa-trash"></i>
@@ -595,6 +400,15 @@ include "./header.php";
                     }
                     ?>
 
+                    <?php if (@$disable_lures <> "True") { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-lures-tab" data-toggle="pill" href="#pills-lures" role="tab"
+                            aria-controls="pills-lures" aria-selected="false"><?php echo i8ln("LURES"); ?></a>
+                    </li>
+                    <?php
+                    }
+                    ?>
+
 
 		</ul>
                 <div class="tab-content mb-5" id="pills-tab-homeContent">
@@ -701,7 +515,7 @@ include "./header.php";
 				$_GET['allgen'] = "active";
 
                                 // If Tracking More than 50 pokemons, show only ALL
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
                                 if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0";; }
 			   }
@@ -736,7 +550,7 @@ include "./header.php";
 
                                 // Check if User is already tracking something
 
-                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
 				while ($row = $result->fetch_assoc()) {
 					$num_mon_tracked = $row['count'];
@@ -744,7 +558,8 @@ include "./header.php";
 
                                 // Show Monsters Alarms         
 
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' " . @$gen_selector ." ORDER BY pokemon_id, form"; 
+				$sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
+					ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
 				if ($num_mon_tracked == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
@@ -765,17 +580,7 @@ include "./header.php";
 
                                     // Build a Unique Index
 
-                                    $pkm_unique_id = "mon_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] . "_" . $row['gender'] .
-                                        $row['min_cp'] . "_" . $row['max_cp'] . "_" .
-                                        $row['min_iv'] . "_" . $row['max_iv'] . "_" .
-                                        $row['min_level'] . "_" . $row['max_level'] . "_" .
-                                        $row['min_weight'] . "_" . $row['max_weight'] . "_" .
-                                        $row['atk'] . "_" . $row['def'] . "_" . $row['sta'] . "_" .
-                                        $row['max_atk'] . "_" . $row['max_def'] . "_" . $row['max_sta'] . "_" .
-                                        $row['great_league_ranking'] . "_" . $row['great_league_ranking_min_cp'] . "_" .
-                                        $row['ultra_league_ranking'] . "_" . $row['ultra_league_ranking_min_cp'];
-
+                                    $pkm_unique_id = "mon_" . $row['uid'];
 
                                     // Check Images only if Form <> Normal and Substitude if necessary
                                     $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
@@ -818,7 +623,7 @@ include "./header.php";
                                                     ?>
                                                 <div>
                                                     <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo $pokemon_name." ".$form_name; ?></span>
+                                                        class="badge badge-primary badge-pill w-100"><?php echo $row['pokemon_id']." | ".$pokemon_name." ".$form_name; ?></span>
                                                 </div>
 
                                                 <?php
@@ -1138,15 +943,13 @@ include "./header.php";
 
                                 // Show Eggs & Raids
 
-                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' ORDER BY level";
+                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ORDER BY level";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $egg_unique_id = "raid_00_" .
-                                        $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
+                                    $egg_unique_id = "raid_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1253,15 +1056,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND pokemon_id = 9000 ORDER BY level";
+				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' 
+					AND pokemon_id = 9000 ORDER BY level";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
+                                    $raid_unique_id = "raid_" . $row['uid'];
 
                                 ?>
 
@@ -1363,16 +1165,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND pokemon_id <> 9000 ORDER BY pokemon_id";
+				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+					AND pokemon_id <> 9000 ORDER BY pokemon_id";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['pokemon_id'] . "_" .
-                                        $row['form'] . "_" . $row['distance'] .
-                                        $row['team'] . "_" . $row['level'];
-
+                                    $raid_unique_id = "raid_" . $row['uid'];
                                     $pokemon_name = get_mons($row['pokemon_id']);
 
                                 ?>
@@ -1585,14 +1385,14 @@ include "./header.php";
 
                                 // Show Quests
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 7 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
+					AND reward_type = 7 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                     // Add Hidden Fancy Boxes
                                     $mon_id = str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
@@ -1703,14 +1503,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 2 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
+					AND reward_type = 2 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1728,11 +1528,33 @@ include "./header.php";
                                                     <?php
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1772,7 +1594,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/quests_modal.php"; ?>
+                                        <?php include "./modal/edit_quests_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1794,14 +1616,14 @@ include "./header.php";
                             <?php
                                 }
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' AND reward_type = 12 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+					AND reward_type = 12 ORDER BY reward";
                                 $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['reward'] . "_" .
-                                        $row['reward_type'] . "_" . $row['distance'];
+                                    $quest_unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -1827,11 +1649,33 @@ include "./header.php";
                                                     <?php
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <div class="mb-2">
-                                                        <span class="badge badge-primary p-2">
-                                                            <?php echo $row['distance']; ?>
-                                                            <?php echo i8ln("meters"); ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
                                                         </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <?php
                                                             }
@@ -1870,7 +1714,7 @@ include "./header.php";
                                 aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <?php include "./modal/quests_modal.php"; ?>
+                                        <?php include "./modal/edit_quests_modal.php"; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1996,15 +1840,14 @@ include "./header.php";
 
                                 // Show Invasions
 
-                                $sql = "select * FROM invasion WHERE id = '" . $_SESSION['id'] . "' ORDER BY grunt_type";
+		                $sql = "SELECT * FROM invasion WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+			                ORDER BY grunt_type";
                                 $result = $conn->query($sql); 
 
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $invasion_unique_id = "invasion_" .
-                                        $row['distance'] .
-                                        $row['gender'] . "_" . $row['grunt_type'];
+                                    $invasion_unique_id = "invasion_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -2143,6 +1986,260 @@ include "./header.php";
                     <?php
                     } // End of Invasions Disable
                     ?>
+
+                    <?php if (@$disable_lures <> "True") { ?> 
+                    <div class="tab-pane fade" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <hr>
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("LURES TRACKED"); ?></h1>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <?php
+                                if ($all_lures_cleaned == '1') {
+                                ?>
+                            <div class="col">
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <?php echo i8ln("Cleaning activated on"); ?>
+                                    <strong><?php echo i8ln("ALL LURES"); ?></strong>!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <?php
+                                }
+                                ?>
+                        </div>
+
+                        <div class="row">
+                            <div class="row no-gutters align-items-center p-3">
+                                <a href="./add_lures.php" class="btn btn-success btn-icon-split mr-2 mt-1">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("ADD"); ?></span>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1" data-toggle="modal"
+                                    data-target="#deleteAllLuresModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("DELETE ALL"); ?></span>
+                                </a>
+                                <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1" data-toggle="modal"
+                                    data-target="#DistanceLuresModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </span>
+                                    <span class="text"><?php echo i8ln("UPDATE DISTANCE"); ?></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- DELETE ALL LURES Modal -->
+                        <div class="modal fade" id="deleteAllLuresModal" tabindex="-1" role="dialog"
+                            aria-labelledby="deleteAllLuresModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteAllLuresModalLabel">
+                                            <?php echo i8ln("Delete ALL Lures?"); ?>
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php echo i8ln("This will delete all your Lures Alarms and cannot be undone"); ?><br>
+                                        <?php echo i8ln("Are you sure?"); ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="./actions/lures.php?action=delete_all_lures"
+                                            class="btn btn-danger"><?php echo i8ln("DELETE"); ?></a>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal"><?php echo i8ln("CANCEL"); ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPDATE LURES DISTANCE MODAL -->
+                        <div class="modal fade" id="DistanceLuresModal" tabindex="-1" role="dialog"
+                            aria-labelledby="DistanceLuresModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                        <?php include "./modal/distance_lures_modal.php"; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+                            <?php
+
+                                // Show Lures
+
+                                $sql = "SELECT * FROM lures WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
+                                        ORDER BY lure_id";
+                                $result = $conn->query($sql);
+
+                                while ($row = $result->fetch_assoc()) {
+
+                                    // Build a Unique Index
+                                    $lure_unique_id = "lure_" . $row['uid'];
+
+                                ?>
+                            <!-- Card -->
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <div class="card border-top-success shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    <?php if ( $row['lure_id'] == "0") { ?>
+                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
+                                                         style="height: 70px;">
+                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
+                                                    </div>
+                                                    <?php } else { ?>
+                                                    <img width=50 loading=lazy src='<?php echo "./lures/" . $row['lure_id'] . ".png?"; ?>'>
+                                                    <?php } ?>
+						</div>
+
+                                                <?php if ( $row['lure_id'] <> "0") { ?>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <?php echo i8ln(get_lure_name($row['lure_id'])); ?>
+						</div>
+						<?php } ?>
+
+                                                <div class="mt-2 text-center">
+                                                <ul class="list-group mt-2 mb-2">
+                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                        </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowLures" data-toggle="modal" data-target="#DistanceShowLures_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowLures_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowLures" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <?php
+                                                            }
+                                                            if ($row['clean'] == '1' && $all_lures_cleaned == '0') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    </div>
+
+                                                    <?php } ?>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $lure_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $lure_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- EDIT LURE Modal -->
+                            <div class="modal fade" id="<?php echo $lure_unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $lure_unique_id ?>ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/edit_lures_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DELETE LURE Modal -->
+                            <div class="modal fade" id="<?php echo $lure_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $lure_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/delete_lures_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php } ?>
+
+                        </div>
+
+                    </div>
+                    <?php
+                    } // End of Lures Disable
+                    ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 </div>
 

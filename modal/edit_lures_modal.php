@@ -1,13 +1,16 @@
 <?php
 
 echo "
-    <form action='./actions/raids.php' method='POST'>
+    <form action='./actions/lures.php' method='POST'>
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$imgUrl/egg" . $row['level'] . ".png'><br>";
-echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>".
-        i8ln("Eggs Level")." " . $row['level'] . "</div>";
+if ($row['lure_id'] == "0") {
+	echo "<font style='font-size:24px;'>".i8ln("ALL")."</font><br>";
+} else {
+	echo "<img width=100 src='./lures/" . $row['lure_id'] . ".png?'><br>";
+	echo "<center><font size=5>".i8ln(get_lure_name($row['lure_id']))."</font></center>";
+}
 echo "</div>";
 
 ?>
@@ -17,7 +20,7 @@ echo "</div>";
     <?php
 
         echo "
-        <input type='hidden' id='type' name='type' value='eggs'>
+        <input type='hidden' id='type' name='type' value='lures'>
         <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
         ";
         ?>
@@ -34,26 +37,26 @@ echo "</div>";
                $area_check="";
                $distance_check="checked";
                $style="";
-	    }
+            }
             ?>
             <div class="input-group">
                 <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                 <label class="btn btn-secondary">
-		    <input type="radio" name="use_areas_egg" id="use_areas_<?php echo $egg_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
-                    onclick="areas('<?php echo $egg_unique_id; ?>')">
+		    <input type="radio" name="use_areas_lure" id="use_areas_<?php echo $lure_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
+                    onclick="areas('<?php echo $lure_unique_id; ?>')">
                     <?php echo i8ln("Use Areas"); ?>
                 </label>
                 <label class="btn btn-secondary mr-2">
-		    <input type="radio" name="use_areas_egg" id="use_areas_<?php echo $egg_unique_id; ?>" value="distance" <?php echo $distance_check; ?> 
-                    onclick="areas('<?php echo $egg_unique_id; ?>')">
+		    <input type="radio" name="use_areas_lure" id="use_areas_<?php echo $lure_unique_id; ?>" value="distance" <?php echo $distance_check; ?> 
+                    onclick="areas('<?php echo $lure_unique_id; ?>')">
                     <?php echo i8ln("Set Distance"); ?>
                 </label>
                 </div>
             </div>
             <div class="input-group mt-2">
-                <input type="number" id='distance_<?php echo $egg_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
+                <input type="number" id='distance_<?php echo $lure_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
                     min='0' class="form-control text-center">
-                <div class="input-group-append" id="distance_label_<?php echo $egg_unique_id; ?>" <?php echo $style; ?>>
+                <div class="input-group-append" id="distance_label_<?php echo $lure_unique_id; ?>" <?php echo $style; ?>>
                     <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                 </div>
             </div>
