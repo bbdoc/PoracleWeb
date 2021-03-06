@@ -155,7 +155,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                         }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
-                                        if ($all_lure_cleaned == "1") {
+                                        if ($all_lures_cleaned == "1") {
                                             $clean_1_checked = 'checked';
                                         } else {
                                             $clean_0_checked = 'checked';
