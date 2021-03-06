@@ -121,7 +121,6 @@ if ( $disable_mons == "True" ) {
 
                     <!-- Profile Settings Modal -->
 		    <?php include "./modal/profile_settings_modal.php"; ?>
-                    <?php include "./modal/switch_profile_modal.php"; ?>
 
                     <!-- Page Heading -->
                     <div class="row">
