@@ -376,7 +376,7 @@
                         }
                         if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {
                             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-                            echo i8ln("You Request couldn't not be handled");
+                            echo i8ln("You Request couldn't not be handled")." : ";
                             echo i8ln("Error"). " #" . $_GET['phase'];
                             if ($debug == 'True') {
                                 echo "<br><br>" . $_GET['sql'];
@@ -388,5 +388,15 @@
 		    </div>
                     <?php
                         }
-
+                        if (isset($_GET['return']) && $_GET['return'] == 'duplicate') {
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+                            echo i8ln("You Request couldn't not be handled")."<br>";
+                            echo i8ln("Duplicate - This Alarm already exist");
+                        ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        }
 

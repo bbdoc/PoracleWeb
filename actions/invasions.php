@@ -117,7 +117,11 @@
           exit();
         }
         $rs = $stmt->execute();
-        if (false === $rs) {
+	if (false === $rs) {
+          if ( stristr($stmt->error, "Duplicate") ) {
+            header("Location: $redirect_url?return=duplicate");
+            exit();
+          }
           header("Location: $redirect_url?return=sql_error&phase=AI3&sql=$stmt->error");
           exit();
         }

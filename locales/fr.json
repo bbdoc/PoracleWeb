@@ -288,5 +288,6 @@
     "Delete Profile":"Supprimer le Profil",
     "You currently don't have any profile configured":"Vous n'avez pas encore créé de Profil",
     "This will delete this Profile":"Cette action supprimera le profil en cours",
-    "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES"
+    "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES",
+    "Duplicate - This Alarm already exist":"Doublon - Cette Alarme existe déjà"
 }
