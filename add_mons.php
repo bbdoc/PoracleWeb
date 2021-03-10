@@ -384,14 +384,14 @@ if ( $disable_mons == "True" ) {
                             <ul>
                                 <li><input type='checkbox' name='mon_0' id='mon_0' />
                                     <label for='mon_0' style='padding:15px;' class='text-uppercase'>
-					<?php echo i8ln("Apply to all Pokémons"); ?>
+					<?php echo i8ln("Apply to all Pokémon"); ?>
                                     </label>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="alert alert-info alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
-			    <?php echo i8ln("Type"); ?> <strong>ALL</strong> <?php echo i8ln("to display all Pokémons"); ?>
+			    <?php echo i8ln("Type"); ?> <strong>ALL</strong> <?php echo i8ln("to display all Pokémon"); ?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

@@ -366,7 +366,7 @@ include "./header.php";
                     <?php if (@$disable_mons <> "True") { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-mons-tab" data-toggle="pill" href="#pills-mons" role="tab"
-                            aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMONS"); ?></a>
+                            aria-controls="pills-mons" aria-selected="true"><?php echo i8ln("POKÉMON"); ?></a>
                     </li>
                     <?php
                     }
@@ -420,7 +420,7 @@ include "./header.php";
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMONS TRACKED"); ?></h1>
+				<h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("POKÉMON TRACKED"); ?></h1>
                             </div>
                         </div>
 
