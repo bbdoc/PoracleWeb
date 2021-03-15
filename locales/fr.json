@@ -289,5 +289,7 @@
     "You currently don't have any profile configured":"Vous n'avez pas encore créé de Profil",
     "This will delete this Profile":"Cette action supprimera le profil en cours",
     "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES",
-    "Duplicate - This Alarm already exist":"Doublon - Cette Alarme existe déjà"
+    "Duplicate - This Alarm already exist":"Doublon - Cette Alarme existe déjà",
+    "Your account has been disabled on":"Votre compte a été désactivé le",
+    "Please contact an admin!":"Veuillez contacter un administrateur!"
 }

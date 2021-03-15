@@ -98,13 +98,15 @@ if (isset($_SESSION['id'])) {
    }
 
    // Get Areas, Lat, long and Enabled from Humans Table
-   $sql = "select area, latitude, longitude, enabled from humans WHERE id = '" . $_SESSION['id'] . "'";
+   $sql = "select area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $area = $row['area'];
        $latitude = $row['latitude'];
        $longitude = $row['longitude'];
        $enabled = $row['enabled'];
+       $admin_disable = $row['admin_disable'];
+       $disabled_date = $row['disabled_date'];
    }
 
    // Overwrite with Profile info if a profile is available
