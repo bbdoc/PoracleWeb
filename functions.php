@@ -210,7 +210,7 @@ function set_locale() {
          $_SESSION['locale'] = $row['language'];
       } else { 
          $config = file_get_contents("$poracle_dir/config/local.json");
-         $json = json_decode($config, true);
+         $json = json_decode(stripComments($config), true);
          foreach ($json as $key => $value) {
             if ($key == "general") {
               $_SESSION['locale']=$value['locale'];
@@ -225,7 +225,7 @@ function get_address($lat, $lon) {
    include "./config.php";
 
    $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode($config, true);
+   $json = json_decode(stripComments($config), true);
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
         $nominatim=$value['providerURL']; 
@@ -292,7 +292,7 @@ function set_defaults()
    include "./config.php"; 
    global $MaxRank, $GreatMinCP, $UltraMinCP;
    $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode($config, true);
+   $json = json_decode(stripComments($config), true);
    $MaxRank = 4096;
    $GreatMinCP = 0;
    $UltraMinCP = 0;
@@ -305,6 +305,11 @@ function set_defaults()
    #}
 }
 
+function stripComments( $str ) 
+{
+        $str = preg_replace('![ \t]*[^:]//.*[ \t]*[\r\n]!', '', $str);       //Strip single-line comments: '// comment'
+        return $str;
+}
 
 # Execute Set Defaults so defaults are available on all pages
 set_defaults();

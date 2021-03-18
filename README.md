@@ -18,11 +18,12 @@ Please note that I'm not a professional Web Developer, so the code might look ug
 
 ---
 
-**PoracleWeb handles:** (unchecked are planned features)
+**PoracleWeb handles:** 
 - [x] Monsters
 - [x] Raids & Eggs
 - [x] Quests
-- [ ] Invasions
+- [x] Invasions
+- [x] Lures
 
 Any other suggestions are welcome, please use [GitHub Issues][issues-url] for your suggestions.
 
