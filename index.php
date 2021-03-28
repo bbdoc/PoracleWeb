@@ -789,7 +789,12 @@ include "./header.php";
                                                 </div>
                                                 <?php
                                                         }
-                                                        ?>
+                                                        if (isset($allowed_templates["mons"])) {
+                                                ?>
+                                                <div class="mt-1">
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["mons"]) ? $allowed_templates["mons"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                </div>
+                                                <?php } ?>
 
                                             </div>
                                         </div>
@@ -871,7 +876,7 @@ include "./header.php";
                             </div>
                             <?php
                                 }
-                                ?>
+                            ?>
                         </div>
 
                         <div class="row">
@@ -1009,7 +1014,12 @@ include "./header.php";
                                                     </div>
                                                     <?php
                                                             }
+                                                            if (isset($allowed_templates["eggs"])) {
                                                             ?>
+                                                    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["eggs"]) ? $allowed_templates["eggs"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1119,6 +1129,13 @@ include "./header.php";
                                                     <div class="mb-2">
                                                         <span
                                                             class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    </div>
+						    <?php 
+                                                            } 
+                                                            if (isset($allowed_templates["raids"])) {
+                                                            ?>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["raids"]) ? $allowed_templates["raids"][$row['template']] : 'UNKNOWN'; ?></span>
                                                     </div>
                                                     <?php } ?>
                                                 </div>
@@ -1232,7 +1249,12 @@ include "./header.php";
                                                     </div>
                                                     <?php
                                                             }
+                                                            if (isset($allowed_templates["raids"])) {
                                                             ?>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["raids"]) ? $allowed_templates["raids"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1455,7 +1477,12 @@ include "./header.php";
                                                     </div>
                                                     <?php
                                                             }
+                                                            if (isset($allowed_templates["quests"])) {
                                                             ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1565,7 +1592,12 @@ include "./header.php";
                                                     </div>
                                                     <?php
                                                             }
+                                                            if (isset($allowed_templates["quests"])) {
                                                             ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1686,7 +1718,12 @@ include "./header.php";
                                                     </div>
                                                     <?php
                                                             }
+                                                            if (isset($allowed_templates)) {
                                                             ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1933,7 +1970,14 @@ include "./header.php";
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
 
-						    <?php } ?>
+						    <?php 
+                                                            }
+                                                            if (isset($allowed_templates["invasions"])) {
+                                                    ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["invasions"]) ? $allowed_templates["invasions"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
                                                 </ul>
                                                 </div>
                                             </div>
@@ -2159,6 +2203,13 @@ include "./header.php";
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                     </div>
 
+						    <?php 
+                                                            }
+                                                            if (isset($allowed_templates["lures"])) {
+                                                    ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["lures"]) ? $allowed_templates["lures"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
                                                     <?php } ?>
                                                 </ul>
                                                 </div>

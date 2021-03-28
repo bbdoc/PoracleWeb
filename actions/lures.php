@@ -12,10 +12,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE lures
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -24,9 +25,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iii",
+      "iisi",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['uid']
     );
 
@@ -93,18 +95,19 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 5) === "lure_") {
         $lure = substr($key, 5); 
 
         $stmt = $conn->prepare("INSERT INTO lures ( id, ping, clean, distance, template, lure_id, profile_no)
-	                       VALUES ( ?, '', ? , ?, 1, ?, ?)");
+	                       VALUES ( ?, '', ? , ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AL1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $_POST['distance'], $lure, $_SESSION['profile']);
+        $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $_POST['distance'], $template, $lure, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AL2&sql=$stmt->error");
           exit();

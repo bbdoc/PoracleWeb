@@ -214,6 +214,25 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                             </div>
                         </div>
 
+                        <?php if (isset($allowed_templates["invasions"])) {
+                            echo '<div class="form-row align-items-center">
+                                <div class="col-sm-12 my-1">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Template</div>
+                                            </div>
+                                        </div>';
+                                        foreach ( $allowed_templates["invasions"] as $key => $name ) {
+                                            echo '<label class="btn btn-secondary">';
+                                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
+                                            echo $name . '</label>';
+                                        }
+                                    echo '</div>
+                                </div>
+                            </div>';
+                        } ?>
+
                         <hr>
 
                         <div class='selectionList'>

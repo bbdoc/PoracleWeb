@@ -15,10 +15,11 @@
         $gender = ltrim($value, 'gender_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE invasion
-      SET distance = ?, clean = ?, gender = ?
+      SET distance = ?, clean = ?, template = ?, gender = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -27,9 +28,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiii",
+      "iisii",
       $_POST['distance'],
       $clean,
+      $template,
       $gender,
       $_POST['uid']
     );
@@ -100,18 +102,19 @@
         $gender = ltrim($value, 'gender_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 6) === "grunt_") {
         $grunt = substr($key, 6); 
 
         $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type, profile_no)
-	                       VALUES ( ?, '', ? , ?, 1, ?, ?, ?)");
+	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiisi", $_SESSION['id'], $clean, $_POST['distance'], $gender, $grunt, $_SESSION['profile']);
+        $rs = $stmt->bind_param("siisisi", $_SESSION['id'], $clean, $_POST['distance'], $template, $gender, $grunt, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AI2&sql=$stmt->error");
           exit();

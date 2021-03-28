@@ -12,10 +12,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE raid
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -24,9 +25,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iii",
+      "iisi",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['uid']
     );
 
@@ -56,10 +58,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE egg 
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -68,9 +71,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iii",
+      "iisi",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['uid']
     );
 
@@ -171,18 +175,19 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "egg_") {
         $level = ltrim($key, 'egg_');
 
         $stmt = $conn->prepare("INSERT INTO egg ( id, ping, clean, template, distance, team, level, profile_no)
-	                       VALUES ( ?, '', ? , 1, ?, 4, ?, ?)");
+	                       VALUES ( ?, '', ? , ?, ?, 4, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AE1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $_POST['distance'], $level, $_SESSION['profile']);
+        $rs = $stmt->bind_param("sisiii", $_SESSION['id'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AE2&sql=$stmt->error");
           exit();
@@ -205,12 +210,12 @@
         $level = ltrim($key, 'raid_');
 
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no)
-                               VALUES ( ?, '', ? , 1, 9000, ?, 4, ?, 0, ?)");
+                               VALUES ( ?, '', ? , ?, 9000, ?, 4, ?, 0, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AR1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $_POST['distance'], $level, $_SESSION['profile']);
+        $rs = $stmt->bind_param("sisiii", $_SESSION['id'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AR2&sql=$stmt->error");
           exit();
@@ -236,12 +241,12 @@
         if (isset($arr[3])) { $boss_mega = $arr[3];} 
 
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no)
-                               VALUES ( ?, '', ? , 1, ? , ?, 4, 9000, ?, ?)");
+                               VALUES ( ?, '', ? , ?, ? , ?, 4, 9000, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=ARM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiiii", $_SESSION['id'], $clean, $boss_id, $_POST['distance'], $boss_form, $_SESSION['profile']);
+        $rs = $stmt->bind_param("sisiiii", $_SESSION['id'], $clean, $template, $boss_id, $_POST['distance'], $boss_form, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=ARM2&sql=$stmt->error");
           exit();

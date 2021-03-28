@@ -35,6 +35,51 @@ $disable_lures       = "False";
 
 $site_is_https       = "True";
 
+$allowed_templates = [
+	"mons" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	],
+	"raids" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	],
+	"eggs" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	],
+	"quests" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	],
+	"invasions" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	],
+	"lures" => [
+	        1 => "Template 1",
+	        2 => "Template 2",
+	        3 => "Template 3",
+		4 => "Template 4",
+		"Named_Template" => "Template NAME"
+	]
+];
+
 // Telegram Login
 
 $enable_telegram    = "False";
