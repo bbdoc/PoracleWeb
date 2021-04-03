@@ -42,6 +42,7 @@ $site_is_https       = "True";
 // } else if ($_SERVER['HTTP_HOST'] == 'area2.example.com') {
 //      $allowed_templates = []; // different set of templates
 // }
+// Disable template options by removing or commenting below code block.
 $allowed_templates = [
 	"mons" => [
 	        1 => "Template 1",
