@@ -35,6 +35,13 @@ $disable_lures       = "False";
 
 $site_is_https       = "True";
 
+// To use different allowed templates for different areas you can use below
+// code block. 
+// if ($_SERVER['HTTP_HOST'] == 'area1.example.com') {
+//      $allowed_templates = []; // different set of templates
+// } else if ($_SERVER['HTTP_HOST'] == 'area2.example.com') {
+//      $allowed_templates = []; // different set of templates
+// }
 $allowed_templates = [
 	"mons" => [
 	        1 => "Template 1",
