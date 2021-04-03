@@ -341,7 +341,7 @@ if ($row['pokemon_id'] == '0') {
             <?php if (isset($allowed_templates["mons"])) {
                 echo '<div class="form-row align-items-center">
                     <div class="col-sm-12 my-1">
-                        <div class="btn-group flex-wrap btn-group-toggle" data-toggle="buttons">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                     <div class="input-group-text">Template</div>
