@@ -2,6 +2,7 @@
 
 include "../config.php";
 include "../db_connect.php";
+include "../functions.php";
 
 
 if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
@@ -28,7 +29,7 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 } else {
 
    $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode($config, true);
+   $json = json_decode(stripComments($config), true);
    foreach ($json as $key => $value) {
       if ($key == "geocoding") {
          $nominatim=$value['providerURL'];
