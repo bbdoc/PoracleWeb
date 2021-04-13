@@ -41,7 +41,7 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
    $street = str_replace(" ", "%20", $_POST['street']);
    $city = str_replace(" ", "%20", $_POST['city']);
 
-   $filepath=$_SESSION['providerURL']"./?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
+   $filepath=$_SESSION['providerURL']."/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
    if ( strlen($_SESSION['staticKey']) == 32  ) { 
 	   $filepath.="&key=".$_SESSION['staticKey'];
    }
