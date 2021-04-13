@@ -45,3 +45,51 @@ if (isset($admin_id)) {
       } 
    } 
 }
+
+// Get Config Items from API and Store in Session Variables
+
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "X-Poracle-Secret: $api_secret\r\n"
+  )
+);
+
+// Check that API is Running fine
+
+if (!$api = file_get_contents("$api_address/api/config", false, $context)) 
+{
+   session_destroy();
+   header("Location: $redirect_url?return=error_no_api");
+   exit();
+}
+
+$context = stream_context_create($opts);
+$config = file_get_contents("$api_address/api/config", false, $context);
+$json = json_decode($config, true);
+
+if ( $json['status']="ok" ) {
+   $_SESSION['server_locale'] = $json['locale'];
+   $_SESSION['providerURL'] = $json['providerURL'];
+   $_SESSION['staticKey'] = $json['staticKey'][0];
+   $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
+   $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
+   $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
+} else {
+   session_destroy();
+   header("Location: $redirect_url?return=error_api_nok");
+   exit();
+}
+
+$areas = file_get_contents("http://127.0.0.1:4201/api/humans/".$_SESSION['id'], false, $context);
+$json = json_decode($areas, true);
+
+if ( $json['status']="ok" ) {
+   $_SESSION['areas'] = $json['areas'];
+} else {
+   session_destroy();
+   header("Location: $redirect_url?return=error_api_nok");
+   exit();
+}
+

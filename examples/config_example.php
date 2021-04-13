@@ -40,9 +40,11 @@ $site_is_https       = "True";
 $enable_telegram    = "False";
 $telegram_bot       = "MyBot_bot";
 
-// Poracle Install Directoyy
+// PORACLE API
 
-$poracle_dir="";
+$api_address="http://127.0.0.1:4201";
+$api_secret="MySecret";
+
 
 // Admin User
 

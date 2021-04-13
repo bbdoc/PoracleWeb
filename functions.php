@@ -6,11 +6,14 @@ if(!isset($_SESSION)){
 
 global $localeData;
 global $localePkmnData;
+global $repository;
+
+$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
 
 function get_form_name($pokemon_id, $form_id) {
 
-   include "./config.php";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   global $repository;
+   $monsters = file_get_contents("$repository/src/util/monsters.json");
    $json = json_decode($monsters, true);
 
    foreach ($json as $name => $pokemon) {
@@ -25,8 +28,8 @@ function get_form_name($pokemon_id, $form_id) {
 
 function get_all_forms($pokemon_id) {
 
-   include "./config.php";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   global $repository;
+   $monsters = file_get_contents("$repository/src/util/monsters.json");
    $json = json_decode($monsters, true);
    $form_exclude = array("Shadow", "Normal", "Purified", "Copy 2019", "Fall 2019", "Spring 2020", "Vs 2019");
    $forms=array();
@@ -45,8 +48,8 @@ function get_all_forms($pokemon_id) {
 
 function get_all_mons() {
 
-   include "./config.php";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json"); 
+   global $repository;
+   $monsters = file_get_contents("$repository/src/util/monsters.json");
    $json = json_decode($monsters, true);
    $monsters=array();
 
@@ -61,9 +64,9 @@ function get_all_mons() {
 
 function get_mons($pokemon_id) {
 
-   include "./config.php";
+   global $repository;
    $found_name="";
-   $monsters = file_get_contents("$poracle_dir/src/util/monsters.json");
+   $monsters = file_get_contents("$repository/src/util/monsters.json");
    $json = json_decode($monsters, true);
    $monsters=array();
 
@@ -78,7 +81,7 @@ function get_mons($pokemon_id) {
 
 function translate_mon($word)
 {
-    include "./config.php";
+    global $repository;
     $locale = @$_SESSION['locale'];
     if ($locale == "en") {
         return $word;
@@ -86,7 +89,7 @@ function translate_mon($word)
 
     global $localePkmnData;
     if ($localePkmnData == null) {
-        $filepath = "$poracle_dir/src/util/locale/pokemonNames_".$locale.".json";
+        $filepath = "$repository/src/util/locale/pokemonNames_".$locale.".json";
         if (file_exists($filepath)) {
             $json_contents = file_get_contents($filepath);
             $localePkmnData = json_decode($json_contents, true);
@@ -104,45 +107,32 @@ function translate_mon($word)
 
 function get_areas() {
 
-    include "./config.php";
-    $areas = file_get_contents("$poracle_dir/config/geofence.json");
+    $areas = $_SESSION['areas'];
     $json = json_decode($areas, true);
     $areas = array();
 
-    if (@$json['type'] == "FeatureCollection" || isset($json['features'])) {
-        $listOfFeatures = $json['features'];
-        foreach ($listOfFeatures as $i => $feature) {
-            $areaName = $feature['properties']['name'];
+    foreach ($_SESSION['areas'] as $i => $area) {
 
-            if(isset($feature['properties']['group'])) {
-                $group = $feature['properties']['group'];
-            }else {
-                $group = "";
-            }
+        foreach ($area as $type => $value) {
+                if ($type === "group" ) { $group = $value; }
+                if ($type === "name" ) { $areaName = $value; }
+	}
 
-            if(array_key_exists($group, $areas)){
-                $groupAreas = $areas[$group];
-                array_push($groupAreas, $areaName);
-                $areas[$group] = $groupAreas;
-            }else{
-                $areas[$group] = array($areaName);
-            }
+        if(array_key_exists($group, $areas)){
+            $groupAreas = $areas[$group];
+            array_push($groupAreas, $areaName);
+            $areas[$group] = $groupAreas;
+        }else{
+            $areas[$group] = array($areaName);
         }
-    } else {
-        foreach ($json as $i => $area) {
-            if(array_key_exists("", $areas)){
-                $groupAreas = $areas[""];
-                array_push($groupAreas,  $area['name']);
-                $areas[""] = $groupAreas;
-            }else{
-                $areas[""] = array( $area['name']);
-            }
-        }
+
     }
+
     ksort($areas);
 
     return $areas;
 }
+
 
 function get_raid_bosses_json() {
 
@@ -163,8 +153,8 @@ function get_raid_bosses_json() {
 
 function get_grunts() {
 
-   include "./config.php";
-   $grunts = file_get_contents("$poracle_dir/src/util/util.json");
+   global $repository;
+   $grunts = file_get_contents("$repository/src/util/util.json");
    $json = json_decode($grunts, true);
    $grunts=array();
 
@@ -193,6 +183,8 @@ function get_lure_name($id) {
                 $lure_name = "Mossy Lure";
         } else if ( $id == "504") {
                 $lure_name = "Magnetic Lure";
+        } else if ( $id == "505") {
+                $lure_name = "Rainy Lure";
         }
 
         return $lure_name;	
@@ -209,33 +201,16 @@ function set_locale() {
       if ( $row['language'] <> "" ) { 
          $_SESSION['locale'] = $row['language'];
       } else { 
-         $config = file_get_contents("$poracle_dir/config/local.json");
-         $json = json_decode(stripComments($config), true);
-         foreach ($json as $key => $value) {
-            if ($key == "general") {
-              $_SESSION['locale']=$value['locale'];
-            }
-         }
+         $_SESSION['locale'] = $_SESSION['server_locale'];
       }
    }
 }
 
 function get_address($lat, $lon) {
 
-   include "./config.php";
-
-   $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode(stripComments($config), true);
-   foreach ($json as $key => $value) {
-      if ($key == "geocoding") {
-        $nominatim=$value['providerURL']; 
-	$statickey=$value['staticKey'][0]; 
-      }
-   }
-
-   $filepath="$nominatim/reverse?lat=$lat&lon=$lon&format=json";
-   if ( strlen($statickey) == 32  ) {
-           $filepath.="&key=".$statickey;
+   $filepath=$_SESSION['providerURL']."/reverse?lat=$lat&lon=$lon&format=json";
+   if ( strlen($_SESSION['staticKey']) == 32  ) {
+           $filepath.="&key=".$_SESSION['staticKey'];
    }
 
    $request = file_get_contents($filepath);
@@ -289,20 +264,10 @@ function i8ln($word)
 
 function set_defaults()
 {
-   include "./config.php"; 
    global $MaxRank, $GreatMinCP, $UltraMinCP;
-   $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode(stripComments($config), true);
    $MaxRank = 4096;
    $GreatMinCP = 0;
    $UltraMinCP = 0;
-   #foreach ($json as $key => $value) {
-   #   if ($key == "pvp") {
-   #     if (isset($value['pvpFilterMaxRank'])) { $MaxRank=$value['pvpFilterMaxRank']; } 
-   #     if (isset($value['pvpFilterGreatMinCP'])) { $GreatMinCP=$value['pvpFilterGreatMinCP']; } 
-   #     if (isset($value['pvpFilterUltraMinCP'])) { $UltraMinCP=$value['pvpFilterUltraMinCP']; }
-   #   }
-   #}
 }
 
 function stripComments( $str ) 
