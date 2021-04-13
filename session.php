@@ -58,7 +58,7 @@ $opts = array(
 
 // Check that API is Running fine
 
-if (!$api = file_get_contents("$api_address/api/config", false, $context)) 
+if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context)) 
 {
    session_destroy();
    header("Location: $redirect_url?return=error_no_api");
@@ -66,7 +66,7 @@ if (!$api = file_get_contents("$api_address/api/config", false, $context))
 }
 
 $context = stream_context_create($opts);
-$config = file_get_contents("$api_address/api/config", false, $context);
+$config = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
 if ( $json['status']="ok" ) {
