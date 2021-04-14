@@ -82,7 +82,7 @@ if ( $json['status']="ok" ) {
    exit();
 }
 
-$areas = file_get_contents("http://127.0.0.1:4201/api/humans/".$_SESSION['id'], false, $context);
+$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']="ok" ) {
