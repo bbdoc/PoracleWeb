@@ -56,6 +56,8 @@ $opts = array(
   )
 );
 
+$context = stream_context_create($opts);
+
 // Check that API is Running fine
 
 if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context)) 
@@ -65,7 +67,6 @@ if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $cont
    exit();
 }
 
-$context = stream_context_create($opts);
 $config = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
