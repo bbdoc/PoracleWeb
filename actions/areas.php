@@ -1,7 +1,7 @@
 <?php
 
    include "../config.php";
-   include "../db_connect.php";
+   include "../include/db_connect.php";
 
   // UPDATE AREAS
 

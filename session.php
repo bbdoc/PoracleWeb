@@ -1,7 +1,7 @@
 <?php
 
 include "./config.php";
-include "./functions.php";
+include "./include/functions.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();

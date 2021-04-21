@@ -209,7 +209,7 @@
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="admin_tools.php">
+            <a class="nav-link dropdown-toggle" href="?type=display&page=admin_tools">
                <i class="fas fa-user-shield fa-fw"></i> <?php echo i8ln('Admin Tools'); ?>
             </a>
         </li>

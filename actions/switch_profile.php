@@ -2,7 +2,7 @@
 <?php
 
   include "../config.php";
-  include "../db_connect.php";
+  include "../include/db_connect.php";
 
   if(session_status() == PHP_SESSION_NONE){
     session_start();
