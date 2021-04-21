@@ -8,8 +8,7 @@ global $localeData;
 global $localePkmnData;
 global $repository;
 
-#$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
-$repository="/volume2/docker/PoracleJS";
+$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
 
 global $monsters_file;
 if (!isset($monsters_file)) {
