@@ -379,7 +379,7 @@
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <?php echo i8ln("Your account has been disabled on")." ".date('d M Y',strtotime($disabled_date))."<br>"; ?>
                         <?php echo i8ln("Please contact an admin!"); ?>
-                    </div>
+		    </div>
                     <?php
                         }
                         if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {

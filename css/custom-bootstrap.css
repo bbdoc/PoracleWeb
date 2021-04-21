@@ -6805,7 +6805,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-    background-color: #5a5c69 !important;
+    background-color: #000000 !important;
 }
 
 a.bg-dark:hover,
@@ -10529,6 +10529,7 @@ a:focus {
 }
 
 .sidebar .nav-item .nav-link .img-profile,
+.img-profile,
 .topbar .nav-item .nav-link .img-profile {
     height: 2rem;
     width: 2rem;

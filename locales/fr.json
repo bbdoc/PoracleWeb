@@ -94,12 +94,13 @@
     "Close":"Fermer",
     "Other":"Autres",
     "Buy or Renew a Subscription": "Acheter ou renouveler un abonnement",
+    "Subscription":"Abonnement",
     "It looks like you do not have a valid subscription to this tool yet":"Il semble que vous n'avez pas encore d'abonnement pour cet outil",
     "It looks like your subscription has expired on":"Votre souscription a expiré le",
     "Your subscription is still valid until":"Votre abonnement est valide jusqu'au",
     "Back to":"Retour à",
     "Renew":"Renouveler",
-    "Subscription valid until":"Abonnement Valide jusqu'au",
+    "Valid until":"Valide jusqu'au",
     "Alerts":"Alarmes",
     "ALL Monsters Cleaning":"Nettoyer TOUS les Pokémon",
     "ALL Raid/Egg Cleaning":"Nettoyer TOUS les Raids/Oeufs",
@@ -292,5 +293,11 @@
     "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES",
     "Duplicate - This Alarm already exist":"Doublon - Cette Alarme existe déjà",
     "Your account has been disabled on":"Votre compte a été désactivé le",
-    "Please contact an admin!":"Veuillez contacter un administrateur!"
+    "Your account has been disabled by an admin":"Votre compte a été désactivé par l'administrateur",
+    "Please contact an admin!":"Veuillez contacter un administrateur!",
+    "Admin Tools":"Outils Administrateur",
+    "Cleaning":"Nettoyage",
+    "Trackings":"Suivis",
+    "Profiles":"Profils",
+    "Areas & Location":"Zones et Localisation"
 }
