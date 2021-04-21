@@ -75,6 +75,15 @@
               </button>
            <?php } ?>
 
+	   <?php if ($_SESSION['type']=="discord:user" && !isset($admin_alarm) && $enable_telegram == "True") { ?>
+              <a href='?type=display&page=migrate'>
+              <button type='button' class='btn mt-1' style='width:100%; background-color:white; border: 2px solid darkblue; padding:0px;'>
+	      <font color=darkblue size=2><?php echo i8ln("Migrate"); ?> Discord <i class='fas fa-arrow-circle-right'></i> Telegram</i></font>
+	      </button>
+              </a>
+           <?php } ?>
+
+
         </div>
       </div>
 
