@@ -84,7 +84,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
                     <?php include "./modal/profile_settings_modal.php"; ?>
 
                     <!-- Success Alerts-->
-                    <?php include "return_messages.php"; ?>
+                    <?php include "include/return_messages.php"; ?>
        	            <?php include 'pages/'.$_GET['type'].'/'.$_GET['page'].'.php'; ?>
 
                 <!-- End of Page Content -->
