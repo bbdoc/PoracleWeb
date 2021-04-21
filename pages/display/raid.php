@@ -33,7 +33,7 @@
 
                         <div class="row">
                             <div class="row no-gutters align-items-center p-3">
-                                <a href="pages/add/raids.php" class="btn btn-success btn-icon-split mr-2 mt-1">
+                                <a href="./?type=add&page=raid" class="btn btn-success btn-icon-split mr-2 mt-1">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>

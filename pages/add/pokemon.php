@@ -7,24 +7,6 @@ if ( $disable_mons == "True" ) {
 
 ?>
 
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Begin Page Content -->
-		<div class="container-fluid col-lg-8 col-md-12">
-                <?php echo @$admin_alarm; ?>
-
-                    <!-- Profile Settings Modal -->
-		    <?php include "./modal/profile_settings_modal.php"; ?>
-
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col">
@@ -342,19 +324,4 @@ if ( $disable_mons == "True" ) {
 
                     </form>
 
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-</body>
-
-</html>
 

@@ -10,26 +10,6 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
 ?>
 
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <?php include "topbar.php" ?>
-
-                <!-- Begin Page Content -->
-		<div class="container-fluid col-lg-8 col-md-12">
-                <?php echo @$admin_alarm; ?>
-
-                    <!-- Profile Settings Modal -->
-		    <?php include "./modal/profile_settings_modal.php"; ?>
-
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col">
@@ -162,19 +142,4 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                     </form>
 
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-</body>
-
-</html>
 

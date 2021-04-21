@@ -1,45 +1,24 @@
 <?php
-
-if ( $disable_invasions == "True" ) {
+if ( $disable_raids == "True" ) {
         header("Location: $redirect_url");
         exit();
 }
-
-$grunt_type_list="bug,dark,dragon,electric,fairy,fighting,fire,flying,ghost,grass,ground,ice,normal,poison,psychic,rock,steel,water";
-$grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
 ?>
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <?php include "topbar.php" ?>
-
-                <!-- Begin Page Content -->
-		<div class="container-fluid col-lg-8 col-md-12">
-                <?php echo @$admin_alarm; ?>
-
-                    <!-- Profile Settings Modal -->
-		    <?php include "./modal/profile_settings_modal.php"; ?>
 
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-				<strong><?php echo i8ln("NEW INVASIONS ALARM"); ?></strong>
+				<strong><?php echo i8ln("NEW RAID ALARM"); ?></strong>
                             </div>
                         </div>
                     </div>
 
-                    <form action='./actions/invasions.php' method='POST'>
+                    <form action='./actions/raids.php' method='POST'>
 
 			<?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">
@@ -66,43 +45,8 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                         <?php } else { ?>
                            <input type="hidden" id='distance' name='distance' value='0' min='0'>
-			<?php } ?>
-
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><?php echo i8ln("Gender"); ?></div>
-                                </div>
-                            </div>
-                            <?php
-                                            if ($row['gender'] == 0) {
-                                                    $checked0 = 'checked';
-                                            } else {
-                                                    $checked0 = '';
-                                            }
-                                            if ($row['gender'] == 1) {
-                                                    $checked1 = 'checked';
-                                            } else {
-                                                    $checked1 = '';
-                                            }
-                                            if ($row['gender'] == 2) {
-                                                    $checked2 = 'checked';
-                                            } else {
-                                                    $checked2 = '';
-                                            }
-                                            ?>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="gender" id="gender_0" value="gender_0" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="gender" id="gender_1" value="gender_1" <?php echo $checked1; ?>> <?php echo i8ln("Male"); ?>
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
-                            </label>
-                        </div>
-
-			<div class="form-row align-items-center">
+                        <?php } ?>
+                        <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
@@ -120,7 +64,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                         }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
-                                        if ($all_invasion_cleaned == "1") {
+                                        if ($all_raid_cleaned == "1") {
                                             $clean_1_checked = 'checked';
                                         } else {
                                             $clean_0_checked = 'checked';
@@ -146,7 +90,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                             </div>
                         </div>
 
-                        <?php if (isset($allowed_templates["invasions"])) {
+                        <?php if (isset($allowed_templates["raids"])) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -155,7 +99,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                                 <div class="input-group-text">Template</div>
                                             </div>
                                         </div>';
-                                        foreach ( $allowed_templates["invasions"] as $key => $name ) {
+                                        foreach ( $allowed_templates["raids"] as $key => $name ) {
                                             echo '<label class="btn btn-secondary">';
                                             echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
                                             echo $name . '</label>';
@@ -167,35 +111,114 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                         <hr>
 
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select Egg Levels you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $grunts = explode(',', $grunt_type_list);
-                                    foreach ($grunts as &$grunt) {
+                                    $eggs = explode(',', "1,3,5,6");
+                                    foreach ($eggs as &$egg) {
                                     ?>
-                                <li class='text-center'><input type='checkbox' name='grunt_<?php echo $grunt; ?>'
-                                        id='grunt_<?php echo $grunt; ?>' />
-                                    <label for='grunt_<?php echo $grunt; ?>'>
-                                        <img class='m-2' src='./grunts/<?php echo $grunt; ?>.png' />
-					<br><?php echo ucfirst(i8ln($grunt)); ?>
+                                <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
+                                        id='egg_<?php echo $egg; ?>' />
+                                    <label for='egg_<?php echo $egg; ?>'>
+                                        <img src='<?php echo $imgUrl; ?>/egg<?php echo $egg; ?>.png' />
+					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
                                     </label>
                                 </li>
-				<?php } ?>
-                                <li class='text-center'><input type='checkbox' name='grunt_mixed'
-                                        id='grunt_mixed'>
-                                    <label for='grunt_mixed'>
-                                        <img class='m-2' src='./grunts/James.png' />
-                                        <img class='m-2' src='./grunts/Jessie.png' />
-                                        <br><?php echo i8ln("Mixed"); ?>
-                                    </label>
-                                </li>
-
+                                <?php
+                                    }
+                                    ?>
                             </ul>
                         </div>
 
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select Raid Levels you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class='selectionList'>
+                            <ul>
+                                <?php
+                                    $raids = explode(',', "1,3,5,6");
+                                    foreach ($raids as &$raid) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='raid_<?php echo $raid; ?>'
+                                        id='raid_<?php echo $raid; ?>' />
+                                    <label for='raid_<?php echo $raid; ?>'>
+                                        <img src='./img/raid_<?php echo $raid; ?>.png' />
+					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln("Level"); ?> <?php echo $raid; ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select the Raid Bosses you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class='selectionList'>
+                            <ul>
+                                <?php
+                                    #$bosses = explode(',', $raid_bosses);
+                                    #foreach ($bosses as &$boss) {
+                                    $bosses = get_raid_bosses();
+                                    foreach ($bosses as $key => $boss) {
+                                        $arr = explode("_", $boss);
+                                        $boss_id = $arr[0];
+                                        $boss_form = $arr[1];
+                                        $boss_mega = $arr[2];
+                                        if ($boss_mega == 2) {
+                                            $mega_name = "Mega X";
+                                        } else if ($boss_mega == 3) {
+                                            $mega_name = "Mega Y";
+                                        } else {
+                                            $mega_name = "";
+                                        }
+                                        $pokemon_name = get_mons($boss_id);
+                                    ?>
+
+                                <li class='text-center'><input type='checkbox'
+                                        name='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'
+                                        id='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>' />
+				    <label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
+                                        <?php 
+					   $img=$imgUrl."/pokemon_icon_".$boss.".png";
+					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
+					      $img=$imgUrl."/pokemon_icon_".$boss_id."_00.png";
+					   }
+                                        ?>
+                                        <img src='<?php echo $img; ?>' />
+                                        <br>
+                                        <?php echo str_pad($boss_id, 3, "0", STR_PAD_LEFT); ?>
+                                        <br>
+                                        <?php echo $pokemon_name; ?>
+                                        <br>
+                                        <?php echo $mega_name; ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
 
                         <div class="float-right mb-3 mt-3">
-			    <input class="btn btn-primary" type='submit' name='add_invasions' value='<?php echo i8ln("Submit"); ?>'>
+			    <input class="btn btn-primary" type='submit' name='add_raid' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
 				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>
@@ -203,19 +226,4 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                     </form>
 
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-</body>
-
-</html>
 
