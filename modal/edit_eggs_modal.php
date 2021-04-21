@@ -89,7 +89,25 @@ echo "</div>";
 	    <input type="radio" name="clean" id="clean_1" value="clean_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
         </label>
     </div>
-
+    <hr>
+    <?php if (isset($allowed_templates["eggs"])) {
+        echo '<div class="form-row align-items-center">
+            <div class="col-sm-12 my-1">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Template</div>
+                            </div>
+                        </div>';
+                        foreach ( $allowed_templates["eggs"] as $key => $name ) {
+                            echo '<label class="btn btn-secondary">';
+                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '" ' . (($key == $row['template']) ? 'checked' : '') . '>';
+                            echo $name . '</label>';
+                        }
+                echo '</div>
+            </div>
+        </div>';
+     } ?>
 </div>
 <div class="modal-footer">
     <!--
