@@ -11,7 +11,8 @@
 				    <?php if (@$disable_areas <> "True") { ?>
 
                                     <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#areasModal">
-                                       <span class="text"><i class="fas fa-edit"></i>&nbsp;<?php echo i8ln("EDIT"); ?> <?php echo i8ln("AREAS"); ?></span>
+                                       <span class="icon text-white-100"><i class="fas fa-edit"></i></span>
+                                       <span class="text w-100"><?php echo i8ln("EDIT"); ?> <?php echo i8ln("AREAS"); ?></span>
                                     </a>
 
 				    <?php } ?>
@@ -71,8 +72,9 @@
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 				    <?php if (@$disable_location <> "True") { ?>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#DeleteLocationModal">
-                                           <span class="text"><i class="fas fa-trash"></i>&nbsp;<?php echo i8ln("DELETE"); ?> <?php echo i8ln("LOCATION"); ?></span>
+					<a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#DeleteLocationModal">
+                                           <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
+                                           <span class="text w-100"><?php echo i8ln("DELETE"); ?> <?php echo i8ln("LOCATION"); ?></span>
 	    			        </a>
 
                                         <?php
@@ -80,13 +82,15 @@
                                            if( isset($site_is_https) && $site_is_https == "True") {
                                         ?>
                                         <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1 w-100" onclick="getLocation()">
-                                           <span class="text"><i class="fas fa-map-marker-alt"></i>&nbsp;<?php echo i8ln("SET TO GPS LOCATION"); ?></span>
+                                           <span class="icon text-white-100"><i class="fas fa-map-marker-alt"></i></span>
+                                           <span class="text w-100"><?php echo i8ln("SET TO GPS LOCATION"); ?></span>
 				        </a>
 				        <?php } ?>
 
                                         <?php if (@$disable_nominatim <> "True") { ?>
                                         <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#locationModal">
-                                           <span class="text"><i class="fas fa-edit"></i>&nbsp;<?php echo i8ln("EDIT"); ?> <?php echo i8ln("LOCATION"); ?></span>
+                                           <span class="icon text-white-100"><i class="fas fa-edit"></i></span>
+                                           <span class="text w-100"><?php echo i8ln("EDIT"); ?> <?php echo i8ln("LOCATION"); ?></span>
                                         </a>
 				        <?php } ?>
 

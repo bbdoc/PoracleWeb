@@ -303,5 +303,8 @@
     "You have configured":"Vous avez configuré",
     "area(s)":"zone(s)",
     "SET TO GPS LOCATION":"UTILISER POSITION GPS",
-    "EDIT":"EDITER"
+    "EDIT":"EDITER",
+    "SCHEDULE":"PLANIFIER",
+    "RENAME":"RENOMMER",
+    "SWITCH":"SWITCHER"
 }

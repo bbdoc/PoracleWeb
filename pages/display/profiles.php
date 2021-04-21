@@ -28,30 +28,36 @@
 
                             <div class="card-body">
 			      <div class="row no-gutters align-items-center">
-                                <div class="text-center w-100">
-				   <button type="button" class="btn btn-danger btn-circle btn-md m-1" 
-                                       data-toggle="modal" data-target="#DeleteProfile">
-                                       <i class="fas fa-trash"></i>
-				   </button>
+				<div class="text-center w-100">
+
+
+                                   <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-2 w-100" data-toggle="modal" data-target="#DeleteProfile">
+                                      <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
+                                      <span class="text w-100"><?php echo i8ln("DELETE"); ?></span>
+                                   </a>
+
                                    <!--
-				   <button type="button" class="btn btn-info btn-circle btn-md m-1"  
-                                       data-toggle="modal" data-target="#ScheduleProfile">
-                                       <i class="fas fa-clock"></i>
-				   </button>
+                                   <a href="#" class="btn btn-info btn-icon-split mr-2 mt-2 w-100" data-toggle="modal" data-target="#ScheduleProfile">
+                                      <span class="icon text-white-100"><i class="fas fa-clock"></i></span>
+                                      <span class="text w-100"><?php echo i8ln("SCHEDULE"); ?></span>
+				   </a>
                                    -->
-				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
-                                       data-toggle="modal" data-target="#AddProfile">
-                                       <i class="fas fa-plus-circle"></i>
-				   </button>
-				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
-                                       data-toggle="modal" data-target="#RenameProfile">
-                                       <i class="fas fa-edit"></i>
-				   </button>
+
+                                   <a href="#" class="btn btn-success btn-icon-split mr-2 mt-2 w-100" data-toggle="modal" data-target="#AddProfile">
+                                      <span class="icon text-white-100"><i class="fas fa-plus"></i></span>
+                                      <span class="text w-100"><?php echo i8ln("ADD"); ?></span>
+                                   </a>
+
+                                   <a href="#" class="btn btn-success btn-icon-split mr-2 mt-2 w-100" data-toggle="modal" data-target="#RenameProfile">
+                                      <span class="icon text-white-100"><i class="fas fa-edit"></i></span>
+                                      <span class="text w-100"><?php echo i8ln("RENAME"); ?></span>
+                                   </a>
+
                                    <?php if ( $_SESSION['number_of_profiles'] > 1 ) { ?>
-				   <button type="button" class="btn btn-success btn-circle btn-md m-1"  
-                                       data-toggle="modal" data-target="#SwitchProfile">
-                                       <i class="fas fa-random"></i>
-				   </button>
+                                   <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-2 w-100" data-toggle="modal" data-target="#SwitchProfile">
+                                      <span class="icon text-white-100"><i class="fas fa-random"></i></span>
+                                      <span class="text w-100"><?php echo i8ln("SWITCH"); ?></span>
+                                   </a>
                                    <?php } ?>
 
 		   		 </div>
