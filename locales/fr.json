@@ -301,5 +301,7 @@
     "Profiles":"Profils",
     "Areas & Location":"Zones et Localisation",
     "You have configured":"Vous avez configuré",
-    "area(s)":"zone(s)"
+    "area(s)":"zone(s)",
+    "SET TO GPS LOCATION":"UTILISER POSITION GPS",
+    "EDIT":"EDITER"
 }

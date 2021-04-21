@@ -1,52 +1,20 @@
 
 
-                    <!-- LOCATION AND AREAS Card -->
-                    <?php if (@$disable_areas."-".@$disable_location <> "True-True" ) { ?>
+                    <!-- AREAS Card -->
+                    <?php if (@$disable_areas <> "True" ) { ?>
                     <div class="col-xl-12 col-md-12">
-                        <!-- Areas & Locations -->
+                        <!-- Areas -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+                                <div class="row d-flex align-items-center pl-3 pr-3">
 
-                                    <?php if (@$disable_areas <> "True") { ?>
-                                    <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("AREAS"); ?>
-                                    <!-- Button trigger modal -->
-                                    <div style="text-align:left; margin-top:5px;">
-                                    <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal"
-                                        data-target="#areasModal">
-                                        <i class="fas fa-edit"></i>
-				    </button>
-			    	    </div>
-                                    </h6>
+				    <?php if (@$disable_areas <> "True") { ?>
+
+                                    <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#areasModal">
+                                       <span class="text"><i class="fas fa-edit"></i>&nbsp;<?php echo i8ln("EDIT"); ?> <?php echo i8ln("AREAS"); ?></span>
+                                    </a>
+
 				    <?php } ?>
-                                    <?php if (@$disable_location <> "True") { ?>
-                                    <h6 class="m-0 font-weight-bold text-dark" style="text-align:right;"><?php echo i8ln("LOCATION"); ?>
-				    <!-- Button trigger modal -->
-                                        <div style="text-align:right; margin-top:5px;">
-                                        <a href="#" class="btn btn-danger btn-circle btn-md"
-                                            data-toggle="modal"
-                                            data-target="#DeleteLocationModal">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <?php 
-			                   if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
-			                   if( isset($site_is_https) && $site_is_https == "True") { 
-                                        ?>
-                                        <button type="button" class="btn btn-success btn-circle btn-md"
-                                            onclick="getLocation()">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </button>
-                                        <?php } ?>
-                                        <?php if (@$disable_nominatim <> "True") { ?>
-                                        <button type="button" class="btn btn-success btn-circle btn-md"
-                                            data-toggle="modal" data-target="#locationModal">
-                                            <i class="fas fa-edit"></i>
-					</button>
-                                        <?php } ?>
-					</div>
-                                    </h6>
-                                    <?php } ?>
-
                                 </div>
 			    </div>
 
@@ -88,6 +56,46 @@
                                     </div>
                                 </div>
                                 <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+
+                    <!-- LOCATION Card -->
+                    <?php if (@$disable_location <> "True" ) { ?>
+                    <div class="col-xl-12 col-md-12">
+                        <!-- Areas & Locations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+				    <?php if (@$disable_location <> "True") { ?>
+
+                                        <a href="#" class="btn btn-danger btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#DeleteLocationModal">
+                                           <span class="text"><i class="fas fa-trash"></i>&nbsp;<?php echo i8ln("DELETE"); ?> <?php echo i8ln("LOCATION"); ?></span>
+	    			        </a>
+
+                                        <?php
+                                           if( isset($_SERVER['HTTPS'] ) ) { $site_is_https = "True"; }
+                                           if( isset($site_is_https) && $site_is_https == "True") {
+                                        ?>
+                                        <a href="#" class="btn btn-primary btn-icon-split mr-2 mt-1 w-100" onclick="getLocation()">
+                                           <span class="text"><i class="fas fa-map-marker-alt"></i>&nbsp;<?php echo i8ln("SET TO GPS LOCATION"); ?></span>
+				        </a>
+				        <?php } ?>
+
+                                        <?php if (@$disable_nominatim <> "True") { ?>
+                                        <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#locationModal">
+                                           <span class="text"><i class="fas fa-edit"></i>&nbsp;<?php echo i8ln("EDIT"); ?> <?php echo i8ln("LOCATION"); ?></span>
+                                        </a>
+				        <?php } ?>
+
+                                    <?php } ?>
+
+                                </div>
+			    </div>
+
+                            <div class="card-body">
                                 <?php if (@$disable_location <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col">
@@ -155,6 +163,7 @@
                         </div>
                     </div>
                     <?php } ?>
+
 
                     <!-- DELETE LOCATION Modal -->
                     <div class="modal fade" id="DeleteLocationModal" tabindex="-1" role="dialog"
