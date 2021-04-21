@@ -25,7 +25,6 @@ echo "
 echo "</ul>\n";
 $areas = get_areas();
 
-
 $collapsedState = 'collapsed';
 
 // Show no accordions when there is only one list of areas (likely a user with no grouping)
@@ -47,7 +46,7 @@ if(count(array_keys($areas)) === 1){
         echo "</li>\n";
     }
 
-} else {
+} else { 
     echo "<div class='accordion' id='accordion'>";
 
     foreach ($areas as $group => $areaList) {

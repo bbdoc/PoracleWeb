@@ -44,6 +44,32 @@
         }
         ?>
 
+        <?php
+        if (isset($_GET['return']) && $_GET['return'] == 'error_api_nok') {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
+            <?php echo i8ln("API returned an error. Please ask admin to check Poracle Instance"); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?php
+        }
+        ?>
+
+        <?php
+        if (isset($_GET['return']) && $_GET['return'] == 'error_no_api') {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
+            <?php echo i8ln("Could not connect to API. Please ask admin to check server config"); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?php
+        }
+        ?>
+
         <!-- Outer Row -->
         <div class="row justify-content-center text-center">
 

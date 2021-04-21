@@ -28,22 +28,22 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 } else {
 
-   $config = file_get_contents("$poracle_dir/config/local.json");
-   $json = json_decode(stripComments($config), true);
-   foreach ($json as $key => $value) {
-      if ($key == "geocoding") {
-         $nominatim=$value['providerURL'];
-         $statickey=$value['staticKey'][0];
-      }
-   }
+   #$config = file_get_contents("$poracle_dir/config/local.json");
+   #$json = json_decode(stripComments($config), true);
+   #foreach ($json as $key => $value) {
+   #   if ($key == "geocoding") {
+   #      $nominatim=$value['providerURL'];
+   #      $statickey=$value['staticKey'][0];
+   #   }
+   #}
 
 
    $street = str_replace(" ", "%20", $_POST['street']);
    $city = str_replace(" ", "%20", $_POST['city']);
 
-   $filepath="$nominatim/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
-   if ( strlen($statickey) == 32  ) { 
-	   $filepath.="&key=".$statickey;
+   $filepath=$_SESSION['providerURL']."/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
+   if ( strlen($_SESSION['staticKey']) == 32  ) { 
+	   $filepath.="&key=".$_SESSION['staticKey'];
    }
 
    $request = file_get_contents($filepath);
