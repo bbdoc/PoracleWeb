@@ -41,7 +41,7 @@ foreach ($areas as $key => $area) {
                         <!-- Content Row -->
                         <div class="row">
 
-                            <!-- Card -->
+			    <!-- Card -->
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
                                 <div class="card shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -82,17 +82,19 @@ foreach ($areas as $key => $area) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+			    </div>
 
-                            <!-- Card -->
+			    <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <a href="?type=display&page=pokemon">
 						    <img src="img/nav/mons.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Monsters"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
@@ -104,7 +106,7 @@ foreach ($areas as $key => $area) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+			    </div>
 
                             <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
@@ -113,8 +115,10 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+						    <a href="?type=display&page=raid">
                                                     <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);"><br>
-                                                    <?php echo i8ln("Raids"); ?>
+						    <?php echo i8ln("Raids"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
@@ -135,8 +139,10 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/egg.png" style="width:50px;height:50px;"><br>
-                                                    <?php echo i8ln("Eggs"); ?>
+                                                    <a href="?type=display&page=raid">
+						    <img src="img/nav/egg.png" style="width:50px;height:50px;"><br>
+						    <?php echo i8ln("Eggs"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
@@ -158,8 +164,10 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <a href="?type=display&page=quest">
                                                     <img src="img/nav/quest.png" style="width:50px;height:50px;"><br>
-                                                    <?php echo i8ln("Quests"); ?>
+						    <?php echo i8ln("Quests"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
@@ -180,8 +188,10 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <a href="?type=display&page=invasion">
                                                     <img src="img/nav/invasion.png" style="width:50px;height:50px;"><br>
-                                                    <?php echo i8ln("Invasions"); ?>
+						    <?php echo i8ln("Invasions"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
@@ -202,8 +212,10 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <a href="?type=display&page=lure">
                                                     <img src="img/nav/lure.png" style="width:50px;height:50px;"><br>
-                                                    <?php echo i8ln("Lures"); ?>
+						    <?php echo i8ln("Lures"); ?>
+                                                    </a>
                                                     <hr>
                                                 </div>
                                             </div>
