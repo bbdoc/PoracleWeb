@@ -118,12 +118,12 @@
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php echo @$_GET['allgen']; ?>"><a class="page-link" href="?allgen=active">
 			    <center><?php echo i8ln("ALL"); ?></center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen1']; ?>"><a class="page-link" href="?gen1=active"><center>G1</center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen2']; ?>"><a class="page-link" href="?gen2=active"><center>G2</center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen3']; ?>"><a class="page-link" href="?gen3=active"><center>G3</center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen4']; ?>"><a class="page-link" href="?gen4=active"><center>G4</center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen5']; ?>"><a class="page-link" href="?gen5=active"><center>G5</center></a></li>
-                            <li class="page-item <?php echo @$_GET['gen6']; ?>"><a class="page-link" href="?gen6=active"><center>G6</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen1']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen1=active"><center>G1</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen2']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen2=active"><center>G2</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen3']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen3=active"><center>G3</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen4']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen4=active"><center>G4</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen5']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen5=active"><center>G5</center></a></li>
+                            <li class="page-item <?php echo @$_GET['gen6']; ?>"><a class="page-link" href="?type=display&page=pokemon&gen6=active"><center>G6</center></a></li>
                           </ul>
 			</nav>
 
