@@ -18,6 +18,7 @@
         $clean = ltrim($value, 'clean_'); 
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE monsters
@@ -25,7 +26,7 @@
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           great_league_ranking = ?, great_league_ranking_min_cp = ?, ultra_league_ranking = ?, ultra_league_ranking_min_cp = ?,
-          form = ?, gender = ?, clean = ? 
+          form = ?, gender = ?, clean = ?, template = ? 
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -34,7 +35,7 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiii",
+      "iiiiiiiiiiiiiiiiiiiiiisi",
       $_POST['distance'],
       $_POST['min_iv'],
       $_POST['max_iv'],
@@ -57,6 +58,7 @@
       $form,
       $gender,
       $clean,
+      $template,
       $_POST['uid']
     );
 
@@ -125,6 +127,7 @@
         $clean = ltrim($value, 'clean_'); 
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "mon_") {
@@ -143,7 +146,7 @@
 	     ultra_league_ranking, ultra_league_ranking_min_cp,
              profile_no
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error");
@@ -151,7 +154,7 @@
         }
 
         $rs = $stmt->bind_param(
-          "ssiiiiiiiiiiiiiiiiiiiiii",
+          "ssiiiiiiiiiisiiiiiiiiiiii",
           $_SESSION['id'],
           $pokemon_id,
           $_POST['distance'],
@@ -164,7 +167,8 @@
           $_POST['atk'],
           $_POST['def'],
           $_POST['sta'],
-          $clean,
+	  $template,
+	  $clean,
           $_POST['min_weight'],
           $_POST['max_weight'],
           $_POST['max_atk'],

@@ -18,6 +18,7 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE monsters
@@ -25,7 +26,7 @@
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           great_league_ranking = ?, great_league_ranking_min_cp = ?, ultra_league_ranking = ?, ultra_league_ranking_min_cp = ?,
-          form = ?, gender = ?, clean = ? 
+          form = ?, gender = ?, clean = ?, template = ? 
       WHERE pokemon_id = ? AND form = ?  AND distance = ? AND gender = ?  
       AND min_iv = ? AND max_iv = ?  AND min_cp = ? AND max_cp = ?
       AND min_level = ? AND max_level = ? AND min_weight = ? AND max_weight = ?  
@@ -39,7 +40,7 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiis",
+      "iiiiiiiiiiiiiiiiiiiiiisiiiiiiiiiiiiiiiiiiiiiis",
       $_POST['distance'],
       $_POST['min_iv'],
       $_POST['max_iv'],
@@ -62,6 +63,7 @@
       $form,
       $gender,
       $clean,
+      $template,
       $_POST['pokemon_id'],
       $_POST['cur_form'],
       $_POST['cur_distance'],
@@ -113,10 +115,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE raid
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE pokemon_id = ? AND level = ? AND form = ? AND distance = ? AND team = ?
       AND id = ?");
 
@@ -126,9 +129,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiis",
+      "iisiiiiis",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['pokemon_id'],
       $_POST['level'],
       $_POST['cur_form'],
@@ -163,10 +167,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE egg 
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE level = ? AND distance = ? AND team = ?
       AND id = ?");
 
@@ -176,9 +181,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
+      "iisiiis",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['level'],
       $_POST['cur_distance'],
       $_POST['cur_team'],
@@ -211,10 +217,11 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     $stmt = $conn->prepare("
       UPDATE quest
-      SET distance = ?, clean = ?
+      SET distance = ?, clean = ?, template = ?
       WHERE reward = ? AND reward_type = ? AND distance = ? 
       AND id = ?");
 
@@ -224,9 +231,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiis",
+      "iisiiis",
       $_POST['distance'],
       $clean,
+      $template,
       $_POST['cur_reward'],
       $_POST['cur_reward_type'],
       $_POST['cur_distance'],
@@ -452,6 +460,7 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "mon_") {
         $pokemon_id = ltrim($key, 'mon_');
+        $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
         $stmt = $conn->prepare("
           INSERT INTO monsters (
@@ -465,7 +474,7 @@
              great_league_ranking, great_league_ranking_min_cp,
              ultra_league_ranking, ultra_league_ranking_min_cp
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error");
@@ -473,7 +482,7 @@
         }
 
         $rs = $stmt->bind_param(
-          "ssiiiiiiiiiiiiiiiiiiiii",
+          "ssiiiiiiiiiisiiiiiiiiiii",
           $_SESSION['id'],
           $pokemon_id,
           $_POST['distance'],
@@ -486,6 +495,7 @@
           $_POST['atk'],
           $_POST['def'],
           $_POST['sta'],
+	  $template,
           $clean,
           $_POST['min_weight'],
           $_POST['max_weight'],
@@ -530,18 +540,19 @@
         $clean = ltrim($value, 'clean_');
       }
     }
+    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "egg_") {
         $level = ltrim($key, 'egg_');
 
         $stmt = $conn->prepare("INSERT INTO egg ( id, ping, clean, template, distance, team, level)
-	                       VALUES ( ?, '', ? , 1, ?, 4, ?)");
+	                       VALUES ( ?, '', ? , ?, ?, 4, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AE1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $_POST['distance'], $level);
+        $rs = $stmt->bind_param("sisii", $_SESSION['id'], $clean, $template, $_POST['distance'], $level);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AE2&sql=$stmt->error");
           exit();
@@ -558,14 +569,15 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 5) === "raid_") {
         $level = ltrim($key, 'raid_');
+        $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
-                               VALUES ( ?, '', ? , 1, 9000, ?, 4, ?, 0)");
+                               VALUES ( ?, '', ? , ?, 9000, ?, 4, ?, 0)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AR1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $_POST['distance'], $level);
+        $rs = $stmt->bind_param("sisii", $_SESSION['id'], $clean, $template, $_POST['distance'], $level);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AR2&sql=$stmt->error");
           exit();
@@ -584,15 +596,16 @@
         $arr = explode("_", $key);
         $boss_id = $arr[1];
         $boss_form = $arr[2];
-        $boss_mega = $arr[3];
+	$boss_mega = $arr[3];
+	$template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
         $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form)
-                               VALUES ( ?, '', ? , 1, ? , ?, 4, 9000, ?)");
+                               VALUES ( ?, '', ? , ?, ? , ?, 4, 9000, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=ARM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siiii", $_SESSION['id'], $clean, $boss_id, $_POST['distance'], $boss_form);
+        $rs = $stmt->bind_param("sisiii", $_SESSION['id'], $clean, $template, $boss_id, $_POST['distance'], $boss_form);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=ARM2&sql=$stmt->error");
           exit();
@@ -624,14 +637,15 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "mon_") {
         $mon_id = ltrim($key, 'mon_');
+        $template = !empty($_POST['template']) ? $_POST['template'] : 1;
 
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
-                               VALUES ( ?, '', ? , ?, 1, 0, 7, ?)");
+                               VALUES ( ?, '', ? , ?, ?, 0, 7, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AQM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $mon_id, $_POST['distance']);
+        $rs = $stmt->bind_param("siisi", $_SESSION['id'], $clean, $mon_id, $template, $_POST['distance']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AQM2&sql=$stmt->error");
           exit();
@@ -650,12 +664,12 @@
         $item = ltrim($key, 'item_');
 
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance)
-                               VALUES ( ?, '', ? , ?, 1, 0, 2, ?)");
+                               VALUES ( ?, '', ? , ?, ?, 0, 2, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siii", $_SESSION['id'], $clean, $item, $_POST['distance']);
+        $rs = $stmt->bind_param("siisi", $_SESSION['id'], $clean, $item, $template, $_POST['distance']);
         if (false === $rs) {
           header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
           exit();
