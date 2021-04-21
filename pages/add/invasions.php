@@ -1,5 +1,5 @@
 <?php
-include "./header.php";
+
 if ( $disable_invasions == "True" ) {
         header("Location: $redirect_url");
         exit();
@@ -7,76 +7,8 @@ if ( $disable_invasions == "True" ) {
 
 $grunt_type_list="bug,dark,dragon,electric,fairy,fighting,fire,flying,ghost,grass,ground,ice,normal,poison,psychic,rock,steel,water";
 $grunt_type_list.=",arlo,cliff,giovanni,sierra";
+
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<?php
-    if ($gAnalyticsId != "") {
-        echo '<!-- Google Analytics -->
-            <script>
-                window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-                ga("create", "' . $gAnalyticsId . '", "auto");
-                ga("send", "pageview");
-            </script>
-            <script async src="https://www.google-analytics.com/analytics.js"></script>
-            <!-- End Google Analytics -->';
-    }
-?>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title><?php echo $title; ?> - Add Invasions</title>
-
-    <link rel="icon" type="image/x-icon" href="favicon.png" />
-
-    <!-- Custom fonts for this template-->
-    <link href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/custom-bootstrap.css?v=<?=time();?>" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-        rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $(window).keydown(function(event) {
-            if (event.keyCode == 13) {
-                event.preventDefault();
-                return false;
-            }
-        });
-    });
-
-    function areas() {
-       var value = document.querySelector('input[name="use_areas"]:checked').value;
-       if(value == "areas"){
-          document.getElementById('distance').style.display = "none";
-          document.getElementById('distance_label').style.display = "none";
-          document.getElementById('distance').value = 0;
-       } else {
-          document.getElementById('distance').style.display = "block";
-          document.getElementById('distance_label').style.display = "block";
-       }
-    }
-
-
-    </script>
-
-</head>
 
 <body id="page-top">
 
@@ -282,20 +214,6 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Logout Modal-->
-    <?php include "./modal/logout_modal.php"; ?>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="node_modules/jquery.easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 </body>
 

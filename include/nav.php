@@ -61,7 +61,7 @@
                  </td>
 		 <td>
 		    <form action='./actions/profile.php' method='POST'>
-                    <input type="hidden" id="type" name="action" value="profile_settings">
+                    <input type="hidden" id="type" name="action" value="alarms_settings">
                     <input onChange="this.form.submit()" type="checkbox" name="alerts_toggle" id="alerts_toggle" <?php if ($enabled == "1") { echo "checked"; } ?>
 		     data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                     </form>
@@ -99,35 +99,35 @@
           <div class="card-body">
     
             <?php if (@$disable_mons <> "True") { ?>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-mons">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=pokemon">
                <img src="img/nav/mons.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Pokémon'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_raids <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-raids">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=raid">
                 <img src="img/nav/raid.svg" style="width:22px;height:22px;filter: brightness(40%);"> <?php echo i8ln('Raids'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_quests <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-quests">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=quest">
                 <img src="img/nav/quest.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Quests'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_invasions <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-invasions">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=invasion">
                 <img src="img/nav/invasion.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Invasions'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_lures <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-lures">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=lure">
                 <img src="img/nav/lure.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Lures'); ?>
               </a>
             <?php } ?>
@@ -145,15 +145,15 @@
         <div id="collapse-settings" class="collapse" aria-labelledby="heading-settings" data-parent="#accordion-test">
 	  <div class="card-body">
 
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-lures">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=area">
                 <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Areas & Location'); ?>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-lures">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=profiles">
                 <i class="fas fa-users"></i>&nbsp;&nbsp; <?php echo i8ln('Profiles'); ?>
 	      </a>
 	      <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="#pills-lures">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=cleaning">
                 <i class="fas fa-eraser"></i>&nbsp;&nbsp; <?php echo i8ln('Cleaning'); ?>
               </a>
 

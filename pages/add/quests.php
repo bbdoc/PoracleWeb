@@ -1,82 +1,10 @@
 <?php
-include "./header.php";
-if ( $disable_lures == "True" ) {
+if ( $disable_quests == "True" ) {
         header("Location: $redirect_url");
         exit();
 }
 
-$grunt_type_list="bug,dark,dragon,electric,fairy,fighting,fire,flying,ghost,grass,ground,ice,normal,poison,psychic,rock,steel,water";
-$grunt_type_list.=",arlo,cliff,giovanni,sierra";
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<?php
-    if ($gAnalyticsId != "") {
-        echo '<!-- Google Analytics -->
-            <script>
-                window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-                ga("create", "' . $gAnalyticsId . '", "auto");
-                ga("send", "pageview");
-            </script>
-            <script async src="https://www.google-analytics.com/analytics.js"></script>
-            <!-- End Google Analytics -->';
-    }
-?>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title><?php echo $title; ?> - Add Lures</title>
-
-    <link rel="icon" type="image/x-icon" href="favicon.png" />
-
-    <!-- Custom fonts for this template-->
-    <link href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/custom-bootstrap.css?v=<?=time();?>" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-        rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $(window).keydown(function(event) {
-            if (event.keyCode == 13) {
-                event.preventDefault();
-                return false;
-            }
-        });
-    });
-
-    function areas() {
-       var value = document.querySelector('input[name="use_areas"]:checked').value;
-       if(value == "areas"){
-          document.getElementById('distance').style.display = "none";
-          document.getElementById('distance_label').style.display = "none";
-          document.getElementById('distance').value = 0;
-       } else {
-          document.getElementById('distance').style.display = "block";
-          document.getElementById('distance_label').style.display = "block";
-       }
-    }
-
-
-    </script>
-
-</head>
 
 <body id="page-top">
 
@@ -102,12 +30,12 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-				<strong><?php echo i8ln("NEW LURES ALARM"); ?></strong>
+				<strong><?php echo i8ln("NEW QUEST ALARM"); ?></strong>
                             </div>
                         </div>
                     </div>
 
-                    <form action='./actions/lures.php' method='POST'>
+                    <form action='./actions/quests.php' method='POST'>
 
 			<?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">
@@ -134,9 +62,8 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                         <?php } else { ?>
                            <input type="hidden" id='distance' name='distance' value='0' min='0'>
-			<?php } ?>
-
-			<div class="form-row align-items-center">
+                        <?php } ?>
+                        <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
@@ -154,7 +81,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                         }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
-                                        if ($all_lures_cleaned == "1") {
+                                        if ($all_quest_cleaned == "1") {
                                             $clean_1_checked = 'checked';
                                         } else {
                                             $clean_0_checked = 'checked';
@@ -180,7 +107,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                             </div>
                         </div>
 
-                        <?php if (isset($allowed_templates["lures"])) {
+                        <?php if (isset($allowed_templates["quests"])) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -189,7 +116,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                                 <div class="input-group-text">Template</div>
                                             </div>
                                         </div>';
-                                        foreach ( $allowed_templates["lures"] as $key => $name ) {
+                                        foreach ( $allowed_templates["quests"] as $key => $name ) {
                                             echo '<label class="btn btn-secondary">';
                                             echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
                                             echo $name . '</label>';
@@ -201,28 +128,120 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                         <hr>
 
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+				    <?php echo i8ln("Select Pokémon Quests you want to add"); ?> (<?php echo i8ln("Pokemons Currently available on Map"); ?>)
+                                </li>
+                            </ol>
+                        </nav>
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $lures_list = "501,502,503,504";
-                                    $lures = explode(',', $lures_list);
-                                    foreach ($lures as &$lure) {
+                                    $mons =  get_quest_mons();                                    
+                                    foreach ($mons as &$mon) {
+                                        $pokemon_name=get_mons($mon);  
+                                        $mon_id=str_pad($mon, 3, "0", STR_PAD_LEFT);
                                     ?>
-                                <li class='text-center'><input type='checkbox' name='lure_<?php echo $lure; ?>'
-                                        id='lure_<?php echo $lure; ?>' />
-                                    <label for='lure_<?php echo $lure; ?>'>
-                                        <img class='m-2' src='./lures/<?php echo $lure; ?>.png' />
-					<br><?php echo i8ln(get_lure_name($lure)); ?>
+                                <li class='text-center'><input type='checkbox' name='mon_<?php echo $mon; ?>'
+                                        id='mon_<?php echo $mon; ?>' />
+                                    <label for='mon_<?php echo $mon; ?>'>
+                                        <img src='<?php echo $imgUrl; ?>/pokemon_icon_<?php echo $mon_id; ?>_00.png' />
+                                        <br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?>
                                     </label>
                                 </li>
-				<?php } ?>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
+
+			<!-- Add Search Box -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+				    <?php echo i8ln("Or use search below to add another pokemon"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <input type='hidden' id='search_type' value='questmon'>
+                        <div class='mb-3' id='dvSearchBox'>
+			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search"); ?>'>
+                        </div>
+
+                        <div class='searchmons text-center' id='dvMonsList'>
+                            <ul>
+                                <!-- Add Empty Div to be used by Ajax to display results -->
+                                <div id='display'></div>
 
                             </ul>
                         </div>
 
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+				    <?php echo i8ln("Select Quests Items you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class='selectionList'>
+                            <ul>
+                                <?php
+                                    $items =  get_quest_items();
+                                    foreach ($items as &$item) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='item_<?php echo $item; ?>'
+                                        id='item_<?php echo $item; ?>' />
+                                    <label for='item_<?php echo $item; ?>'>
+                                        <img src='<?php echo $imgUrl; ?>/rewards/reward_<?php echo $item; ?>_1.png' />
+                                    </label>
+                                </li>
+                                <?php
+                                    }
+                                    ?>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <?php echo i8ln("Select Energy Rewards you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <div class='selectionList'>
+			    <ul>
+                                <li class='text-center'><input type='checkbox' name='energy_0'
+                                        id='energy_0' />
+                                    <label for='energy_0'>
+                                        <img src='<?php echo $imgUrl; ?>/rewards/reward_mega_energy.png' />
+					<br><br><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    $energy_rewards =  get_quest_energy();
+                                    foreach ($energy_rewards as &$energy) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='energy_<?php echo $energy; ?>'
+                                        id='energy_<?php echo $energy; ?>' />
+                                    <label for='energy_<?php echo $energy; ?>'>
+					<img src='<?php echo $imgUrl; ?>/rewards/reward_mega_energy_<?php echo $energy; ?>.png' />
+					<?php $pokemon_name=get_mons($energy); ?>
+                                        <br><?php echo str_pad($energy, 3, "0", STR_PAD_LEFT); ?><br><?php echo $pokemon_name; ?>
+                                    </label>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
 
                         <div class="float-right mb-3 mt-3">
-			    <input class="btn btn-primary" type='submit' name='add_lures' value='<?php echo i8ln("Submit"); ?>'>
+			    <input class="btn btn-primary" type='submit' name='add_quest' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
 				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>
@@ -241,20 +260,6 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Logout Modal-->
-    <?php include "./modal/logout_modal.php"; ?>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="node_modules/jquery.easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 </body>
 
