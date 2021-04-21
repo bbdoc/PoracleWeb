@@ -18,9 +18,10 @@ include "../../header.php";
                         <!-- Content Row -->
                         <div class="row">
 
-                            <!-- Card -->
+			    <!-- Card -->
+			    <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-success shadow h-100 py-2">
+			    <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
@@ -44,8 +45,9 @@ include "../../header.php";
                             </div>
 
                             <!-- Card -->
+			    <?php if ($all_raid_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-success shadow h-100 py-2">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
@@ -69,8 +71,9 @@ include "../../header.php";
                             </div>
 
                             <!-- Card -->
+			    <?php if ($all_quest_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-success shadow h-100 py-2">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
@@ -94,8 +97,9 @@ include "../../header.php";
                             </div>
 
                             <!-- Card -->
+			    <?php if ($all_invasion_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-success shadow h-100 py-2">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
@@ -119,8 +123,9 @@ include "../../header.php";
                             </div>
 
                             <!-- Card -->
+			    <?php if ($all_lure_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-success shadow h-100 py-2">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">

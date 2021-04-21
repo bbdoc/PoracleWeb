@@ -2,8 +2,6 @@
                     <?php if (@$disable_lures <> "True") { ?> 
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
 
-                        <hr>
-
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
@@ -100,7 +98,13 @@
 
                                 $sql = "SELECT * FROM lures WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
                                         ORDER BY lure_id";
-                                $result = $conn->query($sql);
+				$result = $conn->query($sql);
+
+                                if ($result->num_rows == 0) {
+                                   echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
+                                   echo i8ln("You have not set any Alarm yet!");
+                                   echo "</div>";
+                                }
 
                                 while ($row = $result->fetch_assoc()) {
 
