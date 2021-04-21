@@ -8,13 +8,30 @@ global $localeData;
 global $localePkmnData;
 global $repository;
 
-$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
+#$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
+$repository="/volume2/docker/PoracleJS";
+
+global $monsters_file;
+if (!isset($monsters_file)) {
+	$monsters_file = file_get_contents("$repository/src/util/monsters.json");
+}
+
+global $bosses_file;
+if (!isset($bosses_file)) {
+	$bosses_file = file_get_contents("https://raw.githubusercontent.com/ccev/pogoinfo/info/raid-bosses.json");
+}
+
+if (!isset($grunts_file)) {
+	$grunts_file = file_get_contents("$repository/src/util/util.json");
+}
+
+
 
 function get_form_name($pokemon_id, $form_id) {
 
    global $repository;
-   $monsters = file_get_contents("$repository/src/util/monsters.json");
-   $json = json_decode($monsters, true);
+   global $monsters_file;
+   $json = json_decode($monsters_file, true);
 
    foreach ($json as $name => $pokemon) {
 
@@ -29,8 +46,8 @@ function get_form_name($pokemon_id, $form_id) {
 function get_all_forms($pokemon_id) {
 
    global $repository;
-   $monsters = file_get_contents("$repository/src/util/monsters.json");
-   $json = json_decode($monsters, true);
+   global $monsters_file;
+   $json = json_decode($monsters_file, true);
    $form_exclude = array("Shadow", "Normal", "Purified", "Copy 2019", "Fall 2019", "Spring 2020", "Vs 2019");
    $forms=array();
    $forms[0] = "Normal";
@@ -49,8 +66,8 @@ function get_all_forms($pokemon_id) {
 function get_all_mons() {
 
    global $repository;
-   $monsters = file_get_contents("$repository/src/util/monsters.json");
-   $json = json_decode($monsters, true);
+   global $monsters_file;
+   $json = json_decode($monsters_file, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
@@ -65,9 +82,9 @@ function get_all_mons() {
 function get_mons($pokemon_id) {
 
    global $repository;
+   global $monsters_file;
    $found_name="";
-   $monsters = file_get_contents("$repository/src/util/monsters.json");
-   $json = json_decode($monsters, true);
+   $json = json_decode($monsters_file, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
@@ -137,8 +154,9 @@ function get_areas() {
 function get_raid_bosses_json() {
 
    include "./config.php";
-   $bosses = file_get_contents("https://raw.githubusercontent.com/ccev/pogoinfo/info/raid-bosses.json");
-   $json = json_decode($bosses, true);
+   global $repository;
+   global $bosses_file;
+   $json = json_decode($bosses_file, true);
    $bosses=array();
 
    foreach ($json as $id => $level) {
@@ -154,8 +172,8 @@ function get_raid_bosses_json() {
 function get_grunts() {
 
    global $repository;
-   $grunts = file_get_contents("$repository/src/util/util.json");
-   $json = json_decode($grunts, true);
+   global $grunts_file;
+   $json = json_decode($grunts_file, true);
    $grunts=array();
 
    foreach ($json as $key => $value) { 
