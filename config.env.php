@@ -29,6 +29,8 @@ $disable_mons        = getenv("DISABLE_MONS") ?: "False";
 $disable_raids       = getenv("DISABLE_RAIDS") ?: "False";
 $disable_quests      = getenv("DISABLE_QUESTS") ?: "False";
 $disable_invasions   = getenv("DISABLE_INVASIONS") ?: "False";
+$disable_lures       = getenv("DISABLE_LURES") ?: "False";
+$disable_profiles    = getenv("DISABLE_PROFILES") ?: "False";
 
 $site_is_https       = getenv("SITE_IS_HTTPS") ?: "True";
 
@@ -37,9 +39,10 @@ $site_is_https       = getenv("SITE_IS_HTTPS") ?: "True";
 $enable_telegram    = getenv("ENABLE_TELEGRAM") ?: "False";
 $telegram_bot       = getenv("TELEGRAM_BOT") ?: "MyBot_bot";
 
-// Poracle Install Directoyy
+// PORACLE API
 
-$poracle_dir        = getenv("PORACLE_DIR") ?: "/poracle";
+$api_address       = getenv("API_ADDRESS") ?: "http://127.0.0.1:4201";
+$api_secret        = getenv("API_SECRET") ?: "MySecret";
 
 // Admin User
 

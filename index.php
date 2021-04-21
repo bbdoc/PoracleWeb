@@ -2,6 +2,9 @@
 
 include "header.php";
 
+if (!isset($_GET['type'])) { $_GET['type'] = "display"; }
+if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
+
 ?>
 
 <!DOCTYPE html>
