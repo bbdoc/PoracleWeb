@@ -30,7 +30,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UM1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UM1&sql=$stmt->error");
       exit();
     }
 
@@ -63,19 +63,19 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UM2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UM2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UM3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UM3&sql=$stmt->error");
       exit();
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_mons");
+    header("Location: $redirect_url?type=display&page=pokemon&return=success_update_mons");
     exit();
   }
 
@@ -88,7 +88,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=DM1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DM1&sql=$stmt->error");
       exit();
     }
 
@@ -98,19 +98,19 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DM2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DM2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DM3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DM3&sql=$stmt->error");
       exit();
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_delete_mons");
+    header("Location: $redirect_url?type=display&page=pokemon&return=success_delete_mons");
     exit();
   }
 
@@ -149,7 +149,7 @@
 	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
-          header("Location: $redirect_url?return=sql_error&phase=AM1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=AM1&sql=$stmt->error");
           exit();
         }
 
@@ -183,7 +183,7 @@
         );
 
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AM2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=AM2&sql=$stmt->error");
           exit();
         }
 
@@ -191,10 +191,10 @@
 
 	if (false === $rs) { 
           if ( stristr($stmt->error, "Duplicate") ) { 
-            header("Location: $redirect_url?return=duplicate");
+            header("Location: $redirect_url?type=display&page=pokemon&return=duplicate");
             exit();
           }
-          header("Location: $redirect_url?return=sql_error&phase=AM3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=AM3&sql=$stmt->error");
           exit();
         }
 
@@ -204,7 +204,7 @@
         }
       }
     }
-    header("Location: $redirect_url?return=success_added_mons");
+    header("Location: $redirect_url?type=display&page=pokemon&return=success_added_mons");
     exit();
   }
 
@@ -215,21 +215,21 @@
 
     $stmt = $conn->prepare("DELETE FROM monsters WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=DAM1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DAM1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DAM2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DAM2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DAM3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=DAM3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?return=success_delete_mons");
+    header("Location: $redirect_url?type=display&page=pokemon&return=success_delete_mons");
     exit();
   }
 
@@ -240,21 +240,21 @@
 
     $stmt = $conn->prepare("UPDATE monsters set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UMD1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UMD1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UMD2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UMD2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UMD3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=pokemon&return=sql_error&phase=UMD3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_mons_distance");
+    header("Location: $redirect_url?type=display&page=pokemon&return=success_update_mons_distance");
     exit();
   }
 

@@ -69,11 +69,14 @@ foreach ($areas as $key => $area) {
                                                 <div class="alert alert-warning w-80 m-3" role="alert">
                                                     <?php echo i8ln("You have not set any area yet!"); ?>
                                                 </div>
-                                                <?php } else { ?>
+						<?php } else { ?>
+                                                    <a href="?type=display&page=area"><b>
                                                     <div class="alert alert-success w-80 m-3" role="alert">
 						    <?php echo i8ln("You have configured"); ?>
 						    <?php echo $num_areas; ?>
-                                                    <?php echo i8ln("area(s)"); ?><br>
+						    <?php echo i8ln("area(s)"); ?>
+                                                    </b></a>
+                                                    <br>
                                                     </div>
                                                 <?php } ?>
 

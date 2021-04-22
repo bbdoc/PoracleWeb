@@ -49,7 +49,7 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
    $request = file_get_contents($filepath);
 
    if ( $request == "[]" ) { 
-      header("Location: $redirect_url?return=error_update_location");
+      header("Location: $redirect_url?type=display&page=area&return=error_update_location");
       exit();
    }   
 
@@ -68,17 +68,17 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 $stmt = $conn->prepare("UPDATE humans set latitude = ?, longitude = ? WHERE id = ? AND current_profile_no = ?");
 if (false === $stmt) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLH1&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH1&sql=$stmt->error");
   exit();
 }
 $rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLH2&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH2&sql=$stmt->error");
   exit();
 }
 $rs = $stmt->execute();
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLH3&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH3&sql=$stmt->error");
   exit();
 }
 
@@ -86,26 +86,26 @@ if (false === $rs) {
 
 $stmt = $conn->prepare("UPDATE profiles set latitude = ?, longitude = ? WHERE id = ? AND profile_no = ?");
 if (false === $stmt) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLP1&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP1&sql=$stmt->error");
   exit();
 }
 $rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLP2&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP2&sql=$stmt->error");
   exit();
 }
 $rs = $stmt->execute();
 if (false === $rs) {
-  header("Location: $redirect_url?return=sql_error&phase=ESLP3&sql=$stmt->error");
+  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP3&sql=$stmt->error");
   exit();
 }
 
 
 if ( isset($_POST['delete']) ) {
-    header("Location: $redirect_url?return=success_delete_location");
+    header("Location: $redirect_url?type=display&page=area&return=success_delete_location");
     exit();
 } else {
-    header("Location: $redirect_url?return=success_update_location");
+    header("Location: $redirect_url?type=display&page=area&return=success_update_location");
     exit();
 }
 

@@ -29,12 +29,12 @@
                       current_profile_no = '".$_POST['profile']."'
 		   WHERE id = '" . $_SESSION['id'] . "'";
           $result = $conn->query($sql);
-	  header("Location: $redirect_url?return=success_switch_profile_activate");
+	  header("Location: $redirect_url?type=display&page=profiles&return=success_switch_profile_activate");
 
 
   } else if ( isset($_POST['view']) ) {
 
-	  header("Location: $redirect_url?return=success_switch_profile_view");
+	  header("Location: $redirect_url?type=display&page=profiles&return=success_switch_profile_view");
 	  
   }
 
@@ -74,23 +74,23 @@
           $stmt = $conn->prepare("INSERT INTO profiles ( id, profile_no, name, area, latitude, longitude)
                                VALUES ( ?, ?, ?, ?, ?, ?)");
           if (false === $stmt) {
-            header("Location: $redirect_url?return=sql_error&phase=CP1&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=CP1&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->bind_param("sissdd", $_SESSION['id'], $next_profile, $_POST['profile_name'], $area, $latitude, $longitude);
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=CP2&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=CP2&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->execute();
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=CP3&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=CP3&sql=$stmt->error");
             exit();
           }
 	  $stmt->close();
 
 	  $_SESSION['profile'] = $next_profile;
-          header("Location: $redirect_url?return=success_create_profile");
+          header("Location: $redirect_url?type=display&page=profiles&return=success_create_profile");
 
   }
 
@@ -98,22 +98,22 @@
 
           $stmt = $conn->prepare("UPDATE profiles set name = ? where id = ? AND profile_no = ?");
           if (false === $stmt) {
-            header("Location: $redirect_url?return=sql_error&phase=RP1&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=RP1&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->bind_param("ssi", $_POST['profile_name'], $_SESSION['id'], $_SESSION['profile']);
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=RP2&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=RP2&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->execute();
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=RP3&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=RP3&sql=$stmt->error");
             exit();
           }
           $stmt->close();
 
-          header("Location: $redirect_url?return=success_rename_profile");
+          header("Location: $redirect_url?type=display&page=profiles&return=success_rename_profile");
 
   }
 
@@ -123,17 +123,17 @@
 	 
           $stmt = $conn->prepare("DELETE from profiles where id = ? AND profile_no = ?");
           if (false === $stmt) {
-            header("Location: $redirect_url?return=sql_error&phase=DP1&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=DP1&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=DP2&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=DP2&sql=$stmt->error");
             exit();
           }
           $rs = $stmt->execute();
           if (false === $rs) {
-            header("Location: $redirect_url?return=sql_error&phase=DP3&sql=$stmt->error");
+            header("Location: $redirect_url?type=display&page=profiles&return=sql_error&phase=DP3&sql=$stmt->error");
             exit();
           }
           $stmt->close();
@@ -175,7 +175,7 @@
              $_SESSION['profile'] = $row['min'];
           }
 
-          header("Location: $redirect_url?return=success_delete_profile");
+          header("Location: $redirect_url?type=display&page=profiles&return=success_delete_profile");
 
   }
 

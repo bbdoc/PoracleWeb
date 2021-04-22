@@ -20,7 +20,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UQ1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQ1&sql=$stmt->error");
       exit();
     }
 
@@ -33,19 +33,19 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UQ2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQ2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UQ3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQ3&sql=$stmt->error");
       exit();
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_update_quest#pills-quests");
     exit();
   }
 
@@ -58,7 +58,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=DQ1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DQ1&sql=$stmt->error");
       exit();
     }
 
@@ -68,19 +68,19 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DQ2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DQ2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DQ3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DQ3&sql=$stmt->error");
       exit();
     }
 
     $stmt->close();
-    header("Location: $redirect_url?return=success_delete_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest#pills-quests");
     exit();
   }
 
@@ -102,21 +102,21 @@
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
                                VALUES ( ?, '', ? , ?, ?, 0, 7, ?, ?)");
         if (false === $stmt) {
-          header("Location: $redirect_url?return=sql_error&phase=AQM1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM1&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $mon_id, $template, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AQM2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM2&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->execute();
 	if (false === $rs) {
           if ( stristr($stmt->error, "Duplicate") ) {
-            header("Location: $redirect_url?return=duplicate");
+            header("Location: $redirect_url?type=display&page=quest&return=duplicate");
             exit();
           }
-          header("Location: $redirect_url?return=sql_error&phase=AQM3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM3&sql=$stmt->error");
           exit();
         }
         $stmt->close();
@@ -130,17 +130,17 @@
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
                                VALUES ( ?, '', ? , ?, ?, 0, 2, ?, ?)");
         if (false === $stmt) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI1&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $item, $template, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI2&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->execute();
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI3&sql=$stmt->error");
           exit();
         }
         $stmt->close();
@@ -154,24 +154,24 @@
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
                                VALUES ( ?, '', ? , ?, ?, 0, 12, ?, ?)");
         if (false === $stmt) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI1&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $item, $template, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI2&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->execute();
         if (false === $rs) {
-          header("Location: $redirect_url?return=sql_error&phase=AQI3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI3&sql=$stmt->error");
           exit();
         }
         $stmt->close();
       }
     }
 
-    header("Location: $redirect_url?return=success_added_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_added_quest#pills-quests");
     exit();
   }
 
@@ -181,22 +181,22 @@
 
     $stmt = $conn->prepare("DELETE FROM quest WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=DAQ1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DAQ1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DAQ2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DAQ2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=DAQ3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=DAQ3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
 
-    header("Location: $redirect_url?return=success_delete_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest#pills-quests");
     exit();
   }
 
@@ -207,21 +207,21 @@
 
     $stmt = $conn->prepare("UPDATE quest set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UQD1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQD1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UQD2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQD2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UQD3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=UQD3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?return=success_update_quests_distance#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_update_quests_distance#pills-quests");
     exit();
   }
 
