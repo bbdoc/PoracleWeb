@@ -76,7 +76,7 @@
            <?php } ?>
 
 	   <?php if ($_SESSION['type']=="discord:user" && !isset($admin_alarm) && $enable_telegram == "True") { ?>
-              <a href='?type=display&page=migrate'>
+	   <a href='<?php echo $redirect_url; ?>?type=display&page=migrate'>
               <button type='button' class='btn mt-1' style='width:100%; background-color:white; border: 2px solid darkblue; padding:0px;'>
 	      <font color=darkblue size=2><?php echo i8ln("Migrate"); ?> Discord <i class='fas fa-arrow-circle-right'></i> Telegram</i></font>
 	      </button>
@@ -90,7 +90,7 @@
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
-	    <a class="nav-link dropdown-toggle" href="./">
+	    <a class="nav-link dropdown-toggle" href="<?php echo $redirect_url; ?>">
                <font color="grey"><i class="fas fa-tachometer-alt"></i></font> <?php echo i8ln('Dashboard'); ?>
             </a>
         </li>
@@ -108,35 +108,35 @@
           <div class="card-body">
     
             <?php if (@$disable_mons <> "True") { ?>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=pokemon">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=pokemon">
                <img src="img/nav/mons.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Pokémon'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_raids <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=raid">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=raid">
                 <img src="img/nav/raid.svg" style="width:22px;height:22px;filter: brightness(40%);"> <?php echo i8ln('Raids'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_quests <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=quest">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=quest">
                 <img src="img/nav/quest.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Quests'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_invasions <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=invasion">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=invasion">
                 <img src="img/nav/invasion.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Invasions'); ?>
               </a>
             <?php } ?>
 
             <?php if (@$disable_lures <> "True") { ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=lure">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=lure">
                 <img src="img/nav/lure.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Lures'); ?>
               </a>
             <?php } ?>
@@ -154,15 +154,15 @@
         <div id="collapse-settings" class="collapse" aria-labelledby="heading-settings" data-parent="#accordion-test">
 	  <div class="card-body">
 
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=area">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=area">
                 <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Areas & Location'); ?>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=profiles">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=profiles">
                 <i class="fas fa-users"></i>&nbsp;&nbsp; <?php echo i8ln('Profiles'); ?>
 	      </a>
 	      <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?type=display&page=cleaning">
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=cleaning">
                 <i class="fas fa-eraser"></i>&nbsp;&nbsp; <?php echo i8ln('Cleaning'); ?>
               </a>
 
@@ -218,7 +218,7 @@
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="?type=display&page=admin_tools">
+            <a class="nav-link dropdown-toggle" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
                <i class="fas fa-user-shield fa-fw"></i> <?php echo i8ln('Admin Tools'); ?>
             </a>
         </li>
