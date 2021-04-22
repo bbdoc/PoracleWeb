@@ -43,7 +43,7 @@ foreach ($areas as $key => $area) {
 
 			    <!-- Card -->
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
-                                <div class="card shadow h-100 py-2">
+                                <div class="card shadow h-100">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
@@ -99,17 +99,12 @@ foreach ($areas as $key => $area) {
 				    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-						    <img src="img/nav/mons.png" style="width:50px;height:50px;"><br>
-						    <?php echo i8ln("Monsters"); ?>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
+						    <img src="img/nav/mons.png" style="width:50px;height:50px;" class="mb-2"><br>
+						    <?php echo $num_mon_tracked; ?><br><?php echo i8ln("Monsters"); ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row d-flex justify-content-center">
-					    <div class="row">
-                                               <font size=6><b><?php echo $num_mon_tracked; ?></b></font>
-                                            </div>
-					</div>
                                     </div>
 				</div>
                                 </a>
@@ -124,15 +119,10 @@ foreach ($areas as $key => $area) {
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);"><br>
-						    <?php echo i8ln("Raids"); ?>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
+                                                    <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);" class="mb-2"><br>
+						    <?php echo $num_raid_tracked; ?><br><?php echo i8ln("Raids"); ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-					    <div class="row">
-                                               <font size=6><b><?php echo $num_raid_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
@@ -149,15 +139,10 @@ foreach ($areas as $key => $area) {
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-						    <img src="img/nav/egg.png" style="width:50px;height:50px;"><br>
-						    <?php echo i8ln("Eggs"); ?>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
+						    <img src="img/nav/egg.png" style="width:50px;height:50px;" class="mb-2"><br>
+						    <?php echo $num_egg_tracked; ?><br><?php echo i8ln("Eggs"); ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-                                            <div class="row">
-                                               <font size=6><b><?php echo $num_egg_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
@@ -175,15 +160,10 @@ foreach ($areas as $key => $area) {
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/quest.png" style="width:50px;height:50px;"><br>
-						    <?php echo i8ln("Quests"); ?>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
+                                                    <img src="img/nav/quest.png" style="width:50px;height:50px;" class="mb-2"><br>
+						    <?php echo $num_quest_tracked; ?><br><?php echo i8ln("Quests"); ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-					    <div class="row">
-                                               <font size=6><b><?php echo $num_quest_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
@@ -201,14 +181,9 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/invasion.png" style="width:50px;height:50px;"><br>
-						    <?php echo i8ln("Invasions"); ?>
+                                                    <img src="img/nav/invasion.png" style="width:50px;height:50px;" class="mb-2"><br>
+						    <?php echo $num_invasion_tracked; ?><br><?php echo i8ln("Invasions"); ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-					    <div class="row">
-                                               <font size=6><b><?php echo $num_invasion_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
@@ -226,14 +201,9 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/lure.png" style="width:50px;height:50px;"><br>
-						    <?php echo i8ln("Lures"); ?>
+                                                    <img src="img/nav/lure.png" style="width:50px;height:50px;" class="mb-2"><br>
+						    <?php echo $num_lure_tracked; ?><br><?php echo i8ln("Lures"); ?>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-					    <div class="row">
-                                               <font size=6><b><?php echo $num_lure_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
