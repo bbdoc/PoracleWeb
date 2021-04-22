@@ -49,6 +49,8 @@ foreach ($areas as $key => $area) {
                                             <div class="col">
 						<div class="h5 mb-0 text-gray-800 text-center mt-2" style="font-size:90%;">
 
+						<?php if (@$disable_location <> "True") { ?>
+
                                                 <?php if ($latitude == "0.0000000000" && $longitude == "0.0000000000") { ?>
                                                     <div class="alert alert-warning w-80 m-3" role="alert">
                                                         <?php echo i8ln("Your location is not set. Distance settings won't be taken into account."); ?>
@@ -63,6 +65,8 @@ foreach ($areas as $key => $area) {
                                                     <?php echo "[ ".round($latitude, 4); ?>,
 						    <?php echo round($longitude, 4)." ]"; ?>
                                                 </div>
+						<?php } ?>
+
 						<?php } ?>
 
                                                 <?php if ($area == "[]") { ?>
@@ -88,6 +92,7 @@ foreach ($areas as $key => $area) {
 			    </div>
 
 			    <!-- Card -->
+                            <?php if (@$disable_mons <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -110,8 +115,10 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
 			    </div>
+                            <?php } ?>
 
                             <!-- Card -->
+                            <?php if (@$disable_raids <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -134,8 +141,10 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                             <!-- Card -->
+                            <?php if (@$disable_raids <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -158,9 +167,11 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
 
                             <!-- Card -->
+                            <?php if (@$disable_quests <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -183,8 +194,10 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                             <!-- Card -->
+                            <?php if (@$disable_invasions <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -207,8 +220,10 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                             <!-- Card -->
+                            <?php if (@$disable_lures <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -231,6 +246,7 @@ foreach ($areas as $key => $area) {
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                     </div>
 

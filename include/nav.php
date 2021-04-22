@@ -156,11 +156,13 @@
 
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=area">
                 <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Areas & Location'); ?>
-              </a>
+	      </a>
+              <?php if (@$disable_profiles <> "True") { ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=profiles">
                 <i class="fas fa-users"></i>&nbsp;&nbsp; <?php echo i8ln('Profiles'); ?>
 	      </a>
+              <?php }  ?>
 	      <div class="dropdown-divider"></div>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=cleaning">
                 <i class="fas fa-eraser"></i>&nbsp;&nbsp; <?php echo i8ln('Cleaning'); ?>
