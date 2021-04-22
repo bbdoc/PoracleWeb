@@ -12,10 +12,10 @@
 
   <a class="navbar-brand" href=".">
     <?php echo $title; ?>&nbsp;
-  </a>
     <?php if ( $_SESSION['number_of_profiles'] > 1) { ?>
     <span class="badge badge-info"><?php echo $_SESSION['profile_name']; ?></span>
     <?php } ?>
+  </a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" style="position:absolute;right:1%">

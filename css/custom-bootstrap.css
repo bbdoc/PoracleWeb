@@ -5197,6 +5197,7 @@ a.badge-success.focus {
 .badge-info {
     color: #fff;
     background-color: #36b9cc;
+    font-size: small;
 }
 
 a.badge-info:hover,

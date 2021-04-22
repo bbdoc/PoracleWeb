@@ -135,15 +135,8 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                         <?php
 
                            if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
-     
-     			   if ( $_GET['gen'] == "all" )
-			   { 
-                                // If Tracking More than 50 pokemons, show only ALL
-                                $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                $result = $conn->query($sql);
-                                if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0"; }
-			   }
 
+                           if ( @$_GET['gen'] == "all" ) { $gen_selector = "AND pokemon_id = 0"; }
                            if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
                            if ( @$_GET['gen'] == 2 ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
                            if ( @$_GET['gen'] == 3 ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
@@ -153,6 +146,20 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
 
                         ?>
                         
+                        <?php 
+
+                        // Count Trackings
+                        $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                        $result = $conn->query($sql);
+
+			// Show ALL Mons if less than 50 trackings
+			if ( $result->num_rows <= 50 ) { $gen_selector = ""; }
+
+                        // Only Show Gen Selector if More than 50 trackings
+                        if ( $result->num_rows > 50 ) {
+
+                        ?>
+
                         <nav aria-label="Gen Selector">
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php if (@$_GET['gen'] == "all") { echo "active";}; ?>">
@@ -173,6 +180,8 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                             <a class="page-link" href="?type=display&page=pokemon&gen=6"><center>G6<br><small><?php echo $gen6; ?></small></center></a></li>
                           </ul>
 			</nav>
+
+                        <?php } ?>
 
                         <?php echo @$config_alarm; ?>
                         
