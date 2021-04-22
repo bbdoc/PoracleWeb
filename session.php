@@ -77,6 +77,7 @@ if ( $json['status']="ok" ) {
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
+   $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
 } else {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
