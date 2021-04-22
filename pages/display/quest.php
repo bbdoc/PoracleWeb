@@ -4,6 +4,9 @@
                     ?>
                     <div class="tab-pane fade active show" id="pills-quests" role="tabpanel" aria-labelledby="pills-quests-tab">
 
+                        <!-- Top Quick Links  -->
+                        <?php include "include/toplinks.php"; ?>
+
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">

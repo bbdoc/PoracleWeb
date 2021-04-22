@@ -2,6 +2,9 @@
                     <?php if (@$disable_lures <> "True") { ?> 
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
 
+                        <!-- Top Quick Links  -->
+                        <?php include "include/toplinks.php"; ?>
+
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">

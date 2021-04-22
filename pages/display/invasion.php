@@ -2,6 +2,9 @@
                     <?php if (@$disable_invasions <> "True") { ?>
                     <div class="tab-pane fade active show" id="pills-invasions" role="tabpanel" aria-labelledby="pills-invasions-tab">
 
+                        <!-- Top Quick Links  -->
+                        <?php include "include/toplinks.php"; ?>
+
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
