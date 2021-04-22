@@ -23,7 +23,7 @@
                                 <?php if (@$disable_areas <> "True") { ?>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col">
-                                        <div class="row">
+                                        <div class="row mr-3 ml-3">
 
                                             <?php
                                             if ($area == "[]") {
@@ -41,8 +41,8 @@
                                                     $area = str_replace('[', '', $area);
                                                     $area = str_replace(']', '', $area);
                                                 ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 text-center">
-                                                <div class="card bg-dark text-white shadow">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center">
+                                                <div class="card bg-darkgrey text-white shadow">
                                                     <div class="card-body-areas">
                                                         <?php echo strtoupper($area); ?>
                                                     </div>
