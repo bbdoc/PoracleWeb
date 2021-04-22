@@ -94,157 +94,151 @@ foreach ($areas as $key => $area) {
 			    <!-- Card -->
                             <?php if (@$disable_mons <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=pokemon">
                                 <div class="card border-top-dark shadow h-100 py-2">
-                                    <div class="card-body d-flex flex-column justify-content-between">
+				    <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <a href="?type=display&page=pokemon">
 						    <img src="img/nav/mons.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Monsters"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
 					    <div class="row">
-                                               <font size=8><b><?php echo $num_mon_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_mon_tracked; ?></b></font>
                                             </div>
-                                        </div>
+					</div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
 			    </div>
                             <?php } ?>
 
                             <!-- Card -->
                             <?php if (@$disable_raids <> "True") { ?>
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=raid">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-						    <a href="?type=display&page=raid">
                                                     <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);"><br>
 						    <?php echo i8ln("Raids"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
 					    <div class="row">
-                                               <font size=8><b><?php echo $num_raid_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_raid_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
                             </div>
                             <?php } ?>
 
                             <!-- Card -->
                             <?php if (@$disable_raids <> "True") { ?>
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=raid">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <a href="?type=display&page=raid">
 						    <img src="img/nav/egg.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Eggs"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
                                             <div class="row">
-                                               <font size=8><b><?php echo $num_egg_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_egg_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
                             </div>
                             <?php } ?>
 
 
                             <!-- Card -->
                             <?php if (@$disable_quests <> "True") { ?>
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=quest">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <a href="?type=display&page=quest">
                                                     <img src="img/nav/quest.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Quests"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
 					    <div class="row">
-                                               <font size=8><b><?php echo $num_quest_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_quest_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
                             </div>
                             <?php } ?>
 
                             <!-- Card -->
                             <?php if (@$disable_invasions <> "True") { ?>
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=invasion">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <a href="?type=display&page=invasion">
                                                     <img src="img/nav/invasion.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Invasions"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
 					    <div class="row">
-                                               <font size=8><b><?php echo $num_invasion_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_invasion_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
                             </div>
                             <?php } ?>
 
                             <!-- Card -->
                             <?php if (@$disable_lures <> "True") { ?>
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=lure">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <a href="?type=display&page=lure">
                                                     <img src="img/nav/lure.png" style="width:50px;height:50px;"><br>
 						    <?php echo i8ln("Lures"); ?>
-                                                    </a>
-                                                    <hr>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-center">
 					    <div class="row">
-                                               <font size=8><b><?php echo $num_lure_tracked; ?></b></font>
+                                               <font size=6><b><?php echo $num_lure_tracked; ?></b></font>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+				</div>
+                                </a>
                             </div>
                             <?php } ?>
 
