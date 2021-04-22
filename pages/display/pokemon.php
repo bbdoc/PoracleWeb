@@ -1,4 +1,40 @@
 
+<?php
+
+$sql_base = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ";
+
+$sql = $sql_base."AND pokemon_id =0";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $genall = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id between 1 and 151";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen1 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id between 152 and 251";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen2 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id between 252 and 386";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen3 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id between 387 and 493";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen4 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id between 494 and 649";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen5 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id >= 650";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
+
+
+?>
+
+
                 <div class="tab-content mb-5" id="pills-tab-homeContent">
                     <?php if (@$disable_mons <> "True") { ?>
                     <div class="tab-pane fade show active" id="pills-mons" role="tabpanel"
@@ -98,7 +134,7 @@
 
                         <?php
 
-                           if (!isset($_GET['gen']) || $_GET['gen'] = "") { $_GET['gen'] = "all"; }
+                           if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
      
      			   if ( $_GET['gen'] == "all" )
 			   { 
@@ -108,12 +144,12 @@
                                 if ( $result->num_rows > 50 ) {  $gen_selector = "AND pokemon_id = 0"; }
 			   }
 
-                           if ( @$_GET['gen'] == "1" ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
-                           if ( @$_GET['gen'] == "2" ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
-                           if ( @$_GET['gen'] == "3" ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
-                           if ( @$_GET['gen'] == "4" ) { $gen_selector = "AND pokemon_id between 387 and 493"; }
-                           if ( @$_GET['gen'] == "5" ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
-                           if ( @$_GET['gen'] == "6" ) { $gen_selector = "AND pokemon_id >= 650"; }
+                           if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
+                           if ( @$_GET['gen'] == 2 ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
+                           if ( @$_GET['gen'] == 3 ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
+                           if ( @$_GET['gen'] == 4 ) { $gen_selector = "AND pokemon_id between 387 and 493"; }
+                           if ( @$_GET['gen'] == 5 ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
+			   if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id >= 650"; }
 
                         ?>
                         
@@ -121,20 +157,20 @@
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php if (@$_GET['gen'] == "all") { echo "active";}; ?>">
                             <a class="page-link" href="?type=display&page=pokemon&gen=all">
-			    <center><?php echo i8ln("ALL"); ?></center>
+			    <center><?php echo i8ln("ALL"); ?><br><small><?php echo $genall; ?></small></center>
                             </a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 1) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=1"><center>G1</center></a></li>
+			    <a class="page-link" href="?type=display&page=pokemon&gen=1"><center>G1<br><small><?php echo $gen1; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 2) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=2"><center>G2</center></a></li>
+                            <a class="page-link" href="?type=display&page=pokemon&gen=2"><center>G2<br><small><?php echo $gen2; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 3) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=3"><center>G3</center></a></li>
+                            <a class="page-link" href="?type=display&page=pokemon&gen=3"><center>G3<br><small><?php echo $gen3; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 4) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=4"><center>G4</center></a></li>
+                            <a class="page-link" href="?type=display&page=pokemon&gen=4"><center>G4<br><small><?php echo $gen4; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 5) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=5"><center>G5</center></a></li>
+                            <a class="page-link" href="?type=display&page=pokemon&gen=5"><center>G5<br><small><?php echo $gen5; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 6) { echo "active";}; ?>">
-                            <a class="page-link" href="?type=display&page=pokemon&gen=6"><center>G6</center></a></li>
+                            <a class="page-link" href="?type=display&page=pokemon&gen=6"><center>G6<br><small><?php echo $gen6; ?></small></center></a></li>
                           </ul>
 			</nav>
 
