@@ -11,9 +11,11 @@
   </div>
 
   <a class="navbar-brand" href=".">
-    <?php echo $title; ?>
-   
+    <?php echo $title; ?>&nbsp;
   </a>
+    <?php if ( $_SESSION['number_of_profiles'] > 1) { ?>
+    <span class="badge badge-info"><?php echo $_SESSION['profile_name']; ?></span>
+    <?php } ?>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" style="position:absolute;right:1%">
@@ -57,7 +59,8 @@
               <tr>
                  <td width=100%>
 	            <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
-	            <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+		    <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?>
+                    </span>
                  </td>
 		 <td>
 		    <form action='./actions/profile.php' method='POST'>
@@ -66,7 +69,7 @@
 		     data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                     </form>
 		 </td>
-              </tr>
+	      </tr>
            </table>
 
 	   <?php if ( isset($custom_profile_msg) ) { ?>
