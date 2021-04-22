@@ -15,7 +15,7 @@
         $gender = ltrim($value, 'gender_');
       }
     }
-    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
+    $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     $stmt = $conn->prepare("
       UPDATE invasion
@@ -102,7 +102,7 @@
         $gender = ltrim($value, 'gender_');
       }
     }
-    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
+    $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 6) === "grunt_") {

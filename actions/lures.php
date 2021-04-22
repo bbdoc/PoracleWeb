@@ -12,7 +12,7 @@
         $clean = ltrim($value, 'clean_');
       }
     }
-    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
+    $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     $stmt = $conn->prepare("
       UPDATE lures
@@ -95,7 +95,7 @@
         $clean = ltrim($value, 'clean_');
       }
     }
-    $template = !empty($_POST['template']) ? $_POST['template'] : 1;
+    $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 5) === "lure_") {
