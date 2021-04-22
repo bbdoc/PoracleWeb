@@ -2,7 +2,9 @@
 
 include "./config.php";
 
-session_start(); // initialize the session variables
+if(session_status() == PHP_SESSION_NONE){
+   session_start();
+}
 
 session_unset(); // clear the $_SESSION variable
 

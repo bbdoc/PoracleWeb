@@ -13,7 +13,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
 <head>
 
     <?php
-    if ($gAnalyticsId != "") {
+    if (@$gAnalyticsId != "") {
         echo '<!-- Google Analytics -->
             <script>
                 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
