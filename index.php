@@ -50,7 +50,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="search_mons.js?v=<?=time();?>"></script>
-    <script type="text/javascript" src="functions.js?v=<?=time();?>"></script>
+    <script type="text/javascript" src="js/functions.js?v=<?=time();?>"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
