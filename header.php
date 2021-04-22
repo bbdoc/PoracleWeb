@@ -124,26 +124,31 @@ if (isset($_SESSION['id'])) {
 
 }
 
+
 if (isset($_SESSION['username'])) {
+
     // Exit if user not registered to Poracle
+
+    if ( isset($subs_enable) && $subs_enable == 'True' )
+    {
+            $redirect_page = "subs_renew.php";
+    } else {
+            $redirect_page = "unregistered.php";
+    }
 
     $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "' ".@$subs_clause;
     $result = $conn->query($sql);
-    if ($result->num_rows == 0) {
+    if ($result->num_rows == 0) { 
+         if (strpos($_SERVER['REQUEST_URI'],$redirect_page) == false) { 
+		 header("Location: $redirect_url/$redirect_page"); 
+		 exit();
+	 } 
+    } 
 
-        // Not-Registered Page
-        if ( isset($subs_enable) && $subs_enable == 'True' ) { 
-	    include "./subs_renew.php"; 
-            exit();
-	} else {
-	    include "./unregistered.php";
-	    exit();
-	}
-    }
-} else {
-    // If not logged in import login page
-    include "./login.php";
-    exit();
+} else { 
+     // If not logged in import login page
+     include "./login.php";
+     exit();
 }
 
 if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) 
