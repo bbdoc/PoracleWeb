@@ -95,7 +95,7 @@
 
                         <?php
 
-                           if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
+                           if (!isset($_GET['gen']) || $_GET['gen'] = "") { $_GET['gen'] = "all"; }
      
      			   if ( $_GET['gen'] == "all" )
 			   { 
