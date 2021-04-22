@@ -20,9 +20,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" style="position:absolute;right:1%">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	<img src="img/<?php echo $_SESSION['locale']; ?>.png" style="height:35px;width:35px">
-        </a>
+        <?php 
+           $language_count=0;
+           $languages = explode(",", $allowed_languages);
+	   foreach ($languages as &$language) { $language_count++; } 
+	   if ( $language_count > 1) {
+        ?>
+	   <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	   <img src="img/<?php echo $_SESSION['locale']; ?>.png" style="height:35px;width:35px">
+           </a>
+        <?php } ?>
 	<div class="dropdown-menu language-dropdown" aria-labelledby="languageDropdown">
 
         <?php
