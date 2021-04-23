@@ -3,8 +3,17 @@
 $time_start = microtime(true); 
 
 include "./config.php";
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After Include Config:</b> '.$execution_time.' Mins';
 include "./include/db_connect.php";
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After DB Connect:</b> '.$execution_time.' Mins';
 include "./include/functions.php";
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After Include Functions:</b> '.$execution_time.' Mins';
 
 if (!isset($_SESSION['admin_id'])) {
         header("Location: $redirect_url");
@@ -45,6 +54,10 @@ foreach ($dbnames as &$db) {
 
 }
 
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After DB Select:</b> '.$execution_time.' Mins';
+
 $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $_SESSION['dbname']);
 $sql = "select id, name, type FROM humans WHERE id = '".$search_id."'"; 
 $result = $conn->query($sql);
@@ -70,6 +83,10 @@ $opts = array(
   )
 );
 
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After API Opts:</b> '.$execution_time.' Mins';
+
 $context = stream_context_create($opts);
 
 // Update Areas to Match New User ID
@@ -84,6 +101,10 @@ if ( $json['status']="ok" ) {
    header("Location: $redirect_url?return=error_api_nok");
    exit();
 }
+
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+#echo '<b>After API GET:</b> '.$execution_time.' Mins';
 
 // Reset Admin Account
 
