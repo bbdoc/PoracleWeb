@@ -1,5 +1,7 @@
 <?php
 
+$time_start = microtime(true); 
+
 include "./config.php";
 include "./include/db_connect.php";
 include "./include/functions.php";
@@ -91,6 +93,12 @@ if ( $_SESSION['id'] == $_SESSION['admin_id'] )
         $_SESSION['type']=$_SESSION['admin_type'];
         $_SESSION['dbname']=$_SESSION['admin_dbname'];
 }
+
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start)/60;
+
+#echo '<b>Total Execution Time:</b> '.$execution_time.' Mins';
+#exit();
 
 header("Location: $redirect_url");
 
