@@ -58,6 +58,17 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['type']=$row['type'];
 }
 
+// Get Config Items from API and Store in Session Variables
+
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "X-Poracle-Secret: $api_secret\r\n"
+  )
+);
+
+$context = stream_context_create($opts);
 
 // Update Areas to Match New User ID
 
