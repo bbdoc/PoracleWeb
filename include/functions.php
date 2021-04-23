@@ -1,5 +1,8 @@
 <?php
 
+$time_start = microtime(true);
+include "./config.php";
+
 if(!isset($_SESSION)){
     session_start();
 }
@@ -10,21 +13,26 @@ global $repository;
 
 $repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
 
+
 global $monsters_file;
 if (!isset($monsters_file)) {
 	$monsters_file = file_get_contents("$repository/src/util/monsters.json");
 }
+
+if ($debug == 'True') { echo 'Read Mons File Time in seconds: ' . (microtime(true) - $time_start) . '<br>'; }
 
 global $bosses_file;
 if (!isset($bosses_file)) {
 	$bosses_file = file_get_contents("https://raw.githubusercontent.com/ccev/pogoinfo/info/raid-bosses.json");
 }
 
+if ($debug == 'True') { echo 'Read Bosses File Time in seconds: ' . (microtime(true) - $time_start) . '<br>'; }
+
 if (!isset($grunts_file)) {
 	$grunts_file = file_get_contents("$repository/src/util/util.json");
 }
 
-
+if ($debug == 'True') { echo 'Read Grunts File Time in seconds: ' . (microtime(true) - $time_start) . '<br>'; exit(); }
 
 function get_form_name($pokemon_id, $form_id) {
 
