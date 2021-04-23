@@ -58,6 +58,20 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['type']=$row['type'];
 }
 
+
+// Update Areas to Match New User ID
+
+$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$json = json_decode($areas, true);
+
+if ( $json['status']="ok" ) {
+   $_SESSION['areas'] = $json['areas'];
+} else {
+   session_destroy();
+   header("Location: $redirect_url?return=error_api_nok");
+   exit();
+}
+
 // Reset Admin Account
 
 if ( $_SESSION['id'] == $_SESSION['admin_id'] )

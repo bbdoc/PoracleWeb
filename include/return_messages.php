@@ -407,4 +407,27 @@
 </div>
 <?php
     }
+    if (isset($_GET['return']) && $_GET['return'] == 'error_no_api') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("Could not connect to the API")."<br>";
+        echo i8ln("Please contact an admin!");
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'error_api_nok') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("API returned a NOK Status")."<br>";
+        echo i8ln("Please contact an admin!");
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+
 

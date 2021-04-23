@@ -306,5 +306,7 @@
     "EDIT":"EDITER",
     "SCHEDULE":"PLANIFIER",
     "RENAME":"RENOMMER",
-    "SWITCH":"SWITCHER"
+    "SWITCH":"SWITCHER",
+    "Could not connect to the API":"Impossible de se connecter à l'API",
+    "API returned a NOK Status":"L'API à renvoyé une erreur"
 }
