@@ -106,7 +106,7 @@ function translate_mon($word)
     global $localePkmnData;
     if ($localePkmnData == null) {
         $filepath = "$repository/src/util/locale/pokemonNames_".$locale.".json";
-        if (file_exists($filepath)) {
+        if (@fopen($filepath, 'r')) {
             $json_contents = file_get_contents($filepath);
             $localePkmnData = json_decode($json_contents, true);
         } else {

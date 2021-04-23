@@ -137,7 +137,7 @@ $mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.github
 
 // Provide a valid URL to PoracleWeb Template on your TileServer
 
-$mapPoracleWeb="http://youtileserver.com::9000/staticmap/PoracleWeb";
+$mapPoracleWeb="http://youtileserver.com:9000/staticmap/PoracleWeb";
 
 // Other Configuration Items
 
