@@ -80,8 +80,6 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
                 <div class="container-fluid col-lg-8 col-md-12">
 
                 <?php echo @$admin_alarm; ?>
-                    <!-- Profile Settings Modal -->
-                    <?php include "./modal/profile_settings_modal.php"; ?>
 
                     <!-- Success Alerts-->
                     <?php include "include/return_messages.php"; ?>

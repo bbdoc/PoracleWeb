@@ -1,8 +1,6 @@
 
 <?php
 
-include "../../header.php";
-
 $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $num_mon_tracked = $row['count']; }
