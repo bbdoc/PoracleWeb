@@ -104,10 +104,10 @@ $api_secret="MySecret";
 
 // Custom Page
 
-$custom_page_name    = "";
-$custom_page_url     = "";
-$custom_page_icon    = "fas fa-globe-europe";    # Any Free Icon from https://fontawesome.com/icons (Use Full Class)
-$custom_profile_msg  = "";
+#$custom_page_name    = "";
+#$custom_page_url     = "";
+#$custom_page_icon    = "fas fa-globe-europe";    # Any Free Icon from https://fontawesome.com/icons (Use Full Class)
+#$custom_profile_msg  = "";
 
 // Admin User
 
