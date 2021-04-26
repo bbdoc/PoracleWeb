@@ -14,14 +14,14 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
 
     <?php
     if (@$gAnalyticsId != "") {
-        echo '<!-- Google Analytics -->
-            <script>
-                window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-                ga("create", "' . $gAnalyticsId . '", "auto");
-                ga("send", "pageview");
-            </script>
-            <script async src="https://www.google-analytics.com/analytics.js"></script>
-            <!-- End Google Analytics -->';
+        echo "<!-- Global site tag (gtag.js) - Google Analytics -->
+              <script async src='https://www.googletagmanager.com/gtag/js?id=UA-4388795-5'></script>
+              <script>
+                 window.dataLayer = window.dataLayer || [];
+                 function gtag(){dataLayer.push(arguments);}
+                 gtag('js', new Date());
+                 gtag('config', '" . $gAnalyticsId . ");
+                 </script>";
     }
     ?>
 
