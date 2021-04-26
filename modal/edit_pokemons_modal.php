@@ -65,7 +65,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                         <label class="btn btn-secondary">
 			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
-                            oalert("Hello! I am an alert box!!");nclick="areas('<?php echo $pkm_unique_id; ?>')">
+                            onclick="areas('<?php echo $pkm_unique_id; ?>')">
                             <?php echo i8ln("Use Areas"); ?>
                         </label>
                         <label class="btn btn-secondary mr-2">

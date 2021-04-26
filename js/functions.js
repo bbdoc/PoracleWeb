@@ -13,7 +13,7 @@ function areas(type) {
    }
 }
 
-function areas() {
+function areas_add() { 
    var value = document.querySelector('input[name="use_areas"]:checked').value;
    if(value == "areas"){
       document.getElementById('distance').style.display = "none";

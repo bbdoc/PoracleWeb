@@ -27,10 +27,10 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                 <div class="input-group">
                                     <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
                                     <label class="btn btn-secondary">
-                                        <input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas()"><?php echo i8ln("Use Areas"); ?>
+                                        <input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas_add()"><?php echo i8ln("Use Areas"); ?>
                                     </label>
                                     <label class="btn btn-secondary mr-2">
-                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas()"><?php echo i8ln("Set Distance"); ?>
+                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas_add()"><?php echo i8ln("Set Distance"); ?>
                                     </label>
                                     </div>
                                 </div>
