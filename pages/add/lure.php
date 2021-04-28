@@ -116,7 +116,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $lures_list = "501,502,503,504";
+                                    $lures_list = "501,502,503,504,505";
                                     $lures = explode(',', $lures_list);
                                     foreach ($lures as &$lure) {
                                     ?>
