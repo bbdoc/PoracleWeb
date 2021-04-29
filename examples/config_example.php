@@ -98,6 +98,16 @@ $telegram_bot       = "MyBot_bot";
 $api_address="http://127.0.0.1:4201";
 $api_secret="MySecret";
 
+// Donation Pages
+
+#$paypalUrl = "https://paypal.me/StephaneHanrez";
+
+// Custom Page
+
+#$custom_page_name    = "";
+#$custom_page_url     = "";
+#$custom_page_icon    = "fas fa-globe-europe";    # Any Free Icon from https://fontawesome.com/icons (Use Full Class)
+#$custom_profile_msg  = "";
 
 // Admin User
 
@@ -127,7 +137,7 @@ $mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.github
 
 // Provide a valid URL to PoracleWeb Template on your TileServer
 
-$mapPoracleWeb="http://youtileserver.com::9000/staticmap/PoracleWeb";
+$mapPoracleWeb="http://youtileserver.com:9000/staticmap/PoracleWeb";
 
 // Other Configuration Items
 

@@ -19,7 +19,8 @@
         <?php echo "
             <input type='hidden' id='type' name='type' value='monsters'>
             <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
-            " ?>
+            <input type='hidden' id='gen' name='gen' value='".$_GET['gen']."'>
+	    " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>
     </form>

@@ -47,6 +47,7 @@ foreach ($dbnames as &$db) {
 
     <!-- Custom styles for this template-->
     <link href="css/custom-bootstrap.css?v=<?=time();?>" rel="stylesheet">
+    <link href="css/nav.css?v=<?=time();?>" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
@@ -66,7 +67,7 @@ foreach ($dbnames as &$db) {
             <!-- Main Content -->
             <div id="content">
 
-                <?php include "topbar.php" ?>
+                <?php include "include/nav.php" ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid col-lg-8 col-md-12">
@@ -219,6 +220,7 @@ foreach ($dbnames as &$db) {
 
     <!-- Custom scripts for all pages-->
     <script src="js/scripts.js"></script>
+    <script src="js/nav.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     <br>

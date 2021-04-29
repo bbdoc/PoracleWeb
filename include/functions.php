@@ -1,36 +1,19 @@
 <?php
 
+include "./config.php";
+include "./include/cache_handler.php";
+
 if(!isset($_SESSION)){
     session_start();
 }
 
 global $localeData;
 global $localePkmnData;
-global $repository;
-
-$repository="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
-
-global $monsters_file;
-if (!isset($monsters_file)) {
-	$monsters_file = file_get_contents("$repository/src/util/monsters.json");
-}
-
-global $bosses_file;
-if (!isset($bosses_file)) {
-	$bosses_file = file_get_contents("https://raw.githubusercontent.com/ccev/pogoinfo/info/raid-bosses.json");
-}
-
-if (!isset($grunts_file)) {
-	$grunts_file = file_get_contents("$repository/src/util/util.json");
-}
-
-
 
 function get_form_name($pokemon_id, $form_id) {
 
-   global $repository;
-   global $monsters_file;
-   $json = json_decode($monsters_file, true);
+   global $monsters_json;
+   $json = json_decode($monsters_json, true);
 
    foreach ($json as $name => $pokemon) {
 
@@ -44,9 +27,8 @@ function get_form_name($pokemon_id, $form_id) {
 
 function get_all_forms($pokemon_id) {
 
-   global $repository;
-   global $monsters_file;
-   $json = json_decode($monsters_file, true);
+   global $monsters_json;
+   $json = json_decode($monsters_json, true);
    $form_exclude = array("Shadow", "Normal", "Purified", "Copy 2019", "Fall 2019", "Spring 2020", "Vs 2019");
    $forms=array();
    $forms[0] = "Normal";
@@ -64,9 +46,8 @@ function get_all_forms($pokemon_id) {
 
 function get_all_mons() {
 
-   global $repository;
-   global $monsters_file;
-   $json = json_decode($monsters_file, true);
+   global $monsters_json;
+   $json = json_decode($monsters_json, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
@@ -80,10 +61,9 @@ function get_all_mons() {
 
 function get_mons($pokemon_id) {
 
-   global $repository;
-   global $monsters_file;
+   global $monsters_json;
    $found_name="";
-   $json = json_decode($monsters_file, true);
+   $json = json_decode($monsters_json, true);
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
@@ -97,19 +77,25 @@ function get_mons($pokemon_id) {
 
 function translate_mon($word)
 {
-    global $repository;
     $locale = @$_SESSION['locale'];
     if ($locale == "en") {
         return $word;
     }
 
+    global $repo_poracle;
+    global $file_localePkmnData;
     global $localePkmnData;
+    global $localePkmnData_json;
+
+    $filepath = "$repo_poracle/src/util/locale/pokemonNames_".$locale.".json";
+
     if ($localePkmnData == null) {
-        $filepath = "$repository/src/util/locale/pokemonNames_".$locale.".json";
-        if (@fopen($filepath, 'r')) {
-            $json_contents = file_get_contents($filepath);
-            $localePkmnData = json_decode($json_contents, true);
-        } else {
+        if (@fopen($file_localePkmnData, 'r')) {
+            $localePkmnData = json_decode($localePkmnData_json, true);
+	} else if (@fopen($filepath, 'r')) {
+            $localePkmnData_json = file_get_contents($filepath);
+            $localePkmnData = json_decode($localePkmnData_json, true);
+	} else {
             return $word;
 	}
     }
@@ -153,9 +139,8 @@ function get_areas() {
 function get_raid_bosses_json() {
 
    include "./config.php";
-   global $repository;
-   global $bosses_file;
-   $json = json_decode($bosses_file, true);
+   global $bosses_json;
+   $json = json_decode($bosses_json, true);
    $bosses=array();
 
    foreach ($json as $id => $level) {
@@ -170,9 +155,8 @@ function get_raid_bosses_json() {
 
 function get_grunts() {
 
-   global $repository;
-   global $grunts_file;
-   $json = json_decode($grunts_file, true);
+   global $grunts_json;
+   $json = json_decode($grunts_json, true);
    $grunts=array();
 
    foreach ($json as $key => $value) { 
@@ -211,7 +195,7 @@ function get_lure_name($id) {
 function set_locale() {
 
    include "./config.php";
-   include "./db_connect.php";
+   include "./include/db_connect.php";
    $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
    $result = $conn->query($sql) or die(mysqli_error($conn));
    while ($row = $result->fetch_assoc()) {  

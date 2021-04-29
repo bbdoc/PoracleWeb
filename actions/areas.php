@@ -1,7 +1,7 @@
 <?php
 
    include "../config.php";
-   include "../db_connect.php";
+   include "../include/db_connect.php";
 
   // UPDATE AREAS
 
@@ -22,17 +22,17 @@
     // Update Humans Table if current Profile is active
     $stmt = $conn->prepare("UPDATE humans set area = ?  WHERE id = ? AND current_profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UAH1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAH1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("ssi", $area_list, $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UAH2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAH2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UAH3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAH3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
@@ -40,23 +40,23 @@
     // Update Profile if exist
     $stmt = $conn->prepare("UPDATE profiles set area = ?  WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?return=sql_error&phase=UAP1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAP1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("ssi", $area_list, $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UAP2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAP2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?return=sql_error&phase=UAP3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=UAP3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
 
 
-    header("Location: $redirect_url?return=success_update_areas");
+    header("Location: $redirect_url?type=display&page=area&return=success_update_areas");
     exit();
   }
 

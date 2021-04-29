@@ -5,3 +5,4 @@ test*
 subs*
 composer.lock
 node_modules/
+.cache

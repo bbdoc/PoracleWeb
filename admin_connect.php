@@ -1,8 +1,10 @@
 <?php
 
+$time_start = microtime(true); 
+
 include "./config.php";
-include "./db_connect.php";
-include "./functions.php";
+include "./include/db_connect.php";
+include "./include/functions.php";
 
 if (!isset($_SESSION['admin_id'])) {
         header("Location: $redirect_url");
@@ -56,6 +58,31 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['name'];
         $_SESSION['type']=$row['type'];
+}
+
+// Get Config Items from API and Store in Session Variables
+
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "X-Poracle-Secret: $api_secret\r\n"
+  )
+);
+
+$context = stream_context_create($opts);
+
+// Update Areas to Match New User ID
+
+$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$json = json_decode($areas, true);
+
+if ( $json['status']="ok" ) {
+   $_SESSION['areas'] = $json['areas'];
+} else {
+   session_destroy();
+   header("Location: $redirect_url?return=error_api_nok");
+   exit();
 }
 
 // Reset Admin Account

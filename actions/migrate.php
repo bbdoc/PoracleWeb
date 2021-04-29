@@ -1,7 +1,7 @@
 <?php
 
    include "../config.php";
-   include "../db_connect.php";
+   include "../include/db_connect.php";
 
 if (isset($_POST['migrate']) && $_POST['migration_type'] == "discord2telegram" ) {
 

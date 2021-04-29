@@ -1,7 +1,7 @@
 <?php
 
    include "../config.php";
-   include "../db_connect.php";
+   include "../include/db_connect.php";
 
 if (isset($_POST['sync'])) {
 
@@ -35,8 +35,19 @@ if (isset($_POST['sync'])) {
 
 	      // Insert New Monsters Tracking
 	      
-	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".monsters SELECT
-                      REPLACE(id, ?, ? ),
+	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".monsters 
+		      (id, ping, clean, pokemon_id, distance,
+                      min_iv, max_iv,
+                      min_cp, max_cp,
+                      min_level, max_level,
+                      atk, def, sta,
+                      template, min_weight, max_weight, form, max_atk,
+                      max_def, max_sta, gender,
+                      great_league_ranking, great_league_ranking_min_cp,
+                      ultra_league_ranking, ultra_league_ranking_min_cp,
+                      profile_no, min_time, rarity, max_rarity
+                      )
+                      SELECT REPLACE(id, ?, ? ),
                       ping, clean, pokemon_id, distance,
                       min_iv, max_iv,
                       min_cp, max_cp,
@@ -45,7 +56,8 @@ if (isset($_POST['sync'])) {
                       template, min_weight, max_weight, form, max_atk,
                       max_def, max_sta, gender,
                       great_league_ranking, great_league_ranking_min_cp,
-                      ultra_league_ranking, ultra_league_ranking_min_cp
+		      ultra_league_ranking, ultra_league_ranking_min_cp,
+                      profile_no, min_time, rarity, max_rarity
 		      FROM monsters
                       WHERE id = ?
 		      ");
@@ -56,9 +68,10 @@ if (isset($_POST['sync'])) {
 
 	      // Insert New Eggs Tracking
 
-              $stmt = $conn->prepare("INSERT INTO ".$target_db.".egg SELECT
-                      REPLACE(id, ?, ? ),
-                      ping, clean, exclusive, template, distance, team, level
+	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".egg 
+		      (id,ping, clean, exclusive, template, distance, team, level, profile_no)
+                      SELECT REPLACE(id, ?, ? ),
+                      ping, clean, exclusive, template, distance, team, level, profile_no
                       FROM egg
                       WHERE id = ?
                       ");
@@ -69,12 +82,21 @@ if (isset($_POST['sync'])) {
 
 	      // Insert New Raids Tracking
 
-              $stmt = $conn->prepare("INSERT INTO ".$target_db.".raid SELECT
-                      REPLACE(id, ?, ? ),
-                      ping, clean, pokemon_id, exclusive, template, distance, team, level, form
+	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".raid 
+		      (id, ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no)
+                      SELECT REPLACE(id, ?, ? ),
+                      ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no
                       FROM raid
                       WHERE id = ?
                       ");
+
+
+	      echo "INSERT INTO ".$target_db.".raid
+                      (id, ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no)
+                      SELECT REPLACE(id, ".$_SESSION['id'].", ".$target_id." ),
+                      ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no
+                      FROM raid
+                      WHERE id = ".$_SESSION['id'];
 
               $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
               $rs = $stmt->execute();
@@ -82,9 +104,10 @@ if (isset($_POST['sync'])) {
 
               // Insert New Quests Tracking
 
-              $stmt = $conn->prepare("INSERT INTO ".$target_db.".quest SELECT
-                      REPLACE(id, ?, ? ),
-                      ping, clean, reward, template, shiny, reward_type, distance
+	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".quest 
+		      (id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
+                      SELECT REPLACE(id, ?, ? ),
+                      ping, clean, reward, template, shiny, reward_type, distance, profile_no
                       FROM quest
                       WHERE id = ?
                       ");

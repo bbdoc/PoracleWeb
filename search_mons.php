@@ -1,7 +1,7 @@
 <?php 
 
-include "./functions.php";
-include "./db_mad.php";
+include "./include/functions.php";
+include "./include/db_mad.php";
 include "./config.php";
 
 $mons=get_all_mons();

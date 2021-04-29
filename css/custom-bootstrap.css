@@ -5197,6 +5197,7 @@ a.badge-success.focus {
 .badge-info {
     color: #fff;
     background-color: #36b9cc;
+    font-size: small;
 }
 
 a.badge-info:hover,
@@ -6805,7 +6806,11 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-    background-color: #5a5c69 !important;
+    background-color: #000000 !important;
+}
+
+.bg-darkgrey {
+    background-color: dimgrey !important;
 }
 
 a.bg-dark:hover,
@@ -10529,6 +10534,7 @@ a:focus {
 }
 
 .sidebar .nav-item .nav-link .img-profile,
+.img-profile,
 .topbar .nav-item .nav-link .img-profile {
     height: 2rem;
     width: 2rem;
