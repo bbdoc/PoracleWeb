@@ -100,7 +100,8 @@ $api_secret="MySecret";
 
 // Donation Pages
 
-#$paypalUrl = "https://paypal.me/StephaneHanrez";
+#$paypalUrl = "";
+#$patreonUrl = "";
 
 // Custom Page
 
