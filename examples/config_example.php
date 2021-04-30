@@ -32,6 +32,7 @@ $disable_raids       = "False";
 $disable_quests      = "False";
 $disable_invasions   = "False";
 $disable_lures       = "False";
+$disable_nests       = "False";
 
 $site_is_https       = "True";
 

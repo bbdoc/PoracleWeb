@@ -97,6 +97,12 @@ if (isset($_SESSION['id'])) {
        $all_lures_cleaned = $row['clean'];
    }
 
+   $sql = "select min(clean) clean FROM nests WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $all_nests_cleaned = $row['clean'];
+   }
+
    // Get Areas, Lat, long and Enabled from Humans Table
    $sql = "select area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);

@@ -45,7 +45,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=lure&return=success_update_lure#pills-lures");
+    header("Location: $redirect_url?type=display&page=lure&return=success_update_lure");
     exit();
   }
 
@@ -81,7 +81,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=lure&return=success_delete_lure#pills-lures");
+    header("Location: $redirect_url?type=display&page=lure&return=success_delete_lure");
     exit();
   }
 
@@ -125,7 +125,7 @@
       }
     }
 
-    header("Location: $redirect_url?type=display&page=lure&return=success_added_lures#pills-lures");
+    header("Location: $redirect_url?type=display&page=lure&return=success_added_lures");
     exit();
   }
 
@@ -150,7 +150,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=lure&return=success_delete_lures#pills-lures");
+    header("Location: $redirect_url?type=display&page=lure&return=success_delete_lures");
     exit();
   }
 
@@ -176,7 +176,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=lure&return=success_update_lures_distance#pills-lures");
+    header("Location: $redirect_url?type=display&page=lure&return=success_update_lures_distance");
     exit();
 
   }

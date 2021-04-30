@@ -59,6 +59,14 @@ function get_all_mons() {
    return $monsters;
 }
 
+function get_nest_species() {
+
+   global $nest_species_json; 
+   $json = json_decode($nest_species_json, true);
+   $nest_species=$json['all']; 
+   return $nest_species;
+}
+
 function get_mons($pokemon_id) {
 
    global $monsters_json;

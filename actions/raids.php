@@ -45,7 +45,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=raid&return=success_update_raid#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_update_raid");
     exit();
   }
 
@@ -91,7 +91,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=raid&return=success_update_egg#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_update_egg");
     exit();
   }
 
@@ -127,7 +127,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=raid&return=success_delete_raid#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_delete_raid");
     exit();
   }
 
@@ -162,7 +162,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=raid&return=success_delete_egg#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_delete_egg");
     exit();
   }
 
@@ -264,7 +264,7 @@
       }
     }
 
-    header("Location: $redirect_url?type=display&page=raid&return=success_added_raids#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_added_raids");
     exit();
   }
 
@@ -306,7 +306,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=raid&return=success_delete_raids#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_delete_raids");
     exit();
   }
 
@@ -348,7 +348,7 @@
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=raid&return=success_update_raids_distance#pills-raids");
+    header("Location: $redirect_url?type=display&page=raid&return=success_update_raids_distance");
     exit();
 
   }

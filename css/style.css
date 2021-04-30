@@ -37,6 +37,7 @@ input[type="checkbox"][id^="target"],
 input[type="checkbox"][id^="energy"],
 input[type="checkbox"][id^="grunt"],
 input[type="checkbox"][id^="lure"],
+input[type="checkbox"][id^="nest"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
@@ -55,6 +56,7 @@ label[for^="profile"],
 label[for^="energy"],
 label[for^="grunt"],
 label[for^="lure"],
+label[for^="nest"],
 label[for^="item"] {
     background-color: #858796;
     color: #ffffff;
@@ -135,6 +137,7 @@ label img {
 :checked+label[for^="energy"], 
 :checked+label[for^="grunt"], 
 :checked+label[for^="lure"], 
+:checked+label[for^="nest"], 
 :checked+label[for^="item"] {
     border-color: #ddd;
     position: relative;
@@ -156,6 +159,7 @@ label img {
  :checked+label[for^="energy"]::before,
  :checked+label[for^="grunt"]::before,
  :checked+label[for^="lure"]::before,
+ :checked+label[for^="nest"]::before,
  :checked+label[for^="item"]::before {
     content: "✓";
     color: #ffffff;

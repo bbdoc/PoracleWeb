@@ -8,6 +8,7 @@ $locale = @$_SESSION['locale'];
 
 $file_monsters = "./.cache/monsters.json";
 $file_raid_bosses = "./.cache/raid-bosses.json";
+$file_nest_species = "./.cache/nest-species.json";
 $file_util = "./.cache/util.json";
 global $file_localePkmnData;
 $file_localePkmnData = "./.cache/localePkmnData_".$locale.".json";
@@ -17,8 +18,9 @@ $repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
 $repo_poracle_cache="24";
 
 global $repo_pogoinfo;
-$repo_pogoinfo = "https://raw.githubusercontent.com/ccev/pogoinfo/info";
+$repo_pogoinfo = "https://raw.githubusercontent.com/ccev/pogoinfo";
 $repo_pogoinfo_cache="2";
+
 
 // Cache Monsters.json
 
@@ -45,12 +47,23 @@ if (file_exists($file_util) && (filemtime($file_util) > (time() - 60 * 60 * $rep
 // Cache raid-bosses.json
 
 global $bosses_json;
-if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 60 * 60 * $repo_poracle_cache ))) {
+if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 60 * 60 * $repo_pogoinfo_cach ))) {
     $bosses_json = file_get_contents($file_raid_bosses);
 
 } else {
-    $bosses_json = file_get_contents($repo_pogoinfo."/raid-bosses.json");
+    $bosses_json = file_get_contents($repo_pogoinfo."/info/raid-bosses.json");
     file_put_contents($file_raid_bosses, $bosses_json);
+}
+
+// Cache nest_species.json
+
+global $nest_species_json; 
+if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() - 60 * 60 * $repo_pogoinfo_cach ))) {
+    $nest_species_json = file_get_contents($file_nest_species); 
+
+} else {
+    $nest_species_json = file_get_contents($repo_pogoinfo."/v2/nests/species-ids.json"); 
+    file_put_contents($file_nest_species, $nest_species_json);
 }
 
 // Cache pokemonNames locale file
