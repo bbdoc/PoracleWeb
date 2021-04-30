@@ -107,7 +107,7 @@ if (isset($_SESSION['id'])) {
    $sql = "select area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
-       $area = $row['area'];
+       $area_set = $row['area'];
        $latitude = $row['latitude'];
        $longitude = $row['longitude'];
        $enabled = $row['enabled'];
@@ -122,7 +122,7 @@ if (isset($_SESSION['id'])) {
 
    if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
-          $area = $row['area'];
+          $area_set = $row['area'];
           $latitude = $row['latitude'];
           $longitude = $row['longitude'];
       }

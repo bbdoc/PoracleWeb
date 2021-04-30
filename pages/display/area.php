@@ -1,68 +1,4 @@
 
-
-                    <!-- AREAS Card -->
-                    <?php if (@$disable_areas <> "True" ) { ?>
-                    <div class="col-xl-12 col-md-12">
-                        <!-- Areas -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <div class="row d-flex align-items-center pl-3 pr-3">
-
-				    <?php if (@$disable_areas <> "True") { ?>
-
-                                    <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#areasModal">
-                                       <span class="icon text-white-100"><i class="fas fa-edit"></i></span>
-                                       <span class="text w-100"><?php echo i8ln("EDIT"); ?> <?php echo i8ln("AREAS"); ?></span>
-                                    </a>
-
-				    <?php } ?>
-                                </div>
-			    </div>
-
-                            <div class="card-body">
-                                <?php if (@$disable_areas <> "True") { ?>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col">
-                                        <div class="row mr-3 ml-3">
-
-                                            <?php
-                                            if ($area == "[]") {
-                                            ?>
-                                            <div class="alert alert-warning w-100 m-3" role="alert">
-                                                <?php echo i8ln("You have not set any area yet!"); ?>
-                                            </div>
-                                            <?php
-                                                $areas = "";
-                                            } else {
-                                                $areas = explode(",", $area);
-
-                                                foreach ($areas as $key => $area) {
-                                                    $area = str_replace('"', '', $area);
-                                                    $area = str_replace('[', '', $area);
-                                                    $area = str_replace(']', '', $area);
-                                                ?>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center">
-                                                <div class="card bg-darkgrey text-white shadow">
-                                                    <div class="card-body-areas">
-                                                        <?php echo strtoupper($area); ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-
                     <!-- LOCATION Card -->
                     <?php if (@$disable_location <> "True" ) { ?>
                     <div class="col-xl-12 col-md-12">
@@ -168,7 +104,6 @@
                     </div>
                     <?php } ?>
 
-
                     <!-- DELETE LOCATION Modal -->
                     <div class="modal fade" id="DeleteLocationModal" tabindex="-1" role="dialog"
                         aria-labelledby="DeleteLocationLabel" aria-hidden="true">
@@ -219,6 +154,72 @@
                             </div>
                         </div>
                     </div>
+
+
+
+                    <?php if (@$disable_areas <> "True" ) { ?>
+                    <div class="col-xl-12 col-md-12">
+                        <!-- Areas -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="row d-flex align-items-center pl-3 pr-3">
+
+                                    <?php if (@$disable_areas <> "True") { ?>
+
+                                    <a href="#" class="btn btn-success btn-icon-split mr-2 mt-1 w-100" data-toggle="modal" data-target="#areasModal">
+                                       <span class="icon text-white-100"><i class="fas fa-edit"></i></span>
+                                       <span class="text w-100"><?php echo i8ln("EDIT"); ?> <?php echo i8ln("AREAS"); ?></span>
+                                    </a>
+
+                                    <?php } ?>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <?php if (@$disable_areas <> "True") { ?>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col">
+                                        <div class="row mr-3 ml-3">
+
+                                            <?php
+                                            if ($area == "[]") {
+                                            ?>
+                                            <div class="alert alert-warning w-100 m-3" role="alert">
+                                                <?php echo i8ln("You have not set any area yet!"); ?>
+                                            </div>
+                                            <?php
+                                                $areas = "";
+                                            } else {
+                                                $areas = explode(",", $area_set);
+
+                                                foreach ($areas as $key => $area) {
+                                                    $area = str_replace('"', '', $area);
+                                                    $area = str_replace('[', '', $area);
+                                                    $area = str_replace(']', '', $area);
+                                                ?>
+                                            <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 text-center">
+                                                <div class="card bg-darkgrey text-white shadow mb-2">
+                                                    <div class="card-body-areas">
+                                                        <?php echo strtoupper($area); ?>
+						    </div>
+						    <?php if (file_exists(".cache/geo_".strtoupper($area).".png")) { ?>
+						       <img src=".cache/geo_<?php echo strtoupper($area); ?>.png" style="width:100%; max-width=100px;"></img>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
 
                 </div>
 

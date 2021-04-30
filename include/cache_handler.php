@@ -21,6 +21,7 @@ global $repo_pogoinfo;
 $repo_pogoinfo = "https://raw.githubusercontent.com/ccev/pogoinfo";
 $repo_pogoinfo_cache="2";
 
+$img_cache="24";
 
 // Cache Monsters.json
 
@@ -47,7 +48,7 @@ if (file_exists($file_util) && (filemtime($file_util) > (time() - 60 * 60 * $rep
 // Cache raid-bosses.json
 
 global $bosses_json;
-if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 60 * 60 * $repo_pogoinfo_cach ))) {
+if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 60 * 60 * $repo_pogoinfo_cache ))) {
     $bosses_json = file_get_contents($file_raid_bosses);
 
 } else {
@@ -58,7 +59,7 @@ if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 
 // Cache nest_species.json
 
 global $nest_species_json; 
-if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() - 60 * 60 * $repo_pogoinfo_cach ))) {
+if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() - 60 * 60 * $repo_pogoinfo_cache ))) {
     $nest_species_json = file_get_contents($file_nest_species); 
 
 } else {
@@ -77,5 +78,27 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
     file_put_contents($file_localePkmnData, $localePkmnData_json);
 }
 
+// Cache Geofences Tiles
+
+include "../config.php";
+
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "X-Poracle-Secret: $api_secret\r\n"
+  )
+);
+
+$context = stream_context_create($opts);
+
+$geofences = file_get_contents("$api_address/api/geofence/all", false, $context); 
+$json = json_decode($geofences, true);
+
+foreach ($json['areas'] as $area_name => $png) {
+   if (!file_exists("./.cache/geo_".$area_name.".png") || (filemtime("./.cache/geo_".$area_name.".png") < (time() - 60 * 60 * $img_cache ))) {
+	   file_put_contents("./.cache/geo_".$area_name.".png", file_get_contents($png));
+   }
+}
 
 ?>
