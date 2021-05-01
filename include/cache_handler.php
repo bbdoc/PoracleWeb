@@ -80,7 +80,7 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
 
 // Cache Geofences Tiles
 
-if (file_exists("./.cache") {
+if (file_exists("./.cache")) {
 
    $opts = array(
      'http'=>array(
