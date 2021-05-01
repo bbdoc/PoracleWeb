@@ -77,28 +77,33 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
     $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
 }
+
 // Cache Geofences Tiles
 
-$opts = array(
-  'http'=>array(
-    'method'=>"GET",
-    'header'=>"Accept-language: en\r\n" .
-              "X-Poracle-Secret: $api_secret\r\n"
-  )
-);
+if (file_exists("./.cache") {
 
-$context = stream_context_create($opts);
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
 
-$geofences = file_get_contents("$api_address/api/geofence/all", false, $context); 
-$json = json_decode($geofences, true);
+   $context = stream_context_create($opts);
 
-foreach ($json['areas'] as $area_name => $png) {
-   $area_name = str_replace(' ', '_', $area_name);
-   if (!file_exists("./.cache/geo_".$area_name.".png") || (filemtime("./.cache/geo_".$area_name.".png") < (time() - 60 * 60 * $img_cache ))) {
-	   if ( @fopen($png, 'r') ) {
-		   file_put_contents("./.cache/geo_".$area_name.".png", file_get_contents($png));
-	   }
+   $geofences = file_get_contents("$api_address/api/geofence/all", false, $context); 
+   $json = json_decode($geofences, true);
+
+   foreach ($json['areas'] as $area_name => $png) {
+      $area_name = str_replace(' ', '_', $area_name);
+      if (!file_exists("./.cache/geo_".$area_name.".png") || (filemtime("./.cache/geo_".$area_name.".png") < (time() - 60 * 60 * $img_cache ))) {
+   	   if ( @fopen($png, 'r') ) {
+   		   file_put_contents("./.cache/geo_".$area_name.".png", file_get_contents($png));
+   	   }
+      }
    }
+
 }
 
 ?>
