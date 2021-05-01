@@ -80,8 +80,6 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
 
 // Cache Geofences Tiles
 
-include "../config.php";
-
 $opts = array(
   'http'=>array(
     'method'=>"GET",
