@@ -202,6 +202,7 @@
                                                     <div class="card-body-areas">
                                                         <?php echo strtoupper($area); ?>
 						    </div>
+                                                    <?php $area = str_replace(' ', '_', $area); ?>
 						    <?php if (file_exists(".cache/geo_".strtoupper($area).".png") && $disable_geomap <> "True" ) { ?>
 						       <img src=".cache/geo_<?php echo strtoupper($area); ?>.png" style="width:100%; max-width=100px;"></img>
                                                     <?php } ?>

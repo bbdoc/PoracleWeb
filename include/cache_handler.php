@@ -70,14 +70,13 @@ if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() 
 // Cache pokemonNames locale file
 
 global $localePkmnData_json;
-if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_poracle_cache ))) {
+if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
     $localePkmnData_json = file_get_contents($file_localePkmnData);
 
-} else {
+} else if ( @fopen($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json", 'r') ) { 
     $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
 }
-
 // Cache Geofences Tiles
 
 $opts = array(
@@ -94,8 +93,11 @@ $geofences = file_get_contents("$api_address/api/geofence/all", false, $context)
 $json = json_decode($geofences, true);
 
 foreach ($json['areas'] as $area_name => $png) {
+   $area_name = str_replace(' ', '_', $area_name);
    if (!file_exists("./.cache/geo_".$area_name.".png") || (filemtime("./.cache/geo_".$area_name.".png") < (time() - 60 * 60 * $img_cache ))) {
-	   file_put_contents("./.cache/geo_".$area_name.".png", file_get_contents($png));
+	   if ( @fopen($png, 'r') ) {
+		   file_put_contents("./.cache/geo_".$area_name.".png", file_get_contents($png));
+	   }
    }
 }
 
