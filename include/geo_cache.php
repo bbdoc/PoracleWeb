@@ -28,7 +28,7 @@ if (file_exists("./.cache") && @$disable_geomap <> 'True') {
 	 $json = json_decode($geo, true);
 	 $png=$json['url'];
 	 if ( @fopen($png, 'r') ) { 
-	       $area_name=urlencode($area_name);
+	       $area_name = str_replace(' ', '%20', $area_name);
                file_put_contents("./.cache/geo_".$area_name."_".$hash.".png", file_get_contents($png));
             }
       }
