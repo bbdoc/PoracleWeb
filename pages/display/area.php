@@ -198,13 +198,14 @@
                                                     $area = str_replace('"', '', $area);
                                                     $area = str_replace('[', '', $area);
                                                     $area = str_replace(']', '', $area);
+                                                    $area = strtoupper($area);
                                                 ?>
                                             <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 text-center">
                                                 <div class="card bg-darkgrey text-white shadow mb-2">
                                                     <div class="card-body-areas">
                                                         <?php echo strtoupper($area); ?>
 						    </div>
-                                                    <?php $area = str_replace(' ', '_', $area); $hash = $geo_hash[$area]; ?>
+						    <?php $area = str_replace(' ', '_', $area); $hash = $geo_hash[$area]; ?>
 						    <?php if (file_exists(".cache/geo_".$area."_".$hash.".png") && $disable_geomap <> "True" ) { ?>
 						       <img src=".cache/geo_<?php echo $area; ?>_<?php echo $hash; ?>.png" style="width:100%; max-width=100px;"></img>
                                                     <?php } ?>
