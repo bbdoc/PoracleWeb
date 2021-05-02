@@ -203,9 +203,9 @@
                                             <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 text-center">
                                                 <div class="card bg-darkgrey text-white shadow mb-2">
                                                     <div class="card-body-areas">
-                                                        <?php echo strtoupper($area); ?>
+                                                        <?php echo $area; ?>
 						    </div>
-						    <?php $area = str_replace(' ', '_', $area); $hash = $geo_hash[$area]; ?>
+						    <?php $hash = $geo_hash[$area]; $area = str_replace(' ', '_', $area);  ?>
 						    <?php if (file_exists(".cache/geo_".$area."_".$hash.".png") && $disable_geomap <> "True" ) { ?>
 						       <img src=".cache/geo_<?php echo $area; ?>_<?php echo $hash; ?>.png" style="width:100%; max-width=100px;"></img>
                                                     <?php } ?>
