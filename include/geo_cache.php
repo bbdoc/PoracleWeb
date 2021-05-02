@@ -23,13 +23,12 @@ if (file_exists("./.cache") && @$disable_geomap <> 'True') {
       // Call Each Geofence and check hash
 
       if (!file_exists("./.cache/geo_".$area_name."_".$hash.".png")) { 
-	      $geo = file_get_contents("$api_address/api/geofence/".rawurlencode($area_name)."/map", false, $context);
-	      echo "$api_address/api/geofence/".rawurlencode($area_name)."/map<br>";
+         $geo = file_get_contents("$api_address/api/geofence/".rawurlencode($area_name)."/map", false, $context);
 	 $json = json_decode($geo, true);
 	 $png=$json['url'];
 	 if ( @fopen($png, 'r') ) { 
                $area_name = str_replace('%20', '_', $area_name);
-               file_put_contents("./.cache/geo_".strtoupper($area_name)."_".$hash.".png", file_get_contents($png));
+	       file_put_contents("./.cache/geo_".strtoupper($area_name)."_".$hash.".png", file_get_contents($png));
             }
       }
 
