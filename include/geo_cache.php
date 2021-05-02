@@ -18,8 +18,9 @@ if (file_exists("./.cache") && @$disable_geomap <> 'True') {
    $json = json_decode($geo_hash, true); 
    $geo_hash = $json['areas'];
 
-   foreach ($json['areas'] as $area_name => $hash) {
+   foreach ($json['areas'] as $area_name => $hash) { 
 
+      $hash[strtoupper($area_name)] = $hash[$area_name];
       $encode_name = rawurlencode($area_name);
       $area_name = strtoupper(str_replace(' ', '_', $area_name));
 
