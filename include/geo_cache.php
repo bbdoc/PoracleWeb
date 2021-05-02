@@ -2,7 +2,7 @@
 
 // Cache Geofences Tiles
 
-if (file_exists("./.cache")) {
+if (file_exists("./.cache") && @$disable_geomap <> 'True') {
 
    $opts = array(
      'http'=>array(
@@ -27,7 +27,8 @@ if (file_exists("./.cache")) {
          $geo = file_get_contents("$api_address/api/geofence/".$area_name."/map", false, $context);
 	 $json = json_decode($geo, true);
 	 $png=$json['url'];
-	 if ( @fopen($png, 'r') ) {
+	 if ( @fopen($png, 'r') ) { 
+	       $area_name=urlencode($area_name);
                file_put_contents("./.cache/geo_".$area_name."_".$hash.".png", file_get_contents($png));
             }
       }
