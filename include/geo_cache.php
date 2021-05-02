@@ -20,6 +20,7 @@ if (file_exists("./.cache")) {
 
    foreach ($json['areas'] as $area_name => $hash) {
 
+      $area_name = str_replace(' ', '_', $area_name);
       // Call Each Geofence and check hash
 
       if (!file_exists("./.cache/geo_".$area_name."_".$hash.".png")) {
