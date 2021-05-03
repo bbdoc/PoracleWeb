@@ -324,5 +324,6 @@
     "Successfully Updated Distance on ALL Nests":"Distance Mise à Jour avec Succès pour TOUS les Nids",
     "Delete ALL Nests?":"Supprimer TOUS les Nids suivis",
     "NEW NESTS ALARM":"NOUVELLE ALARME DE NID",
-    "ALL NESTS":"TOUS LES NIDS"
+    "ALL NESTS":"TOUS LES NIDS",
+    "Spawns/Hour":"Spawns/Heure"
 }

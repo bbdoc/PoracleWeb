@@ -60,7 +60,7 @@ echo "</div>";
                 <div class="input-group-append" id="distance_label_<?php echo $nest_unique_id; ?>" <?php echo $style; ?>>
                     <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                 </div>
-            </div>
+	    </div>
         </div>
     </div>
     <?php } else { ?>
@@ -68,6 +68,24 @@ echo "</div>";
     <?php } ?>
 
     <hr>
+
+    <div class="form-row align-items-center">
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("Spawns/Hour"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+                <input type='number' id='min_spawns' name='min_spawns' size=1 value='<?php echo $row['min_spawn_avg'] ?>'
+                    min='0' max='100' class="form-control text-center">
+                <div class="input-group-append">
+                    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">
@@ -93,7 +111,7 @@ echo "</div>";
 	    <input type="radio" name="clean" id="clean_1" value="clean_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
         </label>
     </div>
-    <hr>
+
     <?php if (isset($allowed_templates["nests"])) {
         echo '<div class="form-row align-items-center">
             <div class="col-sm-12 my-1">

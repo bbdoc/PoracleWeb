@@ -16,7 +16,7 @@
 
     $stmt = $conn->prepare("
       UPDATE nests
-      SET distance = ?, clean = ?, template = ?
+      SET distance = ?, clean = ?, min_spawn_avg = ?, template = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -25,9 +25,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisi",
+      "iisii",
       $_POST['distance'],
       $clean,
+      $_POST['min_spawns'],
       $template,
       $_POST['uid']
     );
@@ -102,12 +103,12 @@
         $nest = substr($key, 5); 
 
         $stmt = $conn->prepare("INSERT INTO nests ( id, ping, clean, distance, template, pokemon_id, min_spawn_avg, form, profile_no)
-	                       VALUES ( ?, '', ? , ?, ?, ?, 0, 0, ?)");
+	                       VALUES ( ?, '', ? , ?, ?, ?, ?, 0, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=nest&return=sql_error&phase=AN1&sql=$stmt->error");
           exit();
         } 
-        $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $_POST['distance'], $template, $nest, $_SESSION['profile']); 
+        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $nest, $_POST['min_spawns'], $_SESSION['profile']); 
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=nest&return=sql_error&phase=AN2&sql=$stmt->error");
           exit();

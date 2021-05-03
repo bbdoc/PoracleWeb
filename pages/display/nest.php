@@ -175,7 +175,7 @@
                                                         </span>
                                                         </a>
                                                         <?php } ?>
-                                                    </li>
+						    </li>
 
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowNests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
@@ -190,8 +190,17 @@
                                                     </div>
 
 
+                                                    <?php }
+                                                    if ($row['min_spawn_avg'] <> '0') { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("MIN SPAWNS"); ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['min_spawn_avg']; ?>
+                                                        </span>
+                                                    </li>
+
                                                     <?php
-                                                            }
+                                                    }
                                                             if ($row['clean'] == '1' && $all_nests_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
