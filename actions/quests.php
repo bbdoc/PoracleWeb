@@ -45,7 +45,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=quest&return=success_update_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_update_quest");
     exit();
   }
 
@@ -80,7 +80,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest");
     exit();
   }
 
@@ -171,7 +171,7 @@
       }
     }
 
-    header("Location: $redirect_url?type=display&page=quest&return=success_added_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_added_quest");
     exit();
   }
 
@@ -196,7 +196,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_delete_quest");
     exit();
   }
 
@@ -221,7 +221,7 @@
       exit();
     }
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=quest&return=success_update_quests_distance#pills-quests");
+    header("Location: $redirect_url?type=display&page=quest&return=success_update_quests_distance");
     exit();
   }
 

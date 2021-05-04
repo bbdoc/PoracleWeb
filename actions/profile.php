@@ -300,6 +300,46 @@
     }
 
 
+    // ENABLE AND DISABLE NESTS GLOBALLY
+    if (isset($_POST['nids_clean_toggle']) && $_POST['nids_clean_toggle'] == 'on') { 
+
+      $stmt = $conn->prepare("UPDATE nests set clean = 1 WHERE id = ?");
+      if (false === $stmt) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=ENC1&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->bind_param("s", $_SESSION['id']);
+      if (false === $rs) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=ENC2&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->execute();
+      if (false === $rs) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=ENC3&sql=$stmt->error");
+        exit();
+      }
+      $stmt->close();
+    } else if (!isset($_POST['nids_clean_toggle'])) { 
+
+      $stmt = $conn->prepare("UPDATE nests set clean = 0 WHERE id = ?");
+      if (false === $stmt) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=DNC1&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->bind_param("s", $_SESSION['id']);
+      if (false === $rs) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=DNC2&sql=$stmt->error");
+        exit();
+      }
+      $rs = $stmt->execute();
+      if (false === $rs) {
+        header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=sql_error&phase=DNC3&sql=$stmt->error");
+        exit();
+      }
+      $stmt->close();
+    }
+
+
     header("Location: $redirect_url?type=display&page=cleaning&type=display&page=cleaning&return=success_update_settings");
     exit();
 

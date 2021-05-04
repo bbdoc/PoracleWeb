@@ -149,7 +149,15 @@
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=lure">
                 <img src="img/nav/lure.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Lures'); ?>
               </a>
+	    <?php } ?>
+
+            <?php if (@$disable_nests <> "True") { ?>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=nest">
+                <img src="img/nav/nest.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Nests'); ?>
+              </a>
             <?php } ?>
+
     
           </div>
         </div>

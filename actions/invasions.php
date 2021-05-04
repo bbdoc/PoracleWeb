@@ -49,7 +49,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=invasion&return=success_update_invasion#pills-invasions");
+    header("Location: $redirect_url?type=display&page=invasion&return=success_update_invasion");
     exit();
   }
 
@@ -85,7 +85,7 @@
     }
 
     $stmt->close();
-    header("Location: $redirect_url?type=display&page=invasion&return=success_delete_invasion#pills-invasions");
+    header("Location: $redirect_url?type=display&page=invasion&return=success_delete_invasion");
     exit();
   }
 
@@ -132,7 +132,7 @@
       }
     }
 
-    header("Location: $redirect_url?type=display&page=invasion&return=success_added_invasions#pills-invasions");
+    header("Location: $redirect_url?type=display&page=invasion&return=success_added_invasions");
     exit();
   }
 
@@ -157,7 +157,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=invasion&return=success_delete_invasions#pills-invasions");
+    header("Location: $redirect_url?type=display&page=invasion&return=success_delete_invasions");
     exit();
   }
 
@@ -183,7 +183,7 @@
     }
     $stmt->close();
 
-    header("Location: $redirect_url?type=display&page=invasion&return=success_update_invasions_distance#pills-invasions");
+    header("Location: $redirect_url?type=display&page=invasion&return=success_update_invasions_distance");
     exit();
 
   }

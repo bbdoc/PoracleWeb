@@ -308,5 +308,22 @@
     "RENAME":"RENOMMER",
     "SWITCH":"SWITCHER",
     "Could not connect to the API":"Impossible de se connecter à l'API",
-    "API returned a NOK Status":"L'API à renvoyé une erreur"
+    "API returned a NOK Status":"L'API à renvoyé une erreur",
+    "Nests":"Nids",
+    "NESTS":"NIDS",
+    "Delete tracking for Nests":"Supprimer le suivi des Nids",
+    "This will delete tracking for Nest":"Cette action supprimera le suivi des Nids",
+    "Update Distance for all tracked Nests?":"Modifier la Distance pour tous les Nids suivis?",
+    "This will update Distance settings for ALL tracked Nests":"Cette action modifiera la distance de suivi pour TOUS les Nids",
+    "Delete ALL tracked Nests?":"Supprimer tous les Nids suivis",
+    "This will delete all your Nests Alarms and cannot be undone":"Cette action va supprimer toutes vos alarmes de Nids et ne peut pas être annulée",
+    "NESTS TRACKED":"NIDS SUIVIS",
+    "Successfully Added Nest Alarm(s)":"Alarme de Nid ajoutée avec succès",
+    "Successfully Updated Nest Alarm":"La liste de Nids à été mise à jour",
+    "Successfully Deleted Nest Alarm(s)":"Alarme de Nid supprimée avec succès",
+    "Successfully Updated Distance on ALL Nests":"Distance Mise à Jour avec Succès pour TOUS les Nids",
+    "Delete ALL Nests?":"Supprimer TOUS les Nids suivis",
+    "NEW NESTS ALARM":"NOUVELLE ALARME DE NID",
+    "ALL NESTS":"TOUS LES NIDS",
+    "Spawns/Hour":"Spawns/Heure"
 }
