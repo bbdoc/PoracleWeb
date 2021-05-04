@@ -63,17 +63,6 @@ $allowed_languages      = getenv("ALLOWED_LANGUAGES") ?: "en";
 // Image Repository
 $imgUrl                 = getenv("IMG_URL") ?: "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
 
-// Provide a valid URL to your Tile Server for Displaying a location map
-// Arguments should correspond to your server template setup
-// Use #LAT# and #LON# as placeholders for latitude and longitude
-// An example is provided hereunder
-
-$mapURL                 = getenv("MAP_URL") ?: "https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/pmsf_outline_shadow/pokemon_icon_150_00.png&lat=#LAT#&lon=#LON#";
-
-// Provide a valid URL to PoracleWeb Template on your TileServer
-
-$mapPoracleWeb          = getenv("MAP_PORACLE_WEB") ?: "http://youtileserver.com::9000/staticmap/PoracleWeb";
-
 // Other Configuration Items
 
 $max_pokemon            = getenv("MAX_POKEMON") ?: "721";

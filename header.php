@@ -218,13 +218,20 @@ if (!empty($result) && $result->num_rows > 0) {
 
 // Check If Distance Map should be displayed
 
-if (isset($mapPoracleWeb)) {
-   if ($latitude == "0.0000000000" && $longitude == "0.0000000000")
-   { 
-	   $distance_map = "False"; 
-   }
-   else { 
-	   $distance_map = "True"; 
-   }
-}
+// Get Map Image URL from API
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+
+   $context = stream_context_create($opts);
+
+   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
+   $json = json_decode($config, true);
+
+   if ( $json['status']="ok" && $latitude != "0.0000000000" && $longitude != "0.0000000000" ) { $distance_map = "True"; } else { $distance_map = "False"; } 
 

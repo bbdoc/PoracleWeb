@@ -8,8 +8,9 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 </div>
 
 <?php
-} else if (isset($mapURL) && $mapURL <> "") {
+} else {
 ?>
+
 <div class="alert alert-success" role="alert">
     <?php echo i8ln("Your Location is set to"); ?><br>
     <?php echo "<b>".$address."</b><br>"; ?>
@@ -17,14 +18,25 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 </div>
 
 <?php
-    $mapURL = str_replace('#LAT#', $latitude, $mapURL);
-    $mapURL = str_replace('#LON#', $longitude, $mapURL);
-    ?>
-<div class='text-center'>
-    <img src='<?php echo $mapURL; ?>' width=300>
-</div>
-<?php
+
 }
+
+// Get Map Image URL from API
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+
+   $context = stream_context_create($opts);
+
+   $config = file_get_contents("$api_address/api/geofence/locationMap/$latitude/$longitude", false, $context);
+   $json = json_decode($config, true); 
+
+   if ( $json['status']="ok" ) { echo " <div class='text-center'> <img src='".$json['url']."' width=300> </div> "; }
 
 ?>
 

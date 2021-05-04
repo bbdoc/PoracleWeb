@@ -131,17 +131,6 @@ $allowed_languages="en,fr";
 // Image Repository 
 $imgUrl="https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
 
-// Provide a valid URL to your Tile Server for Displaying a location map
-// Arguments should correspond to your server template setup
-// Use #LAT# and #LON# as placeholders for latitude and longitude
-// An example is provided hereunder
-
-$mapURL="https://youtileserver.com:9000/staticmap/pokemon?img=https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/pmsf_outline_shadow/pokemon_icon_150_00.png&lat=#LAT#&lon=#LON#";
-
-// Provide a valid URL to PoracleWeb Template on your TileServer
-
-$mapPoracleWeb="http://youtileserver.com:9000/staticmap/PoracleWeb";
-
 // Other Configuration Items
 
 $max_pokemon="721";

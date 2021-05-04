@@ -15,13 +15,6 @@ else if ( $row['distance'] < 1536000 )  { $zoom="3"; }
 else if ( $row['distance'] < 3072000 )  { $zoom="2"; }
 else { $zoom="1"; }
 
-$map=$mapPoracleWeb;
-$map.="?img=$redirect_url/img/position.png";
-$map.="&latitude=$latitude";
-$map.="&longitude=$longitude";
-$map.="&distance=".$row['distance'];
-$map.="&zoom=$zoom";
-
 if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 ?>
 <div class="alert alert-danger" role="alert">
@@ -30,7 +23,25 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 </div>
 
 <?php
-} else if (isset($mapURL) && $mapURL <> "") {
+} else {
+
+// Get Map Image URL from API
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+
+   $context = stream_context_create($opts);
+
+   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
+   $json = json_decode($config, true);
+
+   if ( $json['status']="ok" ) { $map = $json['url']; }
+
 ?>
 
 <div class="modal-header">
