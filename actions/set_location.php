@@ -28,16 +28,6 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 } else {
 
-   #$config = file_get_contents("$poracle_dir/config/local.json");
-   #$json = json_decode(stripComments($config), true);
-   #foreach ($json as $key => $value) {
-   #   if ($key == "geocoding") {
-   #      $nominatim=$value['providerURL'];
-   #      $statickey=$value['staticKey'][0];
-   #   }
-   #}
-
-
    $street = str_replace(" ", "%20", $_POST['street']);
    $city = str_replace(" ", "%20", $_POST['city']);
 
