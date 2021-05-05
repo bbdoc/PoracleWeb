@@ -1,20 +1,5 @@
 <?php
 
-if ( $row['distance'] < 750 ) { $zoom="14"; }
-else if ( $row['distance'] < 1500  )    { $zoom="13"; }
-else if ( $row['distance'] < 3000  )    { $zoom="12"; }
-else if ( $row['distance'] < 6000  )    { $zoom="11"; }
-else if ( $row['distance'] < 12000 )    { $zoom="10"; }
-else if ( $row['distance'] < 24000 )    { $zoom="9"; }
-else if ( $row['distance'] < 48000 )    { $zoom="8"; }
-else if ( $row['distance'] < 96000 )    { $zoom="7"; }
-else if ( $row['distance'] < 192000 )   { $zoom="6"; }
-else if ( $row['distance'] < 384000 )   { $zoom="5"; }
-else if ( $row['distance'] < 768000 )   { $zoom="4"; }
-else if ( $row['distance'] < 1536000 )  { $zoom="3"; }
-else if ( $row['distance'] < 3072000 )  { $zoom="2"; }
-else { $zoom="1"; }
-
 if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 ?>
 <div class="alert alert-danger" role="alert">
@@ -22,7 +7,7 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
     <?php echo i8ln("It can be set hereunder"); ?>
 </div>
 
-<?php
+<?php 
 } else {
 
 // Get Map Image URL from API
@@ -34,14 +19,18 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
                  "X-Poracle-Secret: $api_secret\r\n"
      )
    );
-
    $context = stream_context_create($opts);
 
-   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
-   $json = json_decode($config, true);
-
-   if ( $json['status']="ok" ) { $map = $json['url']; }
-
+   $urlkey=$latitude."_".$longitude."_".$row['distance'];
+   if (!isset($url_list[$urlkey])) {
+	   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
+	   $json = json_decode($config, true);
+	   if ( $json['status']="ok" ) { 
+		   $map = $json['url']; 
+		   $url_list[$urlkey] = $json['url']; 
+	   } 
+   } 
+   $map = $url_list[$urlkey]; 
 ?>
 
 <div class="modal-header">
