@@ -1,6 +1,7 @@
 <?php
 
 include "./config.php";
+include "./include/db_connect.php";
 include "./include/cache_handler.php";
 
 if(!isset($_SESSION)){
@@ -117,7 +118,7 @@ function translate_mon($word)
 
 function get_areas() {
 
-    $areas = $_SESSION['areas'];
+    $areas = $_SESSION['areas']; 
     $json = json_decode($areas, true);
     $areas = array();
 
@@ -147,6 +148,7 @@ function get_areas() {
 function get_raid_bosses_json() {
 
    include "./config.php";
+   include "./include/db_connect.php";
    global $bosses_json;
    $json = json_decode($bosses_json, true);
    $bosses=array();

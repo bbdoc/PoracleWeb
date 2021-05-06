@@ -1,12 +1,41 @@
 
 <?php
-include "../../header.php";
+
+if (!isset($_SESSION['admin_id'])) {
+        header("Location: $redirect_url");
+        exit();
+}
+
 ?>
 
             <form action='./actions/server_settings.php' method='POST'>
 
 
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <?php
+
+                        // Check for DB Settings still in config.php
+
+                        $sql = "select * FROM pweb_settings";
+                        $result = $conn->query($sql);
+           
+			$duplicates=array();
+                        while ($row = $result->fetch_assoc()) {
+				if( strpos(file_get_contents("./config.php"),$row['setting']) !== false )
+				{
+					array_push($duplicates,$row['setting']);
+				}
+                        }
+
+			if ( count($duplicates) > 0 ) {
+				echo "<div class='alert alert-danger fade show' role='alert' style='padding:10px; margin:3px;'>";
+				echo i8ln("Following Settings have been migrated and should be removed from config.php").". ";
+				echo "<code><center>".implode(" | ",$duplicates)."</center></code>";
+				echo "</div><br>";
+			}
+
+                        ?>
 
                         <!-- Page Heading -->
                         <div class="text-center">
@@ -17,33 +46,45 @@ include "../../header.php";
 
                         <?php
 
-                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
+                        // Check Connection to Poracle DB
+
+                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $dbname);
                         if ($conn->connect_errno) {
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connected to Poracle DB")."</div>";
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle DB")."</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle DB")."</div>";
                         } 
 
-                        $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_db);
+                        // Check Connection to Scanner DB
+
+                        $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
                         if ($conn->connect_errno) {
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Unable to Connected to Scanner DB")."</div>";
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Unable to Connect to Scanner DB")."</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Successfully Connected to Scanner DB")."</div>";
 			}
+
+                        // Check Connection to API
 
                         $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" .  "X-Poracle-Secret: $api_secret\r\n"));
                         $context = stream_context_create($opts);
 
                         if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context))
 			{
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connected to Poracle API ")."</div>";
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle API ")."</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
                         }
 
+                        // Check Cache Folder
+
 			if (!file_exists("./.cache")) 
 			{
-                           echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("No Cache Folder found. Cache Inactive")."</div>";
+			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("No Cache Folder found")."<br>";
+			   echo i8ln("To activate cache please perform following actions from your PoracleWeb root folder:")."<br>";
+			   echo "<code>mkdir .cache<br>chown www-data:www-data .cache<br>chmod 744 .cache</code>";
+			   echo "</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Cache Folder found. Cache Active")."</div>";
                         }

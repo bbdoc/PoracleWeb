@@ -10,7 +10,7 @@ if ($row['pokemon_id'] == "0") {
 } else {
 	$PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
 	echo "<img width=100 src='".$PkmnImg."'><br>";
-	echo "<center><font size=5>".i8ln(get_mons($row['nest_id']))."</font></center>";
+	echo "<center><font size=5>".i8ln(get_mons($row['pokemon_id']))."</font></center>";
 }
 echo "</div>";
 

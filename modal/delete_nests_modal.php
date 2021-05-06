@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
+    <h5 class="modal-title" id="<?php echo $nest_unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for Nests"); ?>
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body">
     <?php echo i8ln("This will delete tracking for Nest"); ?> : 
-    <?php echo i8ln(get_mons($row['nest_id'])); ?><br>
+    <?php echo i8ln(get_mons($row['pokemon_id'])); ?><br>
     <?php echo i8ln("Are you sure?"); ?>
 </div>
 <div class="modal-footer">
