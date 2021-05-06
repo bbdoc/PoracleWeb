@@ -38,6 +38,7 @@ input[type="checkbox"][id^="energy"],
 input[type="checkbox"][id^="grunt"],
 input[type="checkbox"][id^="lure"],
 input[type="checkbox"][id^="nest"],
+input[type="checkbox"][id^="language"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
@@ -73,6 +74,21 @@ label[for^="item"] {
     user-select: none;
     min-width: 90px;
 }
+
+label[for^="language"] {
+    border-radius: 5px;
+    padding: 2px;
+    display: block;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 6:0px;
+}
+
 
 label[for^="target"] {
     color: #ffffff;
@@ -144,6 +160,12 @@ label img {
     background-color: #5a5c69;
 }
 
+:checked+label[for^="language"] {
+    border-color: #ddd;
+    position: relative;
+}
+
+
 :checked+label[for^="target"] {
     border-color: #ddd;
     position: relative;
@@ -167,6 +189,15 @@ label img {
     transform: scale(1);
     position: absolute;
 }
+
+:checked+label[for^="language"]::before {
+    content: "✓";
+    color: #ffffff;
+    background-color: #60da9a;
+    transform: scale(1);
+    position: absolute;
+}
+
 
 :checked+label img {
     transform: scale(0.9);

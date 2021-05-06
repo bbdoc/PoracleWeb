@@ -190,19 +190,6 @@
         </div>
       </div>
 
-      <?php if ( isset($custom_page_name)) { ?>
-      <div class="card z-depth-0 bordered">
-        <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="<?php echo $custom_page_url; ?>">
-	       <i class="<?php echo $custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
-            </a>
-        </li>
-        </div>
-      </div>
-      <?php } ?>
-
-
       <?php if (isset($patreonUrl) || isset($paypalUrl)) { ?>
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-donate" data-toggle="collapse" data-target="#collapse-donate" aria-expanded="false" aria-controls="collapse-donate">
@@ -235,11 +222,34 @@
       <?php } ?>
 
       <?php if (isset($_SESSION['admin_id'])) { ?>
+
+          <div class="card z-depth-0 bordered">
+            <div class="card-header card-header-navbar" id="heading-admin" data-toggle="collapse" data-target="#collapse-admin" aria-expanded="false" aria-controls="collapse-admin">
+              <h6 class="heading-title">
+                <i class="fas fa-user-shield fa-fw"></i> <?php echo i8ln('Admin Tools'); ?>
+              </h6>
+            </div>
+            <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
+              <div class="card-body">
+                  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
+                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Channel & Users'); ?>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
+                    <i class="fas fa-cogs"></i> <?php echo i8ln('Server Settings'); ?>
+                  </a>
+              </div>
+            </div>
+          </div>
+
+      <?php } ?>
+
+      <?php if ( isset($custom_page_name)) { ?>
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
-               <i class="fas fa-user-shield fa-fw"></i> <?php echo i8ln('Admin Tools'); ?>
+            <a class="nav-link dropdown-toggle" href="<?php echo $custom_page_url; ?>">
+               <i class="<?php echo $custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
             </a>
         </li>
         </div>

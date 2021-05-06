@@ -18,7 +18,7 @@
 <body style="background-color:#FFFFFF; color: grey;">
   <br>
 
-  <?php
+<?php
 
 #  echo "<table>";
 #      foreach ($_POST as $key => $value) {
@@ -33,7 +33,7 @@
 #      }
 #  echo "</table>";
 
-  ?>
+?>
 
   <center>
     <div style="max-width:90%">
