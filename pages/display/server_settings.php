@@ -15,24 +15,39 @@ if (!isset($_SESSION['admin_id'])) {
 
                         <?php
 
-                        // Check for DB Settings still in config.php
+                        // Check if DB Settings exist 
 
-                        $sql = "select * FROM pweb_settings";
+                        $sql = "SHOW TABLES LIKE 'pweb_settings'";
                         $result = $conn->query($sql);
+			if ($result->num_rows == 0) {
+                                echo "<div class='alert alert-danger fade show' role='alert' style='padding:10px; margin:3px;'>";
+                                echo i8ln("No Settings Found in DB. Settings have been pulled from config.php").".<br>";
+                                echo i8ln("Please check your settings and Save to migrate to DB").". ";
+                                echo "</div><br>";
+			}
+			else 
+			{
+
+                           // Check for DB Settings still in config.php
+
+                           $sql = "select * FROM pweb_settings";
+                           $result = $conn->query($sql);
            
-			$duplicates=array();
-                        while ($row = $result->fetch_assoc()) {
+	      		   $duplicates=array();
+                           while ($row = $result->fetch_assoc()) {
 				if( strpos(file_get_contents("./config.php"),$row['setting']) !== false )
 				{
 					array_push($duplicates,$row['setting']);
 				}
-                        }
+                           }   
 
-			if ( count($duplicates) > 0 ) {
+	   		   if ( count($duplicates) > 0 ) {
 				echo "<div class='alert alert-danger fade show' role='alert' style='padding:10px; margin:3px;'>";
 				echo i8ln("Following Settings have been migrated and should be removed from config.php").". ";
 				echo "<code><center>".implode(" | ",$duplicates)."</center></code>";
 				echo "</div><br>";
+			   }
+
 			}
 
                         ?>
@@ -51,6 +66,7 @@ if (!isset($_SESSION['admin_id'])) {
                         $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $dbname);
                         if ($conn->connect_errno) {
                            echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle DB")."</div>";
+                           exit();
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle DB")."</div>";
                         } 
