@@ -233,11 +233,13 @@
               <div class="card-body">
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Channel & Users'); ?>
-                  </a>
+		  </a>
+                  <!---
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
                     <i class="fas fa-cogs"></i> <?php echo i8ln('Server Settings'); ?>
-                  </a>
+		  </a>
+                  -->
               </div>
             </div>
           </div>
