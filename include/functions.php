@@ -86,27 +86,17 @@ function get_mons($pokemon_id) {
 
 function translate_mon($word)
 {
-    $locale = @$_SESSION['locale'];
+    $locale = @$_SESSION['locale']; 
+    
     if ($locale == "en") {
-        return $word;
+        return $word; exit();
     }
 
-    global $repo_poracle;
-    global $file_localePkmnData;
     global $localePkmnData;
     global $localePkmnData_json;
 
-    $filepath = "$repo_poracle/src/util/locale/pokemonNames_".$locale.".json";
-
     if ($localePkmnData == null) {
-        if (@fopen($file_localePkmnData, 'r')) {
-            $localePkmnData = json_decode($localePkmnData_json, true);
-	} else if (@fopen($filepath, 'r')) {
-            $localePkmnData_json = file_get_contents($filepath);
-            $localePkmnData = json_decode($localePkmnData_json, true);
-	} else {
-            return $word;
-	}
+        $localePkmnData = json_decode($localePkmnData_json, true);
     }
 
     if (isset($localePkmnData[$word])) {

@@ -72,10 +72,12 @@ if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() 
 global $localePkmnData_json;
 if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
     $localePkmnData_json = file_get_contents($file_localePkmnData);
-
 } else if ( @fopen($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json", 'r') ) { 
     $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
-}
-
+} else {
+    $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_en.json");
+    file_put_contents($file_localePkmnData, $localePkmnData_json);
+}	
+    
 ?>

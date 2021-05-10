@@ -126,7 +126,7 @@ if (!isset($_SESSION['admin_id'])) {
 			   <ul>
                               <?php
                                  $allowed_languages = explode(",", $allowed_languages);
-                                 $all_languages = "fr,nl,de,es,pt,pl,da,br,se";
+                                 $all_languages = "en,fr,nl,de,es,pt,pl,da,br,se";
                                  $all_languages = explode(",", $all_languages);
 				 foreach ($all_languages as &$language) { 
 				    if (in_array($language, $allowed_languages)) { $checked="checked"; } else {$checked="";} 
@@ -261,7 +261,7 @@ if (!isset($_SESSION['admin_id'])) {
                                 <div class="mb-1">
                                 <input type="hidden" name="enable_telegram" id="enable_telegram" value="off">
                                 <input type="checkbox" name="enable_telegram" id="enable_telegram" <?php
-                                if ($enable_telegram == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                if (@$enable_telegram == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
 				&nbsp;&nbsp;<?php echo i8ln("Enable Telegram Login ?"); ?>
                                 </div>
 				     
@@ -271,7 +271,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("BOT Name"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='telegram_bot' name='telegram_bot' class="form-control text-center" value="<?php echo $telegram_bot; ?>">
+                                    <input type='text' id='telegram_bot' name='telegram_bot' class="form-control text-center" value="<?php echo @$telegram_bot; ?>">
                                 </div>
                             </div>
                          </div>
@@ -308,7 +308,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_mons" id="disable_mons" value="off">
                                                  <input type="checkbox" name="disable_mons" id="disable_mons" <?php
-                                                 if ($disable_mons <> "True") {
+                                                 if (@$disable_mons <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -334,7 +334,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                 <input type="hidden" name="disable_raids" id="disable_raids" value="off">
                                                 <input type="checkbox" name="disable_raids" id="disable_raids" <?php
-                                                if ($disable_raids <> "True") {
+                                                if (@$disable_raids <> "True") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -360,7 +360,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                 <input type="hidden" name="disable_quests" id="disable_quests" value="off">
                                                 <input type="checkbox" name="disable_quests" id="disable_quests" <?php
-                                                if ($disable_quests <> "True") {
+                                                if (@$disable_quests <> "True") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -386,7 +386,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                 <input type="hidden" name="disable_invasions" id="disable_invasions" value="off">
                                                 <input type="checkbox" name="disable_invasions" id="disable_invasions" <?php
-                                                if ($disable_invasions <> "True") {
+                                                if (@$disable_invasions <> "True") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -412,7 +412,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                 <input type="hidden" name="disable_lures" id="disable_lures" value="off">
                                                 <input type="checkbox" name="disable_lures" id="disable_lures" <?php
-                                                if ($disable_lures <> "True") {
+                                                if (@$disable_lures <> "True") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -439,7 +439,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                 <input type="hidden" name="disable_nests" id="disable_nests" value="off">
                                                 <input type="checkbox" name="disable_nests" id="disable_nests" <?php
-                                                if ($disable_nests <> "True") {
+                                                if (@$disable_nests <> "True") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -479,7 +479,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_profiles" id="disable_profiles" value="off">
                                                  <input type="checkbox" name="disable_profiles" id="disable_profiles" <?php
-                                                 if ($disable_profiles <> "True") {
+                                                 if (@$disable_profiles <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -505,7 +505,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_areas" id="disable_areas" value="off">
                                                  <input type="checkbox" name="disable_areas" id="disable_areas" <?php
-                                                 if ($disable_areas <> "True") {
+                                                 if (@$disable_areas <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -531,7 +531,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_location" id="disable_locations" value="off">
                                                  <input type="checkbox" name="disable_location" id="disable_location" <?php
-                                                 if ($disable_location <> "True") {
+                                                 if (@$disable_location <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -557,7 +557,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_nominatim" id="disable_nominatim" value="off">
                                                  <input type="checkbox" name="disable_nominatim" id="disable_nominatim" <?php
-                                                 if ($disable_nominatim <> "True") {
+                                                 if (@$disable_nominatim <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -583,7 +583,7 @@ if (!isset($_SESSION['admin_id'])) {
 					    <div class="row">
                                                  <input type="hidden" name="disable_geomap" id="disable_geomap" value="off">
                                                  <input type="checkbox" name="disable_geomap" id="disable_geomap" <?php
-                                                 if ($disable_geomap <> "True") {
+                                                 if (@$disable_geomap <> "True") {
                                                     echo "checked";
                                                  } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                                                     data-size="sm">
@@ -611,21 +611,21 @@ if (!isset($_SESSION['admin_id'])) {
                                 <div class="mb-1">
                                 <input type="hidden" name="debug" id="debug" value="off">
                                 <input type="checkbox" name="debug" id="debug" <?php
-                                if ($debug == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                if (@$debug == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Enable Debug Mode"); ?>
                                 </div>
 
                                 <div class="mb-1">
                                 <input type="hidden" name="admin_disable_userlist" id="admin_disable_userlist" value="off">
                                 <input type="checkbox" name="admin_disable_userlist" id="admin_disable_userlist" <?php
-                                if ($admin_disable_userlist <> "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                if (@$admin_disable_userlist <> "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Enable User List in Admin Tools"); ?>
 				</div>
 
                                 <div class="mb-1">
                                 <input type="hidden" name="site_is_https" id="site_is_https" value="off">
                                 <input type="checkbox" name="site_is_https" id="site_is_https" <?php
-                                if ($site_is_https == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                if (@$site_is_https == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Site is running HTTPS"); ?>
                                 </div>
 
@@ -655,7 +655,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("gAnalyticsId"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='gAnalyticsId' name='gAnalyticsId' class="form-control text-center" value="<?php echo $gAnalyticsId; ?>">
+                                    <input type='text' id='gAnalyticsId' name='gAnalyticsId' class="form-control text-center" value="<?php echo @$gAnalyticsId; ?>">
 				</div>
 
                             </div>
@@ -681,7 +681,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Paypal URL"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='paypalUrl' name='paypalUrl' class="form-control text-center" value="<?php echo $paypalUrl; ?>">
+                                    <input type='text' id='paypalUrl' name='paypalUrl' class="form-control text-center" value="<?php echo @$paypalUrl; ?>">
                                 </div>
                             </div>
                         </div>
@@ -693,7 +693,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Patreon URL"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='patreonUrl' name='patreonUrl' class="form-control text-center" value="<?php echo $patreonUrl; ?>">
+                                    <input type='text' id='patreonUrl' name='patreonUrl' class="form-control text-center" value="<?php echo @$patreonUrl; ?>">
                                 </div>
                             </div>
                         </div>
@@ -711,7 +711,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Name"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='custom_page_name' name='custom_page_name' class="form-control text-center" value="<?php echo $custom_page_name; ?>">
+                                    <input type='text' id='custom_page_name' name='custom_page_name' class="form-control text-center" value="<?php echo @$custom_page_name; ?>">
                                 </div>
                             </div>
                         </div>
@@ -723,7 +723,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("URL"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='custom_page_url' name='custom_page_url' class="form-control text-center" value="<?php echo $custom_page_url; ?>">
+                                    <input type='text' id='custom_page_url' name='custom_page_url' class="form-control text-center" value="<?php echo @$custom_page_url; ?>">
                                 </div>
                             </div>
                         </div>
@@ -735,7 +735,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Icon"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='custom_page_icon' name='custom_page_icon' class="form-control text-center" value="<?php echo $custom_page_icon; ?>">
+                                    <input type='text' id='custom_page_icon' name='custom_page_icon' class="form-control text-center" value="<?php echo @$custom_page_icon; ?>">
                                 </div>
                             </div>
                         </div>
