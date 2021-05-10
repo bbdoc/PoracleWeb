@@ -352,5 +352,7 @@
     "Add a custom Page by giving its Name, URL and an icon":"Ajoutez une page en donnant son nom, URL et un icône",
     "Chose Any Free Icon from":"Choisissez un icône gratuit depuis",
     "Name":"Nom",
-    "Icon":"Icone"
+    "Icon":"Icone",
+    "Channels & Users":"Canaux et Utilisateurs",
+    "Server Settings":"Paramètres Serveur"
 }

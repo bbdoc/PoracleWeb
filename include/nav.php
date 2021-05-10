@@ -232,7 +232,7 @@
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
-                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Channel & Users'); ?>
+                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Channels & Users'); ?>
 		  </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
