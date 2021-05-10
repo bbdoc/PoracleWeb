@@ -76,6 +76,10 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
 } else if ( @fopen($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json", 'r') ) { 
     $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
+} else {
+    $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_en.json");
+    file_put_contents($file_localePkmnData, $localePkmnData_json);
 }
+
 
 ?>
