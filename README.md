@@ -24,6 +24,7 @@ Please note that I'm not a professional Web Developer, so the code might look ug
 - [x] Quests
 - [x] Invasions
 - [x] Lures
+- [x] Nests
 
 Any other suggestions are welcome, please use [GitHub Issues][issues-url] for your suggestions.
 
@@ -49,14 +50,20 @@ Any other suggestions are welcome, please use [GitHub Issues][issues-url] for yo
 3. Copy `config_example.php` to `config.php` and adapt to your needs
 4. Have a Web Server pointing to your install directory (This tool doesn't include any standalone WebServer)
 
-5. You will need to configure your Discord Bot settings in config.php. If you use PMSF, you can reuse the same parameters for `discordBotClientId` and `discordBotClientSecret` or find them on the [Discord application Portal](https://discord.com/developers/applications). `redirect_url` should point to your PoracleWeb base directory and should be configured as a Redirects in your Discord bot. 
+5. You will need to configure your some basic settings in config.php:
+- Access Parameters to your Poracle DB
+- Admin ID. From discord, right click on your avatar and use "Copy ID". This defines the ID of the administrator who will be able to perform further configuration tasks.
+- Discord Bot. If you use PMSF, you can reuse the same parameters for `discordBotClientId` and `discordBotClientSecret` or find them on the [Discord application Portal](https://discord.com/developers/applications). `redirect_url` should point to your PoracleWeb base directory and should be configured as a Redirects in your Discord bot. 
 
 For those parameters go to :
 - [Discord application Portal](https://discord.com/developers/applications)
 - Select your Bot (or create a new one).
 - Go to OAuth2 and add your `https://yourdomain.com/discord_auth.php` (`https://yourdomain.com`) being your `redirect_url`
 - Client ID can be found under "General Information"
-- Client Secret can be found under "General Information" by clicking the "Click to reveal" link.
+- Client Secret can be found under "General Information" by clicking the "Click to reveal" link.A
+
+6. Go to your PoracleWeb site and head to Admin Tools / Server Settings for additional configuration steps and parameters. You need to be logged in as an admin (as defined by `admin_id` par
+ameter to be able to access this page.
 
 ---
 

@@ -70,7 +70,7 @@ if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $cont
 $config = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
-if ( $json['status']="ok" ) {
+if ( $json['status']=="ok" ) {
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
    $_SESSION['staticKey'] = $json['staticKey'][0];
@@ -87,7 +87,7 @@ if ( $json['status']="ok" ) {
 $areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
-if ( $json['status']="ok" ) {
+if ( $json['status']=="ok" ) {
    $_SESSION['areas'] = $json['areas'];
 } else {
    session_destroy();

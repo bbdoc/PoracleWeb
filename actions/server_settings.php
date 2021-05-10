@@ -18,8 +18,14 @@
 	   }
 	   else if ( $key != "action" && $key != "update" )
 	   {
-		   if ( $value == "on" ) { $value = "False"; }
-		   if ( $value == "off" ) { $value = "True"; }
+		   if (strpos($key, 'disable') !== false) { 
+		      if ( $value == "on" ) { $value = "False"; }
+		      if ( $value == "off" ) { $value = "True"; }
+		   } else {                      
+	              if ( $value == "on" ) { $value = "True"; }
+                      if ( $value == "off" ) { $value = "False"; }
+		   }
+
 
 		   $stmt = $conn->prepare("INSERT INTO pweb_settings (setting, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value=?");
                    if (false === $stmt) {

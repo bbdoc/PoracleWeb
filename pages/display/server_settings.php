@@ -55,7 +55,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("SERVER STATUS"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Server Status"); ?></h1>
                             </div>
                         </div>
 
@@ -83,11 +83,16 @@ if (!isset($_SESSION['admin_id'])) {
                         // Check Connection to API
 
                         $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" .  "X-Poracle-Secret: $api_secret\r\n"));
-                        $context = stream_context_create($opts);
+			$context = stream_context_create($opts);
+			$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
+			$api_result = json_decode($api, true); 
 
-                        if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context))
+                        if (!$api)
 			{
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle API ")."</div>";
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle API")."</div>";
+			} else if ( $api_result['status'] <> "ok" ) { 
+			   echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("API");
+			   echo " ".$api_result['status']." | ".$api_result['reason']."</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
                         }
@@ -98,7 +103,7 @@ if (!isset($_SESSION['admin_id'])) {
 			{
 			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
 			   echo i8ln("No Cache Folder found")."<br>";
-			   echo i8ln("To activate cache please perform following actions from your PoracleWeb root folder:")."<br>";
+			   echo i8ln("To activate cache please perform following actions from your PoracleWeb root folder").":<br>";
 			   echo "<code>mkdir .cache<br>chown www-data:www-data .cache<br>chmod 744 .cache</code>";
 			   echo "</div>";
                         } else {
@@ -112,7 +117,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("LANGUAGES"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Languages"); ?></h1>
                             </div>
                         </div>
 
@@ -136,7 +141,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("SCANNER DB"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Scanner DB"); ?></h1>
                             </div>
                         </div>
 
@@ -213,7 +218,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("PORACLE API"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Poracle API"); ?></h1>
                             </div>
                         </div>
 
@@ -239,14 +244,48 @@ if (!isset($_SESSION['admin_id'])) {
 			 </div>
 
                     </div>
- 
+
                     <br>
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
 
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("ENABLE MENU ITEMS"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Telegram"); ?></h1>
+                            </div>
+                        </div>
+
+                        <div class="form-row align-items-center">
+			    <div class="col-sm-12 my-1">
+
+                                <div class="mb-1">
+                                <input type="hidden" name="enable_telegram" id="enable_telegram" value="off">
+                                <input type="checkbox" name="enable_telegram" id="enable_telegram" <?php
+                                if ($enable_telegram == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+				&nbsp;&nbsp;<?php echo i8ln("Enable Telegram Login ?"); ?>
+                                </div>
+				     
+				<div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:120px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("BOT Name"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='telegram_bot' name='telegram_bot' class="form-control text-center" value="<?php echo $telegram_bot; ?>">
+                                </div>
+                            </div>
+                         </div>
+
+                    </div>
+
+
+                    <br>
+                    <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Enable Menu Items"); ?></h1>
                             </div>
                         </div>
 
@@ -417,7 +456,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("ENABLE OPTIONS"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Enable Options"); ?></h1>
                             </div>
                         </div>
 
@@ -554,9 +593,159 @@ if (!isset($_SESSION['admin_id'])) {
                                 </div>
                             </div>
 
+		    </div>
+
+                    <br>
+                    <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Additional Settings"); ?></h1>
+                            </div>
+                        </div>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+
+                                <div class="mb-1">
+                                <input type="hidden" name="debug" id="debug" value="off">
+                                <input type="checkbox" name="debug" id="debug" <?php
+                                if ($debug == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable Debug Mode"); ?>
+                                </div>
+
+                                <div class="mb-1">
+                                <input type="hidden" name="admin_disable_userlist" id="admin_disable_userlist" value="off">
+                                <input type="checkbox" name="admin_disable_userlist" id="admin_disable_userlist" <?php
+                                if ($admin_disable_userlist <> "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable User List in Admin Tools"); ?>
+				</div>
+
+                                <div class="mb-1">
+                                <input type="hidden" name="site_is_https" id="site_is_https" value="off">
+                                <input type="checkbox" name="site_is_https" id="site_is_https" <?php
+                                if ($site_is_https == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Site is running HTTPS"); ?>
+                                </div>
+
+				<?php if (!isset($register_command)) { $register_command="!poracle"; } ?>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:170px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Register Command"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='register_command' name='register_command' class="form-control text-center" value="<?php echo $register_command; ?>">
+				</div>
+
+				<?php if (!isset($location_command)) { $location_command="!location"; } ?>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:170px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Location Command"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='location_command' name='location_command' class="form-control text-center" value="<?php echo $location_command; ?>">
+				</div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:170px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("gAnalyticsId"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='gAnalyticsId' name='gAnalyticsId' class="form-control text-center" value="<?php echo $gAnalyticsId; ?>">
+				</div>
+
+                            </div>
+                         </div>
+
                     </div>
 
+                    <br>
+                    <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
 
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Additional Pages"); ?></h1>
+                            </div>
+                        </div>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width:130px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Paypal URL"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='paypalUrl' name='paypalUrl' class="form-control text-center" value="<?php echo $paypalUrl; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width:130px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Patreon URL"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='patreonUrl' name='patreonUrl' class="form-control text-center" value="<?php echo $patreonUrl; ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <center><br>
+			<?php echo i8ln("Add a custom Page by giving its Name, URL and an icon"); ?>. 
+			<?php echo i8ln("Chose Any Free Icon from"); ?> 
+                        <br><a href="https://fontawesome.com/icons" target="_blank">Font Awesome</a><br> e.g. <code>fas fa-globe-europe</code>
+			</center>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width:130px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Name"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='custom_page_name' name='custom_page_name' class="form-control text-center" value="<?php echo $custom_page_name; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width:130px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("URL"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='custom_page_url' name='custom_page_url' class="form-control text-center" value="<?php echo $custom_page_url; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width:130px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Icon"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='custom_page_icon' name='custom_page_icon' class="form-control text-center" value="<?php echo $custom_page_icon; ?>">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+		    </div>
+
+                <br>
                 <div class="modal-footer">
                     <input type="hidden" id="type" name="action" value="profile_settings">
                     <button type="submit" name='update' value='Update' class="btn btn-primary">

@@ -29,7 +29,8 @@ if ($result->num_rows <> 0) {
    $result = $conn->query($sql);
 
    while ($row = $result->fetch_assoc()) {
-        ${$row['setting']} = $row['value'];
+	   ${$row['setting']} = $row['value'];
+	   if ( ${$row['setting']}  == "") { unset( ${$row['setting']} ); } 
    }
 }
 
