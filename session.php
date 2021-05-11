@@ -91,6 +91,9 @@ $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
    $_SESSION['areas'] = $json['areas'];
+} else if (isset($admin_id)) {
+   header("Location: $redirect_url?type=display&page=server_settings");
+   exit();
 } else {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
