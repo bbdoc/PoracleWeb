@@ -140,11 +140,10 @@ function get_raid_bosses_json() {
    include "./include/db_connect.php";
    global $bosses_json;
    $json = json_decode($bosses_json, true);
-   $bosses=array();
+   $bosses=array(); 
 
-   foreach ($json as $id => $level) {
-      array_push($areas, $area['name']); 
-      foreach ($level as $level_id => $boss) {
+   foreach ($json as $level => $list_id) { 
+      foreach ($list_id as $id => $boss) { 
          array_push($bosses, $boss);
       }
    }

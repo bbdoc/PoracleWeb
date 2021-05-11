@@ -170,13 +170,13 @@ if ( $disable_raids == "True" ) {
 				<li class="breadcrumb-item active" aria-current="page"><?php echo i8ln("Select the Raid Bosses you want to add"); ?>
                                 </li>
                             </ol>
-                        </nav>
+			    </nav>   
                         <div class='selectionList'>
                             <ul>
                                 <?php
                                     #$bosses = explode(',', $raid_bosses);
                                     #foreach ($bosses as &$boss) {
-                                    $bosses = get_raid_bosses();
+                                    $bosses = get_raid_bosses_json(); 
                                     foreach ($bosses as $key => $boss) {
                                         $arr = explode("_", $boss);
                                         $boss_id = $arr[0];
@@ -195,7 +195,7 @@ if ( $disable_raids == "True" ) {
                                 <li class='text-center'><input type='checkbox'
                                         name='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'
                                         id='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>' />
-				    <label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
+					<label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
                                         <?php 
 					   $img=$imgUrl."/pokemon_icon_".$boss.".png";
 					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
