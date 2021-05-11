@@ -60,14 +60,20 @@ $context = stream_context_create($opts);
 
 // Check that API is Running fine
 
-if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context)) 
+if (!$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context) ) 
 {
-   session_destroy();
-   header("Location: $redirect_url?return=error_no_api");
-   exit();
+   if (!isset($_SESSION['admin_id']))
+   {
+      session_destroy();
+      header("Location: $redirect_url?return=error_no_api");
+      exit();
+   } else
+   {
+     $no_api = "True";
+   }
 }
 
-$config = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
+$config = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
 if ( $json['status']=="ok" ) {
@@ -80,23 +86,26 @@ if ( $json['status']=="ok" ) {
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
-} else {
+} else  if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
    exit();
+} else {
+   $no_api = "True";
+
 }
+
 
 $areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
    $_SESSION['areas'] = $json['areas'];
-} else if (isset($admin_id)) {
-   header("Location: $redirect_url?type=display&page=server_settings");
-   exit();
-} else {
+} else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
    exit();
+} else {
+   $no_api = "True";
 }
 

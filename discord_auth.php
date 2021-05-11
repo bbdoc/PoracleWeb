@@ -62,7 +62,15 @@ if(session('access_token')) {
   $_SESSION['avatar'] = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar_id'] . ".png";
 
   include "./session.php";
-  header("Location: $redirect_url");
+
+  if (isset($no_api) && $no_api == "True")
+  {
+    header("Location: $redirect_url?type=display&page=server_settings");
+  }
+  else
+  {
+    header("Location: $redirect_url");
+  }
 
 } else {
   echo '<h3>Not logged in</h3>';

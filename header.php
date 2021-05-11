@@ -240,3 +240,5 @@ if (!empty($result) && $result->num_rows > 0) {
 
    if ( $json['status']="ok" && $latitude != "0.0000000000" && $longitude != "0.0000000000" ) { $distance_map = "True"; } else { $distance_map = "False"; } 
 
+
+

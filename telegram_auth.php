@@ -16,6 +16,14 @@ if (isset($_SESSION['username'])) {
 }
 
 include "./session.php";
-header("Location: $redirect_url");
+
+if (isset($no_api) && $no_api == "True")
+{
+   header("Location: $redirect_url?type=display&page=server_settings");
+}
+else 
+{
+   header("Location: $redirect_url");
+}
 
 ?>
