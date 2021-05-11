@@ -27,7 +27,7 @@ if (false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 
 // Set Profile to current if not yet set
 
-if (!isset($_SESSION['profile'])) {
+if (!isset($_SESSION['profile']) && isset($_SESSION['id'])) {
    $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
@@ -37,31 +37,36 @@ if (!isset($_SESSION['profile'])) {
 
 // Check if user has Multiple Profiles
 
-$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
-$result = $conn->query($sql);
-$_SESSION['number_of_profiles'] = $result->num_rows;
+if (isset($_SESSION['id'])) {
+   $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   $_SESSION['number_of_profiles'] = $result->num_rows;
+}
 
 // Get Profile Name
 
-$sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-   while ($row = $result->fetch_assoc()) {
-      $_SESSION['profile_name'] = $row['name'];
+if (isset($_SESSION['id'])) {
+   $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+   $result = $conn->query($sql);
+   if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+         $_SESSION['profile_name'] = $row['name'];
+      }
+   } else {
+         $_SESSION['profile_name'] = i8ln("Default");
    }
-} else {
-      $_SESSION['profile_name'] = i8ln("Default");
 }
 
 // Get Active Profile
 
-$sql = "SELECT current_profile_no from humans WHERE id = '" . $_SESSION['id'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) {
-    $_SESSION['current_profile'] = $row['current_profile_no'];
+if (isset($_SESSION['id'])) {
+   $sql = "SELECT current_profile_no from humans WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+      $_SESSION['current_profile'] = $row['current_profile_no'];
+   }
 }
-
 
 // Check for Cleaned
 

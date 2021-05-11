@@ -194,15 +194,17 @@ function get_lure_name($id) {
 
 function set_locale() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
-   $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
-   $result = $conn->query($sql) or die(mysqli_error($conn));
-   while ($row = $result->fetch_assoc()) {  
-      if ( $row['language'] <> "" ) { 
-         $_SESSION['locale'] = $row['language'];
-      } else { 
-         $_SESSION['locale'] = $_SESSION['server_locale'];
+   if (isset($_SESSION['id'])) {
+      include "./config.php";
+      include "./include/db_connect.php";
+      $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
+      $result = $conn->query($sql) or die(mysqli_error($conn));
+      while ($row = $result->fetch_assoc()) {  
+         if ( $row['language'] <> "" ) { 
+            $_SESSION['locale'] = $row['language'];
+         } else { 
+            $_SESSION['locale'] = $_SESSION['server_locale'];
+         }
       }
    }
 }

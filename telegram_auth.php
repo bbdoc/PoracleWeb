@@ -2,7 +2,9 @@
 
 include "./config.php";
 
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+   session_start();
+}
 
 $_SESSION['type']="telegram:user";
 $_SESSION['id']=$_GET['id'];
