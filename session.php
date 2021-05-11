@@ -78,6 +78,8 @@ if ( $json['status']=="ok" ) {
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
+   $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
+   $_SESSION['maxDistance'] = $json['maxDistance'];
 } else {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");

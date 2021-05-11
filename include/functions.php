@@ -109,7 +109,6 @@ function translate_mon($word)
 function get_areas() {
 
     $areas = $_SESSION['areas']; 
-    #$json = json_decode($areas, true);
     $areas = array();
 
     foreach ($_SESSION['areas'] as $i => $area) {
