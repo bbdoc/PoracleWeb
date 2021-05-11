@@ -235,7 +235,7 @@ if (!empty($result) && $result->num_rows > 0) {
 
    $context = stream_context_create($opts);
 
-   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
+   $config = @file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
    $json = json_decode($config, true);
 
    if ( $json['status']="ok" && $latitude != "0.0000000000" && $longitude != "0.0000000000" ) { $distance_map = "True"; } else { $distance_map = "False"; } 

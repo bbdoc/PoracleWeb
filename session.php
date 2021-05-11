@@ -96,7 +96,7 @@ if ( $json['status']=="ok" ) {
 }
 
 
-$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {

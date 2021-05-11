@@ -84,7 +84,7 @@ if (!isset($_SESSION['admin_id'])) {
 
                         $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" .  "X-Poracle-Secret: $api_secret\r\n"));
 			$context = stream_context_create($opts);
-			$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
+			$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 			$api_result = json_decode($api, true); 
 
                         if (!$api)
