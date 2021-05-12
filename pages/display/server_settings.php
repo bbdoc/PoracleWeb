@@ -227,7 +227,7 @@ if (!isset($_SESSION['admin_id'])) {
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"  style="width:130px;">
-                                            &nbsp;&nbsp;<?php echo i8ln("API IP:Port"); ?>
+                                            &nbsp;&nbsp;<?php echo i8ln("API Address"); ?>
                                         </div>
                                     </div>
                                     <input type='text' id='api_address' name='api_address' class="form-control text-center" value="<?php echo $api_address; ?>">
