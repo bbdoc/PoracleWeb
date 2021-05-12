@@ -1,8 +1,8 @@
 <?php
 
-include "./config.php";
-include "./include/db_connect.php";
-include "./include/cache_handler.php";
+@include "./config.php";
+@include "./include/db_connect.php";
+@include "./include/cache_handler.php";
 
 if(!isset($_SESSION)){
     session_start();
