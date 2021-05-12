@@ -181,7 +181,7 @@ if ( $disable_raids == "True" ) {
                                         $arr = explode("_", $boss);
                                         $boss_id = $arr[0];
                                         $boss_form = $arr[1];
-                                        if (isset($arr[2]) { $boss_mega = $arr[2]; }
+                                        if (isset($arr[2])) { $boss_mega = $arr[2]; }
                                         if (@$boss_mega == 2) {
                                             $mega_name = "Mega X";
                                         } else if (@$boss_mega == 3) {
