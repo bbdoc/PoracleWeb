@@ -7,8 +7,6 @@ if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
 
-set_locale();
-
 $dbnames = explode(",", $dbname);
 
 foreach ($dbnames as &$db) {
@@ -77,6 +75,7 @@ $config = @file_get_contents("$api_address/api/config/poracleWeb", false, $conte
 $json = json_decode($config, true);
 
 if ( $json['status']=="ok" ) {
+   $_SESSION['locale'] = $json['locale'];
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
    $_SESSION['staticKey'] = $json['staticKey'][0];
@@ -86,7 +85,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
-} else  if (!isset($_SESSION['admin_id'])) {
+} else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
    exit();
@@ -95,12 +94,14 @@ if ( $json['status']=="ok" ) {
 
 }
 
-
 $areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
    $_SESSION['areas'] = $json['areas'];
+} else if ( $json['message'] == "User not found" ) {
+   header("Location: $redirect_url?$redirect_page");
+   exit();
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
@@ -109,3 +110,4 @@ if ( $json['status']=="ok" ) {
    $no_api = "True";
 }
 
+set_locale();
