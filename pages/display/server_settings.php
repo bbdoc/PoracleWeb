@@ -629,6 +629,16 @@ if (!isset($_SESSION['admin_id'])) {
                                 &nbsp;&nbsp;<?php echo i8ln("Site is running HTTPS"); ?>
                                 </div>
 
+                                <?php if (!isset($custom_title)) { $custom_title="PoracleWeb"; } ?>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:170px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("Custom Title"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='custom_title' name='custom_title' class="form-control text-center" value="<?php echo $custom_title; ?>">
+                                </div>
+
 				<?php if (!isset($register_command)) { $register_command="!poracle"; } ?>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
