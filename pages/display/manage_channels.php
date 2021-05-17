@@ -31,9 +31,7 @@ foreach ($dbnames as &$db) {
     </a>
 </center>
 
-<?php } ?>
-
-<?php  if ( isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id']) { ?>
+<?php  } else if ( isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id']) { ?>
 
 <hr>
 <center>
