@@ -233,12 +233,12 @@
               <div class="card-body">
                   <?php if ( isset($_SESSION['admin_id']) ) { ?>
 		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
-                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Connect as User'); ?>
+                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>
                   <div class="dropdown-divider"></div>
                   <?php } ?>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_channels">
-                    <i class="fas fa-bullhorn"></i> <?php echo i8ln('Manage Channels'); ?>
+                    <i class="fas fa-bullhorn"></i> <?php echo i8ln('Channel Management'); ?>
                   </a>
                   <?php if ( isset($_SESSION['admin_id']) ) { ?>
                   <div class="dropdown-divider"></div>
