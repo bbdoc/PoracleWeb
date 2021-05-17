@@ -162,6 +162,8 @@ if (isset($_SESSION['username'])) {
      exit();
 }
 
+// Add Admin Mode Alarms for admin_id
+
 if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) 
 {
    $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
@@ -183,6 +185,22 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 
    } 
 }
+
+// Add Admin Mode Alarms for Delegated Admin
+
+if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id'])
+{
+   $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
+   $admin_alarm.="<b>".i8ln("ADMIN MODE ACTIVE")."</b><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   if ($_SESSION['admin_dbname'] <> $_SESSION['dbname'])
+   {
+           $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
+   }
+   $admin_alarm.="</div>";
+}
+
 
 // Check if IV + PvP is used
 
