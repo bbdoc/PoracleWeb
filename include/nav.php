@@ -221,7 +221,7 @@
           </div>
       <?php } ?>
 
-      <?php if (isset($_SESSION['admin_id'])) { ?>
+      <?php if ( isset($_SESSION['admin_id']) || $_SESSION['delegated_count'] > 0 ) { ?>
 
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-admin" data-toggle="collapse" data-target="#collapse-admin" aria-expanded="false" aria-controls="collapse-admin">
@@ -231,13 +231,21 @@
             </div>
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
-                  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=admin_tools">
-                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Channels & Users'); ?>
+                  <?php if ( isset($_SESSION['admin_id']) ) { ?>
+		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
+                    <i class="fas fa-users-cog"></i> <?php echo i8ln('Connect as User'); ?>
 		  </a>
+                  <div class="dropdown-divider"></div>
+                  <?php } ?>
+                  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_channels">
+                    <i class="fas fa-bullhorn"></i> <?php echo i8ln('Manage Channels'); ?>
+                  </a>
+                  <?php if ( isset($_SESSION['admin_id']) ) { ?>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
                     <i class="fas fa-cogs"></i> <?php echo i8ln('Server Settings'); ?>
 		  </a>
+                  <?php } ?>
               </div>
             </div>
           </div>

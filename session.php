@@ -71,6 +71,8 @@ if (!$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $con
    }
 }
 
+// Get Config Items from API
+
 $config = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
@@ -94,6 +96,8 @@ if ( $json['status']=="ok" ) {
 
 }
 
+// Get Areas from API
+
 $areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
@@ -109,5 +113,12 @@ if ( $json['status']=="ok" ) {
 } else {
    $no_api = "True";
 }
+
+// Get Delegated Admin from API
+
+$delegated = @file_get_contents("$api_address/api/humans/231388075870257152/getAdministrationRoles", false, $context);
+$json = json_decode($delegated, true);
+$_SESSION['delegated_channels'] = $json['admin'];
+$_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
 
 set_locale();
