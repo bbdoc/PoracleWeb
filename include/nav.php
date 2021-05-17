@@ -236,10 +236,12 @@
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>
                   <div class="dropdown-divider"></div>
-                  <?php } ?>
+		  <?php } ?>
+                  <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) ) { ?>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_channels">
                     <i class="fas fa-bullhorn"></i> <?php echo i8ln('Channel Management'); ?>
                   </a>
+                  <?php } ?>
                   <?php if ( isset($_SESSION['admin_id']) ) { ?>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
