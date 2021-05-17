@@ -12,11 +12,17 @@ foreach ($dbnames as &$db) {
 
 ?>
 
+<!-- Title -->
+
+<h4 class="modal-title m-2">
+    <center><?php echo i8ln("Channel Management"); ?></center>
+</h4>
 
 <!-- BACK TO OWN ACCOUNT -->
 
 <?php  if ( isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) { ?>
 
+<hr>
 <center>
     <a href="admin_connect.php?id=<?php echo $_SESSION['admin_id']; ?>">
         <button type="button" class="btn btn-success" style="width:300px;">
@@ -24,12 +30,12 @@ foreach ($dbnames as &$db) {
         </button>
     </a>
 </center>
-<hr>
 
 <?php } ?>
 
 <?php  if ( isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id']) { ?>
 
+<hr>
 <center>
     <a href="admin_connect.php?id=<?php echo $_SESSION['delegated_id']; ?>">
         <button type="button" class="btn btn-success" style="width:300px;">
@@ -37,15 +43,8 @@ foreach ($dbnames as &$db) {
         </button>
     </a>
 </center>
-<hr>
 
 <?php } ?>
-
-<!-- Title -->
-
-<h4 class="modal-title m-2">
-    <center><?php echo i8ln("Channel Management"); ?></center>
-</h4>
 
 <!-- Discord Channels -->
 
