@@ -116,7 +116,7 @@ if ( $json['status']=="ok" ) {
 
 // Get Delegated Admin from API
 
-$delegated = @file_get_contents("$api_address/api/humans/231388075870257152/getAdministrationRoles", false, $context);
+$delegated = @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/getAdministrationRoles", false, $context);
 $json = json_decode($delegated, true);
 $_SESSION['delegated_channels'] = $json['admin'];
 $_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
