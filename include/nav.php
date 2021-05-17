@@ -221,7 +221,7 @@
           </div>
       <?php } ?>
 
-      <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) || in_array($_SESSION['id'],$_SESSION['user_admins']) ) { ?>
+      <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) || in_array($_SESSION['delegated_id'],$_SESSION['user_admins']) ) { ?>
 
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-admin" data-toggle="collapse" data-target="#collapse-admin" aria-expanded="false" aria-controls="collapse-admin">
@@ -231,7 +231,7 @@
             </div>
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
-		  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['id'],$_SESSION['user_admins']) ) { ?>
+		  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['delegated_id'],$_SESSION['user_admins']) ) { ?>
 		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>

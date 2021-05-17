@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['admin_id']) && !in_array($_SESSION['id'],$_SESSION['user_admins'])) { 
+if (!isset($_SESSION['admin_id']) && !in_array($_SESSION['delegated_id'],$_SESSION['user_admins'])) { 
 	header("Location: $redirect_url"); 
 	exit();
 } 
@@ -18,11 +18,12 @@ foreach ($dbnames as &$db) {
 <h4 class="modal-title m-2">
     <center><?php echo i8ln("Users Management"); ?></center>
 </h4>
-<hr>
 
 <!-- BACK TO OWN ACCOUNT -->
 
 <?php  if ( isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) { ?>
+
+<hr>
 <center>
     <a href="admin_connect.php?id=<?php echo $_SESSION['admin_id']; ?>">
         <button type="button" class="btn btn-success" style="width:300px;">
@@ -30,11 +31,25 @@ foreach ($dbnames as &$db) {
         </button>
     </a>
 </center>
-<hr>
 <?php } ?>
+
+<?php  if ( isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id']) { ?>
+
+<hr>
+<center>
+    <a href="admin_connect.php?id=<?php echo $_SESSION['delegated_id']; ?>">
+        <button type="button" class="btn btn-success" style="width:300px;">
+            <?php echo i8ln("Back to own Account"); ?>
+        </button>
+    </a>
+</center>
+
+<?php } ?>
+
 
 <!-- User Access -->
 
+<hr>
 <form action='./admin_connect.php' method='POST' class="row g-2 justify-content-center">
     <div class="col-auto justify-center mb-1 mt-2">
         <input type='text' autocomplete='off' class='form-control' id='id' name='id'
