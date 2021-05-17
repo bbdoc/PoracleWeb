@@ -88,7 +88,6 @@ if ( $json['status']=="ok" ) {
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
    $_SESSION['user_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
-   print_r($_SESSION['user_admins']);
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
@@ -123,13 +122,12 @@ $json = json_decode($delegated, true);
 $_SESSION['delegated_channels'] = $json['admin'];
 $_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
 
-if ( $_SESSION['delegated_count'] > 0 )
+if ( $_SESSION['delegated_count'] > 0 || isset($_SESSION['user_admins']) )
 {
 	$_SESSION['delegated_id'] = $_SESSION['id'];
         $_SESSION['delegated_username'] = $_SESSION['username'];
         $_SESSION['delegated_dbname'] = $_SESSION['dbname'];
         $_SESSION['delegated_type'] = $_SESSION['type'];
-
 }
 
 set_locale();

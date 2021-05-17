@@ -231,13 +231,13 @@
             </div>
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
-                  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['id'],$_SESSION['user_admins']) ) { ?>
+		  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['id'],$_SESSION['user_admins']) ) { ?>
 		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>
                   <div class="dropdown-divider"></div>
 		  <?php } ?>
-                  <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) ) { ?>
+                  <?php if ( isset($_SESSION['admin_id']) || $_SESSION['delegated_count'] > 0 ) { ?>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_channels">
                     <i class="fas fa-bullhorn"></i> <?php echo i8ln('Channel Management'); ?>
                   </a>
