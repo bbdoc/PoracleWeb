@@ -124,6 +124,10 @@ $_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + co
 if ( $_SESSION['delegated_count'] > 0 )
 {
 	$_SESSION['delegated_id'] = $_SESSION['id'];
+        $_SESSION['delegated_username'] = $_SESSION['username'];
+        $_SESSION['delegated_dbname'] = $_SESSION['dbname'];
+        $_SESSION['delegated_type'] = $_SESSION['type'];
+
 }
 
 set_locale();
