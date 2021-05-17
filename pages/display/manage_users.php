@@ -13,83 +13,119 @@ foreach ($dbnames as &$db) {
 ?>
 
 
-                    <!-- Title -->
+<!-- Title -->
 
-                    <h4 class="modal-title m-2">
-                        <center><?php echo i8ln("Users Management"); ?></center>
-                    </h4>
-                    <hr>
+<h4 class="modal-title m-2">
+    <center><?php echo i8ln("Users Management"); ?></center>
+</h4>
+<hr>
 
-                    <!-- BACK TO OWN ACCOUNT -->
+<!-- BACK TO OWN ACCOUNT -->
 
-                    <?php  if ( isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) { ?>
-                    <center>
-                        <a href="admin_connect.php?id=<?php echo $_SESSION['admin_id']; ?>">
-                            <button type="button" class="btn btn-success" style="width:300px;">
-                                <?php echo i8ln("Back to own Account"); ?>
-                            </button>
-                        </a>
-                    </center>
-                    <hr>
-                    <?php } ?>
+<?php  if ( isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) { ?>
+<center>
+    <a href="admin_connect.php?id=<?php echo $_SESSION['admin_id']; ?>">
+        <button type="button" class="btn btn-success" style="width:300px;">
+            <?php echo i8ln("Back to own Account"); ?>
+        </button>
+    </a>
+</center>
+<hr>
+<?php } ?>
 
-                    <!-- User Access -->
+<!-- User Access -->
 
-                    <form action='./admin_connect.php' method='POST' class="row g-2 justify-content-center">
-                        <div class="col-auto justify-center mb-1 mt-2">
-                            <input type='text' autocomplete='off' class='form-control' id='id' name='id'
-                                placeholder='<?php echo i8ln("Discord or Telegram ID") ?>'>
-                        </div>
-                        <div class="col-auto justify-center mb-1 mt-2">
-                            <input class="btn btn-primary" type='submit' name='update'
-                                value='<?php echo i8ln("Go"); ?>'>
-                        </div>
-                    </form>
+<form action='./admin_connect.php' method='POST' class="row g-2 justify-content-center">
+    <div class="col-auto justify-center mb-1 mt-2">
+        <input type='text' autocomplete='off' class='form-control' id='id' name='id'
+            placeholder='<?php echo i8ln("Discord or Telegram ID") ?>'>
+    </div>
+    <div class="col-auto justify-center mb-1 mt-2">
+        <input class="btn btn-primary" type='submit' name='update'
+            value='<?php echo i8ln("Go"); ?>'>
+    </div>
+</form>
 
-                    <!-- Discord Users List -->
+<!-- Discord Users List -->
 
-                    <?php
-                    
-                    if (@$admin_disable_userlist <> "True" ) {
+<?php
 
-                    $dbnames = explode(",", $dbname);
-                    foreach ($dbnames as &$db) {
+if (@$admin_disable_userlist <> "True" ) {
 
-                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $sql = "select id, name, type FROM humans WHERE type like '%:user' ORDER by type,name";
-                       $result = $conn->query($sql);
-                       ?>
+   $dbnames = explode(",", $dbname);
+   foreach ($dbnames as &$db) {
 
-                    <?php if ($result->num_rows <> 0) { ?>
+      // Get Discord Users
+     
+      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
+      $sql = "select id, name, type FROM humans WHERE type like 'discord:user' ORDER by type,name";
+      $result = $conn->query($sql);
+      ?>
 
-                    <hr>
+      <?php if ($result->num_rows <> 0) { ?>
 
-                    <!-- Heading -->
-                    <div class="row">
-                        <div class="col">
-                            <div class="alert alert-secondary text-center" role="alert">
-				<strong><?php echo i8ln("USERS LIST"); ?></strong>
-                                <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
-                            </div>
-                        </div>
-                    </div>
+         <hr>
 
-                    <div class='text-uppercase text-center'>
+         <!-- Heading -->
+         <div class="row">
+           <div class="col">
+              <div class="alert alert-secondary text-center" role="alert">
+  	      <strong><?php echo i8ln("USERS LIST"); ?> - DISCORD</strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+              </div>
+           </div>
+         </div>
 
-			<?php while ($row = $result->fetch_assoc()) { ?>
+         <div class='text-uppercase text-center'>
 
-                        <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
-			class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
-			    <span class="icon text-white-50">
-			    <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i>
-                            </span>
-                            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
-                        </a>
+         <?php while ($row = $result->fetch_assoc()) { ?>
+            <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
+    	       class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
+            <span class="icon text-white-50"> <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i> </span>
+            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
+            </a>
+         <?php } ?>
 
-                        <?php } ?>
-                    </div>
+      </div>
 
-                    <?php } ?>
-                    <?php } ?>
-                    <?php } ?>
+      <?php } 
+
+      // Get Discord Users
+
+      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
+      $sql = "select id, name, type FROM humans WHERE type like 'telegram:user' ORDER by type,name";
+      $result = $conn->query($sql);
+      ?>
+
+      <?php if ($result->num_rows <> 0) { ?>
+
+         <hr>
+
+         <!-- Heading -->
+         <div class="row">
+           <div class="col">
+              <div class="alert alert-secondary text-center" role="alert">
+              <strong><?php echo i8ln("USERS LIST"); ?> - TELEGRAM</strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+              </div>
+           </div>
+         </div>
+
+         <div class='text-uppercase text-center'>
+
+         <?php while ($row = $result->fetch_assoc()) { ?>
+            <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
+               class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
+            <span class="icon text-white-50"> <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i> </span>
+            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
+            </a>
+         <?php } ?>
+
+      </div>
+
+      <?php } ?>
+
+   <?php } ?>
+
+<?php } ?>
 
