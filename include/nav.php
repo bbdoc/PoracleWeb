@@ -231,7 +231,7 @@
             </div>
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
-                  <?php if ( isset($_SESSION['admin_id']) ) { ?>
+                  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['id'],$_SESSION['user_admins']) ) { ?>
 		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>

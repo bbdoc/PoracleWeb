@@ -87,6 +87,8 @@ if ( $json['status']=="ok" ) {
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
+   $_SESSION['user_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
+   print_r($_SESSION['user_admins']);
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
