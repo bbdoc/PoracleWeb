@@ -221,7 +221,7 @@
           </div>
       <?php } ?>
 
-      <?php if ( isset($_SESSION['admin_id']) || $_SESSION['delegated_count'] > 0 ) { ?>
+      <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) ) { ?>
 
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-admin" data-toggle="collapse" data-target="#collapse-admin" aria-expanded="false" aria-controls="collapse-admin">

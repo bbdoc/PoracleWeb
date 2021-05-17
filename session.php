@@ -121,4 +121,9 @@ $json = json_decode($delegated, true);
 $_SESSION['delegated_channels'] = $json['admin'];
 $_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
 
+if ( $_SESSION['delegated_count'] > 0 )
+{
+	$_SESSION['delegated_id'] = $_SESSION['id'];
+}
+
 set_locale();

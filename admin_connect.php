@@ -6,7 +6,7 @@ include "./config.php";
 include "./include/db_connect.php";
 include "./include/functions.php";
 
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['admin_id']) && $_SESSION['delegated_count'] == 0) {
         header("Location: $redirect_url");
         exit();
 }

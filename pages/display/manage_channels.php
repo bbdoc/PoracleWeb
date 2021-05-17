@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['admin_id']) && $_SESSION['delegated_count'] == 0) {
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['delegated_id'])) {
 	header("Location: $redirect_url"); 
 	exit();
 } 
@@ -12,6 +12,34 @@ foreach ($dbnames as &$db) {
 
 ?>
 
+
+<!-- BACK TO OWN ACCOUNT -->
+
+<?php  if ( isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) { ?>
+
+<center>
+    <a href="admin_connect.php?id=<?php echo $_SESSION['admin_id']; ?>">
+        <button type="button" class="btn btn-success" style="width:300px;">
+            <?php echo i8ln("Back to own Account"); ?>
+        </button>
+    </a>
+</center>
+<hr>
+
+<?php } ?>
+
+<?php  if ( isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id']) { ?>
+
+<center>
+    <a href="admin_connect.php?id=<?php echo $_SESSION['delegated_id']; ?>">
+        <button type="button" class="btn btn-success" style="width:300px;">
+            <?php echo i8ln("Back to own Account"); ?>
+        </button>
+    </a>
+</center>
+<hr>
+
+<?php } ?>
 
 <!-- Title -->
 
