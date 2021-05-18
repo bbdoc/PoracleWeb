@@ -52,7 +52,8 @@ if (file_exists($file_raid_bosses) && (filemtime($file_raid_bosses) > (time() - 
     $bosses_json = file_get_contents($file_raid_bosses);
 
 } else {
-    $bosses_json = file_get_contents($repo_pogoinfo."/info/raid-bosses.json");
+    #$bosses_json = file_get_contents($repo_pogoinfo."/info/raid-bosses.json");
+    $bosses_json = file_get_contents($repo_pogoinfo."/v2/active/raids.json");
     file_put_contents($file_raid_bosses, $bosses_json);
 }
 

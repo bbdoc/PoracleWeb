@@ -132,7 +132,6 @@ function get_areas() {
     return $areas;
 }
 
-
 function get_raid_bosses_json() {
 
    include "./config.php";
@@ -142,9 +141,18 @@ function get_raid_bosses_json() {
    $bosses=array(); 
 
    foreach ($json as $level => $list_id) { 
-      foreach ($list_id as $id => $boss) { 
+
+      foreach ($list_id as $id => $boss_values) { 
+         
+         $id = str_pad($boss_values['id'], 3, "0", STR_PAD_LEFT);
+         $form = $boss_values['form'];
+         $evolution = $boss_values['temp_evolution_id'];
+
+         if ( isset($evolution) ) { $boss=$id."_".$form."_".$evolution; } else { $boss=$id."_".$form; }
          array_push($bosses, $boss);
+
       }
+
    }
    return $bosses;
 
