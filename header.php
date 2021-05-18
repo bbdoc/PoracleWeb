@@ -175,6 +175,7 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 	   $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
    } 
    $admin_alarm.="</div>";
+   $admin_mode = "True";
 
    if ($_SESSION['type'] == "discord:channel" || $_SESSION['type'] == "telegram:channel" || $_SESSION['type'] == "telegram:group" ) {
            $admin_alarm.="<a href='./admin_sync.php'>";
@@ -199,6 +200,7 @@ if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['
            $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
    }
    $admin_alarm.="</div>";
+   $admin_mode = "True";
 }
 
 
