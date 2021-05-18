@@ -87,7 +87,6 @@ function get_mons($pokemon_id) {
 function translate_mon($word)
 {
     $locale = @$_SESSION['locale']; 
-    
     if ($locale == "en") {
         return $word; exit();
     }

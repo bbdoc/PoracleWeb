@@ -78,5 +78,5 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
 } else if (isset($locale)) {
     $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_en.json");
 }	
-    
+
 ?>
