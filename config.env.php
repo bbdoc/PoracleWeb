@@ -11,6 +11,31 @@ $dbuser     = getenv("PORACLE_DB_USERNAME");
 $dbpass     = getenv("PORACLE_DB_PASSWORD");
 $dbport     = getenv("PORACLE_DB_PORT") ?: "3306";
 
+// Discord Configuration
+
+$redirect_url           = getenv("REDIRECT_URL") ?: "";
+$discordBotClientId     = getenv("DISCORD_BOT_CLIENT_ID") ?: "";
+$discordBotClientSecret = getenv("DISCORD_BOT_CLIENT_SECRET") ?: "";
+
+// Admin User
+
+$admin_id                = getenv("ADMIN_ID") ?: "";
+
+// Image Repository
+
+$imgUrl                 = getenv("IMG_URL") ?: "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
+
+// Quests Options
+
+# Mons pokemons will be extracted from DB.
+# If you need other pokemons to added, use this setting.
+# List all Pokemon IDs separated by commas
+
+$additional_quest_mons = getenv("ADDITIONAL_QUEST_MONS") ?: "";
+
+
+// LEGACY SETTINGS - KEPT FOR MIGRATION ONLY
+
 // Scanner DB Configuration (scan_dbtype should be MAD or RDM)
 
 $scan_dbtype     = getenv("SCANNER_DB_TYPE") ?: "MAD";
@@ -44,38 +69,19 @@ $telegram_bot       = getenv("TELEGRAM_BOT") ?: "MyBot_bot";
 $api_address       = getenv("API_ADDRESS") ?: "http://127.0.0.1:4201";
 $api_secret        = getenv("API_SECRET") ?: "MySecret";
 
-// Admin User
+// Admin User List
 
-$admin_id                = getenv("ADMIN_ID") ?: "";
 $admin_disable_userlist  = getenv("ADMIN_DISABLE_USERLIST") ?: "False";
-
-
-// Discord Configuration
-
-$redirect_url           = getenv("REDIRECT_URL") ?: "";
-$discordBotClientId     = getenv("DISCORD_BOT_CLIENT_ID") ?: "";
-$discordBotClientSecret = getenv("DISCORD_BOT_CLIENT_SECRET") ?: "";
 
 // Language Settings
 
 $allowed_languages      = getenv("ALLOWED_LANGUAGES") ?: "en";
 
-// Image Repository
-$imgUrl                 = getenv("IMG_URL") ?: "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
-
 // Other Configuration Items
 
-$max_pokemon            = getenv("MAX_POKEMON") ?: "721";
 $custom_title           = getenv("CUSTOM_TITLE") ?: "";
 $register_command       = getenv("REGISTER_COMMAND") ?: "!poracle";
 $location_command       = getenv("LOCATION_COMMAND") ?: "!location";
-
-// Quests Options
-
-# Mons pokemons will be extracted from DB.
-# If you need other pokemons to added, use this setting.
-# List all Pokemon IDs separated by commas
-$additional_quest_mons = getenv("ADDITIONAL_QUEST_MONS") ?: "";
 
 // Debug Mode (True/False)
 $debug                = getenv("DEBUG") ?: 'False';

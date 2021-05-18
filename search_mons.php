@@ -4,6 +4,7 @@ include "./include/functions.php";
 include "./include/db_mad.php";
 include "./config.php";
 
+$max_pokemon="718";
 $mons=get_all_mons();
 
 if ( $_POST['searchtype'] == "questmon" ) { 

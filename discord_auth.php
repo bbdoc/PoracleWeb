@@ -14,7 +14,9 @@ $authorizeURL = 'https://discordapp.com/api/oauth2/authorize';
 $tokenURL = 'https://discordapp.com/api/oauth2/token';
 $apiURLBase = 'https://discordapp.com/api/users/@me';
 
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+   session_start();
+}
 
 // Start the login process by sending the user to Discord's authorization page
 if(get('action') == 'login') {
@@ -60,7 +62,15 @@ if(session('access_token')) {
   $_SESSION['avatar'] = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar_id'] . ".png";
 
   include "./session.php";
-  header("Location: $redirect_url");
+
+  if (isset($no_api) && $no_api == "True")
+  {
+    header("Location: $redirect_url?type=display&page=server_settings");
+  }
+  else
+  {
+    header("Location: $redirect_url");
+  }
 
 } else {
   echo '<h3>Not logged in</h3>';

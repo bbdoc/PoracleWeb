@@ -6,7 +6,7 @@ include "./config.php";
 include "./include/db_connect.php";
 include "./include/functions.php";
 
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['delegated_id'])) {
         header("Location: $redirect_url");
         exit();
 }
@@ -87,11 +87,20 @@ if ( $json['status']="ok" ) {
 
 // Reset Admin Account
 
-if ( $_SESSION['id'] == $_SESSION['admin_id'] )
+if ( isset($_SESSION['admin_id']) && $_SESSION['id'] == $_SESSION['admin_id'] )
 { 
 	$_SESSION['username'] = $_SESSION['username'];
         $_SESSION['type']=$_SESSION['admin_type'];
         $_SESSION['dbname']=$_SESSION['admin_dbname'];
+}
+
+// Reset Delegated Account
+
+if ( isset($_SESSION['delegated_id']) && $_SESSION['id'] == $_SESSION['delegated_id'] )
+{
+        $_SESSION['username'] = $_SESSION['username'];
+        $_SESSION['type']=$_SESSION['delegated_type'];
+        $_SESSION['dbname']=$_SESSION['delegated_dbname'];
 }
 
 header("Location: $redirect_url");

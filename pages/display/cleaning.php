@@ -1,8 +1,4 @@
 
-<?php
-include "../../header.php";
-?>
-
             <form action='./actions/profile.php' method='POST'>
 
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
@@ -19,6 +15,7 @@ include "../../header.php";
                         <div class="row">
 
 			    <!-- Card -->
+                            <?php if (@$disable_mons <> "True") { ?>
 			    <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
 			    <div class="card <?php echo $border; ?> shadow h-100 py-2">
@@ -42,9 +39,11 @@ include "../../header.php";
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+			    </div>
+                            <?php } ?>
 
-                            <!-- Card -->
+			    <!-- Card -->
+                            <?php if (@$disable_raids <> "True") { ?>
 			    <?php if ($all_raid_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-2">
@@ -69,8 +68,10 @@ include "../../header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
-                            <!-- Card -->
+			    <!-- Card -->
+                            <?php if (@$disable_quests <> "True") { ?>
 			    <?php if ($all_quest_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-2">
@@ -95,8 +96,10 @@ include "../../header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
-                            <!-- Card -->
+			    <!-- Card -->
+                            <?php if (@$disable_invasions <> "True") { ?>
 			    <?php if ($all_invasion_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-2">
@@ -121,9 +124,11 @@ include "../../header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
-                            <!-- Card -->
-			    <?php if ($all_lure_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+			    <!-- Card -->
+                            <?php if (@$disable_lures <> "True") { ?>
+			    <?php if ($all_lures_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -147,10 +152,12 @@ include "../../header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
 
-                            <!-- Card -->
-                            <?php if ($all_nest_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+			    <!-- Card -->
+                            <?php if (@$disable_nests <> "True") { ?>
+                            <?php if ($all_nests_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -174,6 +181,7 @@ include "../../header.php";
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
 		    </div>
 

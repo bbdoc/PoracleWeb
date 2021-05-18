@@ -3,7 +3,9 @@
 include "../config.php";
 include "../include/db_connect.php";
 
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+   session_start();
+}
 
 $_SESSION['locale']=$_GET['lng'];
 

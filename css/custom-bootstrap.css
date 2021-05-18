@@ -10367,6 +10367,10 @@ a:focus {
     color: #858796 !important;
 }
 
+.text-red-600 {
+    color: darkred !important;
+}
+
 .text-gray-700 {
     color: #6e707e !important;
 }

@@ -178,6 +178,7 @@
 							<?php } ?>
                                                     </li>
 
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowInvasions_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowInvasions" aria-hidden="true">
@@ -188,7 +189,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+						    </div>
+                                                    <?php } ?>
 
 
                                                     <?php

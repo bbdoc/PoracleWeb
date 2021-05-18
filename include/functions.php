@@ -1,7 +1,8 @@
 <?php
 
-include "./config.php";
-include "./include/cache_handler.php";
+@include "./config.php";
+@include "./include/db_connect.php";
+@include "./include/cache_handler.php";
 
 if(!isset($_SESSION)){
     session_start();
@@ -85,8 +86,7 @@ function get_mons($pokemon_id) {
 
 function translate_mon($word)
 {
-    $locale = @$_SESSION['locale'];
-
+    $locale = @$_SESSION['locale']; 
     if ($locale == "en") {
         return $word; exit();
     }
@@ -107,8 +107,7 @@ function translate_mon($word)
 
 function get_areas() {
 
-    $areas = $_SESSION['areas'];
-    $json = json_decode($areas, true);
+    $areas = $_SESSION['areas']; 
     $areas = array();
 
     foreach ($_SESSION['areas'] as $i => $area) {
@@ -137,13 +136,13 @@ function get_areas() {
 function get_raid_bosses_json() {
 
    include "./config.php";
+   include "./include/db_connect.php";
    global $bosses_json;
    $json = json_decode($bosses_json, true);
-   $bosses=array();
+   $bosses=array(); 
 
-   foreach ($json as $id => $level) {
-      array_push($areas, $area['name']); 
-      foreach ($level as $level_id => $boss) {
+   foreach ($json as $level => $list_id) { 
+      foreach ($list_id as $id => $boss) { 
          array_push($bosses, $boss);
       }
    }
@@ -192,15 +191,17 @@ function get_lure_name($id) {
 
 function set_locale() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
-   $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
-   $result = $conn->query($sql) or die(mysqli_error($conn));
-   while ($row = $result->fetch_assoc()) {  
-      if ( $row['language'] <> "" ) { 
-         $_SESSION['locale'] = $row['language'];
-      } else { 
-         $_SESSION['locale'] = $_SESSION['server_locale'];
+   if (isset($_SESSION['id'])) {
+      include "./config.php";
+      include "./include/db_connect.php";
+      $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
+      $result = $conn->query($sql) or die(mysqli_error($conn));
+      while ($row = $result->fetch_assoc()) {  
+         if ( $row['language'] <> "" ) { 
+            $_SESSION['locale'] = $row['language'];
+         } else { 
+            $_SESSION['locale'] = $_SESSION['server_locale'];
+         }
       }
    }
 }

@@ -30,7 +30,7 @@ $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $num_nests_tracked = $row['count']; }
 
 $num_areas=0;
-$areas = explode(",", $area);
+$areas = explode(",", $area_set);
 foreach ($areas as $key => $area) {
 	$num_areas++;
 }

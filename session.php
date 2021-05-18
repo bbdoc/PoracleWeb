@@ -7,8 +7,6 @@ if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
 
-set_locale();
-
 $dbnames = explode(",", $dbname);
 
 foreach ($dbnames as &$db) {
@@ -60,17 +58,26 @@ $context = stream_context_create($opts);
 
 // Check that API is Running fine
 
-if (!$api = file_get_contents("$api_address/api/config/poracleWeb", false, $context)) 
+if (!$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context) ) 
 {
-   session_destroy();
-   header("Location: $redirect_url?return=error_no_api");
-   exit();
+   if (!isset($_SESSION['admin_id']))
+   {
+      session_destroy();
+      header("Location: $redirect_url?return=error_no_api");
+      exit();
+   } else
+   {
+     $no_api = "True";
+   }
 }
 
-$config = file_get_contents("$api_address/api/config/poracleWeb", false, $context);
+// Get Config Items from API
+
+$config = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 $json = json_decode($config, true);
 
-if ( $json['status']="ok" ) {
+if ( $json['status']=="ok" ) {
+   $_SESSION['locale'] = $json['locale'];
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
    $_SESSION['staticKey'] = $json['staticKey'][0];
@@ -78,20 +85,49 @@ if ( $json['status']="ok" ) {
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
-} else {
+   $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
+   $_SESSION['maxDistance'] = $json['maxDistance'];
+   $_SESSION['user_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
+} else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
    exit();
+} else {
+   $no_api = "True";
+
 }
 
-$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+// Get Areas from API
+
+$areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
 $json = json_decode($areas, true);
 
-if ( $json['status']="ok" ) {
+if ( $json['status']=="ok" ) {
    $_SESSION['areas'] = $json['areas'];
-} else {
+} else if ( $json['message'] == "User not found" ) {
+   header("Location: $redirect_url?$redirect_page");
+   exit();
+} else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
    exit();
+} else {
+   $no_api = "True";
 }
 
+// Get Delegated Admin from API
+
+$delegated = @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/getAdministrationRoles", false, $context);
+$json = json_decode($delegated, true);
+$_SESSION['delegated_channels'] = $json['admin'];
+$_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
+
+if ( $_SESSION['delegated_count'] > 0 || isset($_SESSION['user_admins']) )
+{
+	$_SESSION['delegated_id'] = $_SESSION['id'];
+        $_SESSION['delegated_username'] = $_SESSION['username'];
+        $_SESSION['delegated_dbname'] = $_SESSION['dbname'];
+        $_SESSION['delegated_type'] = $_SESSION['type'];
+}
+
+set_locale();

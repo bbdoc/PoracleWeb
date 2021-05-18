@@ -3,6 +3,7 @@
 function get_quest_mons() {
 
    include "./config.php";
+   include "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct quest_pokemon_id id FROM trs_quest WHERE quest_pokemon_id > 0 AND quest_reward_type = 7 order by quest_pokemon_id;";
@@ -29,6 +30,7 @@ function get_quest_mons() {
 function get_quest_items() {
 
    include "./config.php";
+   include "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct quest_item_id id FROM trs_quest WHERE quest_item_id > 0 order by quest_item_id;";
@@ -46,6 +48,7 @@ function get_quest_items() {
 function get_quest_energy() {
 
    include "./config.php";
+   include "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct(quest_pokemon_id) id  FROM trs_quest WHERE quest_reward_type = 12 ORDER BY quest_pokemon_id;";
@@ -63,6 +66,7 @@ function get_quest_energy() {
 function get_raid_bosses() {
 
    include "./config.php";
+   include "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT level, pokemon_id, form, evolution, costume FROM raid 
