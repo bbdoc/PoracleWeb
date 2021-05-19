@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['admin_id']) && !isset($_SESSION['delegated_id'])) {
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['channels_admin'])) {
 	header("Location: $redirect_url"); 
 	exit();
 } 
@@ -48,7 +48,7 @@ foreach ($dbnames as &$db) {
 
 <?php
 
-if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['discord']['channels']) > 0 ) {
+if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['discord']['channels']) > 0 ) {
 
    $dbnames = explode(",", $dbname);
    foreach ($dbnames as &$db) {
@@ -76,7 +76,7 @@ if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['disc
       
           <?php while ($row = $result->fetch_assoc()) { ?>
 
-   	     <?php if ( isset($_SESSION['admin_id']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['channels']) ) { ?>
+   	     <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['channels']) ) { ?>
 
              <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
                  class="btn btn-primary btn-icon-split mr-2 mt-1">
@@ -102,7 +102,7 @@ if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['disc
    
 <?php
 
-if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['telegram']['channels']) > 0 ) {
+if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['telegram']['channels']) > 0 ) {
 
    $dbnames = explode(",", $dbname);
    foreach ($dbnames as &$db) {
@@ -130,7 +130,7 @@ if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['tele
       
           <?php while ($row = $result->fetch_assoc()) { ?>
 
-	     <?php if ( isset($_SESSION['admin_id']) || in_array($row['id'],$_SESSION['delegated_channels']['telegram']['channels']) ) { ?>
+	     <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['telegram']['channels']) ) { ?>
 
                 <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
                     class="btn btn-info btn-icon-split mr-2 mt-1">
@@ -156,7 +156,7 @@ if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['tele
    
 <?php
 
-if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['discord']['webhooks']) > 0 ) {
+if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['discord']['webhooks']) > 0 ) {
 
    $dbnames = explode(",", $dbname);
    foreach ($dbnames as &$db) {
@@ -184,7 +184,7 @@ if ( isset($_SESSION['admin_id']) || count($_SESSION['delegated_channels']['disc
       
           <?php while ($row = $result->fetch_assoc()) { ?>
 
-             <?php if ( isset($_SESSION['admin_id']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['webhooks']) ) { ?>
+             <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['webhooks']) ) { ?>
 
              <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
                  class="btn btn-secondary btn-icon-split mr-2 mt-1">

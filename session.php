@@ -87,7 +87,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
-   $_SESSION['user_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
+   $_SESSION['poracle_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
@@ -125,6 +125,8 @@ if ( $json['status']=="ok" ) {
    $_SESSION['delegated_channels'] = $json['admin'];
    $_SESSION['delegated_count'] = 0;
 
+   // Count Number of Delegated Channels Users has
+
    if (isset($json['admin']['discord']['channels'])) 
    { 
 	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['discord']['channels']);
@@ -138,7 +140,28 @@ if ( $json['status']=="ok" ) {
 	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['telegram']['channels']);
    } 
 
-   if ( $_SESSION['delegated_count'] > 0 || in_array($_SESSION['id'],$_SESSION['user_admins']) )
+   // Set Roles depending on API results
+   
+   if ( in_array($_SESSION['id'],$_SESSION['poracle_admins']) ) 
+   { 
+	   $_SESSION['channels_admins'] = "True"; 
+	   $_SESSION['users_admin'] = "True"; 
+	   $_SESSION['poracle_admin'] = "True"; 
+   }
+   if ( isset($json['admin']['discord']['users']) && $json['admin']['discord']['users'] == "true" ) { 
+	   $_SESSION['users_admin'] = "True"; 
+   }
+   if ( isset($json['admin']['telegram']['users']) && $json['admin']['discord']['users'] == "true" ) { 
+	   $_SESSION['users_admin'] = "True"; 
+   }
+   if ( $_SESSION['delegated_count'] > 0 ) 
+   { 
+	   $_SESSION['channels_admin'] = "True"; 
+   }
+
+   // Set Return Values for all channel or User admins
+   
+   if ( isset($_SESSION['channels_admin']) || isset($_SESSION['users_admin']) )
    {
 	$_SESSION['delegated_id'] = $_SESSION['id'];
         $_SESSION['delegated_username'] = $_SESSION['username'];

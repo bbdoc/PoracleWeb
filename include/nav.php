@@ -83,6 +83,20 @@
 	      </tr>
            </table>
 
+           <?php if ( isset($_SESSION['admin_id']) ) { ?>
+           <span class="badge badge-info"><?php echo "Server Admin" ?></span>
+	   <?php } else if ( isset($_SESSION['poracle_admin']) ) { ?>
+           <span class="badge badge-info"><?php echo "Poracle Admin" ?></span>
+           <?php } else { ?>
+              <?php if ( isset($_SESSION['users_admin']) ) { ?>
+              <span class="badge badge-info"><?php echo "Users Admin" ?></span>
+              <?php } ?>
+              <?php if ( isset($_SESSION['channels_admin']) ) { ?>
+              <span class="badge badge-info"><?php echo "Channels Admin" ?></span>
+              <?php } ?>
+           <?php } ?>
+
+
 	   <?php if ( isset($custom_profile_msg) ) { ?>
               <button type='button' class='btn mt-3' style='width:100%; background-color:white; border: 2px solid darkgreen; padding:0px;'>
               <font color=darkgreen size=2><?php echo $custom_profile_msg; ?></font>
@@ -225,7 +239,7 @@
           </div>
       <?php } ?>
 
-      <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['delegated_id']) || in_array($_SESSION['delegated_id'],$_SESSION['user_admins']) ) { ?>
+      <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || isset($_SESSION['channels_admin']) || isset($_SESSION['users_admin']) ) { ?>
 
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-admin" data-toggle="collapse" data-target="#collapse-admin" aria-expanded="false" aria-controls="collapse-admin">
@@ -235,13 +249,13 @@
             </div>
             <div id="collapse-admin" class="collapse" aria-labelledby="heading-admin" data-parent="#accordion-test">
               <div class="card-body">
-		  <?php if ( isset($_SESSION['admin_id']) || in_array($_SESSION['delegated_id'],$_SESSION['user_admins']) ) { ?>
+		  <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['users_admin']) ) { ?>
 		  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_users">
                     <i class="fas fa-users-cog"></i> <?php echo i8ln('Users Management'); ?>
 		  </a>
                   <div class="dropdown-divider"></div>
 		  <?php } ?>
-                  <?php if ( isset($_SESSION['admin_id']) || $_SESSION['delegated_count'] > 0 ) { ?>
+                  <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['channels_admin']) ) { ?>
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=manage_channels">
                     <i class="fas fa-bullhorn"></i> <?php echo i8ln('Channel Management'); ?>
                   </a>

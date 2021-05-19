@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['admin_id']) && !in_array($_SESSION['delegated_id'],$_SESSION['user_admins'])) { 
+if ( !isset($_SESSION['admin_id']) && !isset($_SESSION['users_admin']) ) { 
 	header("Location: $redirect_url"); 
 	exit();
 } 
