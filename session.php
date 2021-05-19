@@ -123,7 +123,20 @@ $json = json_decode($delegated, true);
 if ( $json['status']=="ok" ) {
 
    $_SESSION['delegated_channels'] = $json['admin'];
-   $_SESSION['delegated_count'] = count($json['admin']['discord']['channels']) + count($json['admin']['discord']['webhooks']) + count($json['admin']['telegram']['channels']);
+   $_SESSION['delegated_count'] = 0;
+
+   if (isset($json['admin']['discord']['channels'])) 
+   { 
+	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['discord']['channels']);
+   } 
+   if (isset($json['admin']['discord']['webhooks'])) 
+   { 
+	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['discord']['webhooks']);
+   } 
+   if (isset($json['admin']['telegram']['channels'])) 
+   { 
+	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['telegram']['channels']);
+   } 
 
    if ( $_SESSION['delegated_count'] > 0 || isset($_SESSION['user_admins']) )
    {
