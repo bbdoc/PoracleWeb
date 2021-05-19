@@ -15,6 +15,10 @@
 
 	   if (strpos($key, 'language') !== false) {
 		   array_push($languages,substr($key,9,11));
+	   } 
+	   else if ( $key == "api_address" ) 
+	   {
+		   $value = rtrim($value, '/');
 	   }
 	   else if ( $key != "action" && $key != "update" )
 	   {
