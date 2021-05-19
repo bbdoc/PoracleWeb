@@ -138,7 +138,7 @@ if ( $json['status']=="ok" ) {
 	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['telegram']['channels']);
    } 
 
-   if ( $_SESSION['delegated_count'] > 0 || isset($_SESSION['user_admins']) )
+   if ( $_SESSION['delegated_count'] > 0 || in_array($_SESSION['id'],$_SESSION['user_admins']) )
    {
 	$_SESSION['delegated_id'] = $_SESSION['id'];
         $_SESSION['delegated_username'] = $_SESSION['username'];
