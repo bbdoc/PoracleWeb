@@ -144,7 +144,7 @@ if ( $json['status']=="ok" ) {
    
    if ( in_array($_SESSION['id'],$_SESSION['poracle_admins']) ) 
    { 
-	   $_SESSION['channels_admins'] = "True"; 
+	   $_SESSION['channels_admin'] = "True"; 
 	   $_SESSION['users_admin'] = "True"; 
 	   $_SESSION['poracle_admin'] = "True"; 
    }
