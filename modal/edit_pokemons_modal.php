@@ -275,7 +275,7 @@ if ($row['pokemon_id'] == '0') {
                                 ?>
                 <label class="btn btn-secondary">
                     <input type="radio" name="form" id="form_<?php echo $key; ?>" value="form_<?php echo $key; ?>"
-                        <?php echo $checked; ?>> <?php echo $value; ?>
+                        <?php echo $checked; ?>> <?php echo i8ln($value); ?>
                 </label>
                 <?php
                                 }

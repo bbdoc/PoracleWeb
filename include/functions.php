@@ -30,9 +30,9 @@ function get_all_forms($pokemon_id) {
 
    global $monsters_json;
    $json = json_decode($monsters_json, true);
-   $form_exclude = array("Shadow", "Normal", "Purified", "Copy 2019", "Fall 2019", "Spring 2020", "Vs 2019");
+   $form_exclude = array("Shadow", "Purified", "Copy 2019", "Fall 2019", "Spring 2020", "Vs 2019");
    $forms=array();
-   $forms[0] = "Normal";
+   $forms[0] = "All";
 
    foreach ($json as $name => $pokemon) {
 
