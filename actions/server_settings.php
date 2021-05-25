@@ -16,15 +16,13 @@
 	   if (strpos($key, 'language') !== false) {
 		   array_push($languages,substr($key,9,11));
 	   } 
-	   else if ( $key == "api_address" ) 
-	   {
-		   $value = rtrim($value, '/');
-	   }
 	   else if ( $key != "action" && $key != "update" )
 	   {
 		   if (strpos($key, 'disable') !== false) { 
 		      if ( $value == "on" ) { $value = "False"; }
 		      if ( $value == "off" ) { $value = "True"; }
+                   } else if ( $key == "api_address" ) {
+                      $value = rtrim($value, '/');
 		   } else {                      
 	              if ( $value == "on" ) { $value = "True"; }
                       if ( $value == "off" ) { $value = "False"; }
