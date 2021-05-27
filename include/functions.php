@@ -270,22 +270,11 @@ function i8ln($word)
     }
 }
 
-function set_defaults()
-{
-   global $MaxRank, $GreatMinCP, $UltraMinCP;
-   $MaxRank = 4096;
-   $GreatMinCP = 0;
-   $UltraMinCP = 0;
-}
-
 function stripComments( $str ) 
 {
         $str = preg_replace('![ \t]*[^:]//.*[ \t]*[\r\n]!', '', $str);       //Strip single-line comments: '// comment'
         return $str;
 }
-
-# Execute Set Defaults so defaults are available on all pages
-set_defaults();
 
 #$grunts=get_grunts();
 #foreach($grunts as $key => $grunt) {

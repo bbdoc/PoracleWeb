@@ -35,7 +35,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                     </div>
                                 </div>
                                 <div class="input-group mt-2">
-                                    <input type="number" id='distance' name='distance' value='0' min='0' style="display:none;"
+                                    <input type="number" id='distance' name='distance' value='0' min='0' max='<?php echo $_SESSION['maxDistance']; ?>' style="display:none;"
                                         class="form-control text-center">
                                     <div class="input-group-append" id="distance_label" style="display:none;">
                                         <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
@@ -45,7 +45,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                         </div>
 
                         <?php } else { ?>
-                           <input type="hidden" id='distance' name='distance' value='0' min='0'>
+                           <input type="hidden" id='distance' name='distance' value='0'>
 			<?php } ?>
 
 			<div class="form-row align-items-center">

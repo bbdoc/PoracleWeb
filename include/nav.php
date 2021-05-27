@@ -65,7 +65,7 @@
            <table>
               <tr>
 		 <td width=100%>
-		    <?php if ( $admin_mode <> "True" ) { ?>
+		    <?php if ( @$admin_mode <> "True" ) { ?>
 	               <img class="img-profile rounded-circle" src="<?php echo $avatar ?>">
 		       <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
 		    <?php } else { ?>
@@ -265,6 +265,12 @@
                   <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=server_settings">
                     <i class="fas fa-cogs"></i> <?php echo i8ln('Server Settings'); ?>
 		  </a>
+		  <?php } ?>
+                  <?php if ( isset($_SESSION['admin_id']) ) { ?>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<?php echo $redirect_url; ?>?type=display&page=poracle_api">
+                    <i class="fas fa-link"></i> <?php echo i8ln('Poracle API'); ?>
+                  </a>
                   <?php } ?>
               </div>
             </div>

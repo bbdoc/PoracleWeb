@@ -355,5 +355,11 @@
     "Name":"Nom",
     "Icon":"Icone",
     "Channels & Users":"Canaux et Utilisateurs",
-    "Server Settings":"Paramètres Serveur"
+    "Server Settings":"Paramètres Serveur",
+    "Settings pulled from Poracle API":"Paramètres extraits de l'API Poracle",
+    "Update from Poracle config file":"A configurer depuis Poracle",
+    "Server Default Locale":"Langue du Serveur",
+    "Nominatim Settings":"Paramètres Nominatim",
+    "PvP Settings":"Paramètres PvP",
+    "Poracle Admins":"Administrateurs Poracle"
 }

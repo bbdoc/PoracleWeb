@@ -5,6 +5,30 @@
 
    $gen = $_POST['gen'];
 
+
+  // Replace Default Values if Set
+
+   if ( isset($_POST['great_league_ranking_min_cp']) && $_POST['great_league_ranking_min_cp'] == $_SESSION['pvpFilterGreatMinCP'] )
+   {
+	   $_POST['great_league_ranking_min_cp'] = 0;
+   }
+
+   if ( isset($_POST['ultra_league_ranking_min_cp']) && $_POST['ultra_league_ranking_min_cp'] == $_SESSION['pvpFilterultraMinCP'] )
+   {
+           $_POST['ultra_league_ranking_min_cp'] = 0;
+   }
+
+   if ( isset($_POST['great_league_ranking']) && $_POST['great_league_ranking'] == $_SESSION['pvpFilterMaxRank'] )
+   {
+           $_POST['great_league_ranking'] = 4096;
+   }
+
+   if ( isset($_POST['ultra_league_ranking']) && $_POST['ultra_league_ranking'] == $_SESSION['pvpFilterMaxRank'] )
+   {
+           $_POST['ultra_league_ranking'] = 4096;
+   }
+
+
   // UPDATE POKEMON
 
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
