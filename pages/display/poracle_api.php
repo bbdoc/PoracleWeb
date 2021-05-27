@@ -63,7 +63,9 @@ if (!isset($_SESSION['admin_id'])) {
                         &nbsp;&nbsp;<?php echo i8ln("Max Distance"); ?>
                     </div>
                 </div>
-                <div class="form-control text-center"><?php echo $_SESSION['maxDistance']; ?></div>
+		<div class="form-control text-center">
+		<?php if ( $_SESSION['maxDistance'] == 10726000 ) { echo i8ln("Unlimited")." (10.726 km)"; } else { echo $_SESSION['maxDistance']; } ?>
+                </div>
             </div>
         </div>
 
