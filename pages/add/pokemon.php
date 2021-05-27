@@ -284,7 +284,18 @@ if ( $disable_mons == "True" ) {
 
                         <hr>
 
-                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny") { ?>
+
+                        <?php
+
+                        $sql = "SELECT type FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+                        $result = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                            $type = $row['type'];
+                        }
+
+                        ?>
+
+                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($type, ":user") == false ) { ?>
                         <div class='searchmons text-center'>
                             <ul>
                                 <li><input type='checkbox' name='mon_0' id='mon_0' />
