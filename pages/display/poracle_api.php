@@ -49,6 +49,17 @@ if (!isset($_SESSION['admin_id'])) {
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text" style="width:230px;">
+                        &nbsp;&nbsp;<?php echo i8ln("Default Template"); ?>
+                    </div>
+                </div>
+                <div class="form-control text-center"><?php echo $_SESSION['defaultTemplateName']; ?></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:230px;">
                         &nbsp;&nbsp;<?php echo i8ln("Max Distance"); ?>
                     </div>
                 </div>
@@ -154,12 +165,15 @@ if (!isset($_SESSION['admin_id'])) {
                 <?php
 
                 foreach($_SESSION['poracle_admins'] as $key => $padmin) { 
+
                    $sql = "select type, name FROM humans where id = '$padmin'";
                    $result = $conn->query($sql);
+
 		   while ($row = $result->fetch_assoc()) {
                       if ($row['type'] == "discord:user") { $color="primary"; } else if ($row['type'] == "telegram:user") { $color="info"; }
                       echo "<span class='badge badge-$color' style='width:100%;'>".$row['type']." | ".$padmin." | ".$row['name']."</span><br>";
                    }
+
 		}
 
                 ?>
