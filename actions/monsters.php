@@ -13,7 +13,7 @@
 	   $_POST['great_league_ranking_min_cp'] = 0;
    }
 
-   if ( isset($_POST['ultra_league_ranking_min_cp']) && $_POST['ultra_league_ranking_min_cp'] == $_SESSION['pvpFilterultraMinCP'] )
+   if ( isset($_POST['ultra_league_ranking_min_cp']) && $_POST['ultra_league_ranking_min_cp'] == $_SESSION['pvpFilterUltraMinCP'] )
    {
            $_POST['ultra_league_ranking_min_cp'] = 0;
    }
