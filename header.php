@@ -162,31 +162,6 @@ if (isset($_SESSION['username'])) {
      exit();
 }
 
-// Add Admin Mode Alarms for admin_id
-
-if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id']) 
-{
-   $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
-   $admin_alarm.="<b>".i8ln("ADMIN MODE ACTIVE")."</b><br>";
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
-   if ($_SESSION['admin_dbname'] <> $_SESSION['dbname']) 
-   { 
-	   $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
-   } 
-   $admin_alarm.="</div>";
-   $admin_mode = "True";
-
-   if ($_SESSION['type'] == "discord:channel" || $_SESSION['type'] == "telegram:channel" || $_SESSION['type'] == "telegram:group" ) {
-           $admin_alarm.="<a href='./admin_sync.php'>";
-           $admin_alarm.="<button type='button' class='btn mb-2' style='width:100%; background-color:darkred; color:white;'>";
-           $admin_alarm.=i8ln("Synchronize Other Channels with this one");
-           $admin_alarm.="</button>";
-           $admin_alarm.="</a>";
-
-   } 
-}
-
 // Add Admin Mode Alarms for Delegated Admin
 
 if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['id'])
@@ -203,6 +178,30 @@ if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['
    $admin_mode = "True";
 }
 
+// Add Admin Mode Alarms for admin_id
+
+if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
+{
+   $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
+   $admin_alarm.="<b>".i8ln("ADMIN MODE ACTIVE")."</b><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   if ($_SESSION['admin_dbname'] <> $_SESSION['dbname'])
+   {
+           $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
+   }
+   $admin_alarm.="</div>";
+   $admin_mode = "True";
+
+   if ($_SESSION['type'] == "discord:channel" || $_SESSION['type'] == "telegram:channel" || $_SESSION['type'] == "telegram:group" ) {
+           $admin_alarm.="<a href='./admin_sync.php'>";
+           $admin_alarm.="<button type='button' class='btn mb-2' style='width:100%; background-color:darkred; color:white;'>";
+           $admin_alarm.=i8ln("Synchronize Other Channels with this one");
+           $admin_alarm.="</button>";
+           $admin_alarm.="</a>";
+
+   }
+}
 
 // Check if IV + PvP is used
 
