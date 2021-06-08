@@ -1,5 +1,13 @@
 <?php
 
+// Replace Default Values if Set
+
+if ( $row['great_league_ranking'] == 4096 ) { $row['great_league_ranking'] = ""; }
+if ( $row['ultra_league_ranking'] == 4096 ) { $row['ultra_league_ranking'] = ""; }
+if ( $row['great_league_ranking_min_cp'] == 0 ) { $row['great_league_ranking_min_cp'] = ""; }
+if ( $row['ultra_league_ranking_min_cp'] == 0 ) { $row['ultra_league_ranking_min_cp'] = ""; }
+
+
 $form_name = get_form_name($row['pokemon_id'], $row['form']);
 
 echo "
@@ -77,7 +85,7 @@ if ($row['pokemon_id'] == '0') {
                     </div>
 		    <div class="input-group mt-2">
 			<input type="number" id='distance_<?php echo $pkm_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
-                            min='0' class="form-control text-center">
+                            min='0' max='<?php echo $_SESSION['maxDistance']; ?>' class="form-control text-center">
                         <div class="input-group-append" id="distance_label_<?php echo $pkm_unique_id; ?>" <?php echo $style; ?>>
 			    <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                         </div>
@@ -214,7 +222,11 @@ if ($row['pokemon_id'] == '0') {
 	</div>
 
         <div class="tab-pane fade" id="pills-pvp-<?php echo $pkm_unique_id ?>" role="tabpanel"
-            aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
+	    aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
+	    <hr><center>
+            <b><font style="color:darkred;"><?php echo i8ln("Only fill this section if you want to track PvP"); ?>. 
+		   <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b><hr>
+            </center>
             <div class="form-row align-items-center">
 		<div class="col-sm-12 my-1">
 		    <label><?php echo i8ln("PvP Great"); ?></label>
@@ -223,13 +235,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
 			<input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-                            value='<?php echo $row['great_league_ranking'] ?>' min='0' max='4096' 
+                            value='<?php echo $row['great_league_ranking'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1 
-                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -243,13 +255,13 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
                         <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1 
-                            value='<?php echo $row['ultra_league_ranking'] ?>' min=0 max='4096'
+                            value='<?php echo $row['ultra_league_ranking'] ?>' min=1 max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 
-                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min=0 max='4096'
+                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>

@@ -43,7 +43,7 @@ if ( $disable_mons == "True" ) {
                                     </div>
                                 </div>
 				<div class="input-group mt-2">
-                                    <input type="number" id='distance' name='distance' value='0' min='0' style="display:none;"
+                                    <input type="number" id='distance' name='distance' value='0' min='0' max='<?php echo $_SESSION['maxDistance']; ?>' style="display:none;"
                                         class="form-control text-center">
                                     <div class="input-group-append" id="distance_label" style="display:none;">
                                         <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
@@ -52,7 +52,7 @@ if ( $disable_mons == "True" ) {
                             </div>
 			</div>
 			<?php } else { ?>
-                           <input type="hidden" id='distance' name='distance' value='0' min='0'>
+                           <input type="hidden" id='distance' name='distance' value='0'>
                         <?php } ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
@@ -182,6 +182,11 @@ if ( $disable_mons == "True" ) {
 
                         <hr>
 
+                        <center>
+                        <b><font style="color:darkred;"><?php echo i8ln("Only fill this section if you want to track PvP"); ?>.
+                               <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b><hr>
+                        </center>
+
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
 				<label><?php echo i8ln("PvP Great"); ?></label>
@@ -190,13 +195,13 @@ if ( $disable_mons == "True" ) {
 					<div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                                     </div>
                                     <input type='number' id='great_league_ranking' name='great_league_ranking' size=1
-				        value='<?php echo $MaxRank; ?>' min='0' max='<?php echo $MaxRank; ?>' class="form-control text-center">
+				        value='' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' class="form-control text-center">
                                     <div class="input-group-prepend">
 					<span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                                     </div>
                                     <input type='number' id='great_league_ranking_min_cp'
-                                        name='great_league_ranking_min_cp' size=1 value='<?php echo $GreatMinCP; ?>' min='<?php echo $GreatMinCP; ?>' max='4096'
-                                        class="form-control text-center">
+					name='great_league_ranking_min_cp' size=1 value='' 
+                                        min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096' class="form-control text-center">
                                 </div>
                             </div>
                         </div>
@@ -208,13 +213,13 @@ if ( $disable_mons == "True" ) {
 					<div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                                     </div>
                                     <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1
-                                        value='<?php echo $MaxRank; ?>' min='0' max='<?php echo $MaxRank; ?>' class="form-control text-center">
+                                        value='' min='0' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' class="form-control text-center">
                                     <div class="input-group-prepend">
 					<span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                                     </div>
                                     <input type='number' id='ultra_league_ranking_min_cp'
-                                        name='ultra_league_ranking_min_cp' size=1 value='<?php echo $UltraMinCP; ?>' min='<?php echo $UltraMinCP; ?>' max='4096'
-                                        class="form-control text-center">
+					name='ultra_league_ranking_min_cp' size=1 value='' 
+                                        min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096' class="form-control text-center">
                                 </div>
                             </div>
                         </div>
@@ -284,6 +289,18 @@ if ( $disable_mons == "True" ) {
 
                         <hr>
 
+
+                        <?php
+
+                        $sql = "SELECT type FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+                        $result = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                            $type = $row['type'];
+                        }
+
+                        ?>
+
+                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($type, ":user") == false ) { ?>
                         <div class='searchmons text-center'>
                             <ul>
                                 <li><input type='checkbox' name='mon_0' id='mon_0' />
@@ -292,7 +309,8 @@ if ( $disable_mons == "True" ) {
                                     </label>
                                 </li>
                             </ul>
-                        </div>
+			</div>
+                        <?php } ?>
 
                         <div class="alert alert-info alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
 			    <?php echo i8ln("Type"); ?> <strong>ALL</strong> <?php echo i8ln("to display all Pokémon"); ?>

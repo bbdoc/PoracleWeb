@@ -97,6 +97,10 @@ if ( $json['status']=="ok" ) {
 
 }
 
+// Set Max Distance to 10,726 km if 0 (so no max distance)
+
+if ( $_SESSION['maxDistance'] == 0 ) { $_SESSION['maxDistance'] = 10726000; }
+
 // Get Areas from API
 
 $areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);

@@ -99,7 +99,7 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
                        <script async src="https://telegram.org/js/telegram-widget.js?14"
                             data-telegram-login="<?php echo $telegram_bot; ?>"
                             data-size="medium"
-                            data-auth-url="<?php echo $redirect_url; ?>/migrate.php"
+                            data-auth-url="<?php echo $redirect_url; ?>/?type=display&page=migrate"
                             data-request-access="write">
                        </script>
 

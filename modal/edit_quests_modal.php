@@ -56,7 +56,7 @@ echo "</div>";
             </div>
             <div class="input-group mt-2">
                 <input type="number" id='distance_<?php echo $quest_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
-                    min='0' class="form-control text-center">
+                    min='0' max='<?php echo $_SESSION['maxDistance']; ?>' class="form-control text-center">
                 <div class="input-group-append" id="distance_label_<?php echo $quest_unique_id; ?>" <?php echo $style; ?>>
                     <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
                 </div>

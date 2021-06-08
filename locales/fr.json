@@ -355,5 +355,14 @@
     "Name":"Nom",
     "Icon":"Icone",
     "Channels & Users":"Canaux et Utilisateurs",
-    "Server Settings":"Paramètres Serveur"
+    "Server Settings":"Paramètres Serveur",
+    "Settings pulled from Poracle API":"Paramètres extraits de l'API Poracle",
+    "Update from Poracle config file":"A configurer depuis Poracle",
+    "Server Default Locale":"Langue du Serveur",
+    "Nominatim Settings":"Paramètres Nominatim",
+    "PvP Settings":"Paramètres PvP",
+    "Poracle Admins":"Administrateurs Poracle",
+    "Unlimited":"Illimité",
+    "Only fill this section if you want to track PvP":"Remplir cette section uniquement pour ajouter un suivi PvP",
+    "Ranking should be between 1 and":"Le Ranking doit être compris entre 1 et"
 }

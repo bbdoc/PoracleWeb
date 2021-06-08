@@ -5,6 +5,12 @@
 
    $gen = $_POST['gen'];
 
+
+  // Replace Default Values if Set
+
+   if ($_POST['great_league_ranking'] == "" ) { $_POST['great_league_ranking'] = 4096; }
+   if ($_POST['ultra_league_ranking'] == "" ) { $_POST['ultra_league_ranking'] = 4096; }
+
   // UPDATE POKEMON
 
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'monsters') {
