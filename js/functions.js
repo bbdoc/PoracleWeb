@@ -25,6 +25,16 @@ function areas_add() {
    }
 }
 
+function setnoiv(type) { 
+   var min_iv = "min_iv_".concat(type);
+   if(document.getElementById("noiv_".concat(type)).checked){ 
+      document.getElementById(min_iv).disabled = true;
+   } else { 
+      document.getElementById(min_iv).disabled = false;
+   }
+}
+
+
 $(document).ready(function() {
     $("input[type='checkbox']").change(function() {
         var maxAllowed = 100;

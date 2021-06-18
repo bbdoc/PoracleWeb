@@ -108,20 +108,22 @@ if ($row['pokemon_id'] == '0') {
             <div class="form-row align-items-center">
 		<div class="col-sm-12 my-1">
                     <div class="input-group mb-1">
-		    <input type="checkbox" name="noiv" id="noiv" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
-                    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; } ?> >
+		    <input type="checkbox" name="noiv" id="noiv_<?php echo $pkm_unique_id; ?>" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
+		    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; $disabled="disabled"; } else { $disabled=""; } ?> 
+                    onChange="setnoiv('<?php echo $pkm_unique_id; ?>')"
+                    >
                        &nbsp;&nbsp;<?php echo i8ln("Track Pokemon with no IV"); ?>
                     </div>
 		    <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("IV"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
-			<input type='number' id='min_iv' name='min_iv' size=1 
+			<input type='number' id='min_iv_<?php echo $pkm_unique_id; ?>' name='min_iv' size=1 
                             value='<?php echo $row['min_iv'] ?>'
                             placeholder='<?php echo $monster_defaults['min_iv']; ?>'
 			    min='<?php echo $monster_defaults['min_iv'] ?>' 
 			    max='<?php echo $monster_defaults['max_iv'] ?>' 
-                            class="form-control text-center">
+			    class="form-control text-center" <?php echo $disabled; ?> >
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
