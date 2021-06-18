@@ -287,47 +287,91 @@ if ($row['pokemon_id'] == '0') {
 
         <div class="tab-pane fade" id="pills-pvp-<?php echo $pkm_unique_id ?>" role="tabpanel"
 	    aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
-	    <hr><center>
-            <b><font style="color:darkred;"><?php echo i8ln("Only fill this section if you want to track PvP"); ?>. 
-		   <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b><hr>
-            </center>
+            <b><font style="color:darkred;"><?php echo i8ln("Only fill this section if you want to track PvP"); ?>.</font></b><hr>
+	    </center>
+
+            <?php
+
+            $great_checked = ""; $great_display = "none";
+            $ultra_checked = ""; $ultra_display = "none";
+	    $none_checked = "";
+
+            if ( $row['great_league_ranking'] > 0 ) 
+            { 
+		    $great_display = "block"; 
+		    $great_checked = "checked"; 
+	    } else if ( $row['ultra_league_ranking'] > 0 ) 
+            { 
+		    $ultra_display = "block"; 
+		    $ultra_checked = "checked"; 
+	    } else {
+		    $none_checked = "checked"; 
+	    }
+
+
+            ?>
+
             <div class="form-row align-items-center">
+                <div class="col-sm-12 my-1">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><?php echo i8ln("Track PvP League"); ?>&nbsp;</div>
+                            </div>
+                        </div>
+                        <label class="btn btn-secondary">
+			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
+                                   value="none" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
+                        </label>
+                        <label class="btn btn-secondary">
+			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
+                                   value="great" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>
+                        </label>
+                        <label class="btn btn-secondary">
+			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
+                                   value="ultra" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $ultra_checked; ?>><?php echo i8ln("Ultra"); ?>
+                        </label>
+                    </div>
+                </div>
+    	    </div>
+
+            <div class="form-row align-items-center" id="league_great_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $great_display; ?>;">
 		<div class="col-sm-12 my-1">
-		    <label><?php echo i8ln("PvP Great"); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
-			<input type='number' id='great_league_ranking' name='great_league_ranking' size=1
+			<input type='number' id='great_league_ranking_<?php echo $pkm_unique_id; ?>' name='great_league_ranking' size=1
                             value='<?php echo $row['great_league_ranking'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='great_league_ranking_min_cp' name='great_league_ranking_min_cp' size=1 
+                        <input type='number' id='great_league_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='great_league_ranking_min_cp' size=1 
                             value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096'
                             class="form-control text-center">
-                    </div>
+		    </div>
+                    <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
                 </div>
-            </div>
-            <hr>
-            <div class="form-row align-items-center">
+	    </div>
+
+            <div class="form-row align-items-center" id="league_ultra_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $ultra_display; ?>;">
                 <div class="col-sm-12 my-1">
-		    <label><?php echo i8ln("PvP Ultra"); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
                         </div>
-                        <input type='number' id='ultra_league_ranking' name='ultra_league_ranking' size=1 
+                        <input type='number' id='ultra_league_ranking_<?php echo $pkm_unique_id; ?>' name='ultra_league_ranking' size=1 
                             value='<?php echo $row['ultra_league_ranking'] ?>' min=1 max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='ultra_league_ranking_min_cp' name='ultra_league_ranking_min_cp' size=1 
+                        <input type='number' id='ultra_league_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='ultra_league_ranking_min_cp' size=1 
                             value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096'
                             class="form-control text-center">
-                    </div>
+		    </div>
+                    <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
                 </div>
             </div>
         </div>

@@ -34,6 +34,27 @@ function setnoiv(type) {
    }
 }
 
+function setpvp(type) { 
+   var value = document.querySelector('input[id="league_' + type + '"]:checked').value;
+   var divblock = "league_".concat(value).concat("_").concat(type); 
+   var divgreat = "league_great_".concat(type); 
+   var divultra = "league_ultra_".concat(type); 
+
+   document.getElementById("great_league_ranking_".concat(type)).value = "";
+   document.getElementById("ultra_league_ranking_".concat(type)).value = "";
+   document.getElementById("great_league_ranking_min_cp_".concat(type)).value = "";
+   document.getElementById("ultra_league_ranking_min_cp_".concat(type)).value = "";
+
+   if(value == "none"){
+      document.getElementById(divgreat).style.display = "none";
+      document.getElementById(divultra).style.display = "none";
+   } else {
+      document.getElementById(divgreat).style.display = "none";
+      document.getElementById(divultra).style.display = "none";
+      document.getElementById(divblock).style.display = "block";
+   }
+}
+
 
 $(document).ready(function() {
     $("input[type='checkbox']").change(function() {
