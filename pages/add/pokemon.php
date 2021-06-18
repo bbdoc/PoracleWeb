@@ -58,8 +58,8 @@ if ( $disable_mons == "True" ) {
                             <div class="col-sm-12 my-1">
 				<div class="input-group mb-1">
 				<input type="checkbox" name="noiv" id="noiv_add" data-toggle="toggle" onChange="setnoiv('add')"
-                                       data-onstyle="success" data-offstyle="danger" data-size="sm" checked>
-				    &nbsp;&nbsp;<?php echo i8ln("Track Pokemon with no IV"); ?>
+                                       data-onstyle="success" data-offstyle="danger" data-size="sm">
+				    &nbsp;&nbsp;<?php echo i8ln("Include Pokemon with unknown IV"); ?>
                                 </div>
 				<div class="input-group">
 

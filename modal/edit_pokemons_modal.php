@@ -112,7 +112,7 @@ if ($row['pokemon_id'] == '0') {
 		    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; $disabled="disabled"; } else { $disabled=""; } ?> 
                     onChange="setnoiv('<?php echo $pkm_unique_id; ?>')"
                     >
-                       &nbsp;&nbsp;<?php echo i8ln("Track Pokemon with no IV"); ?>
+                       &nbsp;&nbsp;<?php echo i8ln("Include Pokemon with unknown IV"); ?>
                     </div>
 		    <div class="input-group">
                         <div class="input-group-prepend">
