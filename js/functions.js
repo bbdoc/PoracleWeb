@@ -29,6 +29,7 @@ function setnoiv(type) {
    var min_iv = "min_iv_".concat(type);
    if(document.getElementById("noiv_".concat(type)).checked){ 
       document.getElementById(min_iv).disabled = true;
+      document.getElementById(min_iv).value = "";
    } else { 
       document.getElementById(min_iv).disabled = false;
    }

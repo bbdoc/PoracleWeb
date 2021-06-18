@@ -57,7 +57,8 @@ if ( $disable_mons == "True" ) {
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
 				<div class="input-group mb-1">
-                                <input type="checkbox" name="noiv" id="noiv" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" checked>
+				<input type="checkbox" name="noiv" id="noiv_add" data-toggle="toggle" onChange="setnoiv('add')"
+                                       data-onstyle="success" data-offstyle="danger" data-size="sm" checked>
 				    &nbsp;&nbsp;<?php echo i8ln("Track Pokemon with no IV"); ?>
                                 </div>
 				<div class="input-group">
@@ -67,7 +68,7 @@ if ( $disable_mons == "True" ) {
 					    &nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("IV"); ?>&nbsp;&nbsp;&nbsp;&nbsp;
                                         </div>
                                     </div>
-				    <input type='number' id='min_iv' name='min_iv' size=1 
+				    <input type='number' id='min_iv_add' name='min_iv' size=1 
 					placeholder='<?php echo $monster_defaults['min_iv']; ?>' 
                                         min='<?php echo $monster_defaults['min_iv']; ?>' 
                                         max='<?php echo $monster_defaults['max_iv']; ?>'
