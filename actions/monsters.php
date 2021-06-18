@@ -2,14 +2,34 @@
 
    include "../config.php";
    include "../include/db_connect.php";
+   include "../include/defaults.php";
 
    $gen = $_POST['gen'];
 
+   // Use Default Values if Empty POST or no set
+   if (!isset($_POST['min_iv']) || $_POST['min_iv'] == "") { $_POST['min_iv'] = $monster_defaults['min_iv']; }
+   if (!isset($_POST['max_iv']) || $_POST['max_iv'] == "") { $_POST['max_iv'] = $monster_defaults['max_iv']; }
+   if (!isset($_POST['min_cp']) || $_POST['min_cp'] == "") { $_POST['min_cp'] = $monster_defaults['min_cp']; }
+   if (!isset($_POST['max_cp']) || $_POST['max_cp'] == "") { $_POST['max_cp'] = $monster_defaults['max_cp']; }
+   if (!isset($_POST['min_level']) || $_POST['min_level'] == "") { $_POST['min_level'] = $monster_defaults['min_level']; }
+   if (!isset($_POST['max_level']) || $_POST['max_level'] == "") { $_POST['max_level'] = $monster_defaults['max_level']; }
+   if (!isset($_POST['min_weight']) || $_POST['min_weight'] == "") { $_POST['min_weight'] = $monster_defaults['min_weight']; }
+   if (!isset($_POST['max_weight']) || $_POST['max_weight'] == "") { $_POST['max_weight'] = $monster_defaults['max_weight']; }
+   if (!isset($_POST['atk']) || $_POST['atk'] == "") { $_POST['atk'] = $monster_defaults['atk']; }
+   if (!isset($_POST['def']) || $_POST['def'] == "") { $_POST['def'] = $monster_defaults['def']; }
+   if (!isset($_POST['sta']) || $_POST['sta'] == "") { $_POST['sta'] = $monster_defaults['sta']; }
+   if (!isset($_POST['max_atk']) || $_POST['max_atk'] == "") { $_POST['max_atk'] = $monster_defaults['max_atk']; }
+   if (!isset($_POST['max_def']) || $_POST['max_def'] == "") { $_POST['max_def'] = $monster_defaults['max_def']; }
+   if (!isset($_POST['max_sta']) || $_POST['max_sta'] == "") { $_POST['max_sta'] = $monster_defaults['max_sta']; }
 
-  // Replace Default Values if Set
-
+   // Replace Default Values if Set
    if ($_POST['great_league_ranking'] == "" ) { $_POST['great_league_ranking'] = 4096; }
    if ($_POST['ultra_league_ranking'] == "" ) { $_POST['ultra_league_ranking'] = 4096; }
+
+   // Handle NO IV Pokemon
+
+   if (isset($_POST['noiv']) && $_POST['noiv'] == "on" ) { $_POST['min_iv'] = "-1"; }
+
 
   // UPDATE POKEMON
 

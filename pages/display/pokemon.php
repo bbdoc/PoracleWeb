@@ -342,7 +342,7 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['min_level'] <> '0' || $row['max_level'] <> '40') {
+                                                            if ($row['min_level'] <> '0' || $row['max_level'] < '40') {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">

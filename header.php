@@ -3,6 +3,7 @@
 include "./config.php";
 include "./include/db_connect.php";
 include "./include/functions.php";
+include "./include/defaults.php";
 
 set_locale();
 

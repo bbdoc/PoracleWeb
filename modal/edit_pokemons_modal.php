@@ -2,10 +2,19 @@
 
 // Replace Default Values if Set
 
-if ( $row['great_league_ranking'] == 4096 ) { $row['great_league_ranking'] = ""; }
-if ( $row['ultra_league_ranking'] == 4096 ) { $row['ultra_league_ranking'] = ""; }
-if ( $row['great_league_ranking_min_cp'] == 0 ) { $row['great_league_ranking_min_cp'] = ""; }
-if ( $row['ultra_league_ranking_min_cp'] == 0 ) { $row['ultra_league_ranking_min_cp'] = ""; }
+if ( $row['min_iv'] == $monster_defaults['min_iv'] ) { $row['min_iv'] = ""; }
+if ( $row['max_iv'] == $monster_defaults['max_iv'] ) { $row['max_iv'] = ""; }
+if ( $row['min_cp'] == $monster_defaults['min_cp'] ) { $row['min_cp'] = ""; }
+if ( $row['max_cp'] == $monster_defaults['max_cp'] ) { $row['max_cp'] = ""; }
+if ( $row['min_level'] == $monster_defaults['min_level'] ) { $row['min_level'] = ""; }
+if ( $row['max_level'] == $monster_defaults['max_level'] ) { $row['max_level'] = ""; }
+if ( $row['min_weight'] == $monster_defaults['min_weight'] ) { $row['min_weight'] = ""; }
+if ( $row['max_weight'] == $monster_defaults['max_weight'] ) { $row['max_weight'] = ""; }
+
+if ( $row['great_league_ranking'] == $monster_defaults['great_league_ranking'] ) { $row['great_league_ranking'] = ""; }
+if ( $row['ultra_league_ranking'] == $monster_defaults['ultra_league_ranking'] ) { $row['ultra_league_ranking'] = ""; }
+if ( $row['great_league_ranking_min_cp'] == $monster_defaults['great_league_ranking_min_cp'] ) { $row['great_league_ranking_min_cp'] = ""; }
+if ( $row['ultra_league_ranking_min_cp'] == $monster_defaults['ultra_league_ranking_min_cp'] ) { $row['ultra_league_ranking_min_cp'] = ""; }
 
 
 $form_name = get_form_name($row['pokemon_id'], $row['form']);
@@ -97,18 +106,31 @@ if ($row['pokemon_id'] == '0') {
             <?php } ?>
 
             <div class="form-row align-items-center">
-                <div class="col-sm-12 my-1">
-                    <div class="input-group">
+		<div class="col-sm-12 my-1">
+                    <div class="input-group mb-1">
+		    <input type="checkbox" name="noiv" id="noiv" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
+                    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; } ?> >
+                       &nbsp;&nbsp;<?php echo i8ln("Track Pokemon with no IV"); ?>
+                    </div>
+		    <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("IV"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
-                        <input type='number' id='min_iv' name='min_iv' size=1 value='<?php echo $row['min_iv'] ?>'
-                            min='-1' max='100' class="form-control text-center">
+			<input type='number' id='min_iv' name='min_iv' size=1 
+                            value='<?php echo $row['min_iv'] ?>'
+                            placeholder='<?php echo $monster_defaults['min_iv']; ?>'
+			    min='<?php echo $monster_defaults['min_iv'] ?>' 
+			    max='<?php echo $monster_defaults['max_iv'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
-                        <input type='number' id='max_iv' name='max_iv' size=1 value='<?php echo $row['max_iv'] ?>'
-                            min='-1' max='100' class="form-control text-center">
+			<input type='number' id='max_iv' name='max_iv' size=1 
+                            value='<?php echo $row['max_iv'] ?>' 
+                            placeholder='<?php echo $monster_defaults['max_iv']; ?>'
+			    min='<?php echo $monster_defaults['min_iv'] ?>' 
+			    max='<?php echo $monster_defaults['max_iv'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
                         </div>
@@ -121,13 +143,21 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("CP"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
-                        <input type='number' id='min_cp' name='min_cp' size=1 value='<?php echo $row['min_cp'] ?>'
-                            min='0' max='9000' class="form-control text-center">
+			<input type='number' id='min_cp' name='min_cp' size=1 
+                            value='<?php echo $row['min_cp'] ?>'
+                            placeholder='<?php echo $monster_defaults['min_cp']; ?>'
+			    min='<?php echo $monster_defaults['min_cp'] ?>' 
+			    max='<?php echo $monster_defaults['max_cp'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
-                        <input type='number' id='max_cp' name='max_cp' size=1 value='<?php echo $row['max_cp'] ?>'
-                            min='0' max='9000' class="form-control text-center">
+			<input type='number' id='max_cp' name='max_cp' size=1 
+                            value='<?php echo $row['max_cp'] ?>'
+                            placeholder='MAX'
+			    min='<?php echo $monster_defaults['min_cp'] ?>' 
+			    max='<?php echo $monster_defaults['max_cp'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
                         </div>
@@ -140,13 +170,21 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("LVL"); ?>&nbsp;&nbsp;&nbsp;</div>
                         </div>
-                        <input type='number' id='min_level' name='min_level' size=1 value='<?php echo $row['min_level'] ?>'
-                            min='0' max='50' class="form-control text-center">
+			<input type='number' id='min_level' name='min_level' size=1 
+                            value='<?php echo $row['min_level'] ?>'
+                            placeholder='<?php echo $monster_defaults['min_level']; ?>'
+			    min='<?php echo $monster_defaults['min_level'] ?>' 
+			    max='<?php echo $monster_defaults['max_level'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
                         <input type='number' id='max_level' name='max_level' size=1
-                            value='<?php echo $row['max_level'] ?>' min='0' max='50' class="form-control text-center">
+                            placeholder='<?php echo $monster_defaults['max_level']; ?>'
+			    value='<?php echo $row['max_level'] ?>' 
+			    min='<?php echo $monster_defaults['min_level'] ?>' 
+			    max='<?php echo $monster_defaults['max_level'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
                         </div>
@@ -160,13 +198,19 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("Weight"); ?></div>
                         </div>
                         <input type='number' id='min_weight' name='min_weight' size=2
-                            value='<?php echo $row['min_weight'] ?>' min='0' max='9000000'
+                            placeholder='<?php echo $monster_defaults['min_weight']; ?>'
+			    value='<?php echo $row['min_weight'] ?>' 
+			    min='<?php echo $monster_defaults['min_weight'] ?>' 
+                            max='<?php echo $monster_defaults['max_weight'] ?>'
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
                         <input type='number' id='max_weight' name='max_weight' size=4
-                            value='<?php echo $row['max_weight'] ?>' min='0' max='9000000'
+                            placeholder='MAX'
+			    value='<?php echo $row['max_weight'] ?>' 
+			    min='<?php echo $monster_defaults['min_weight'] ?>' 
+                            max='<?php echo $monster_defaults['max_weight'] ?>'
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -179,18 +223,27 @@ if ($row['pokemon_id'] == '0') {
                 <div class="col-sm-12 my-1">
 		    <label><?php echo i8ln("MIN STATS"); ?></label>
                     <div class="input-group">
-                        <input type='number' id='atk' name='atk' size=1 value='<?php echo $row['atk'] ?>' min='0'
-                            max='15' class="form-control text-center">
+			<input type='number' id='atk' name='atk' size=1 
+                            value='<?php echo $row['atk'] ?>' 
+                            min='<?php echo $monster_defaults['atk'] ?>'
+			    max='<?php echo $monster_defaults['max_atk'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                         </div>
-                        <input type='number' id='def' name='def' size=1 value='<?php echo $row['def'] ?>' min='0'
-                            max='15' class="form-control text-center">
+			<input type='number' id='def' name='def' size=1 
+                            value='<?php echo $row['def'] ?>' 
+                            min='<?php echo $monster_defaults['def'] ?>'
+			    max='<?php echo $monster_defaults['max_def'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                         </div>
-                        <input type='number' id='sta' name='sta' size=1 value='<?php echo $row['sta'] ?>' min='0'
-                            max='15' class="form-control text-center">
+			<input type='number' id='sta' name='sta' size=1 
+                            value='<?php echo $row['sta'] ?>' 
+                            min='<?php echo $monster_defaults['sta'] ?>'
+			    max='<?php echo $monster_defaults['max_sta'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("STA"); ?></span>
                         </div>
@@ -201,18 +254,27 @@ if ($row['pokemon_id'] == '0') {
                 <div class="col-sm-12 my-1">
 		    <label><?php echo i8ln("MAX STATS"); ?></label>
                     <div class="input-group">
-                        <input type='number' id='max_atk' name='max_atk' size=1 value='<?php echo $row['max_atk'] ?>'
-                            min='0' max='15' class="form-control text-center">
+			<input type='number' id='max_atk' name='max_atk' size=1 
+                            value='<?php echo $row['max_atk'] ?>'
+			    min='<?php echo $monster_defaults['atk'] ?>' 
+			    max='<?php echo $monster_defaults['max_atk'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                         </div>
-                        <input type='number' id='max_def' name='max_def' size=1 value='<?php echo $row['max_def'] ?>'
-                            min='0' max='15' class="form-control text-center">
+			<input type='number' id='max_def' name='max_def' size=1 
+                            value='<?php echo $row['max_def'] ?>'
+			    min='<?php echo $monster_defaults['def'] ?>' 
+			    max='<?php echo $monster_defaults['max_def'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                         </div>
-                        <input type='number' id='max_sta' name='max_sta' size=1 value='<?php echo $row['max_sta'] ?>'
-                            min='0' max='15' class="form-control text-center">
+			<input type='number' id='max_sta' name='max_sta' size=1 
+                            value='<?php echo $row['max_sta'] ?>'
+			    min='<?php echo $monster_defaults['sta'] ?>' 
+			    max='<?php echo $monster_defaults['max_sta'] ?>' 
+                            class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("STA"); ?></span>
                         </div>
