@@ -251,7 +251,13 @@ if ( $disable_mons == "True" ) {
                             </div>
                         </div>
 
-                        <div class="form-row align-items-center" id="league_great_add" style="display:none;">
+			<div class="form-row align-items-center" id="league_great_add" style="display:none;">
+
+                            <div class='alert alert-info fade show' role='alert' style='padding:3px; margin:3px;'>
+                                   <?php echo i8ln("Only fill this section if you want to track PvP"); ?><br>
+                                   <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?>
+                            </div>
+
 			    <div class="col-sm-12 my-1">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -265,11 +271,16 @@ if ( $disable_mons == "True" ) {
                                     <input type='number' id='great_league_ranking_min_cp_add'
 					name='great_league_ranking_min_cp' size=1 value='' 
                                         min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096' class="form-control text-center">
-                                </div>
-                                <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
+				</div>
 			    </div>
                         </div>
-                        <div class="form-row align-items-center" id="league_ultra_add" style="display:none;">
+			<div class="form-row align-items-center" id="league_ultra_add" style="display:none;">
+
+                            <div class='alert alert-info fade show' role='alert' style='padding:3px; margin:3px;'>
+                                   <?php echo i8ln("Only fill this section if you want to track PvP"); ?><br>
+                                   <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?>
+                            </div>
+
                             <div class="col-sm-12 my-1">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -283,8 +294,8 @@ if ( $disable_mons == "True" ) {
                                     <input type='number' id='ultra_league_ranking_min_cp_add'
 					name='ultra_league_ranking_min_cp' size=1 value='' 
                                         min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096' class="form-control text-center">
-                                </div>
-                                <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
+				</div>
+
                             </div>
                         </div>
 

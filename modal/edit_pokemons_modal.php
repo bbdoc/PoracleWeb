@@ -287,7 +287,12 @@ if ($row['pokemon_id'] == '0') {
 
         <div class="tab-pane fade" id="pills-pvp-<?php echo $pkm_unique_id ?>" role="tabpanel"
 	    aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
-            <b><font style="color:darkred;"><?php echo i8ln("Only fill this section if you want to track PvP"); ?>.</font></b><hr>
+
+                    <div class='alert alert-info fade show' role='alert' style='padding:3px; margin:3px;'>
+                       <?php echo i8ln("Only fill this section if you want to track PvP"); ?><br>
+                       <?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?>
+                    </div>
+
 	    </center>
 
             <?php
@@ -351,7 +356,6 @@ if ($row['pokemon_id'] == '0') {
                             value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096'
                             class="form-control text-center">
 		    </div>
-                    <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
                 </div>
 	    </div>
 
@@ -371,7 +375,6 @@ if ($row['pokemon_id'] == '0') {
                             value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096'
                             class="form-control text-center">
 		    </div>
-                    <b><font style="color:darkred;"><?php echo i8ln("Ranking should be between 1 and")." ".$_SESSION['pvpFilterMaxRank']; ?></font></b>
                 </div>
             </div>
         </div>
