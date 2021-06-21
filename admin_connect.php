@@ -103,6 +103,14 @@ if ( isset($_SESSION['delegated_id']) && $_SESSION['id'] == $_SESSION['delegated
         $_SESSION['dbname']=$_SESSION['delegated_dbname'];
 }
 
+// Switch to active Profile
+
+$sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) {
+    $_SESSION['profile'] = $row['current_profile_no'];
+}
+
 header("Location: $redirect_url");
 
 ?>
