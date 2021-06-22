@@ -232,12 +232,49 @@ if ( $disable_quests == "True" ) {
                             </ul>
                         </div>
 
+                        <hr>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <?php echo i8ln("Select Candy Rewards you want to add"); ?>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <div class='selectionList'>
+                            <ul>
+                                <li class='text-center'><input type='checkbox' name='candy_0'
+                                        id='candy_0' />
+                                    <label for='candy_0'>
+                                        <img src='./img/candy/0.png'/>
+                                        <br><br><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                </li>
+                                <?php
+                                    $candy_rewards =  get_quest_candy();
+                                    foreach ($candy_rewards as &$candy) {
+                                    ?>
+                                <li class='text-center'><input type='checkbox' name='candy_<?php echo $candy; ?>'
+                                        id='candy_<?php echo $candy; ?>' />
+                                    <label for='candy_<?php echo $candy; ?>'>
+                                        <img src='./img/candy/<?php echo $candy; ?>.png' />
+                                        <?php $pokemon_name=get_mons($candy); ?>
+                                        <br><?php echo str_pad($candy, 3, "0", STR_PAD_LEFT); ?><br><?php echo $pokemon_name; ?>
+                                    </label>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+
                         <div class="float-right mb-3 mt-3">
-			    <input class="btn btn-primary" type='submit' name='add_quest' value='<?php echo i8ln("Submit"); ?>'>
+                            <input class="btn btn-primary" type='submit' name='add_quest' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
-				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
+                                <button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>
                         </div>
+
+
 
                     </form>
 

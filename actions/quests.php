@@ -158,17 +158,41 @@
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
                                VALUES ( ?, '', ? , ?, ?, 0, 12, ?, ?)");
         if (false === $stmt) {
-          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQE1&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $item, $template, $_POST['distance'], $_SESSION['profile']);
         if (false === $rs) {
-          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQE2&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->execute();
         if (false === $rs) {
-          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQI3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQE3&sql=$stmt->error");
+          exit();
+        }
+        $stmt->close();
+      }
+    }
+
+    foreach ($_POST as $key => $value) {
+      if (substr($key, 0, 6) === "candy_") {
+        $item = ltrim($key, 'candy_');
+
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
+                               VALUES ( ?, '', ? , ?, ?, 0, 4, ?, ?)");
+        if (false === $stmt) {
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQC1&sql=$stmt->error");
+          exit();
+        }
+        $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $item, $template, $_POST['distance'], $_SESSION['profile']);
+        if (false === $rs) {
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQC2&sql=$stmt->error");
+          exit();
+        }
+        $rs = $stmt->execute();
+        if (false === $rs) {
+          header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQC3&sql=$stmt->error");
           exit();
         }
         $stmt->close();

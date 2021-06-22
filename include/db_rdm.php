@@ -65,6 +65,26 @@ function get_quest_energy() {
 
 }
 
+function get_quest_candy() {
+
+   include "./config.php";
+   include "./include/db_connect.php";
+
+   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   $sql = "SELECT distinct json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS id
+           FROM pokestop WHERE quest_reward_type = 4;";
+   $result = $conn->query($sql);
+
+   $mons=array();
+   while($row = $result->fetch_assoc()) {
+      array_push($mons, $row['id']);
+   }
+
+   return $mons;
+
+}
+
+
 function get_raid_bosses() {
 
    include "./config.php";
