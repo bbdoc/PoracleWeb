@@ -506,7 +506,9 @@
 							<?php } ?> 
 						</div>
 						<div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name; ?></span>
+						    <span class="badge badge-primary badge-pill w-100">
+						       <?php if ( $row['reward'] <> 0 ) { echo $row['reward']." | "; } echo $pokemon_name; ?>
+                                                    </span>
 						    <span class='badge badge-light m-1'><?php echo i8ln("Candy"); ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">

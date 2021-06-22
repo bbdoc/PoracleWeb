@@ -11,6 +11,12 @@ if ( $row['reward_type'] == "7") {
     echo "<img width=100 src='$imgUrl/rewards/reward_".$row['reward']."_1.png'><br>";
  } elseif ( $row['reward_type'] == "12") {
     echo "<img width=100 src='$imgUrl/rewards/reward_mega_energy_".$row['reward'].".png'><br>";
+ } elseif ( $row['reward_type'] == "4") {
+    echo "<img width=100 src='./img/candy/".$row['reward'].".png'>";
+    if ( $row['reward'] <> 0 ) { 
+	    echo "<img width=100 loading=lazy src='$imgUrl/pokemon_icon_".$row['reward']."_00.png'>";
+    }
+    echo "<br>";
  }
 echo "</div>";
 
