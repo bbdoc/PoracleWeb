@@ -6,7 +6,7 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ( $row['reward_type'] == "7") {
-    echo "<img width=100 src='$imgUrl/pokemon_icon_".str_pad($mon_id, 3, "0", STR_PAD_LEFT)."_00.png'><br>";
+    echo "<img width=100 src='$imgUrl/pokemon_icon_".str_pad($mon_id, 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'><br>";
  } elseif ( $row['reward_type'] == "2") {   
     echo "<img width=100 src='$imgUrl/rewards/reward_".$row['reward']."_1.png'><br>";
  } elseif ( $row['reward_type'] == "12") {

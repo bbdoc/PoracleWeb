@@ -118,16 +118,28 @@ if ( $disable_quests == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
+                                    
                                     $mons =  get_quest_mons();                                    
                                     foreach ($mons as &$mon) {
-                                        $pokemon_name=get_mons($mon);  
-                                        $mon_id=str_pad($mon, 3, "0", STR_PAD_LEFT);
+                                        $arr = explode("_", $mon);
+                                        $mon_id = $arr[0];
+                                        $mon_form = $arr[1];
+
+					$pokemon_name=get_mons($mon_id);  
+					$form_name=get_form_name($mon_id,$mon_form);
+
+					$mon_id=str_pad($mon_id, 3, "0", STR_PAD_LEFT);
+					$form_id=str_pad($mon_form, 2, "0", STR_PAD_LEFT);
+
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='mon_<?php echo $mon; ?>'
                                         id='mon_<?php echo $mon; ?>' />
                                     <label for='mon_<?php echo $mon; ?>'>
-                                        <img src='<?php echo $imgUrl; ?>/pokemon_icon_<?php echo $mon_id; ?>_00.png' />
-                                        <br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?>
+                                        <img class="mb-2" src='<?php echo $imgUrl; ?>/pokemon_icon_<?php echo $mon_id; ?>_<?php echo $form_id; ?>.png' />
+					<br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?><br>
+                                        <?php if ( $form_name <> "Normal" && $form_id <> "00" ) { ?>
+                                           <?php echo $form_name; ?>
+					<?php } else { echo "&nbsp;"; }  ?>
                                     </label>
                                 </li>
                                 <?php

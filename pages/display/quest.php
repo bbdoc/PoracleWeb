@@ -116,8 +116,9 @@
 
                                     // Add Hidden Fancy Boxes
                                     $mon_id = str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
-                                    $pokemon_name = get_mons($row['reward']);
-
+				    $pokemon_name = get_mons($row['reward']);
+				    $form=get_form_name($row['reward'],$row['form']);
+				    if ( $form == "Normal" ) { $form = ""; }
                                 ?>
                             <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
@@ -127,10 +128,10 @@
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl . "/pokemon_icon_" . $mon_id . "_00.png"; ?>'>
+                                                        src='<?php echo $imgUrl."/pokemon_icon_".$mon_id."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png"; ?>'>
                                                 </div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo $pokemon_name; ?>
+                                                <div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                   <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name." ".$form; ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
 

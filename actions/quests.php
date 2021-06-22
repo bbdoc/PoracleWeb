@@ -99,13 +99,17 @@
       if (substr($key, 0, 4) === "mon_") {
         $mon_id = ltrim($key, 'mon_');
 
-        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
-                               VALUES ( ?, '', ? , ?, ?, 0, 7, ?, ?)");
+        $arr = explode("_", $mon_id);
+        $mon_id = $arr[0];
+        $form_id = $arr[1];
+
+        $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no, form)
+                               VALUES ( ?, '', ? , ?, ?, 0, 7, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $mon_id, $template, $_POST['distance'], $_SESSION['profile']);
+        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $mon_id, $template, $_POST['distance'], $_SESSION['profile'], $form_id);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM2&sql=$stmt->error");
           exit();
