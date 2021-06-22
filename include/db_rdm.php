@@ -6,12 +6,13 @@ function get_quest_mons() {
    include "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
-   $sql = "SELECT distinct quest_pokemon_id id FROM pokestop WHERE quest_pokemon_id > 0 AND quest_reward_type = 7 order by quest_pokemon_id;";
+   $sql = "SELECT distinct quest_pokemon_id id, json_extract(json_extract(`quest_rewards`,'$[*].info.form_id'),'$[0]') form
+	   FROM pokestop WHERE quest_pokemon_id > 0 AND quest_reward_type = 7 order by quest_pokemon_id;";
    $result = $conn->query($sql);
 
    $mons=array();
    while($row = $result->fetch_assoc()) { 
-      array_push($mons, $row['id']); 
+      array_push($mons, $row['id']."_".$row['form']);
    }
 
    if (isset($additional_quest_mons) && !empty($additional_quest_mons)) {
