@@ -230,7 +230,8 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("API Address"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='api_address' name='api_address' class="form-control text-center" value="<?php echo $api_address; ?>">
+				    <input type='text' id='api_address' name='api_address' class="form-control text-center" placeholder="http://127.0.0.1:4201" 
+                                           value="<?php echo $api_address; ?>">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
