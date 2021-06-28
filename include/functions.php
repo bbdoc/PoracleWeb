@@ -118,7 +118,7 @@ function get_areas() {
                 if ($type === "userselectable" ) { $userselectable = $value; }
 	}
 
-	if ( $userselectable == 1 || isset($_SESSION['admin_id']) ) {
+	if ( $userselectable == 1 || isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) ) {
             if(array_key_exists($group, $areas)){
                 $groupAreas = $areas[$group];
                 array_push($groupAreas, $areaName);
