@@ -116,6 +116,7 @@ function get_areas() {
                 if ($type === "group" ) { $group = $value; }
                 if ($type === "name" ) { $areaName = $value;}
                 if ($type === "userSelectable" ) { $userselectable = $value;}
+                if ($type === "description" ) { $description = $value;}
 	}
 
 	if ( $userselectable == 1 || isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) ) {
