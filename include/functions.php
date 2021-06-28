@@ -112,10 +112,10 @@ function get_areas() {
 
     foreach ($_SESSION['areas'] as $i => $area) {
 
-        foreach ($area as $type => $value) {
+        foreach ($area as $type => $value) { 
                 if ($type === "group" ) { $group = $value; }
-                if ($type === "name" ) { $areaName = $value; }
-                if ($type === "userselectable" ) { $userselectable = $value; }
+                if ($type === "name" ) { $areaName = $value;}
+                if ($type === "userSelectable" ) { $userselectable = $value;}
 	}
 
 	if ( $userselectable == 1 || isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) ) {
