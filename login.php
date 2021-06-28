@@ -86,11 +86,12 @@
                                     </div>
 				    <p class="text-gray-900 mb-4"><?php echo i8ln("ALARM CONFIGURATION"); ?></p>
 
+                                    <?php if ( @$enable_discord <> 'False' ){ ?>
 				    <p class="mb-3"><small><?php echo i8ln("LOGIN WITH DISCORD"); ?></small></p>
-
                                     <a href="./discord_auth.php?action=login">
                                         <i class="fab fa-discord fa-5x fa-fw mr-2 text-white-400"></i>
                                     </a>
+                                    <?php } ?>
 				    <!-- <a href='./discord_auth.php?action=login'><img width=100 src='./img/discord.jpg'></a> -->
                                     <?php if ( isset($enable_telegram) && $enable_telegram == 'True' ){ ?>
 				    <hr>

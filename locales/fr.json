@@ -342,6 +342,7 @@
     "DB Type":"Type de DB",
     "Password":"Mot de Passe",
     "Enable Telegram Login ?":"Activer la connection via Telegram",
+    "Enable Discord Login ?":"Activer la connection via Discord",
     "BOT Name":"Nom du BOT",
     "Enable Menu Items":"Activer des Eléments du Menu",
     "Location":"Localisation",
@@ -371,5 +372,6 @@
     "Great":"Super",
     "Ultra":"Ultra",
     "Select Candy Rewards you want to add":"Sélectionnez les types de Bonbons à ajouter",
-    "Candy":"Bonbon"
+    "Candy":"Bonbon",
+    "Connect as a Telegram Admin to disable Discord Login":"Connectez-vous comme admin Telegram pour désactiver Discord"
 }

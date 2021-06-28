@@ -252,12 +252,34 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Telegram"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Telegram | Discord"); ?></h1>
                             </div>
                         </div>
 
                         <div class="form-row align-items-center">
 			    <div class="col-sm-12 my-1">
+
+                                <?php
+				    if ( $_SESSION['type'] != "telegram:user" ) 
+				    { 
+					    $disabled = "disabled"; 
+					    $msg = "<div class='alert alert-info fade show' role='alert' style='padding:5px; margin:3px;'>";
+					    $msg .= i8ln("Connect as a Telegram Admin to disable Discord Login");
+					    $msg .= "</div><br>";
+				    } else 
+				    { 
+					    $disabled = "";
+				    }
+                                ?>
+
+				<?php echo $msg; ?>
+
+                                <div class="mb-1">
+                                <input type="hidden" name="enable_discord" id="enable_discord" value="off">
+				<input type="checkbox" <?php echo $disabled; ?> name="enable_discord" id="enable_discord" <?php 
+                                if (@$enable_discord <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable Discord Login ?"); ?>
+				</div>
 
                                 <div class="mb-1">
                                 <input type="hidden" name="enable_telegram" id="enable_telegram" value="off">
