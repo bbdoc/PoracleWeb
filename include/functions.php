@@ -115,15 +115,18 @@ function get_areas() {
         foreach ($area as $type => $value) {
                 if ($type === "group" ) { $group = $value; }
                 if ($type === "name" ) { $areaName = $value; }
+                if ($type === "userselectable" ) { $userselectable = $value; }
 	}
 
-        if(array_key_exists($group, $areas)){
-            $groupAreas = $areas[$group];
-            array_push($groupAreas, $areaName);
-            $areas[$group] = $groupAreas;
-        }else{
-            $areas[$group] = array($areaName);
-        }
+	if ( $userselectable == 1 || isset($_SESSION['admin_id']) ) {
+            if(array_key_exists($group, $areas)){
+                $groupAreas = $areas[$group];
+                array_push($groupAreas, $areaName);
+                $areas[$group] = $groupAreas;
+            } else {
+                $areas[$group] = array($areaName);
+   	    }
+	}
 
     }
 
