@@ -103,7 +103,7 @@ if ( $_SESSION['maxDistance'] == 0 ) { $_SESSION['maxDistance'] = 10726000; }
 
 // Get Areas from API
 
-$areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$areas = @file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['id']), false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
