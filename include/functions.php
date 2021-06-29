@@ -112,18 +112,22 @@ function get_areas() {
 
     foreach ($_SESSION['areas'] as $i => $area) {
 
-        foreach ($area as $type => $value) {
+        foreach ($area as $type => $value) { 
                 if ($type === "group" ) { $group = $value; }
-                if ($type === "name" ) { $areaName = $value; }
+                if ($type === "name" ) { $areaName = $value;}
+                if ($type === "userSelectable" ) { $userselectable = $value;}
+                if ($type === "description" ) { $description = $value;}
 	}
 
-        if(array_key_exists($group, $areas)){
-            $groupAreas = $areas[$group];
-            array_push($groupAreas, $areaName);
-            $areas[$group] = $groupAreas;
-        }else{
-            $areas[$group] = array($areaName);
-        }
+	if ( $userselectable == 1 || isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) ) {
+            if(array_key_exists($group, $areas)){
+                $groupAreas = $areas[$group];
+                array_push($groupAreas, $areaName);
+                $areas[$group] = $groupAreas;
+            } else {
+                $areas[$group] = array($areaName);
+   	    }
+	}
 
     }
 
