@@ -181,6 +181,14 @@
 
 						    <?php 
                                                             }
+                                                            if ($row['slot_changes'] == '1') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Alert on Slots Available"); ?></span>
+                                                    </div>
+
+                                                    <?php
+                                                            }
                                                             if (isset($allowed_templates["gyms"])) {
                                                     ?>
 						    <div class="mb-2">
