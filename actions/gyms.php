@@ -24,7 +24,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UL1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UG1&sql=$stmt->error");
       exit();
     }
 
@@ -38,14 +38,14 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UL2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UG2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UL3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UG3&sql=$stmt->error");
       exit();
     }
 
@@ -64,7 +64,7 @@
       WHERE uid = ?");
 
     if (false === $stmt) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DL1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DG1&sql=$stmt->error");
       exit();
     }
 
@@ -74,14 +74,14 @@
     );
 
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DL2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DG2&sql=$stmt->error");
       exit();
     }
 
     $rs = $stmt->execute();
 
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DL3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DG3&sql=$stmt->error");
       exit();
     }
 
@@ -113,12 +113,12 @@
         $stmt = $conn->prepare("INSERT INTO gym ( id, ping, clean, distance, template, team, slot_changes, profile_no)
 	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");
         if (false === $stmt) {
-          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AL1&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG1&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $team, $slots, $_SESSION['profile']);
         if (false === $rs) {
-          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AL2&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG2&sql=$stmt->error");
           exit();
         }
         $rs = $stmt->execute();
@@ -127,7 +127,7 @@
             header("Location: $redirect_url?type=display&page=gym&return=duplicate");
             exit();
           }
-          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AL3&sql=$stmt->error");
+          header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG3&sql=$stmt->error");
           exit();
         }
         $stmt->close(); 
@@ -144,17 +144,17 @@
 
     $stmt = $conn->prepare("DELETE FROM gym WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAL1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAG1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAL2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAG2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAL3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=DAG3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
@@ -170,17 +170,17 @@
 
     $stmt = $conn->prepare("UPDATE gym set distance = ? WHERE id = ? AND profile_no = ?");
     if (false === $stmt) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=ULD1&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UGD1&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->bind_param("isi", $_POST['distance'], $_SESSION['id'], $_SESSION['profile']);
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=ULD2&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UGD2&sql=$stmt->error");
       exit();
     }
     $rs = $stmt->execute();
     if (false === $rs) {
-      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=ULD3&sql=$stmt->error");
+      header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=UGD3&sql=$stmt->error");
       exit();
     }
     $stmt->close();
