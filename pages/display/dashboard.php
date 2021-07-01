@@ -29,6 +29,11 @@ $sql = "select count(*) count FROM nests WHERE id = '" . $_SESSION['id'] . "' AN
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $num_nests_tracked = $row['count']; }
 
+$sql = "select count(*) count FROM gym WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $num_gyms_tracked = $row['count']; }
+
+
 $num_areas=0;
 $areas = explode(",", $area_set);
 foreach ($areas as $key => $area) {
@@ -122,15 +127,33 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
-						    <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);" class="mb-2">
-                                                    <img src="img/nav/egg.png" style="width:50px;height:50px;" class="mb-2"><br>
-						    <?php echo $num_raid_tracked; ?>&nbsp;<?php echo i8ln("Raids"); ?><br>
-                                                    <?php echo $num_egg_tracked; ?>&nbsp;<?php echo i8ln("Eggs"); ?>
+						    <img src="img/nav/raid.svg" style="width:50px;height:50px;filter: brightness(40%);" class="mb-2"><br>
+						    <?php echo $num_raid_tracked; ?><br><?php echo i8ln("Raids"); ?><br>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 				</div>
+                                </a>
+                            </div>
+                            <?php } ?>
+
+                            <!-- Card -->
+                            <?php if (@$disable_raids <> "True") { ?>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=raid">
+                                <div class="card border-top-dark shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-0">
+                                                    <img src="img/nav/egg.png" style="width:50px;height:50px;" class="mb-2"><br>
+                                                    <?php echo $num_egg_tracked; ?><br><?php echo i8ln("Eggs"); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </a>
                             </div>
                             <?php } ?>
@@ -214,6 +237,27 @@ foreach ($areas as $key => $area) {
                                 </a>
                             </div>
                             <?php } ?>
+
+                            <!-- Card -->
+                            <?php if (@$disable_gyms <> "True") { ?>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <a href="?type=display&page=nest">
+                                <div class="card border-top-dark shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <img src="img/nav/gym.png" style="width:50px;height:50px;" class="mb-2"><br>
+                                                    <?php echo $num_gyms_tracked; ?><br><?php echo i8ln("Gyms"); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                            <?php } ?>
+
 
                     </div>
 
