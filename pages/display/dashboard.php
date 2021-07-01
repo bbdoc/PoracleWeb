@@ -241,7 +241,7 @@ foreach ($areas as $key => $area) {
                             <!-- Card -->
                             <?php if (@$disable_gyms <> "True") { ?>
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <a href="?type=display&page=nest">
+                                <a href="?type=display&page=gym">
                                 <div class="card border-top-dark shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
