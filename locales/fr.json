@@ -394,5 +394,6 @@
     "Successfully Updated Distance on ALL Gyms":"Distance Mise à Jour avec Succès pour TOUTES les Arènes",
     "Delete ALL Gyms?":"Supprimer TOUTES les Arènes suivis",
     "NEW GYMS ALARM":"NOUVELLE ALARME D'ARENE",
-    "ALL GYMS":"TOUTES LES ARENES"
+    "ALL GYMS":"TOUTES LES ARENES",
+    "Alert on Slots Available":"Alerte si une place se libère"
 }

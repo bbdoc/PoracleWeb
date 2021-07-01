@@ -11,12 +11,16 @@
       if (substr($value, 0, 6) === "clean_") {
         $clean = ltrim($value, 'clean_');
       }
+      if (substr($value, 0, 5) === "slot_") {
+        $slots = ltrim($value, 'slot_');
+      }
+
     }
     $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     $stmt = $conn->prepare("
       UPDATE gym
-      SET distance = ?, clean = ?, template = ?
+      SET distance = ?, clean = ?, slot_changes = ?, template = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -25,9 +29,10 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisi",
+      "iiisi",
       $_POST['distance'],
       $clean,
+      $slots,
       $template,
       $_POST['uid']
     );
@@ -94,13 +99,16 @@
       if (substr($value, 0, 6) === "clean_") {
         $clean = ltrim($value, 'clean_');
       }
+      if (substr($value, 0, 5) === "slot_") {
+        $slots = ltrim($value, 'slot_'); 
+      }
+
     }
     $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "gym_") {
         $team = substr($key, 4); 
-        $slot_changes = 0;
 
         $stmt = $conn->prepare("INSERT INTO gym ( id, ping, clean, distance, template, team, slot_changes, profile_no)
 	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");
@@ -108,7 +116,7 @@
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AL1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $team, $slot_changes, $_SESSION['profile']);
+        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $team, $slots, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AL2&sql=$stmt->error");
           exit();

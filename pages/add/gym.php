@@ -80,6 +80,28 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                             </div>
                         </div>
 
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Alert on Slots Available"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="slot" id="slot_0" value="slot_0" checked>
+                                        <?php echo i8ln("No"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="slot" id="slot_1" value="slot_1">
+                                        <?php echo i8ln("Yes"); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <?php if (isset($allowed_templates["gyms"])) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">

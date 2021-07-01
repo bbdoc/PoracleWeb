@@ -88,6 +88,33 @@ echo "</div>";
 	    <input type="radio" name="clean" id="clean_1" value="clean_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
         </label>
     </div>
+
+    <div class="btn-group btn-group-toggle mt-1" data-toggle="buttons">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><?php echo i8ln("Alert on Slots Available"); ?></div>
+            </div>
+        </div>
+        <?php
+                if ($row['slot_changes'] == 0) {
+                        $checked0 = 'checked';
+                } else {
+                        $checked0 = '';
+                }
+                if ($row['slot_changes'] == 1) {
+                        $checked1 = 'checked';
+                } else {
+                        $checked1 = '';
+                }
+                ?>
+        <label class="btn btn-secondary">
+            <input type="radio" name="slots" id="slot_0" value="slot_0" <?php echo $checked0; ?>> <?php echo i8ln("No"); ?>
+        </label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="slots" id="slot_1" value="slot_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
+        </label>
+    </div>
+
     <hr>
     <?php if (isset($allowed_templates["gyms"])) {
         echo '<div class="form-row align-items-center">
