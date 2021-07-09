@@ -201,6 +201,38 @@ function get_lure_name($id) {
 
 }
 
+function get_gym_name($id) {
+
+        if ( $id == "0") {
+                $name = "Harmony";
+        } else if ( $id == "1") {
+                $name = "Mystic";
+        } else if ( $id == "2") {
+                $name = "Valor";
+        } else if ( $id == "3") {
+                $name = "Instinct";
+        }
+
+        return $name;
+
+}
+
+function get_gym_color($id) {
+
+        if ( $id == "0") {
+                $color = "Grey";
+        } else if ( $id == "1") {
+                $color = "Blue";
+        } else if ( $id == "2") {
+                $color = "Red";
+        } else if ( $id == "3") {
+                $color = "Yellow";
+        }
+
+        return $color;
+
+}
+
 function set_locale() {
 
    if (isset($_SESSION['id'])) {

@@ -181,6 +181,36 @@
 </div>
 <?php
     }
+    if (isset($_GET['return']) && $_GET['return'] == 'success_added_gym') {
+    ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php echo i8ln("Successfully Added Gym Alarm(s)"); ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'success_update_gym') {
+    ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php echo i8ln("Successfully Updated Gym Alarm"); ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'success_delete_gym') {
+    ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php echo i8ln("Successfully Deleted Gym Alarm(s)"); ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
     if (isset($_GET['return']) && $_GET['return'] == 'success_update_areas') {
     ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
