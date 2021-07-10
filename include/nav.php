@@ -291,7 +291,7 @@
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="<?php echo $custom_page_url; ?>">
-               <i class="<?php echo $custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
+               <i class="<?php echo @$custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
             </a>
         </li>
         </div>
