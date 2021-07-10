@@ -284,7 +284,7 @@
 
       <?php } ?>
 
-      <?php if ( isset($custom_page_name)) { ?>
+      <?php if ( isset($custom_page_name) && $custom_page_name <> "" ) { ?>
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
