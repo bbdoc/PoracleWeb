@@ -22,8 +22,10 @@
       <li class="nav-item dropdown">
         <?php 
            $language_count=0;
-           $languages = explode(",", $allowed_languages);
-	   foreach ($languages as &$language) { $language_count++; } 
+           if ( isset($allowed_languages) && $allowed_languages <> "" ) {
+              $languages = explode(",", $allowed_languages);
+	      foreach ($languages as &$language) { $language_count++; } 
+	   }
 	   if ( $language_count > 1) {
         ?>
 	   <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
