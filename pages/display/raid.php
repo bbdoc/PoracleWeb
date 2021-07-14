@@ -119,7 +119,7 @@
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $uicons . "/raid/egg/" . $row['level'] . ".png"; ?>'>
+                                                        src='<?php echo $uicons_raid . "/raid/egg/" . $row['level'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <?php echo i8ln("Eggs"); ?> <?php echo $row['level']; ?>
@@ -359,7 +359,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-						    <?php $PkmnImg = "$uicons/pokemon/" . $row['pokemon_id'] . ".png"; ?>
+						    <?php $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png"; ?>
                                                     <img width=50 loading=lazy
                                                         src='<?php echo $PkmnImg; ?>'>
                                                 </div>

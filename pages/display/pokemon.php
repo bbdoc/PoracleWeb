@@ -226,12 +226,12 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
 
                                     // Check Images only if Form <> Normal and Substitude if necessary
                                     if ($row['form'] <> 0) {
-                                        $PkmnImg = "$uicons/pokemon/" . $row['pokemon_id'] . "_f" . $row['form'] . ".png";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . "_f" . $row['form'] . ".png";
 					if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
-				            $PkmnImg = "$uicons/pokemon/" . $row['pokemon_id'] . ".png";
+				            $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
                                         }
                                     } else {
-                                        $PkmnImg = "$uicons/pokemon/" . $row['pokemon_id'] .".png";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] .".png";
                                     }
 				    $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
 				    $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";

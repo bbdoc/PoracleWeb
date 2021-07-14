@@ -126,7 +126,7 @@ if ( $disable_raids == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
                                         id='egg_<?php echo $egg; ?>' />
                                     <label for='egg_<?php echo $egg; ?>'>
-                                        <img src='<?php echo $uicons; ?>/raid/egg/<?php echo $egg; ?>.png' />
+                                        <img src='<?php echo $uicons_raid; ?>/raid/egg/<?php echo $egg; ?>.png' />
 					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
                                     </label>
                                 </li>
@@ -199,9 +199,9 @@ if ( $disable_raids == "True" ) {
                                         <?php 
                                            if ($boss_form <> 0 ) { $addform = "_f".$boss_form; } else { $addform = ""; }
                                            if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; }
-				  	   $img="$uicons/pokemon/" . $boss_id . $addevolution . $addform . ".png"; 
+				  	   $img="$uicons_pkmn/pokemon/" . $boss_id . $addevolution . $addform . ".png"; 
 					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
-					      $img="$uicons/pokemon/" . $boss_id . ".png";
+					      $img="$uicons_pkmn/pokemon/" . $boss_id . ".png";
 					   }
                                         ?>
                                         <img src='<?php echo $img; ?>' />

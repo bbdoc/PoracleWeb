@@ -5,7 +5,7 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$uicons/gym/" . $row['team'] . ".png?'><br>";
+echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'><br>";
 echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
 echo "</div>";
 

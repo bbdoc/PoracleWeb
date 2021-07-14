@@ -9,7 +9,7 @@ if ($row['pokemon_id'] == "0") {
 	echo "<font style='font-size:24px;'>".i8ln("ALL")."</font><br>";
 } else {
 	if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
-	$PkmnImg = "$uicons/pokemon/" . $row['pokemon_id'] . $addform . ".png";
+	$PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
 	echo "<img width=100 src='".$PkmnImg."'><br>";
 	echo "<center><font size=5>".i8ln(get_mons($row['pokemon_id']))."</font></center>";
 }

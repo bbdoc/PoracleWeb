@@ -2,7 +2,9 @@
 $uicons_repos = array(
     "Nileplumb Home" => "https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS",
     "Nileplumb Outline" => "https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS_OS_128",
-    "Whitewillem Ingame" => "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons/",
-    "Whitewillem Outline" => "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons-outline/"
+    "Nileplumn Shuffle" => "https://raw.githubusercontent.com/nileplumb/PkmnShuffleMap/master/UICONS",
+    "Whitewillem Ingame" => "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons",
+    "Whitewillem Outline" => "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons-outline",
+    "PokeDave Shuffle" => "https://raw.githubusercontent.com/jepke/pokedave_shuffle_icons_-PMSF-/master/UICONS"
 );
 ?>

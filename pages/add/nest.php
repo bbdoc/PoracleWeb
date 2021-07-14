@@ -136,9 +136,9 @@ if ( $disable_nests == "True" ) {
 				    <label for='nest_<?php echo $nest; ?>'>
                                     <?php
                                         if ( $row['form'] <> 0 ) {
-                                           $PkmnImg = "$uicons/pokemon/" . $nest . "_f" . $row['form'] . ".png";
+                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . "_f" . $row['form'] . ".png";
                                         } else {
-                                           $PkmnImg = "$uicons/pokemon/" . $nest . ".png";
+                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . ".png";
                                         }
                                     ?>
 					<img class='m-2' src=<?php echo $PkmnImg; ?> />

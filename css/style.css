@@ -82,7 +82,6 @@ label[for^="item"] {
 
 
 label[for^="uicons_repo"]{
-    display: block;
     cursor: pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

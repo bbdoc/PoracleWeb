@@ -315,30 +315,54 @@ if (!isset($_SESSION['admin_id'])) {
 
 			<?php foreach ($uicons_repos as $repo_name => $repo_url){ ?>
 			
-                            <!-- Card -->
-			    <?php if ($uicons == $repo_url) { $border = "border-success"; $checked="checked";} else { $border = "border-secondary"; $checked="";} ?>
+			    <!-- Card -->
+
+			    <?php if ($uicons_pkmn == $repo_url)   { $checked_pkmn="checked";} else { $checked_pkmn="";} ?>
+			    <?php if ($uicons_raid == $repo_url)   { $checked_raid="checked";} else { $checked_raid="";} ?>
+			    <?php if ($uicons_gym == $repo_url)    { $checked_gym="checked";} else { $checked_gym="";} ?>
+			    <?php if ($uicons_reward == $repo_url) { $checked_reward="checked";} else { $checked_reward="";} ?>
+
 			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-25">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-1">
-						    <input type="radio" id="uicons_repo_<?php echo $repo_url; ?>" name="uicons" 
-                                                           value="<?php echo $repo_url;?>" <?php echo $checked;?>>
-						    <label for='uicons_repo_<?php echo $repo_url; ?>'>
-						    <center><?php echo $repo_name; ?></center>
-                                                    </label>
+						    <center><font size=2><?php echo $repo_name; ?></font></center>
+                                                    <hr>
 
 						    <?php $PkmnImg = "$repo_url/pokemon/1.png"; ?>
 						    <?php $EggImg = "$repo_url/raid/egg/1.png"; ?>
 						    <?php $MegaImg = "$repo_url/reward/mega_resource/3.png"; ?>
 						    <?php $GymImg = "$repo_url/gym/2.png"; ?>
 
+                                                    <input type="radio" id="uicons_repo_pkmn_<?php echo $repo_url; ?>" name="uicons_pkmn"
+                                                           value="<?php echo $repo_url;?>" <?php echo $checked_pkmn;?>>
+                                                    <label for='uicons_repo_pkmn_<?php echo $repo_url; ?>'>
 						    <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
+                                                    </label>
+
+                                                    <input type="radio" id="uicons_repo_raid_<?php echo $repo_url; ?>" name="uicons_raid"
+                                                           value="<?php echo $repo_url;?>" <?php echo $checked_raid;?>>
+                                                    <label for='uicons_repo_raid_<?php echo $repo_url; ?>'>
 						    <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
-						    <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
+                                                    </label>
+
+
+                                                    <input type="radio" id="uicons_repo_gym_<?php echo $repo_url; ?>" name="uicons_gym"
+                                                           value="<?php echo $repo_url;?>" <?php echo $checked_gym;?>>
+                                                    <label for='uicons_repo_gym_<?php echo $repo_url; ?>'>
 						    <img loading=lazy width=50 src='<?php echo $GymImg; ?>'>
-                                                    
+						    </label>
+
+
+                                                    <input type="radio" id="uicons_repo_reward_<?php echo $repo_url; ?>" name="uicons_reward"
+                                                           value="<?php echo $repo_url;?>" <?php echo $checked_reward;?>>
+                                                    <label for='uicons_repo_reward_<?php echo $repo_url; ?>'>
+						    <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
+                                                    </label>
+
+
                                                 </div>
                                             </div>
                                         </div>

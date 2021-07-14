@@ -133,7 +133,7 @@ if ( $disable_quests == "True" ) {
                                         id='mon_<?php echo $mon; ?>' />
 				    <label for='mon_<?php echo $mon; ?>'>
 					<?php if ($form_id <> 0 ) { $addform = "_f".$form_id; } else { $addform = ""; } ?>
-                                        <img class="mb-2" src='<?php echo $uicons; ?>/pokemon/<?php echo $mon_id.$addform; ?>.png' />
+                                        <img class="mb-2" src='<?php echo $uicons_pkmn; ?>/pokemon/<?php echo $mon_id.$addform; ?>.png' />
 					<br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?><br>
                                         <?php if ( $form_name <> "Normal" && $form_name <> "" && $form_id <> "00" ) { ?>
                                            <?php echo $form_name; ?>
@@ -186,7 +186,7 @@ if ( $disable_quests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='item_<?php echo $item; ?>'
                                         id='item_<?php echo $item; ?>' />
                                     <label for='item_<?php echo $item; ?>'>
-                                        <img src='<?php echo $uicons; ?>/reward/item/<?php echo $item; ?>.png' />
+                                        <img src='<?php echo $uicons_reward; ?>/reward/item/<?php echo $item; ?>.png' />
                                     </label>
                                 </li>
                                 <?php
@@ -210,7 +210,7 @@ if ( $disable_quests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='energy_0'
                                         id='energy_0' />
                                     <label for='energy_0'>
-                                        <img src='<?php echo $uicons; ?>/reward/mega_resource/0.png' />
+                                        <img src='<?php echo $uicons_reward; ?>/reward/mega_resource/0.png' />
 					<br><br><?php echo i8ln("ALL"); ?>
                                     </label>
                                 </li>
@@ -221,7 +221,7 @@ if ( $disable_quests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='energy_<?php echo $energy; ?>'
                                         id='energy_<?php echo $energy; ?>' />
                                     <label for='energy_<?php echo $energy; ?>'>
-					<img src='<?php echo $uicons; ?>/reward/mega_resource/<?php echo $energy; ?>.png' />
+					<img src='<?php echo $uicons_reward; ?>/reward/mega_resource/<?php echo $energy; ?>.png' />
 					<?php $pokemon_name=get_mons($energy); ?>
                                         <br><?php echo str_pad($energy, 3, "0", STR_PAD_LEFT); ?><br><?php echo $pokemon_name; ?>
                                     </label>
