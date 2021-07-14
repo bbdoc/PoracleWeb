@@ -336,31 +336,39 @@ if (!isset($_SESSION['admin_id'])) {
 						    <?php $MegaImg = "$repo_url/reward/mega_resource/3.png"; ?>
 						    <?php $GymImg = "$repo_url/gym/2.png"; ?>
 
-                                                    <input type="radio" id="uicons_repo_pkmn_<?php echo $repo_url; ?>" name="uicons_pkmn"
-                                                           value="<?php echo $repo_url;?>" <?php echo $checked_pkmn;?>>
-                                                    <label for='uicons_repo_pkmn_<?php echo $repo_url; ?>'>
-						    <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
-                                                    </label>
+						    <?php if (@getimagesize($PkmnImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_pkmn_<?php echo $repo_url; ?>" name="uicons_pkmn"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_pkmn;?>>
+                                                       <label for='uicons_repo_pkmn_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
+						       </label>
+                                                    <?php } ?>
 
-                                                    <input type="radio" id="uicons_repo_raid_<?php echo $repo_url; ?>" name="uicons_raid"
-                                                           value="<?php echo $repo_url;?>" <?php echo $checked_raid;?>>
-                                                    <label for='uicons_repo_raid_<?php echo $repo_url; ?>'>
-						    <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
-                                                    </label>
-
-
-                                                    <input type="radio" id="uicons_repo_gym_<?php echo $repo_url; ?>" name="uicons_gym"
-                                                           value="<?php echo $repo_url;?>" <?php echo $checked_gym;?>>
-                                                    <label for='uicons_repo_gym_<?php echo $repo_url; ?>'>
-						    <img loading=lazy width=50 src='<?php echo $GymImg; ?>'>
-						    </label>
+						    <?php if (@getimagesize($EggImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_raid_<?php echo $repo_url; ?>" name="uicons_raid"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_raid;?>>
+                                                       <label for='uicons_repo_raid_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
+                                                       </label>
+                                                    <?php } ?>
 
 
-                                                    <input type="radio" id="uicons_repo_reward_<?php echo $repo_url; ?>" name="uicons_reward"
-                                                           value="<?php echo $repo_url;?>" <?php echo $checked_reward;?>>
-                                                    <label for='uicons_repo_reward_<?php echo $repo_url; ?>'>
-						    <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
-                                                    </label>
+						    <?php if (@getimagesize($GymImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_gym_<?php echo $repo_url; ?>" name="uicons_gym"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_gym;?>>
+                                                       <label for='uicons_repo_gym_<?php echo $repo_url; ?>'>
+				   		       <img loading=lazy width=50 src='<?php echo $GymImg; ?>'>
+				   	   	       </label>
+                                                    <?php } ?>
+
+
+						    <?php if (@getimagesize($MegaImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_reward_<?php echo $repo_url; ?>" name="uicons_reward"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_reward;?>>
+                                                       <label for='uicons_repo_reward_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
+                                                       </label>
+                                                    <?php } ?>
 
 
                                                 </div>
