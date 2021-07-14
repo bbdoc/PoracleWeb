@@ -306,7 +306,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Icon Repository Selection"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Icon Repository"); ?></h1>
                             </div>
                         </div>
 
@@ -317,7 +317,7 @@ if (!isset($_SESSION['admin_id'])) {
 			
                             <!-- Card -->
 			    <?php if ($uicons == $repo_url) { $border = "border-success"; $checked="checked";} else { $border = "border-secondary"; $checked="";} ?>
-			    <div class="col-lg-3 col-md-3 col-sm-4 col-12 mb-2">
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
                                 <div class="card <?php echo $border; ?> shadow h-100 py-25">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
@@ -332,7 +332,7 @@ if (!isset($_SESSION['admin_id'])) {
 						    <?php $PkmnImg = "$repo_url/pokemon/1.png"; ?>
 						    <?php $EggImg = "$repo_url/raid/egg/1.png"; ?>
 						    <?php $MegaImg = "$repo_url/reward/mega_resource/3.png"; ?>
-						    <?php $GymImg = "$repo_url/gym/1.png"; ?>
+						    <?php $GymImg = "$repo_url/gym/2.png"; ?>
 
 						    <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
 						    <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
