@@ -128,7 +128,7 @@
                                                          <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
                                                     </div>
                                                     <?php } else { ?>
-						    <img width=50 loading=lazy src='<?php echo "$imgUrl/gyms/gym_" . $row['team'] . ".png?"; ?>'>
+						    <img width=50 loading=lazy src='<?php echo "$uicons/gym/" . $row['team'] . ".png?"; ?>'>
                                                     <?php } ?>
 						</div>
 

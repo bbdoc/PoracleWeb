@@ -1,4 +1,3 @@
-
 <?php
 
 if (!isset($_SESSION['admin_id'])) {
@@ -300,6 +299,69 @@ if (!isset($_SESSION['admin_id'])) {
                          </div>
 
                     </div>
+
+                    <br>
+                    <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Icon Repository Selection"); ?></h1>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+			<?php foreach ($uicons_repos as $repo_name => $repo_url){ ?>
+			
+                            <!-- Card -->
+			    <?php if ($uicons == $repo_url) { $border = "border-success"; $checked="checked";} else { $border = "border-secondary"; $checked="";} ?>
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-12 mb-6">
+			    <input type="radio" id="uicons_repo_<?php echo $repo_url; ?>" name="uicons" value="<?php echo $repo_url;?>" <?php echo $checked;?>>
+			    <label for='uicons_repo_<?php echo $repo_url; ?>'><center><?php echo i8ln("Select"); ?></center></label>
+                            <div class="card <?php echo $border; ?> shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-1">
+						    <?php echo $repo_name; ?><hr>
+						    <?php $PkmnImg = "$repo_url/pokemon/1.png"; ?>
+						    <?php $EggImg = "$repo_url/raid/egg/1.png"; ?>
+						    <?php $MegaImg = "$repo_url/reward/mega_resource/3.png"; ?>
+						    <?php $GymImg = "$repo_url/gym/1.png"; ?>
+
+						    <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
+						    <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
+						    <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
+						    <img loading=lazy width=50 src='<?php echo $GymImg; ?>'>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+			    </div>
+
+                        <?php } ?>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     <br>

@@ -46,7 +46,8 @@ input[type="checkbox"][id^="item"] {
 }
 
 input[type="radio"][id^="area"],
-input[type="radio"][id^="profile"]
+input[type="radio"][id^="profile"],
+input[type="radio"][id^="uicons_repo"]
 {
     display: none;
 }
@@ -77,6 +78,19 @@ label[for^="item"] {
     -ms-user-select: none;
     user-select: none;
     min-width: 90px;
+}
+
+
+label[for^="uicons_repo"]{
+    display: block;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 6:0px; 
 }
 
 label[for^="language"] {
@@ -166,6 +180,21 @@ label img {
     background-color: #5a5c69;
 }
 
+label[for^="uicons_repo"] {
+    border-color: #ddd;
+    position: relative;
+    background-color: grey;
+    color: white;
+}
+
+:checked+label[for^="uicons_repo"] {
+    border-color: #ddd;
+    position: relative;
+    background-color: #60da9a;
+    color: white;
+}
+
+
 :checked+label[for^="language"] {
     border-color: #ddd;
     position: relative;
@@ -198,12 +227,20 @@ label img {
     position: absolute;
 }
 
+:checked+label[for^="uicons_repo"]::before {
+    content: "✓";
+    color: #ffffff;
+    background-color: #60da9a;
+    transform: scale(1);
+    position: top; border: 1px solid white;
+}
+
 :checked+label[for^="language"]::before {
     content: "✓";
     color: #ffffff;
     background-color: #60da9a;
     transform: scale(1);
-    position: absolute;
+    position: absolute; 
 }
 
 

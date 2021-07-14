@@ -1,5 +1,7 @@
 <?php
 
+include "uicons_repo.php";
+
 if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
@@ -34,3 +36,6 @@ if ($result->num_rows <> 0) {
    }
 }
 
+// Set Default UICONS Repo
+
+if (!isset($uicons)) { $uicons = "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons/"; }

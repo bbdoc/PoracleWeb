@@ -127,9 +127,16 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    <?php 
+                                                       if ( $row['form'] <> 0 ) {
+                                                          $PkmnImg = "$uicons/pokemon/" . $mon_id . "_f" . $row['form'] . ".png";
+                                                       } else {
+                                                          $PkmnImg = "$uicons/pokemon/" . $mon_id . ".png";
+                                                       } 
+                                                    ?>
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl."/pokemon_icon_".$mon_id."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png"; ?>'>
+                                                        src='<?php echo $PkmnImg; ?>'>
                                                 </div>
                                                 <div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                    <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name." ".$form; ?></span>
@@ -251,7 +258,7 @@
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl . "/rewards/reward_" . $row['reward'] . "_1.png"; ?>'>
+                                                        src='<?php echo $uicons . "/reward/item/" . $row['reward'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -373,10 +380,11 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
 							<?php if ($row['reward'] <> 0) { $pokemon_name = get_mons($row['reward']); ?>
-                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy_" . $row['reward'] . ".png"; ?>'>
+                                                        src='<?php echo $uicons . "/reward/mega_resource/" . $row['reward'] . ".png"; ?>'
 							<?php } else  { $pokemon_name = i8ln("ALL"); ?>
-                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy.png"; ?>'>
+                                                        src='<?php echo $uicons . "/reward/mega_resource/0.png"; ?>'
 							<?php } ?>
+                                                     >
 						</div>
 						<div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name; ?></span>
@@ -497,10 +505,11 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+					    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"> 
 							<?php if ($row['reward'] <> 0) { $pokemon_name = get_mons($row['reward']); ?>
 							   <img width=50 loading=lazy src='./img/candy/<?php echo $row['reward']; ?>.png'>
-                                                           <img width=50 loading=lazy src='<?php echo $imgUrl."/pokemon_icon_".$row['reward']."_00.png"; ?>'>
+                                                           <?php $PkmnImg = "$uicons/pokemon/" . $row['reward'] . ".png"; ?>
+							   <img width=50 loading=lazy src='<?php  echo $PkmnImg; ?>'>
 							<?php } else  { $pokemon_name = i8ln("ALL"); ?>
                                                            <img width=50 loading=lazy src='./img/candy/0.png'>
 							<?php } ?> 
