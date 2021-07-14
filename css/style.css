@@ -91,7 +91,10 @@ label[for^="uicons_repo"]{
     -ms-user-select: none;
     user-select: none;
     min-width: 6:0px;  
-    font-size: 14px;
+    font-size: 14px; 
+    padding:5px;
+    margin-bottom:10px;
+    border-radius: 5px;
 }
 
 label[for^="language"] {
