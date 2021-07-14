@@ -90,7 +90,8 @@ label[for^="uicons_repo"]{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    min-width: 6:0px; 
+    min-width: 6:0px;  
+    font-size: 14px;
 }
 
 label[for^="language"] {
