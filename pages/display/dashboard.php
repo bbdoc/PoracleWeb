@@ -247,7 +247,7 @@ foreach ($areas as $key => $area) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <img src="img/nav/gym.png" style="width:50px;height:50px;" class="mb-2"><br>
+                                                    <img src="<?php echo "$uicons_gym/gym/0.png?"; ?>" style="width:50px;height:50px;" class="mb-2"><br>
                                                     <?php echo $num_gyms_tracked; ?><br><?php echo i8ln("Gyms"); ?>
                                                 </div>
                                             </div>

@@ -181,7 +181,7 @@
             <?php if (@$disable_gyms <> "True") { ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=gym">
-                <img src="img/nav/gym.png" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Gyms'); ?>
+                <img src="<?php echo "$uicons_gym/gym/0.png?"; ?>" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Gyms'); ?>
               </a>
             <?php } ?>
     
