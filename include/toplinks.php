@@ -102,7 +102,7 @@ while ($row = $result->fetch_assoc()) { $num_gym_tracked = $row['count']; }
       <td>
          <a href="<?php echo $redirect_url; ?>?type=display&page=gym">
          <button type="button" class="btn btn-dark w-100">
-         <img src="img/nav/gym.png" style="width:22px;height:22px;filter: grayscale(100%);">
+         <img src="<?php echo "$uicons_gym/gym/0.png?"; ?>" style="width:22px;height:22px;filter: grayscale(100%);">
          <br><font color=white><?php echo $num_gym_tracked; ?></font>
          </button>
          </a>
