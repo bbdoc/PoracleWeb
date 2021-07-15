@@ -3,9 +3,7 @@
    include "../config.php";
    include "../include/db_connect.php";
 
-
    // CREATE SETTINGS TABLE IF IT DOESN'T EXIST
-
 
    $sql = "CREATE TABLE IF NOT EXISTS pweb_settings ( setting varchar(255) NOT NULL, value varchar(255), UNIQUE(setting) )";
    $result = $conn->query($sql);
@@ -18,16 +16,15 @@
 	   } 
 	   else if ( $key != "action" && $key != "update" )
 	   {
-		   if (strpos($key, 'disable') !== false) { 
+		   if (strpos($key, 'disable') !== false) { echo "1";
 		      if ( $value == "on" ) { $value = "False"; }
 		      if ( $value == "off" ) { $value = "True"; }
-                   } else if ( $key == "api_address" ) {
+                   } else if ( $key == "api_address" ) { echo "2";
                       $value = rtrim($value, '/');
-		   } else {                      
+		   } else { 
 	              if ( $value == "on" ) { $value = "True"; }
                       if ( $value == "off" ) { $value = "False"; }
 		   }
-
 
 		   $stmt = $conn->prepare("INSERT INTO pweb_settings (setting, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value=?");
                    if (false === $stmt) {

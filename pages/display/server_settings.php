@@ -789,6 +789,13 @@ if (!isset($_SESSION['admin_id'])) {
                                 </div>
 
                                 <div class="mb-1">
+                                <input type="hidden" name="enable_admin_dis" id="enable_admin_dis" value="off">
+                                <input type="checkbox" name="enable_admin_dis" id="enable_admin_dis" <?php
+                                if (@$enable_admin_dis <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Allow 'Admin Disabled' Users"); ?>
+                                </div>
+
+                                <div class="mb-1">
                                 <input type="hidden" name="admin_disable_userlist" id="admin_disable_userlist" value="off">
                                 <input type="checkbox" name="admin_disable_userlist" id="admin_disable_userlist" <?php
                                 if (@$admin_disable_userlist <> "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">

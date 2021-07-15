@@ -155,6 +155,11 @@ if (isset($_SESSION['username'])) {
             $redirect_page = "unregistered.php";
     }
 
+    if (isset($enable_admin_dis) && $enable_admin_dis == "False")
+    {
+	    $subs_clause .= " AND admin_disable = 0";
+    }
+
     $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "' ".@$subs_clause;
     $result = $conn->query($sql);
     if ($result->num_rows == 0) { 
