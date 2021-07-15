@@ -803,6 +803,13 @@ if (!isset($_SESSION['admin_id'])) {
 				</div>
 
                                 <div class="mb-1">
+                                <input type="hidden" name="admin_channel_id" id="admin_channel_id" value="off">
+                                <input type="checkbox" name="admin_channel_id" id="admin_channel_id" <?php
+                                if (@$admin_channel_id == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Display Channel ID in Admin Tools"); ?>
+                                </div>
+
+                                <div class="mb-1">
                                 <input type="hidden" name="site_is_https" id="site_is_https" value="off">
                                 <input type="checkbox" name="site_is_https" id="site_is_https" <?php
                                 if (@$site_is_https == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">

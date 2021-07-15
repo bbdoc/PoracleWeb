@@ -374,7 +374,7 @@
     "Select Candy Rewards you want to add":"Sélectionnez les types de Bonbons à ajouter",
     "Candy":"Bonbon",
     "Connect as a Telegram Admin to disable Discord Login":"Connectez-vous comme admin Telegram pour désactiver Discord",
-        "Gyms":"Arènes",
+    "Gyms":"Arènes",
     "GYMS":"ARENES",
     "Harmony":"Harmonie",
     "Mystic":"Sagesse",
@@ -402,5 +402,6 @@
     "Icon Repository":"Choix des Icones",
     "on display screen":"écran de visualisation",
     "on select screen":"écran de sélection",
-    "Allow 'Admin Disabled' Users":"Autoriser les utilisateurs 'Admin Disabled'"
+    "Allow 'Admin Disabled' Users":"Autoriser les utilisateurs 'Admin Disabled'",
+    "Display Channel ID in Admin Tools":"Afficher l'ID du Channel (OA)"
 }
