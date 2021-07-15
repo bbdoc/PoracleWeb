@@ -125,7 +125,7 @@ if (!isset($_SESSION['admin_id'])) {
 			   <ul>
                               <?php
                                  $allowed_languages = explode(",", $allowed_languages);
-                                 $all_languages = "en,fr,nl,de,es,pt,pl,da,br,se";
+                                 $all_languages = "en,fr,nl,de,es,pt,pl,da,br,se,it";
                                  $all_languages = explode(",", $all_languages);
 				 foreach ($all_languages as &$language) { 
 				    if (in_array($language, $allowed_languages)) { $checked="checked"; } else {$checked="";} 
