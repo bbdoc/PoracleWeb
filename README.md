@@ -65,6 +65,14 @@ For those parameters go to :
 6. Go to your PoracleWeb site and head to Admin Tools / Server Settings for additional configuration steps and parameters. You need to be logged in as an admin (as defined by `admin_id` par
 ameter to be able to access this page.
 
+
+### Setting Up Telegram Authentication
+
+You can enable Telegram authentication from the Server Settings page. You'll need to indicate a Bot Name for it to work.
+
+This means you first need to [create a bot] (https://core.telegram.org/bots#3-how-do-i-create-a-bot)
+Once you have chosen/created a bot, send the /setdomain command to @Botfather to link your website's domain to the bot.
+
 ---
 
 ## Contributing
