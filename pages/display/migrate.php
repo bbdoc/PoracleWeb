@@ -1,5 +1,4 @@
 <?php
-include "../../header.php";
 
 # No Migration Allowed if Telegram is not Enabled
 
