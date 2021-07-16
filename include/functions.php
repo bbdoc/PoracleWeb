@@ -148,7 +148,7 @@ function get_raid_bosses_json() {
 
       foreach ($list_id as $id => $boss_values) { 
          
-         $id = str_pad($boss_values['id'], 3, "0", STR_PAD_LEFT);
+         $id = $boss_values['id'];
          $form = $boss_values['form'];
          $evolution = $boss_values['temp_evolution_id'];
 

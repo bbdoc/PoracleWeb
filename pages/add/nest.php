@@ -134,7 +134,13 @@ if ( $disable_nests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='nest_<?php echo $nest; ?>'
                                         id='nest_<?php echo $nest; ?>' />
 				    <label for='nest_<?php echo $nest; ?>'>
-                                        <?php $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($nest, 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png"; ?>
+                                    <?php
+                                        if ( $row['form'] <> 0 ) {
+                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . "_f" . $row['form'] . ".png";
+                                        } else {
+                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . ".png";
+                                        }
+                                    ?>
 					<img class='m-2' src=<?php echo $PkmnImg; ?> />
 					<br><?php echo i8ln(get_mons($nest)); ?>
                                     </label>

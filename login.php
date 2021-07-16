@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 
-<?php include "./config.php"; ?>
-
 <html lang="en">
 
 <head>

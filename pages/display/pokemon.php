@@ -225,19 +225,16 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                     $pkm_unique_id = "mon_" . $row['uid'];
 
                                     // Check Images only if Form <> Normal and Substitude if necessary
-                                    $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
                                     if ($row['form'] <> 0) {
-                                        if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
-                                            $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
-                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
-                                        } else {
-                                            $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
-                                            $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . "_f" . $row['form'] . ".png";
+					if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
+				            $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
                                         }
                                     } else {
-                                        $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
-                                        $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] .".png";
                                     }
+				    $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
+				    $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
 
                                 ?>
 

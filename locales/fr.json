@@ -293,7 +293,7 @@
     "This will delete this Profile":"Cette action supprimera le profil en cours",
     "AND ALL ASSOCIATED TRACKINGS":"ET TOUS LES SUIVIS ASSOCIES",
     "Duplicate - This Alarm already exist":"Doublon - Cette Alarme existe déjà",
-    "Your account has been disabled on":"Votre compte a été désactivé le",
+    "Your account has been disabled":"Votre compte a été désactivé le",
     "Your account has been disabled by an admin":"Votre compte a été désactivé par l'administrateur",
     "Please contact an admin!":"Veuillez contacter un administrateur!",
     "Admin Tools":"Outils Administrateur",
@@ -374,7 +374,7 @@
     "Select Candy Rewards you want to add":"Sélectionnez les types de Bonbons à ajouter",
     "Candy":"Bonbon",
     "Connect as a Telegram Admin to disable Discord Login":"Connectez-vous comme admin Telegram pour désactiver Discord",
-        "Gyms":"Arènes",
+    "Gyms":"Arènes",
     "GYMS":"ARENES",
     "Harmony":"Harmonie",
     "Mystic":"Sagesse",
@@ -396,5 +396,12 @@
     "NEW GYMS ALARM":"NOUVELLE ALARME D'ARENE",
     "ALL GYMS":"TOUTES LES ARENES",
     "Alert on Slots Available":"Alerte si une place se libère",
-    "Slots Available":"Places Disponibles"
+    "Slots Available":"Places Disponibles",
+    "Enable Options":"Activer des Options",
+    "Select":"Sélectionner",
+    "Icon Repository":"Choix des Icones",
+    "on display screen":"écran de visualisation",
+    "on select screen":"écran de sélection",
+    "Allow 'Admin Disabled' Users":"Autoriser les utilisateurs 'Admin Disabled'",
+    "Display Channel ID in Admin Tools":"Afficher l'ID du Channel (OA)"
 }

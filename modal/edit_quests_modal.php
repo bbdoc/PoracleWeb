@@ -6,15 +6,16 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ( $row['reward_type'] == "7") {
-    echo "<img width=100 src='$imgUrl/pokemon_icon_".str_pad($mon_id, 3, "0", STR_PAD_LEFT)."_".str_pad($row['form'], 2, "0", STR_PAD_LEFT).".png'><br>";
+    if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
+    echo "<img width=100 src='$uicons_pkmn/pokemon/".$mon_id.$addform.".png'><br>";
  } elseif ( $row['reward_type'] == "2") {   
-    echo "<img width=100 src='$imgUrl/rewards/reward_".$row['reward']."_1.png'><br>";
+    echo "<img width=100 src='$uicons_reward/reward/item/".$row['reward'].".png'><br>";
  } elseif ( $row['reward_type'] == "12") {
-    echo "<img width=100 src='$imgUrl/rewards/reward_mega_energy_".$row['reward'].".png'><br>";
+    echo "<img width=100 src='$uicons_reward/reward/mega_resource/".$row['reward'].".png'><br>";
  } elseif ( $row['reward_type'] == "4") {
     echo "<img width=100 src='./img/candy/".$row['reward'].".png'>";
     if ( $row['reward'] <> 0 ) { 
-	    echo "<img width=100 loading=lazy src='$imgUrl/pokemon_icon_".$row['reward']."_00.png'>";
+	    echo "<img width=100 loading=lazy src='$uicons_pkmn/pokemon/".$row['reward'].".png'>";
     }
     echo "<br>";
  }

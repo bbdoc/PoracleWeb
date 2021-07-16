@@ -126,7 +126,7 @@ if ( $disable_raids == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
                                         id='egg_<?php echo $egg; ?>' />
                                     <label for='egg_<?php echo $egg; ?>'>
-                                        <img src='<?php echo $imgUrl; ?>/egg<?php echo $egg; ?>.png' />
+                                        <img src='<?php echo $uicons_raid; ?>/raid/egg/<?php echo $egg; ?>.png' />
 					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
                                     </label>
                                 </li>
@@ -174,8 +174,6 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    #$bosses = explode(',', $raid_bosses);
-                                    #foreach ($bosses as &$boss) {
                                     $bosses = get_raid_bosses_json(); 
                                     foreach ($bosses as $key => $boss) {
                                         $arr = explode("_", $boss);
@@ -186,6 +184,8 @@ if ( $disable_raids == "True" ) {
                                             $mega_name = "Mega X";
                                         } else if (@$boss_mega == 3) {
                                             $mega_name = "Mega Y";
+                                        } else if (@$boss_mega == 1) {
+                                            $mega_name = "Mega";
                                         } else {
                                             $mega_name = "";
                                         }
@@ -197,9 +197,11 @@ if ( $disable_raids == "True" ) {
                                         id='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>' />
 					<label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
                                         <?php 
-					   $img=$imgUrl."/pokemon_icon_".$boss.".png";
+                                           if ($boss_form <> 0 ) { $addform = "_f".$boss_form; } else { $addform = ""; }
+                                           if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; }
+				  	   $img="$uicons_pkmn/pokemon/" . $boss_id . $addevolution . $addform . ".png"; 
 					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
-					      $img=$imgUrl."/pokemon_icon_".$boss_id."_00.png";
+					      $img="$uicons_pkmn/pokemon/" . $boss_id . ".png";
 					   }
                                         ?>
                                         <img src='<?php echo $img; ?>' />

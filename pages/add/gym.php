@@ -133,7 +133,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                 <li class='text-center'><input type='checkbox' name='gym_<?php echo $team; ?>'
                                         id='gym_<?php echo $team; ?>' />
                                     <label for='gym_<?php echo $team; ?>'>
-                                        <img class='m-2' src='<?php echo "$imgUrl/gyms/gym_" . $team . ".png?"; ?>' />
+                                        <img class='m-2' src='<?php echo "$uicons_gym/gym/" . $team . ".png?"; ?>' />
 					<br><?php echo i8ln(get_gym_name($team)); ?>
                                     </label>
                                 </li>

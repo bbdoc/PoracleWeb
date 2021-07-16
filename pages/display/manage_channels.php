@@ -83,7 +83,13 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                  <span class="icon text-white-50">
                      <i class="fab fa-discord"></i>
                  </span>
-                 <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                    <span class="text" style="width:250px;">
+                       <?php echo $row['name']; ?>
+                       <?php if (@$admin_channel_id == "True") { ?>
+                          <font size=2><br><?php echo $row['id']."</font>"; ?>
+                       <?php } ?>
+                    </span>
+
 	     </a>
 
              <?php } ?>
@@ -137,7 +143,12 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                     <span class="icon text-white-50">
                         <i class="fab fa-telegram"></i>
                     </span>
-                    <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+		    <span class="text" style="width:250px;">
+		       <?php echo $row['name']; ?>
+		       <?php if (@$admin_channel_id == "True") { ?>
+		          <font size=2><br><?php echo $row['id']."</font>"; ?>
+                       <?php } ?>
+                    </span>
                 </a>
       
 	     <?php } ?>
@@ -191,7 +202,12 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                  <span class="icon text-white-50">
                      <font size=1>WH</font>
                  </span>
-                 <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                    <span class="text" style="width:250px;">
+                       <?php echo $row['name']; ?>
+                       <?php if (@$admin_channel_id == "True") { ?>
+                          <font size=2><br><?php echo $row['id']."</font>"; ?>
+                       <?php } ?>
+                    </span>
              </a>
       
 	     <?php } ?>
