@@ -372,7 +372,9 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                                            if ($row['pvp_ranking_league'] == 2500) { echo i8ln("ULTRA"); }
                                                         ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill">top<?php echo $row['pvp_ranking_best']; ?>-<?php echo $row['pvp_ranking_worst']; ?>
+							    class="badge badge-primary badge-pill">top
+							    <?php if ( $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
+                                                            <?php echo $row['pvp_ranking_worst']; ?>
                                                             @<?php echo $row['pvp_ranking_min_cp']; ?></span>
                                                     </li>
                                                     <?php
