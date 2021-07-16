@@ -23,8 +23,8 @@
    if (!isset($_POST['max_sta']) || $_POST['max_sta'] == "") { $_POST['max_sta'] = $monster_defaults['max_sta']; }
 
    // Replace Default Values if Set
-   if ($_POST['great_league_ranking'] == "" ) { $_POST['great_league_ranking'] = 4096; }
-   if ($_POST['ultra_league_ranking'] == "" ) { $_POST['ultra_league_ranking'] = 4096; }
+   if ($_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
+   if ($_POST['pvp_ranking_min_cp'] == "" ) { $_POST['pvp_ranking_min_cp'] = 1; }
 
    // Handle NO IV Pokemon
 
@@ -53,7 +53,7 @@
       SET distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
-          great_league_ranking = ?, great_league_ranking_min_cp = ?, ultra_league_ranking = ?, ultra_league_ranking_min_cp = ?,
+          pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?,
           form = ?, gender = ?, clean = ?, template = ? 
       WHERE uid = ?");
 
@@ -79,10 +79,10 @@
       $_POST['max_atk'],
       $_POST['max_def'],
       $_POST['max_sta'],
-      $_POST['great_league_ranking'],
-      $_POST['great_league_ranking_min_cp'],
-      $_POST['ultra_league_ranking'],
-      $_POST['ultra_league_ranking_min_cp'],
+      $_POST['pvp_ranking_worst'],
+      $_POST['pvp_ranking_best'],
+      $_POST['pvp_ranking_min_cp'],
+      $_POST['league'],
       $form,
       $gender,
       $clean,
@@ -170,8 +170,7 @@
              atk, def, sta, template, clean,
              min_weight, max_weight, form,
              max_atk, max_def, max_sta, gender,
-             great_league_ranking, great_league_ranking_min_cp,
-	     ultra_league_ranking, ultra_league_ranking_min_cp,
+             pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league,
              profile_no
            )
 	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
@@ -203,10 +202,10 @@
           $_POST['max_def'],
           $_POST['max_sta'],
           $gender,
-          $_POST['great_league_ranking'],
-          $_POST['great_league_ranking_min_cp'],
-          $_POST['ultra_league_ranking'],
-	  $_POST['ultra_league_ranking_min_cp'],
+          $_POST['pvp_ranking_worst'],
+          $_POST['pvp_ranking_best'],
+          $_POST['pvp_ranking_min_cp'],
+	  $_POST['league'],
 	  $_SESSION['profile']
         );
 

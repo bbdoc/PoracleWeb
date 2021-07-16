@@ -36,22 +36,24 @@ function setnoiv(type) {
 }
 
 function setpvp(type) { 
-   var value = document.querySelector('input[id="league_' + type + '"]:checked').value;
-   var divblock = "league_".concat(value).concat("_").concat(type); 
-   var divgreat = "league_great_".concat(type); 
-   var divultra = "league_ultra_".concat(type); 
+   var value = document.querySelector('input[id="league_' + type + '"]:checked').value; 
+   var divblock = "pvp_league_".concat(type); 
 
-   document.getElementById("great_league_ranking_".concat(type)).value = "";
-   document.getElementById("ultra_league_ranking_".concat(type)).value = "";
-   document.getElementById("great_league_ranking_min_cp_".concat(type)).value = "";
-   document.getElementById("ultra_league_ranking_min_cp_".concat(type)).value = "";
+   switch(value) {
+	   case '500': var min = document.querySelector('input[id="pvpFilterLittleMinCP"]').value; break;
+	   case '1500': var min = document.querySelector('input[id="pvpFilterGreatMinCP"]').value; break;
+	   case '2500': var min = document.querySelector('input[id="pvpFilterUltraMinCP"]').value; break;
+   }
 
-   if(value == "none"){
-      document.getElementById(divgreat).style.display = "none";
-      document.getElementById(divultra).style.display = "none";
+   document.getElementById("pvp_ranking_best_".concat(type)).value = "";
+   document.getElementById("pvp_ranking_worst_".concat(type)).value = "";
+   document.getElementById("pvp_ranking_min_cp_".concat(type)).value = "";
+   document.getElementById("pvp_ranking_min_cp_".concat(type)).setAttribute("min", min);
+   document.getElementById("pvp_ranking_min_cp_".concat(type)).setAttribute("max", value);
+
+   if(value == "0"){
+      document.getElementById(divblock).style.display = "none";
    } else {
-      document.getElementById(divgreat).style.display = "none";
-      document.getElementById(divultra).style.display = "none";
       document.getElementById(divblock).style.display = "block";
    }
 }

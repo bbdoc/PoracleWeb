@@ -1,9 +1,8 @@
 <?php
 
 $monster_defaults = array(
-	"great_league_ranking"=>4096,
-	"ultra_league_ranking"=>4096,
-	"great_league_ranking_min_cp"=>0,
+	"pvp_ranking_worst"=>4096,
+	"pvp_ranking_min_cp"=>0,
         "ultra_league_ranking_min_cp"=>0,
 	"min_iv"=>0,
 	"max_iv"=>100,
