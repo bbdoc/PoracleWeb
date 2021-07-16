@@ -16,10 +16,10 @@
 	   } 
 	   else if ( $key != "action" && $key != "update" )
 	   {
-		   if (strpos($key, 'disable') !== false) { echo "1";
+		   if (strpos($key, 'disable') !== false) { 
 		      if ( $value == "on" ) { $value = "False"; }
 		      if ( $value == "off" ) { $value = "True"; }
-                   } else if ( $key == "api_address" ) { echo "2";
+                   } else if ( $key == "api_address" ) { 
                       $value = rtrim($value, '/');
 		   } else { 
 	              if ( $value == "on" ) { $value = "True"; }
