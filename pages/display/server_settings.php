@@ -273,8 +273,12 @@ if (!isset($_SESSION['admin_id'])) {
 
 				<?php echo $msg; ?>
 
-                                <div class="mb-1">
-                                <input type="hidden" name="enable_discord" id="enable_discord" value="off">
+				<div class="mb-1">
+
+				<?php if ( $_SESSION['type'] == "telegram:user" ) { ?>
+				   <input type="hidden" name="enable_discord" id="enable_discord" value="off">
+				<?php } ?>
+
 				<input type="checkbox" <?php echo $disabled; ?> name="enable_discord" id="enable_discord" <?php 
                                 if (@$enable_discord <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Enable Discord Login ?"); ?>
