@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  poracle-web:
+    build: ./poracleWeb # folder or subfolder where poracle-web is located
+    container_name: poracle-web
+    restart: unless-stopped
+    tty: true
+    environment:
+      PORACLE_DB_HOST: poracle-db
+      PORACLE_DB_DATABASE: poracledb
+      PORACLE_DB_USERNAME: poracleuser
+      PORACLE_DB_PASSWORD: dbPassword
+      PORACLE_DB_PORT: 3306
+      ADMIN_ID: 123456789123456
+      REDIRECT_URL: https://poracle.map.com # 
+      DISCORD_BOT_CLIENT_ID: 123456789123456789
+      DISCORD_BOT_CLIENT_SECRET: abcdefghijklmnopqrstuvwxyz
+      MAP_URL: https://tiles.map.com/staticmap/poracle-web?img=https://raw.githubusercontent>
+      MAP_PORACLE_WEB: https://tiles.map.com/staticmap/poracle-web
+    depends_on:
+      - poracle-db
+      - poracle
+    volumes:
+      - ./poracle/:/poracle/
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 127.0.0.1:9060:80
