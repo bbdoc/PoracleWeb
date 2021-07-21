@@ -72,6 +72,7 @@ if(count(array_keys($areas)) === 1){
         echo "<ul>\n";
         foreach ($areaList as $i => $area) {
             $area_var = str_replace(' ', '%20', $area);
+            $hash = $geo_hash[$area];
 
             if (in_array(strtolower($area), $existing_area)) {
                 $checked = 'checked';
