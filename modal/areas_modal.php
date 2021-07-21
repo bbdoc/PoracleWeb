@@ -45,7 +45,7 @@ if(count(array_keys($areas)) === 1){
         echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
 	echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font>\n";
         if (@$disable_geomap_select <> "True") {
-		echo "<br><img src='.cache/geo_".$area."_".$hash.".png' style='width:100%; max-width=100%;'>";
+		echo "<br><img src='.cache/geo_".strtoupper($area)."_".$hash.".png' style='width:100%; max-width=100%;'>";
 	}
 	echo "</label>\n";
         echo "</li>\n";
@@ -82,7 +82,7 @@ if(count(array_keys($areas)) === 1){
             echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
 	    echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font>\n";
             if (@$disable_geomap_select <> "True") {
-                    echo "<br><img src='.cache/geo_".$area."_".$hash.".png' style='width:100%; max-width=100%;'>";
+                    echo "<br><img src='.cache/geo_".strtoupper($area)."_".$hash.".png' style='width:100%; max-width=100%;'>";
             }
 	    echo "</label>\n";
             echo "</li>\n";
