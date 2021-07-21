@@ -327,7 +327,7 @@ if (!isset($_SESSION['admin_id'])) {
 			    <?php if ($uicons_reward == $repo_url) { $checked_reward="checked";} else { $checked_reward="";} ?>
 
 			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
-                                <div class="card <?php echo $border; ?> shadow h-100 py-25">
+                                <div class="card shadow h-100 py-25">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
