@@ -204,7 +204,7 @@ if ( $disable_raids == "True" ) {
 					<label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
                                         <?php 
                                            if ($boss_form <> 0 ) { $addform = "_f".$boss_form; } else { $addform = ""; }
-                                           if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; }
+                                           if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; } else { $addevolution = ""; }
 				  	   $img="$uicons_pkmn/pokemon/" . $boss_id . $addevolution . $addform . ".png"; 
 					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
 					      $img="$uicons_pkmn/pokemon/" . $boss_id . ".png";

@@ -373,7 +373,7 @@
                                                        #}
 
                                                        if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
-                                                       #if ($row['evolution'] <> 0 ) { $addevolution = "_e".$row['evolution']; }
+                                                       #if ($row['evolution'] <> 0 ) { $addevolution = "_e".$row['evolution']; } else { $addevolution = ""; }
                                                        $PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
                                                        #$PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addevolution . $addform . ".png";
                                                        if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
