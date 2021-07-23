@@ -213,10 +213,13 @@ if ( $disable_raids == "True" ) {
                                         <img src='<?php echo $img; ?>' />
                                         <br>
                                         <?php echo str_pad($boss_id, 3, "0", STR_PAD_LEFT); ?>
-                                        <br>
-                                        <?php echo $pokemon_name; ?>
-                                        <br>
-                                        <?php echo $mega_name; ?>
+					<br>
+                                        <?php 
+                                             $form_name = get_form_name($boss_id, $boss_form);
+                                             if ( $form_name == "Normal" ) { $form_name = ""; }
+					     echo $pokemon_name." ".$form_name; 
+					     echo "<br>".$mega_name;
+                                        ?>
                                     </label>
                                 </li>
                                 <?php
