@@ -174,7 +174,13 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $bosses = get_raid_bosses_json(); 
+
+				    if (isset($source_raid_bosses) && $source_raid_bosses == "JSON" ) { 
+					    $bosses = get_raid_bosses_json();
+				    } else {
+					    $bosses = get_raid_bosses();
+				    }
+
                                     foreach ($bosses as $key => $boss) {
                                         $arr = explode("_", $boss);
                                         $boss_id = $arr[0];
