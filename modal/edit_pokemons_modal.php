@@ -300,6 +300,10 @@ if ($row['pokemon_id'] == '0') {
             $ultra_checked = ""; $ultra_display = "none";
 	    $none_checked = "";
 
+	    $little_checked = "";
+	    $great_checked = "";
+	    $ultra_checked = "";
+
             if ( $row['pvp_ranking_league'] == 500 ) 
             { 
 		    $pvp_display = "block"; 
