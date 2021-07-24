@@ -1,6 +1,7 @@
 <?php
 
 $monster_defaults = array(
+	"pvp_ranking_best"=>0,
 	"pvp_ranking_worst"=>4096,
 	"pvp_ranking_min_cp"=>0,
         "ultra_league_ranking_min_cp"=>0,
