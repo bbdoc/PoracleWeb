@@ -361,7 +361,8 @@ if ($row['pokemon_id'] == '0') {
                     <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("Rank between"); ?></div>
-                        </div>
+			</div>
+			<?php if ($row['pvp_ranking_best'] == 0) { $row['pvp_ranking_best'] = ""; } ?>
 			<input type='number' id='pvp_ranking_best_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_best' size=1
                             value='<?php echo $row['pvp_ranking_best'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
