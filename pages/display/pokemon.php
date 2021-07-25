@@ -134,7 +134,7 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
 
                         <?php
 
-                           if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
+                           if (!isset($_GET['gen']) || $_GET['gen'] == "") { $_GET['gen'] = "all"; }
 
                            if ( @$_GET['gen'] == "all" ) { $gen_selector = "AND pokemon_id = 0"; }
                            if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
