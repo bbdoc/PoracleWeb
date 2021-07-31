@@ -174,7 +174,13 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $bosses = get_raid_bosses_json(); 
+
+				    if (isset($source_raid_bosses) && $source_raid_bosses == "JSON" ) { 
+					    $bosses = get_raid_bosses_json();
+				    } else {
+					    $bosses = get_raid_bosses();
+				    }
+
                                     foreach ($bosses as $key => $boss) {
                                         $arr = explode("_", $boss);
                                         $boss_id = $arr[0];
@@ -198,7 +204,7 @@ if ( $disable_raids == "True" ) {
 					<label for='mon_<?php echo $boss_id; ?>_<?php echo $boss_form; ?>'>
                                         <?php 
                                            if ($boss_form <> 0 ) { $addform = "_f".$boss_form; } else { $addform = ""; }
-                                           if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; }
+                                           if (@$boss_mega <> 0 ) { $addevolution = "_e".$boss_mega; } else { $addevolution = ""; }
 				  	   $img="$uicons_pkmn/pokemon/" . $boss_id . $addevolution . $addform . ".png"; 
 					   if (false === @file_get_contents("$img", 0, null, 0, 1)) { 
 					      $img="$uicons_pkmn/pokemon/" . $boss_id . ".png";
@@ -207,10 +213,13 @@ if ( $disable_raids == "True" ) {
                                         <img src='<?php echo $img; ?>' />
                                         <br>
                                         <?php echo str_pad($boss_id, 3, "0", STR_PAD_LEFT); ?>
-                                        <br>
-                                        <?php echo $pokemon_name; ?>
-                                        <br>
-                                        <?php echo $mega_name; ?>
+					<br>
+                                        <?php 
+                                             $form_name = get_form_name($boss_id, $boss_form);
+                                             if ( $form_name == "Normal" ) { $form_name = ""; }
+					     echo $pokemon_name." ".$form_name; 
+					     echo "<br>".$mega_name;
+                                        ?>
                                     </label>
                                 </li>
                                 <?php

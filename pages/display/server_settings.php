@@ -205,7 +205,39 @@ if (!isset($_SESSION['admin_id'])) {
                                     </div>
                                     <input type='number' id='scan_dbport' name='scan_dbport' class="form-control text-center" min='0' value="<?php echo $scan_dbport; ?>">
                                 </div>
+			    </div>
+			</div>
+
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center mt-3">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("PogoInfo JSON"); ?></h1>
                             </div>
+                        </div>
+
+                        <div class="form-row align-items-center">
+
+                            <?php if (!isset($source_raid_bosses)) { $source_raid_bosses = "DB"; }  ?>
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="width:230px;">&nbsp;&nbsp;<?php echo i8ln("Get Raid Bosses from"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="source_raid_bosses" id="source_raid_bosses" value="DB"
+                                            <?php if ($source_raid_bosses == "DB") { echo "checked"; }  ?>>
+                                        <?php echo i8ln("DB"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="source_raid_bosses" id="source_raid_bosses" value="JSON"
+                                            <?php if ($source_raid_bosses == "JSON") { echo "checked"; }  ?>>
+                                        <?php echo i8ln("JSON"); ?>
+                                    </label>
+				</div>
+			    </div>
 
                         </div>
 
@@ -327,7 +359,7 @@ if (!isset($_SESSION['admin_id'])) {
 			    <?php if ($uicons_reward == $repo_url) { $checked_reward="checked";} else { $checked_reward="";} ?>
 
 			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
-                                <div class="card <?php echo $border; ?> shadow h-100 py-25">
+                                <div class="card shadow h-100 py-25">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">

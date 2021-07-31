@@ -403,5 +403,8 @@
     "on display screen":"écran de visualisation",
     "on select screen":"écran de sélection",
     "Allow 'Admin Disabled' Users":"Autoriser les utilisateurs 'Admin Disabled'",
-    "Display Channel ID in Admin Tools":"Afficher l'ID du Channel (OA)"
+    "Display Channel ID in Admin Tools":"Afficher l'ID du Channel (OA)",
+    "Rank between":"Rank entre",
+    "and":"et",
+    "Get Raid Bosses from":"Source des Boss de Raid"
 }

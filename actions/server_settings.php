@@ -51,6 +51,7 @@
    }
 
    $languages = implode (",", $languages);
+   if ( $languages == "" ) { $languages = "en"; }
 
    $stmt = $conn->prepare("INSERT INTO pweb_settings (setting, value) VALUES ('allowed_languages', ?) ON DUPLICATE KEY UPDATE value=?");
    if (false === $stmt) {

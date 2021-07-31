@@ -12,9 +12,8 @@ REQUIRES MYSQL !
 
 This tool is an add-on to [PoracleJS](https://github.com/KartulUdus/PoracleJS)
 
-This is a first attempt at creating a Web Inteface to handle alarms configuration in PoracleJS.
-
-Please note that I'm not a professional Web Developer, so the code might look ugly to some people, but it works. I'm of course open to suggestion on improving the code or adding functionalities.
+It requires a working webserver (typically Apache or nginx) + PHP.
+Alternatively it can be run out of Docker (Dockerfile is provided).
 
 ---
 

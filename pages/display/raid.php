@@ -359,13 +359,42 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-						    <?php $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png"; ?>
-                                                    <img width=50 loading=lazy
-                                                        src='<?php echo $PkmnImg; ?>'>
-                                                </div>
+
+                                                    <?php
+
+				                       #if ($row['evolution'] == 2) {
+                                                       #    $mega_name = "Mega X";
+                                                       #} else if ($row['evolution'] == 3) {
+                                                       #    $mega_name = "Mega Y";
+                                                       #} else if ($row['evolution'] == 1) {
+                                                       #    $mega_name = "Mega";
+                                                       #} else {
+                                                       #$mega_name = "";
+                                                       #}
+
+                                                       if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
+                                                       #if ($row['evolution'] <> 0 ) { $addevolution = "_e".$row['evolution']; } else { $addevolution = ""; }
+                                                       $PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
+                                                       #$PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addevolution . $addform . ".png";
+                                                       if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
+                                                          $PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
+                                                       }
+
+                                                    ?>
+
+						    <img width=50 loading=lazy src='<?php echo $PkmnImg; ?>'>
+
+						</div>
+
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo $pokemon_name; ?>
-                                                </div>
+						    <?php 
+						       $form_name = get_form_name($row['pokemon_id'], $row['form']); 
+						       if ( $form_name == "Normal" ) { $form_name = ""; }
+						       echo $pokemon_name." ".$form_name; 
+						       #echo "<br>".$mega_name;
+						    ?>
+						</div>
+
                                                 <div class="mt-2 text-center">
 
                                                     <?php

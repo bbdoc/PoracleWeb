@@ -82,6 +82,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['providerURL'] = $json['providerURL'];
    $_SESSION['staticKey'] = $json['staticKey'][0];
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
+   $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];

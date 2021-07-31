@@ -11,10 +11,9 @@ if ( $row['max_level'] == $monster_defaults['max_level'] ) { $row['max_level'] =
 if ( $row['min_weight'] == $monster_defaults['min_weight'] ) { $row['min_weight'] = ""; }
 if ( $row['max_weight'] == $monster_defaults['max_weight'] ) { $row['max_weight'] = ""; }
 
-if ( $row['great_league_ranking'] == $monster_defaults['great_league_ranking'] ) { $row['great_league_ranking'] = ""; }
-if ( $row['ultra_league_ranking'] == $monster_defaults['ultra_league_ranking'] ) { $row['ultra_league_ranking'] = ""; }
-if ( $row['great_league_ranking_min_cp'] == $monster_defaults['great_league_ranking_min_cp'] ) { $row['great_league_ranking_min_cp'] = ""; }
-if ( $row['ultra_league_ranking_min_cp'] == $monster_defaults['ultra_league_ranking_min_cp'] ) { $row['ultra_league_ranking_min_cp'] = ""; }
+if ( $row['pvp_ranking_best'] == $monster_defaults['pvp_ranking_best'] ) { $row['pvp_ranking_best'] = ""; }
+if ( $row['pvp_ranking_worst'] == $monster_defaults['pvp_ranking_worst'] ) { $row['pvp_ranking_worst'] = ""; }
+if ( $row['pvp_ranking_min_cp'] == $monster_defaults['pvp_ranking_min_cp'] ) { $row['pvp_ranking_min_cp'] = ""; }
 
 
 $form_name = get_form_name($row['pokemon_id'], $row['form']);
@@ -301,15 +300,25 @@ if ($row['pokemon_id'] == '0') {
             $ultra_checked = ""; $ultra_display = "none";
 	    $none_checked = "";
 
-            if ( $row['great_league_ranking'] > 0 ) 
+	    $little_checked = "";
+	    $great_checked = "";
+	    $ultra_checked = "";
+
+            if ( $row['pvp_ranking_league'] == 500 ) 
             { 
-		    $great_display = "block"; 
-		    $great_checked = "checked"; 
-	    } else if ( $row['ultra_league_ranking'] > 0 ) 
-            { 
-		    $ultra_display = "block"; 
-		    $ultra_checked = "checked"; 
+		    $pvp_display = "block"; 
+		    $little_checked = "checked"; 
+	    } else if ( $row['pvp_ranking_league'] == 1500 ) 
+	    { 
+                    $pvp_display = "block";
+		    $great_checked = "checked";
+            } else if ( $row['pvp_ranking_league'] == 2500 )
+            {
+                    $pvp_display = "block";
+                    $ultra_checked = "checked";
+
 	    } else {
+		    $pvp_display = "none"; 
 		    $none_checked = "checked"; 
 	    }
 
@@ -318,65 +327,69 @@ if ($row['pokemon_id'] == '0') {
 
             <div class="form-row align-items-center">
                 <div class="col-sm-12 my-1">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <div class="btn-group btn-group-toggle mt-1" data-toggle="buttons">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group">
                                 <div class="input-group-text"><?php echo i8ln("Track PvP League"); ?>&nbsp;</div>
                             </div>
-                        </div>
+			</div>
+                     </div>
+                     <div class="btn-group btn-group-toggle mt-1" data-toggle="buttons">
                         <label class="btn btn-secondary">
 			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="none" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
+                                   value="0" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
+			</label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>"
+                                   value="500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $little_checked; ?>><?php echo i8ln("Little"); ?>
                         </label>
                         <label class="btn btn-secondary">
 			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="great" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>
+                                   value="1500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>
                         </label>
                         <label class="btn btn-secondary">
 			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="ultra" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $ultra_checked; ?>><?php echo i8ln("Ultra"); ?>
+                                   value="2500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $ultra_checked; ?>><?php echo i8ln("Ultra"); ?>
                         </label>
                     </div>
                 </div>
     	    </div>
 
-            <div class="form-row align-items-center" id="league_great_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $great_display; ?>;">
+
+	    <input type="hidden" id="pvpFilterLittleMinCP" name="pvpFilterLittleMinCP" value="<?php echo $_SESSION['pvpFilterLittleMinCP']; ?>">
+	    <input type="hidden" id="pvpFilterGreatMinCP" name="pvpFilterGreatMinCP" value="<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>">
+	    <input type="hidden" id="pvpFilterUltraMinCP" name="pvpFilterultraMinCP" value="<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>">
+
+            <div class="form-row align-items-center" id="pvp_league_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $pvp_display; ?>;">
 		<div class="col-sm-12 my-1">
                     <div class="input-group">
                         <div class="input-group-prepend">
-			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
-                        </div>
-			<input type='number' id='great_league_ranking_<?php echo $pkm_unique_id; ?>' name='great_league_ranking' size=1
-                            value='<?php echo $row['great_league_ranking'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
+			    <div class="input-group-text"><?php echo i8ln("Rank between"); ?></div>
+			</div>
+			<?php if ($row['pvp_ranking_best'] == 0) { $row['pvp_ranking_best'] = ""; } ?>
+			<input type='number' id='pvp_ranking_best_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_best' size=1
+                            value='<?php echo $row['pvp_ranking_best'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
-			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
-                        </div>
-                        <input type='number' id='great_league_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='great_league_ranking_min_cp' size=1 
-                            value='<?php echo $row['great_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>' max='4096'
+			    <span class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("and"); ?></span>
+			</div>
+                        <input type='number' id='pvp_ranking_worst_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_worst' size=1
+                            value='<?php echo $row['pvp_ranking_worst'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
                             class="form-control text-center">
 		    </div>
-                </div>
-	    </div>
-
-            <div class="form-row align-items-center" id="league_ultra_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $ultra_display; ?>;">
+		</div>
                 <div class="col-sm-12 my-1">
                     <div class="input-group">
                         <div class="input-group-prepend">
-			    <div class="input-group-text"><?php echo i8ln("MIN Rank"); ?></div>
+                            <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='ultra_league_ranking_<?php echo $pkm_unique_id; ?>' name='ultra_league_ranking' size=1 
-                            value='<?php echo $row['ultra_league_ranking'] ?>' min=1 max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
+                        <input type='number' id='pvp_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_min_cp' size=1
+                            value='<?php echo $row['pvp_ranking_min_cp'] ?>' min='0' max='4096'
                             class="form-control text-center">
-                        <div class="input-group-prepend">
-			    <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
-                        </div>
-                        <input type='number' id='ultra_league_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='ultra_league_ranking_min_cp' size=1 
-                            value='<?php echo $row['ultra_league_ranking_min_cp'] ?>' min='<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>' max='4096'
-                            class="form-control text-center">
-		    </div>
+                    </div>
                 </div>
-            </div>
+	    </div>
+
         </div>
         <div class="tab-pane fade" id="pills-other-<?php echo $pkm_unique_id ?>" role="tabpanel"
             aria-labelledby="pills-other-tab-<?php echo $pkm_unique_id ?>">

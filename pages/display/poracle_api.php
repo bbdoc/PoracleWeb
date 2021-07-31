@@ -131,6 +131,17 @@ if (!isset($_SESSION['admin_id'])) {
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text" style="width:220px;">
+                        &nbsp;&nbsp;<?php echo i8ln("PvP Little Min CP"); ?>
+                    </div>
+                </div>
+                <div class="form-control text-center"><?php echo $_SESSION['pvpFilterLittleMinCP']; ?></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:220px;">
                         &nbsp;&nbsp;<?php echo i8ln("PvP Great Min CP"); ?>
                     </div>
                 </div>

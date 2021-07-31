@@ -134,7 +134,7 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
 
                         <?php
 
-                           if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
+                           if (!isset($_GET['gen']) || $_GET['gen'] == "") { $_GET['gen'] = "all"; }
 
                            if ( @$_GET['gen'] == "all" ) { $gen_selector = "AND pokemon_id = 0"; }
                            if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
@@ -362,25 +362,20 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['great_league_ranking'] <> '4096' || $row['great_league_ranking_min_cp'] <> '0') {
+                                                            if ($row['pvp_ranking_league'] > 0) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("GREAT"); ?>
+							<?php 
+                                                           if ($row['pvp_ranking_league'] == 500) { echo i8ln("LITTLE"); }
+                                                           if ($row['pvp_ranking_league'] == 1500) { echo i8ln("GREAT"); }
+                                                           if ($row['pvp_ranking_league'] == 2500) { echo i8ln("ULTRA"); }
+                                                        ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill">top<?php echo $row['great_league_ranking']; ?>
-                                                            @<?php echo $row['great_league_ranking_min_cp']; ?></span>
-                                                    </li>
-                                                    <?php
-                                                            }
-                                                            if ($row['ultra_league_ranking'] <> '4096') {
-                                                            ?>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("ULTRA"); ?>
-                                                        <span
-                                                            class="badge badge-primary badge-pill">top<?php echo $row['ultra_league_ranking']; ?>
-                                                            @<?php echo $row['ultra_league_ranking_min_cp']; ?></span>
+							    class="badge badge-primary badge-pill">top
+							    <?php if ( $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
+                                                            <?php echo $row['pvp_ranking_worst']; ?>
+                                                            @<?php echo $row['pvp_ranking_min_cp']; ?></span>
                                                     </li>
                                                     <?php
                                                             }

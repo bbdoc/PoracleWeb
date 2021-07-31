@@ -20,7 +20,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
                  window.dataLayer = window.dataLayer || [];
                  function gtag(){dataLayer.push(arguments);}
                  gtag('js', new Date());
-                 gtag('config', '" . $gAnalyticsId . ");
+                 gtag('config', '" . $gAnalyticsId . "');
                  </script>";
     }
     ?>
