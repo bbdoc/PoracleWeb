@@ -138,10 +138,16 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </div>
 
-	<?php if ( $_SESSION['pvpLittleLeagueAllowed'] <> "True" ) { ?>
+	<?php if ( $_SESSION['pvpLittleLeagueAllowed'] == "True" ) { ?>
+
+        <div class='alert alert-success fade show w-100' role='alert' style='padding:5px; margin:3px;'>
+        <?php echo i8ln("PvP datasource set to internal, Little Cup enabled"); ?>
+        </div><br>
+
+        <?php } else { ?>
 
         <div class='alert alert-danger fade show w-100' role='alert' style='padding:5px; margin:3px;'>
-	<?php echo i8ln("Please set PvP datasource to Local to enable Little Cup"); ?>
+	<?php echo i8ln("Please set PvP datasource to internal to enable Little Cup"); ?>
         </div><br>
 
         <?php } ?>

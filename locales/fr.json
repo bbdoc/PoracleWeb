@@ -407,5 +407,6 @@
     "Rank between":"Rank entre",
     "and":"et",
     "Get Raid Bosses from":"Source des Boss de Raid",
-    "Please set PvP datasource to Local to enable Little Cup":"Veuillez configurer la source de données sur 'internal' pour activer la Little Cup"
+    "Please set PvP datasource to internal to enable Little Cup":"Veuillez configurer la source de données PvP sur 'internal' pour activer la Little Cup",
+    "PvP datasource set to internal, Little Cup enabled":"Source de données PvP configurée sur 'internal'. Little Cup activée"
 }
