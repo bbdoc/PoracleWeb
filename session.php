@@ -85,6 +85,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
+   $_SESSION['pvpLittleLeagueAllowed'] = $json['pvpLittleLeagueAllowed'];
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];

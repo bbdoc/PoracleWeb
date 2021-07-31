@@ -138,6 +138,14 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </div>
 
+	<?php if ( $_SESSION['pvpLittleLeagueAllowed'] <> "True" ) { ?>
+
+        <div class='alert alert-danger fade show w-100' role='alert' style='padding:5px; margin:3px;'>
+	<?php echo i8ln("Please set PvP datasource to Local to enable Little Cup"); ?>
+        </div><br>
+
+        <?php } ?>
+
         <div class="col-sm-12 my-1">
             <div class="input-group">
                 <div class="input-group-prepend">

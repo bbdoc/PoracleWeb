@@ -406,5 +406,6 @@
     "Display Channel ID in Admin Tools":"Afficher l'ID du Channel (OA)",
     "Rank between":"Rank entre",
     "and":"et",
-    "Get Raid Bosses from":"Source des Boss de Raid"
+    "Get Raid Bosses from":"Source des Boss de Raid",
+    "Please set PvP datasource to Local to enable Little Cup":"Veuillez configurer la source de données sur 'internal' pour activer la Little Cup"
 }
