@@ -339,10 +339,12 @@ if ($row['pokemon_id'] == '0') {
 			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
                                    value="0" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
 			</label>
+                        <?php if ( $_SESSION['pvpLittleLeagueAllowed'] == "True" ) { ?>
                         <label class="btn btn-secondary">
                             <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>"
                                    value="500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $little_checked; ?>><?php echo i8ln("Little"); ?>
-                        </label>
+			</label>
+                        <?php } ?>
                         <label class="btn btn-secondary">
 			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
                                    value="1500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>

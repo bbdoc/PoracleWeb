@@ -243,9 +243,11 @@ if ( $disable_mons == "True" ) {
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="league" id="league_add" value="0" onclick="setpvp('add')" checked><?php echo i8ln("None"); ?>
 				    </label>
+                                    <?php if ( $_SESSION['pvpLittleLeagueAllowed'] == "True" ) { ?>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="league" id="league_add" value="500" onclick="setpvp('add')"><?php echo i8ln("Little"); ?>
-                                    </label>
+				    </label>
+                                    <?php } ?>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="league" id="league_add" value="1500" onclick="setpvp('add')"><?php echo i8ln("Great"); ?>
                                     </label>
