@@ -155,7 +155,7 @@ if (isset($_SESSION['username'])) {
             $redirect_page = "unregistered.php";
     }
 
-    if (isset($enable_admin_dis) && $enable_admin_dis == "False")
+    if (isset($enable_admin_dis) && $enable_admin_dis == "False" && $_SESSION['id'] <> $_SESSION['admin_id'])
     {
 	    $subs_clause .= " AND admin_disable = 0";
     }

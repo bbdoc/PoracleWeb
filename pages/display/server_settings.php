@@ -58,7 +58,7 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
                         </div>
 
-                        <?php
+                        <?php 
 
                         // Check Connection to Poracle DB
 
