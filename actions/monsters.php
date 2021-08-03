@@ -24,7 +24,13 @@
 
    // Replace Default Values if Set
    if ($_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
-   if ($_POST['pvp_ranking_min_cp'] == "" ) { $_POST['pvp_ranking_min_cp'] = 1; }
+
+   if ($_POST['pvp_ranking_min_cp'] == "" ) 
+   { 
+	   if ( $_POST['league'] == 500 ) { $_POST['pvp_ranking_min_cp']  = $_SESSION['pvpFilterLittleMinCP']; } 
+	   else if ( $_POST['league'] == 1500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterGreatMinCP']; }
+	   else if ( $_POST['league'] == 2500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterUltraMinCP']; } 
+   }
 
    // Handle NO IV Pokemon
 
