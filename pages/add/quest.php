@@ -123,16 +123,16 @@ if ( $disable_quests == "True" ) {
                                     foreach ($mons as &$mon) {
                                         $arr = explode("_", $mon);
                                         $mon_id = $arr[0];
-                                        $mon_form = $arr[1];
+                                        $form_id = $arr[1];
 
 					$pokemon_name=get_mons($mon_id);  
-					$form_name=get_form_name($mon_id,$mon_form); 
+					$form_name=get_form_name($mon_id,$form_id); 
 
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='mon_<?php echo $mon; ?>'
                                         id='mon_<?php echo $mon; ?>' />
 				    <label for='mon_<?php echo $mon; ?>'>
-					<?php if ($mon_form <> 0  && $form_name <> 'Normal' ) { $addform = "_f".$mon_form; } else { $addform = ""; } ?>
+					<?php if ($form_id <> 0  && $form_name <> 'Normal' ) { $addform = "_f".$form_id; } else { $addform = ""; } ?>
                                         <img class="mb-2" src='<?php echo $uicons_pkmn; ?>/pokemon/<?php echo $mon_id.$addform; ?>.png' />
 					<br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?><br>
                                         <?php if ( $form_name <> "Normal" && $form_name <> "" && $form_id <> "00" ) { ?>
