@@ -129,7 +129,7 @@
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <?php 
-                                                       if ( $row['form'] <> 0 ) {
+                                                       if ( $row['form'] <> 0 && $form <> '' ) {
                                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $mon_id . "_f" . $row['form'] . ".png";
                                                        } else {
                                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $mon_id . ".png";
