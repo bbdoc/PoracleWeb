@@ -79,18 +79,6 @@ if (!isset($_SESSION['admin_id'])) {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Successfully Connected to Scanner DB")."</div>";
 			}
 
-                        // Check PoracleJS Version
-
-			if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
-			   echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
-		  	   echo i8ln("PoracleJS version:")." ".$_SESSION['poracleVersion']."<br>";
-		  	   echo i8ln("Required Version:")." ".$min_poracle_version;
-			   echo "<br>".i8ln("Please Update PoracleJS")."</div>";
-                        } else {
-                           echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Poracle is up to Date, version:")." ".$min_poracle_version."</div>";
-			}
-
-
                         // Check Connection to API
 
                         $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" .  "X-Poracle-Secret: $api_secret\r\n"));
@@ -106,6 +94,17 @@ if (!isset($_SESSION['admin_id'])) {
 			   echo " ".$api_result['status']." | ".$api_result['reason']."</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
+                        }
+
+                        // Check PoracleJS Version
+
+                        if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
+                           echo i8ln("PoracleJS version:")." ".$_SESSION['poracleVersion']."<br>";
+                           echo i8ln("Required Version:")." ".$min_poracle_version;
+                           echo "<br>".i8ln("Please Update PoracleJS")."</div>";
+                        } else {
+                           echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Poracle is up to Date, version:")." ".$min_poracle_version."</div>";
                         }
 
                         // Check Cache Folder
