@@ -1,6 +1,7 @@
 <?php
 
 include "./config.php";
+include "include/defaults.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();
@@ -17,10 +18,15 @@ if (isset($_SESSION['username'])) {
 
 include "./session.php";
 
-if (isset($no_api) && $no_api == "True")
+if (isset($no_api) && $no_api == "True") 
 {
    header("Location: $redirect_url?type=display&page=server_settings");
 }
+else if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) 
+{
+   header("Location: $redirect_url?type=display&page=server_settings");
+}
+
 else 
 {
    header("Location: $redirect_url");

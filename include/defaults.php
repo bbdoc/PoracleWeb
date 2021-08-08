@@ -21,4 +21,6 @@ $monster_defaults = array(
 	"max_sta"=>15
 );
 
+$min_poracle_version = "4.1.1";
+
 ?>
