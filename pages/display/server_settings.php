@@ -100,11 +100,14 @@ if (!isset($_SESSION['admin_id'])) {
 
                         if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
                            echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
-                           echo i8ln("PoracleJS version:")." ".$_SESSION['poracleVersion']."<br>";
-                           echo i8ln("Required Version:")." ".$min_poracle_version;
+                           echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
+                           echo i8ln("Required Version").": ".$min_poracle_version;
                            echo "<br>".i8ln("Please Update PoracleJS")."</div>";
                         } else {
-                           echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Poracle is up to Date, version:")." ".$min_poracle_version."</div>";
+				echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
+				echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion'];
+			   echo "<br>".i8ln("Required Version").": ".$min_poracle_version;
+			   echo "</div>";
                         }
 
                         // Check Cache Folder

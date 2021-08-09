@@ -409,8 +409,8 @@
     "Get Raid Bosses from":"Source des Boss de Raid",
     "Please set PvP datasource to internal to enable Little Cup":"Veuillez configurer la source de données PvP sur 'internal' pour activer la Little Cup",
     "PvP datasource set to internal, Little Cup enabled":"Source de données PvP configurée sur 'internal'. Little Cup activée",
-    "Required Version:":"Version Requise: ",
-    "Please Update PoracleJS":"Veuillez mettre PoracleJs à jour",
-    "Poracle is up to Date, version:":"Poracle est à jour, version:"
+    "Required Version":"Version Requise",
+    "Please Update PoracleJS":"Veuillez mettre PoracleJS à jour",
+    "Current PoracleJS Version":"Version PoracleJS Actuelle"
 
 }
