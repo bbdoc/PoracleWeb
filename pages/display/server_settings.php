@@ -96,17 +96,43 @@ if (!isset($_SESSION['admin_id'])) {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
                         }
 
+			// Get Current Working Branch
+
+                        $stringfromfile = file('.git/HEAD', FILE_USE_INCLUDE_PATH);
+                        $firstLine = $stringfromfile[0]; //get the string from the array
+                        $explodedstring = explode("/", $firstLine, 3); //seperate out by the "/" in the string
+			$branchname = rtrim($explodedstring[2]); //get the one that is always the branch name
+
+			// Set Main to Poracle JS master & Set unknown branches to PoracleJS develop
+			
+			if ( $branchname == "main" ) { $branchname = "master"; }
+			else if ( $branchname <> "develop" ) { $branchname = "develop"; }
+
+			// Get Latest Version for Current Branch
+
+			$file = file_get_contents("https://raw.githubusercontent.com/KartulUdus/PoracleJS/".$branchname."/package.json");
+			$obj = json_decode($file);
+			$PJSversion = $obj->version;
+
                         // Check PoracleJS Version
 
                         if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
                            echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
-                           echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
                            echo i8ln("Required Version").": ".$min_poracle_version;
-                           echo "<br>".i8ln("Please Update PoracleJS")."</div>";
+			   echo i8ln("Please Update PoracleJS")."</div>";
+			   echo "</div>";
+			} else if ( version_compare($_SESSION['poracleVersion'], $PJSversion) < 0 ) {
+			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			   echo "</div>";
                         } else {
-				echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
-				echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion'];
-			   echo "<br>".i8ln("Required Version").": ".$min_poracle_version;
+			   echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			   echo i8ln("Required Version").": ".$min_poracle_version;
 			   echo "</div>";
                         }
 
