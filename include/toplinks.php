@@ -29,6 +29,11 @@ $sql = "select count(*) count FROM nests WHERE id = '" . $_SESSION['id'] . "' AN
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $num_nest_tracked = $row['count']; }
 
+$sql = "select count(*) count FROM gym WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $num_gym_tracked = $row['count']; }
+
+
 ?>
 
 <table style="table-layout: fixed; width: 100%;">
@@ -89,6 +94,16 @@ while ($row = $result->fetch_assoc()) { $num_nest_tracked = $row['count']; }
          <button type="button" class="btn btn-dark w-100">
          <img src="img/nav/nest.png" style="width:22px;height:22px;filter: brightness(0%) invert(1);">
          <br><font color=white><?php echo $num_nest_tracked; ?></font>
+         </button>
+         </a>
+      </td>
+      <?php } ?>
+      <?php if (@$disable_gyms <> "True") { ?>
+      <td>
+         <a href="<?php echo $redirect_url; ?>?type=display&page=gym">
+         <button type="button" class="btn btn-dark w-100">
+         <img src="<?php echo "$uicons_gym/gym/0.png?"; ?>" style="width:22px;height:22px;filter: grayscale(100%);">
+         <br><font color=white><?php echo $num_gym_tracked; ?></font>
          </button>
          </a>
       </td>

@@ -12,9 +12,8 @@ REQUIRES MYSQL !
 
 This tool is an add-on to [PoracleJS](https://github.com/KartulUdus/PoracleJS)
 
-This is a first attempt at creating a Web Inteface to handle alarms configuration in PoracleJS.
-
-Please note that I'm not a professional Web Developer, so the code might look ugly to some people, but it works. I'm of course open to suggestion on improving the code or adding functionalities.
+It requires a working webserver (typically Apache or nginx) + PHP.
+Alternatively it can be run out of Docker (Dockerfile is provided).
 
 ---
 
@@ -64,6 +63,14 @@ For those parameters go to :
 
 6. Go to your PoracleWeb site and head to Admin Tools / Server Settings for additional configuration steps and parameters. You need to be logged in as an admin (as defined by `admin_id` par
 ameter to be able to access this page.
+
+
+### Setting Up Telegram Authentication
+
+You can enable Telegram authentication from the Server Settings page. You'll need to indicate a Bot Name for it to work.
+
+This means you first need to [create a bot] (https://core.telegram.org/bots#3-how-do-i-create-a-bot)
+Once you have chosen/created a bot, send the /setdomain command to @Botfather to link your website's domain to the bot.
 
 ---
 

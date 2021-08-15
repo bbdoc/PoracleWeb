@@ -5,7 +5,7 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$imgUrl/egg" . $row['level'] . ".png'><br>";
+echo "<img width=100 src='$uicons_raid/raid/egg/" . $row['level'] . ".png'><br>";
 echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>".
         i8ln("Eggs Level")." " . $row['level'] . "</div>";
 echo "</div>";

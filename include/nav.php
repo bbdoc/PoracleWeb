@@ -22,8 +22,10 @@
       <li class="nav-item dropdown">
         <?php 
            $language_count=0;
-           $languages = explode(",", $allowed_languages);
-	   foreach ($languages as &$language) { $language_count++; } 
+           if ( isset($allowed_languages) && $allowed_languages <> "" ) {
+              $languages = explode(",", $allowed_languages);
+	      foreach ($languages as &$language) { $language_count++; } 
+	   }
 	   if ( $language_count > 1) {
         ?>
 	   <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -176,6 +178,12 @@
               </a>
             <?php } ?>
 
+            <?php if (@$disable_gyms <> "True") { ?>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=gym">
+                <img src="<?php echo "$uicons_gym/gym/0.png?"; ?>" style="width:22px;height:22px;filter: grayscale(100%);"> <?php echo i8ln('Gyms'); ?>
+              </a>
+            <?php } ?>
     
           </div>
         </div>
@@ -278,12 +286,12 @@
 
       <?php } ?>
 
-      <?php if ( isset($custom_page_name)) { ?>
+      <?php if ( isset($custom_page_name) && $custom_page_name <> "" ) { ?>
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="<?php echo $custom_page_url; ?>">
-               <i class="<?php echo $custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
+               <i class="<?php echo @$custom_page_icon; ?>"></i>&nbsp;&nbsp;<?php echo i8ln($custom_page_name); ?>
             </a>
         </li>
         </div>

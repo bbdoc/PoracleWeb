@@ -6,7 +6,7 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ($row['level'] == "9000") {
-        echo "<img width=100 src='$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_00.png'><br>";
+        echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'><br>";
 } else {
         echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'><br>";
 

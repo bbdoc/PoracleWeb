@@ -1,4 +1,3 @@
-
 <?php
 
 // DB configuration
@@ -19,11 +18,6 @@ $discordBotClientSecret = "";
 
 // Admin User
 $admin_id   = "";
-
-// Image Repository
-$imgUrl="https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
-
-
 
 
 // ALL SETTINGS AS FROM HERE ARE OPTIONAL

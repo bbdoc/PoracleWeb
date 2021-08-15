@@ -183,6 +183,35 @@
                             </div>
                             <?php } ?>
 
+                            <!-- Card -->
+                            <?php if (@$disable_gyms <> "True") { ?>
+                            <?php if ($all_gyms_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <?php echo i8ln("Gyms"); ?>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <input type="checkbox" name="nids_clean_toggle" id="nids_clean_toggle" <?php
+                                                if ($all_gyms_cleaned == "1") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+
 		    </div>
 
                 <div class="modal-footer">

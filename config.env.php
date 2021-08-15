@@ -21,10 +21,6 @@ $discordBotClientSecret = getenv("DISCORD_BOT_CLIENT_SECRET") ?: "";
 
 $admin_id                = getenv("ADMIN_ID") ?: "";
 
-// Image Repository
-
-$imgUrl                 = getenv("IMG_URL") ?: "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
-
 // Quests Options
 
 # Mons pokemons will be extracted from DB.
@@ -32,60 +28,4 @@ $imgUrl                 = getenv("IMG_URL") ?: "https://raw.githubusercontent.co
 # List all Pokemon IDs separated by commas
 
 $additional_quest_mons = getenv("ADDITIONAL_QUEST_MONS") ?: "";
-
-
-// LEGACY SETTINGS - KEPT FOR MIGRATION ONLY
-
-// Scanner DB Configuration (scan_dbtype should be MAD or RDM)
-
-$scan_dbtype     = getenv("SCANNER_DB_TYPE") ?: "MAD";
-$scan_dbhost     = getenv("SCANNER_DB_HOST") ?: "127.0.0.1";
-$scan_dbname     = getenv("SCANNER_DB_DATABASE") ?: "";
-$scan_dbuser     = getenv("SCANNER_DB_USERNAME") ?: "";
-$scan_dbpass     = getenv("SCANNER_DB_PASSWORD") ?: "";
-$scan_dbport     = getenv("SCANNER_DB_PORT") ?: "3306";
-
-// Enable Disable Elements
-
-$disable_areas       = getenv("DISABLE_AREAS") ?: "False";
-$disable_location    = getenv("DISABLE_LOCATION") ?: "False";
-$disable_nominatim   = getenv("DISABLE_NOMINATIM") ?: "False";
-$disable_mons        = getenv("DISABLE_MONS") ?: "False";
-$disable_raids       = getenv("DISABLE_RAIDS") ?: "False";
-$disable_quests      = getenv("DISABLE_QUESTS") ?: "False";
-$disable_invasions   = getenv("DISABLE_INVASIONS") ?: "False";
-$disable_lures       = getenv("DISABLE_LURES") ?: "False";
-$disable_profiles    = getenv("DISABLE_PROFILES") ?: "False";
-
-$site_is_https       = getenv("SITE_IS_HTTPS") ?: "True";
-
-// Telegram Login
-
-$enable_telegram    = getenv("ENABLE_TELEGRAM") ?: "False";
-$telegram_bot       = getenv("TELEGRAM_BOT") ?: "MyBot_bot";
-
-// PORACLE API
-
-$api_address       = getenv("API_ADDRESS") ?: "http://127.0.0.1:4201";
-$api_secret        = getenv("API_SECRET") ?: "MySecret";
-
-// Admin User List
-
-$admin_disable_userlist  = getenv("ADMIN_DISABLE_USERLIST") ?: "False";
-
-// Language Settings
-
-$allowed_languages      = getenv("ALLOWED_LANGUAGES") ?: "en";
-
-// Other Configuration Items
-
-$custom_title           = getenv("CUSTOM_TITLE") ?: "";
-$register_command       = getenv("REGISTER_COMMAND") ?: "!poracle";
-$location_command       = getenv("LOCATION_COMMAND") ?: "!location";
-
-// Debug Mode (True/False)
-$debug                = getenv("DEBUG") ?: 'False';
-
-// Google Analytics
-$gAnalyticsId        = getenv("GOOGLE_ANALYTICS_ID") ?: "";
 

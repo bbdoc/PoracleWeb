@@ -92,7 +92,8 @@
                             </div>
                         </div>
 
-                        <!-- Content Row -->
+			<!-- Content Row -->
+
                         <div class="row">
 
                             <?php
@@ -116,8 +117,9 @@
 
                                     // Add Hidden Fancy Boxes
                                     $mon_id = str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
-                                    $pokemon_name = get_mons($row['reward']);
-
+				    $pokemon_name = get_mons($row['reward']);
+				    $form=get_form_name($row['reward'],$row['form']);
+				    if ( $form == "Normal" ) { $form = ""; }
                                 ?>
                             <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
@@ -125,12 +127,19 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    <?php 
+                                                       if ( $row['form'] <> 0 && $form <> '' ) {
+                                                          $PkmnImg = "$uicons_pkmn/pokemon/" . $mon_id . "_f" . $row['form'] . ".png";
+                                                       } else {
+                                                          $PkmnImg = "$uicons_pkmn/pokemon/" . $mon_id . ".png";
+                                                       } 
+                                                    ?>
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl . "/pokemon_icon_" . $mon_id . "_00.png"; ?>'>
+                                                        src='<?php echo $PkmnImg; ?>'>
                                                 </div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo $pokemon_name; ?>
+                                                <div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                   <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name." ".$form; ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -249,7 +258,7 @@
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo $imgUrl . "/rewards/reward_" . $row['reward'] . "_1.png"; ?>'>
+                                                        src='<?php echo $uicons_reward . "/reward/item/" . $row['reward'] . ".png"; ?>'>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -371,13 +380,14 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
 							<?php if ($row['reward'] <> 0) { $pokemon_name = get_mons($row['reward']); ?>
-                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy_" . $row['reward'] . ".png"; ?>'>
+                                                        src='<?php echo $uicons_reward . "/reward/mega_resource/" . $row['reward'] . ".png"; ?>'
 							<?php } else  { $pokemon_name = i8ln("ALL"); ?>
-                                                        src='<?php echo $imgUrl . "/rewards/reward_mega_energy.png"; ?>'>
+                                                        src='<?php echo $uicons_reward . "/reward/mega_resource/0.png"; ?>'
 							<?php } ?>
+                                                     >
 						</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo $pokemon_name; ?><br>
+						<div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                    <span class="badge badge-primary badge-pill w-100"><?php echo $row['reward']." | ".$pokemon_name; ?></span>
 						    <span class='badge badge-light m-1'><?php echo i8ln("Mega Energy"); ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
@@ -476,7 +486,138 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php } 
+
+
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
+					AND reward_type = 4 ORDER BY reward";
+                                $result = $conn->query($sql);
+
+                                while ($row = $result->fetch_assoc()) {
+
+                                    // Build a Unique Index
+                                    $quest_unique_id = "quest_" . $row['uid'];
+
+                                ?>
+                            <!-- Card -->
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
+                                <div class="card border-top-warning shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+					    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"> 
+							<?php if ($row['reward'] <> 0) { $pokemon_name = get_mons($row['reward']); ?>
+							   <img width=50 loading=lazy src='./img/candy/<?php echo $row['reward']; ?>.png'>
+                                                           <?php $PkmnImg = "$uicons_pkmn/pokemon/" . $row['reward'] . ".png"; ?>
+							   <img width=50 loading=lazy src='<?php  echo $PkmnImg; ?>'>
+							<?php } else  { $pokemon_name = i8ln("ALL"); ?>
+                                                           <img width=50 loading=lazy src='./img/candy/0.png'>
+							<?php } ?> 
+						</div>
+						<div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+						    <span class="badge badge-primary badge-pill w-100">
+						       <?php if ( $row['reward'] <> 0 ) { echo $row['reward']." | "; } echo $pokemon_name; ?>
+                                                    </span>
+						    <span class='badge badge-light m-1'><?php echo i8ln("Candy"); ?></span>
+                                                </div>
+                                                <div class="mt-2 text-center">
+
+                                                    <?php
+                                                            if ($row['distance'] <> '0') {
+                                                            ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("DISTANCE"); ?>
+                                                        <?php if ( @$distance_map <> "True" ) { ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                        </span>
+                                                        <?php } else { ?>
+                                                        <a href="#DistanceShowQuests" data-toggle="modal" data-target="#DistanceShowQuests_<?php echo $row['distance']; ?>">
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                        </span>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </li>
+
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <!-- SHOW DISTANCE Modal -->
+                                                    <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
+                                                        aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <?php include "./modal/distance_show_modal.php"; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+						    </div>
+                                                    <?php } ?>
+
+                                                    <?php
+                                                            }
+                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
+                                                    </div>
+                                                    <?php
+                                                            }
+                                                            if (isset($allowed_templates)) {
+                                                            ?>
+						    <div class="mb-2">
+                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+                                                    </div>
+                                                    <?php } ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <a href="#" class="btn btn-danger btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-success btn-circle btn-md m-1"
+                                                    data-toggle="modal"
+                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- EDIT QUEST MEGA Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <?php include "./modal/edit_quests_modal.php"; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- DELETE QUEST MEGA Modal -->
+                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+                                        <?php
+                                           $delete_title= i8ln("Delete Quests tracking for this Mega Energy");
+                                           $pokemon_name="";
+                                           include "./modal/delete_quests_modal.php";
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                             <?php } ?>
+
 
                         </div>
 

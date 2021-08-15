@@ -74,7 +74,7 @@ $context = stream_context_create($opts);
 
 // Update Areas to Match New User ID
 
-$areas = file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$areas = file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['id']), false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']="ok" ) {

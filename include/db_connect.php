@@ -1,5 +1,7 @@
 <?php
 
+include "uicons_repo.php";
+
 if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
@@ -34,3 +36,9 @@ if ($result->num_rows <> 0) {
    }
 }
 
+// Set Default UICONS Repo
+
+if (!isset($uicons_pkmn)) { $uicons_pkmn = "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons"; }
+if (!isset($uicons_raid)) { $uicons_raid = "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons"; }
+if (!isset($uicons_gym)) { $uicons_gym = "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons"; }
+if (!isset($uicons_rewards)) { $uicons_reward = "https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons"; }

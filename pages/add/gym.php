@@ -1,9 +1,12 @@
 <?php
 
-if ( $disable_nests == "True" ) {
+if ( $disable_gyms == "True" ) {
         header("Location: $redirect_url");
         exit();
 }
+
+$grunt_type_list="bug,dark,dragon,electric,fairy,fighting,fire,flying,ghost,grass,ground,ice,normal,poison,psychic,rock,steel,water";
+$grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
 ?>
 
@@ -11,12 +14,12 @@ if ( $disable_nests == "True" ) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-				<strong><?php echo i8ln("NEW NESTS ALARM"); ?></strong>
+				<strong><?php echo i8ln("NEW GYMS ALARM"); ?></strong>
                             </div>
                         </div>
                     </div>
 
-                    <form action='./actions/nests.php' method='POST'>
+                    <form action='./actions/gyms.php' method='POST'>
 
 			<?php if (@$disable_location <> "True") { ?>
                         <div class="form-row align-items-center">
@@ -45,43 +48,16 @@ if ( $disable_nests == "True" ) {
                            <input type="hidden" id='distance' name='distance' value='0'>
 			<?php } ?>
 
-                        <div class="form-row align-items-center">
-                            <div class="col-sm-12 my-1">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("Spawns/Hour"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                    </div>
-                                    <input type='number' id='min_spawns' name='min_spawns' size=1 value='0'
-                                        min='0' max='100' class="form-control text-center">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 			<div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
                                     <?php
 
-                                        if ($row['clean'] == 0) {
-                                            $checked0 = 'checked';
+                                        if ($all_gyms_cleaned == "1") {
+                                            $clean_0_checked = ""; $clean_1_checked = 'checked';
                                         } else {
-                                            $checked0 = '';
-                                        }
-                                        if ($row['clean'] == 1) {
-                                            $checked1 = 'checked';
-                                        } else {
-                                            $checked1 = '';
-                                        }
-                                        $clean_0_checked = 0;
-                                        $clean_1_checked = 0;
-                                        if ($all_nests_cleaned == "1") {
-                                            $clean_1_checked = 'checked';
-                                        } else {
-                                            $clean_0_checked = 'checked';
+                                            $clean_0_checked = 'checked'; $clean_1_checked = "";
                                         }
 
                                         ?>
@@ -104,7 +80,29 @@ if ( $disable_nests == "True" ) {
                             </div>
                         </div>
 
-                        <?php if (isset($allowed_templates["nests"])) {
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Alert on Slots Available"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="slot" id="slot_0" value="slot_0" checked>
+                                        <?php echo i8ln("No"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="slot" id="slot_1" value="slot_1">
+                                        <?php echo i8ln("Yes"); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <?php if (isset($allowed_templates["gyms"])) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -113,7 +111,7 @@ if ( $disable_nests == "True" ) {
                                                 <div class="input-group-text">Template</div>
                                             </div>
                                         </div>';
-                                        foreach ( $allowed_templates["nests"] as $key => $name ) {
+                                        foreach ( $allowed_templates["gyms"] as $key => $name ) {
                                             echo '<label class="btn btn-secondary">';
                                             echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
                                             echo $name . '</label>';
@@ -128,21 +126,15 @@ if ( $disable_nests == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $nests = get_nest_species();
-                                    foreach ($nests as &$nest) {
+                                    $team_list = "0,1,2,3";
+                                    $teams = explode(',', $team_list);
+                                    foreach ($teams as &$team) {
                                     ?>
-                                <li class='text-center'><input type='checkbox' name='nest_<?php echo $nest; ?>'
-                                        id='nest_<?php echo $nest; ?>' />
-				    <label for='nest_<?php echo $nest; ?>'>
-                                    <?php
-                                        if ( $row['form'] <> 0 ) {
-                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . "_f" . $row['form'] . ".png";
-                                        } else {
-                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . ".png";
-                                        }
-                                    ?>
-					<img class='m-2' src=<?php echo $PkmnImg; ?> />
-					<br><?php echo i8ln(get_mons($nest)); ?>
+                                <li class='text-center'><input type='checkbox' name='gym_<?php echo $team; ?>'
+                                        id='gym_<?php echo $team; ?>' />
+                                    <label for='gym_<?php echo $team; ?>'>
+                                        <img class='m-2' src='<?php echo "$uicons_gym/gym/" . $team . ".png?"; ?>' />
+					<br><?php echo i8ln(get_gym_name($team)); ?>
                                     </label>
                                 </li>
 				<?php } ?>
@@ -152,7 +144,7 @@ if ( $disable_nests == "True" ) {
 
 
                         <div class="float-right mb-3 mt-3">
-			    <input class="btn btn-primary" type='submit' name='add_nests' value='<?php echo i8ln("Submit"); ?>'>
+			    <input class="btn btn-primary" type='submit' name='add_gyms' value='<?php echo i8ln("Submit"); ?>'>
                             <a href='<?php echo $redirect_url ?>'>
 				<button type="button" class="btn btn-secondary"><?php echo i8ln("Cancel"); ?></button>
                             </a>

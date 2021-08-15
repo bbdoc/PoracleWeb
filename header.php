@@ -109,6 +109,13 @@ if (isset($_SESSION['id'])) {
        $all_nests_cleaned = $row['clean'];
    }
 
+   $sql = "select min(clean) clean FROM gym WHERE id = '" . $_SESSION['id'] . "'";
+   $result = $conn->query($sql);
+   while ($row = $result->fetch_assoc()) {
+       $all_gyms_cleaned = $row['clean'];
+   }
+
+
    // Get Areas, Lat, long and Enabled from Humans Table
    $sql = "select area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = '" . $_SESSION['id'] . "'";
    $result = $conn->query($sql);
@@ -146,6 +153,11 @@ if (isset($_SESSION['username'])) {
             $redirect_page = "subs_renew.php";
     } else {
             $redirect_page = "unregistered.php";
+    }
+
+    if (isset($enable_admin_dis) && $enable_admin_dis == "False" && $_SESSION['id'] <> $_SESSION['admin_id'])
+    {
+	    $subs_clause .= " AND admin_disable = 0";
     }
 
     $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "' ".@$subs_clause;
@@ -208,10 +220,7 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 
 $sql = "SELECT * FROM monsters
 	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15) 
-	AND (
-	  great_league_ranking < 4096 OR great_league_ranking_min_cp > 0
-          OR ultra_league_ranking < 4096 OR ultra_league_ranking_min_cp > 0
-        )
+	AND pvp_ranking_league <> 0
         AND id = '" . $_SESSION['id'] . "'";
 
 $result = $conn->query($sql);
@@ -220,23 +229,6 @@ if (!empty($result) && $result->num_rows > 0) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
    $config_alarm.="&#x26A0;<br>";
    $config_alarm.=i8ln("Some of your alarms contains both IV and PvP Filters").".<br>";
-   $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
-   $config_alarm.="</div>";
-}
-
-// Check if Both PvP are used
-
-$sql = "SELECT * FROM monsters 
-	WHERE (great_league_ranking < 4096 OR great_league_ranking_min_cp > 0 ) 
-	AND ( ultra_league_ranking < 4096 OR ultra_league_ranking_min_cp > 0 )
-        AND id = '" . $_SESSION['id'] . "'";
-
-$result = $conn->query($sql);
-
-if (!empty($result) && $result->num_rows > 0) {
-   $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
-   $config_alarm.="&#x26A0;<br>";
-   $config_alarm.=i8ln("Some of your alarms contains both PvP Great and PvP Ultra Filters").".<br>";
    $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
    $config_alarm.="</div>";
 }

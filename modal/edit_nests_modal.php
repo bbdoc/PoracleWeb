@@ -8,7 +8,8 @@ echo "<div class='text-center mt-3'>";
 if ($row['pokemon_id'] == "0") {
 	echo "<font style='font-size:24px;'>".i8ln("ALL")."</font><br>";
 } else {
-	$PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
+	if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
+	$PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
 	echo "<img width=100 src='".$PkmnImg."'><br>";
 	echo "<center><font size=5>".i8ln(get_mons($row['pokemon_id']))."</font></center>";
 }

@@ -131,6 +131,31 @@ if (!isset($_SESSION['admin_id'])) {
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text" style="width:220px;">
+                        &nbsp;&nbsp;<?php echo i8ln("PvP Little Min CP"); ?>
+                    </div>
+                </div>
+                <div class="form-control text-center"><?php echo $_SESSION['pvpFilterLittleMinCP']; ?></div>
+            </div>
+        </div>
+
+	<?php if ( $_SESSION['pvpLittleLeagueAllowed'] == "True" ) { ?>
+
+        <div class='alert alert-success fade show w-100' role='alert' style='padding:5px; margin:3px;'>
+        <?php echo i8ln("PvP datasource set to internal, Little Cup enabled"); ?>
+        </div><br>
+
+        <?php } else { ?>
+
+        <div class='alert alert-danger fade show w-100' role='alert' style='padding:5px; margin:3px;'>
+	<?php echo i8ln("Please set PvP datasource to internal to enable Little Cup"); ?>
+        </div><br>
+
+        <?php } ?>
+
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:220px;">
                         &nbsp;&nbsp;<?php echo i8ln("PvP Great Min CP"); ?>
                     </div>
                 </div>

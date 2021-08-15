@@ -35,6 +35,7 @@ if(count(array_keys($areas)) === 1){
     sort($areaList);
     foreach ($areaList as $i => $area) {
         $area_var = str_replace(' ', '%20', $area);
+        $hash = $geo_hash[$area];
 
         if (in_array(strtolower($area), $existing_area)) {
             $checked = 'checked';
@@ -42,7 +43,12 @@ if(count(array_keys($areas)) === 1){
             $checked = '';
         };
         echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
-        echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
+	echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font>\n";
+	if (@$disable_geomap_select <> "True") {
+		$area = strtoupper(str_replace(' ', '_', $area));
+		echo "<br><img src='.cache/geo_".$area."_".$hash.".png' style='width:100%; max-width=100%;'>";
+	}
+	echo "</label>\n";
         echo "</li>\n";
     }
 
@@ -67,6 +73,7 @@ if(count(array_keys($areas)) === 1){
         echo "<ul>\n";
         foreach ($areaList as $i => $area) {
             $area_var = str_replace(' ', '%20', $area);
+            $hash = $geo_hash[$area];
 
             if (in_array(strtolower($area), $existing_area)) {
                 $checked = 'checked';
@@ -74,7 +81,12 @@ if(count(array_keys($areas)) === 1){
                 $checked = '';
             };
             echo "<li><input type='checkbox' name='area_$area_var' id='area_$area_var' $checked/>\n";
-            echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font></label>\n";
+	    echo "<label for='area_$area_var' style='width:160px;'><font style='font-size:12px;'>$area</font>\n";
+	    if (@$disable_geomap_select <> "True") {
+		    $area = strtoupper(str_replace(' ', '_', $area));
+                    echo "<br><img src='.cache/geo_".$area."_".$hash.".png' style='width:100%; max-width=100%;'>";
+            }
+	    echo "</label>\n";
             echo "</li>\n";
         }
         echo "</ul>\n</div>";

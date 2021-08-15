@@ -1,4 +1,3 @@
-
 <?php
 
 if (!isset($_SESSION['admin_id'])) {
@@ -59,7 +58,7 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
                         </div>
 
-                        <?php
+                        <?php 
 
                         // Check Connection to Poracle DB
 
@@ -97,6 +96,46 @@ if (!isset($_SESSION['admin_id'])) {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
                         }
 
+			// Get Current Working Branch
+
+                        $stringfromfile = file('.git/HEAD', FILE_USE_INCLUDE_PATH);
+                        $firstLine = $stringfromfile[0]; //get the string from the array
+                        $explodedstring = explode("/", $firstLine, 3); //seperate out by the "/" in the string
+			$branchname = rtrim($explodedstring[2]); //get the one that is always the branch name
+
+			// Set Main to Poracle JS master & Set unknown branches to PoracleJS develop
+			
+			if ( $branchname == "main" ) { $branchname = "master"; }
+			else if ( $branchname <> "develop" ) { $branchname = "develop"; }
+
+			// Get Latest Version for Current Branch
+
+			$file = file_get_contents("https://raw.githubusercontent.com/KartulUdus/PoracleJS/".$branchname."/package.json");
+			$obj = json_decode($file);
+			$PJSversion = $obj->version;
+
+                        // Check PoracleJS Version
+
+                        if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+                           echo i8ln("Required Version").": ".$min_poracle_version;
+			   echo i8ln("Please Update PoracleJS")."</div>";
+			   echo "</div>";
+			} else if ( version_compare($_SESSION['poracleVersion'], $PJSversion) < 0 ) {
+			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			   echo "</div>";
+                        } else {
+			   echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			   echo i8ln("Required Version").": ".$min_poracle_version;
+			   echo "</div>";
+                        }
+
                         // Check Cache Folder
 
 			if (!file_exists("./.cache")) 
@@ -126,7 +165,7 @@ if (!isset($_SESSION['admin_id'])) {
 			   <ul>
                               <?php
                                  $allowed_languages = explode(",", $allowed_languages);
-                                 $all_languages = "en,fr,nl,de,es,pt,pl,da,br,se";
+                                 $all_languages = "en,fr,nl,de,es,pt,pl,da,br,se,it";
                                  $all_languages = explode(",", $all_languages);
 				 foreach ($all_languages as &$language) { 
 				    if (in_array($language, $allowed_languages)) { $checked="checked"; } else {$checked="";} 
@@ -206,7 +245,39 @@ if (!isset($_SESSION['admin_id'])) {
                                     </div>
                                     <input type='number' id='scan_dbport' name='scan_dbport' class="form-control text-center" min='0' value="<?php echo $scan_dbport; ?>">
                                 </div>
+			    </div>
+			</div>
+
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center mt-3">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("PogoInfo JSON"); ?></h1>
                             </div>
+                        </div>
+
+                        <div class="form-row align-items-center">
+
+                            <?php if (!isset($source_raid_bosses)) { $source_raid_bosses = "DB"; }  ?>
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="width:230px;">&nbsp;&nbsp;<?php echo i8ln("Get Raid Bosses from"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="source_raid_bosses" id="source_raid_bosses" value="DB"
+                                            <?php if ($source_raid_bosses == "DB") { echo "checked"; }  ?>>
+                                        <?php echo i8ln("DB"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="source_raid_bosses" id="source_raid_bosses" value="JSON"
+                                            <?php if ($source_raid_bosses == "JSON") { echo "checked"; }  ?>>
+                                        <?php echo i8ln("JSON"); ?>
+                                    </label>
+				</div>
+			    </div>
 
                         </div>
 
@@ -230,7 +301,8 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("API Address"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='api_address' name='api_address' class="form-control text-center" value="<?php echo $api_address; ?>">
+				    <input type='text' id='api_address' name='api_address' class="form-control text-center" placeholder="http://127.0.0.1:4201" 
+                                           value="<?php echo $api_address; ?>">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -251,12 +323,38 @@ if (!isset($_SESSION['admin_id'])) {
                         <!-- Page Heading -->
                         <div class="text-center">
                             <div class="breadcrumb justify-content-center">
-                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Telegram"); ?></h1>
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Telegram | Discord"); ?></h1>
                             </div>
                         </div>
 
                         <div class="form-row align-items-center">
 			    <div class="col-sm-12 my-1">
+
+                                <?php
+				    if ( $_SESSION['type'] != "telegram:user" ) 
+				    { 
+					    $disabled = "disabled"; 
+					    $msg = "<div class='alert alert-info fade show' role='alert' style='padding:5px; margin:3px;'>";
+					    $msg .= i8ln("Connect as a Telegram Admin to disable Discord Login");
+					    $msg .= "</div><br>";
+				    } else 
+				    { 
+					    $disabled = "";
+				    }
+                                ?>
+
+				<?php echo $msg; ?>
+
+				<div class="mb-1">
+
+				<?php if ( $_SESSION['type'] == "telegram:user" ) { ?>
+				   <input type="hidden" name="enable_discord" id="enable_discord" value="off">
+				<?php } ?>
+
+				<input type="checkbox" <?php echo $disabled; ?> name="enable_discord" id="enable_discord" <?php 
+                                if (@$enable_discord <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable Discord Login ?"); ?>
+				</div>
 
                                 <div class="mb-1">
                                 <input type="hidden" name="enable_telegram" id="enable_telegram" value="off">
@@ -277,6 +375,104 @@ if (!isset($_SESSION['admin_id'])) {
                          </div>
 
                     </div>
+
+                    <br>
+                    <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
+
+                        <!-- Page Heading -->
+                        <div class="text-center">
+                            <div class="breadcrumb justify-content-center">
+                                <h1 class="h3 mb-0 text-gray-800 "><?php echo i8ln("Icon Repository"); ?></h1>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+			<?php foreach ($uicons_repos as $repo_name => $repo_url){ ?>
+			
+			    <!-- Card -->
+
+			    <?php if ($uicons_pkmn == $repo_url)   { $checked_pkmn="checked";} else { $checked_pkmn="";} ?>
+			    <?php if ($uicons_raid == $repo_url)   { $checked_raid="checked";} else { $checked_raid="";} ?>
+			    <?php if ($uicons_gym == $repo_url)    { $checked_gym="checked";} else { $checked_gym="";} ?>
+			    <?php if ($uicons_reward == $repo_url) { $checked_reward="checked";} else { $checked_reward="";} ?>
+
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
+                                <div class="card shadow h-100 py-25">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-1">
+						    <center><font size=2><?php echo $repo_name; ?></font></center>
+                                                    <hr>
+
+						    <?php $PkmnImg = "$repo_url/pokemon/1.png"; ?>
+						    <?php $EggImg = "$repo_url/raid/egg/1.png"; ?>
+						    <?php $MegaImg = "$repo_url/reward/mega_resource/3.png"; ?>
+						    <?php $GymImg = "$repo_url/gym/2.png"; ?>
+
+						    <?php if (@getimagesize($PkmnImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_pkmn_<?php echo $repo_url; ?>" name="uicons_pkmn"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_pkmn;?>>
+                                                       <label for='uicons_repo_pkmn_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $PkmnImg; ?>'>
+						       </label>
+                                                    <?php } ?>
+
+						    <?php if (@getimagesize($EggImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_raid_<?php echo $repo_url; ?>" name="uicons_raid"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_raid;?>>
+                                                       <label for='uicons_repo_raid_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $EggImg; ?>'><br>
+                                                       </label>
+                                                    <?php } ?>
+
+
+						    <?php if (@getimagesize($GymImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_gym_<?php echo $repo_url; ?>" name="uicons_gym"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_gym;?>>
+                                                       <label for='uicons_repo_gym_<?php echo $repo_url; ?>'>
+				   		       <img loading=lazy width=50 src='<?php echo $GymImg; ?>'>
+				   	   	       </label>
+                                                    <?php } ?>
+
+
+						    <?php if (@getimagesize($MegaImg)) { ?>
+                                                       <input type="radio" id="uicons_repo_reward_<?php echo $repo_url; ?>" name="uicons_reward"
+                                                              value="<?php echo $repo_url;?>" <?php echo $checked_reward;?>>
+                                                       <label for='uicons_repo_reward_<?php echo $repo_url; ?>'>
+						       <img loading=lazy width=50 src='<?php echo $MegaImg; ?>'>
+                                                       </label>
+                                                    <?php } ?>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+			    </div>
+
+                        <?php } ?>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     <br>
@@ -449,6 +645,32 @@ if (!isset($_SESSION['admin_id'])) {
                                 </div>
                             </div>
 
+                            <!-- Card -->
+                            <?php if ($disable_gyms == "True") { $border = "border-danger"; } else { $border = "border-success";} ?>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
+                                <div class="card <?php echo $border; ?> shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-">
+                                                    <?php echo i8ln("Gyms"); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                <input type="hidden" name="disable_gyms" id="disable_gyms" value="off">
+                                                <input type="checkbox" name="disable_gyms" id="disable_gyms" <?php
+                                                if (@$disable_gyms <> "True") {
+                                                    echo "checked";
+                                                } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 		    </div>
 
                     <div class="tab-pane fade active show" id="pills-lures" role="tabpanel" aria-labelledby="pills-lures-tab">
@@ -464,7 +686,7 @@ if (!isset($_SESSION['admin_id'])) {
                         <div class="row">
 
                             <!-- Card -->
-                            <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <?php if (@$disable_profiles <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
                             <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -490,7 +712,7 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
 
                             <!-- Card -->
-                            <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <?php if (@$disable_areas <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
                             <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -516,7 +738,7 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
 
                             <!-- Card -->
-                            <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <?php if (@$disable_location <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
                             <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -542,7 +764,7 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
 
                             <!-- Card -->
-                            <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <?php if (@$disable_nominatim <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
                             <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -568,14 +790,14 @@ if (!isset($_SESSION['admin_id'])) {
                             </div>
 
                             <!-- Card -->
-                            <?php if ($all_mon_cleaned == "1") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <?php if (@$disable_geomap <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
                             <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
                             <div class="card <?php echo $border; ?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-1">
-                                                    <?php echo i8ln("Geo Maps"); ?>
+                                                    <?php echo i8ln("Geo Maps")."<font size=1><br>".i8ln("on display screen")."</font>"; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -592,6 +814,33 @@ if (!isset($_SESSION['admin_id'])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Card -->
+                            <?php if (@$disable_geomap_select <> "True") { $border = "border-success"; } else { $border = "border-danger";} ?>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-6 mb-4">
+                            <div class="card <?php echo $border; ?> shadow h-100 py-2">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mb-1">
+                                                    <?php echo i8ln("Geo Maps")."<font size=1><br>".i8ln("on select screen")."</font>"; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="row">
+                                                 <input type="hidden" name="disable_geomap_select" id="disable_geomap_select" value="off">
+                                                 <input type="checkbox" name="disable_geomap_select" id="disable_geomap_select" <?php
+                                                 if (@$disable_geomap_select <> "True") {
+                                                    echo "checked";
+                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                                                    data-size="sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 		    </div>
 
@@ -616,11 +865,25 @@ if (!isset($_SESSION['admin_id'])) {
                                 </div>
 
                                 <div class="mb-1">
+                                <input type="hidden" name="enable_admin_dis" id="enable_admin_dis" value="off">
+                                <input type="checkbox" name="enable_admin_dis" id="enable_admin_dis" <?php
+                                if (@$enable_admin_dis <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Allow 'Admin Disabled' Users"); ?>
+                                </div>
+
+                                <div class="mb-1">
                                 <input type="hidden" name="admin_disable_userlist" id="admin_disable_userlist" value="off">
                                 <input type="checkbox" name="admin_disable_userlist" id="admin_disable_userlist" <?php
                                 if (@$admin_disable_userlist <> "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Enable User List in Admin Tools"); ?>
 				</div>
+
+                                <div class="mb-1">
+                                <input type="hidden" name="admin_channel_id" id="admin_channel_id" value="off">
+                                <input type="checkbox" name="admin_channel_id" id="admin_channel_id" <?php
+                                if (@$admin_channel_id == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Display Channel ID in Admin Tools"); ?>
+                                </div>
 
                                 <div class="mb-1">
                                 <input type="hidden" name="site_is_https" id="site_is_https" value="off">

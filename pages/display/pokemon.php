@@ -134,7 +134,7 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
 
                         <?php
 
-                           if (!isset($_GET['gen'])) { $_GET['gen'] = "all"; }
+                           if (!isset($_GET['gen']) || $_GET['gen'] == "") { $_GET['gen'] = "all"; }
 
                            if ( @$_GET['gen'] == "all" ) { $gen_selector = "AND pokemon_id = 0"; }
                            if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
@@ -225,19 +225,16 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                     $pkm_unique_id = "mon_" . $row['uid'];
 
                                     // Check Images only if Form <> Normal and Substitude if necessary
-                                    $PkmnImg = "$imgUrl/pokemon_icon_" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "_" . str_pad($row['form'], 2, "0", STR_PAD_LEFT) . ".png";
                                     if ($row['form'] <> 0) {
-                                        if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
-                                            $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
-                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
-                                        } else {
-                                            $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
-                                            $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . "_f" . $row['form'] . ".png";
+					if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
+				            $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
                                         }
                                     } else {
-                                        $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
-                                        $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] .".png";
                                     }
+				    $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
+				    $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
 
                                 ?>
 
@@ -365,25 +362,20 @@ while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['great_league_ranking'] <> '4096' || $row['great_league_ranking_min_cp'] <> '0') {
+                                                            if ($row['pvp_ranking_league'] > 0) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("GREAT"); ?>
+							<?php 
+                                                           if ($row['pvp_ranking_league'] == 500) { echo i8ln("LITTLE"); }
+                                                           if ($row['pvp_ranking_league'] == 1500) { echo i8ln("GREAT"); }
+                                                           if ($row['pvp_ranking_league'] == 2500) { echo i8ln("ULTRA"); }
+                                                        ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill">top<?php echo $row['great_league_ranking']; ?>
-                                                            @<?php echo $row['great_league_ranking_min_cp']; ?></span>
-                                                    </li>
-                                                    <?php
-                                                            }
-                                                            if ($row['ultra_league_ranking'] <> '4096') {
-                                                            ?>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("ULTRA"); ?>
-                                                        <span
-                                                            class="badge badge-primary badge-pill">top<?php echo $row['ultra_league_ranking']; ?>
-                                                            @<?php echo $row['ultra_league_ranking_min_cp']; ?></span>
+							    class="badge badge-primary badge-pill">top
+							    <?php if ( $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
+                                                            <?php echo $row['pvp_ranking_worst']; ?>
+                                                            @<?php echo $row['pvp_ranking_min_cp']; ?></span>
                                                     </li>
                                                     <?php
                                                             }

@@ -81,9 +81,12 @@ if ( $json['status']=="ok" ) {
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
    $_SESSION['staticKey'] = $json['staticKey'][0];
+   $_SESSION['poracleVersion'] = $json['version'];
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
+   $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
    $_SESSION['pvpFilterUltraMinCP'] = $json['pvpFilterUltraMinCP'];
+   $_SESSION['pvpLittleLeagueAllowed'] = $json['pvpLittleLeagueAllowed'];
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
@@ -103,7 +106,7 @@ if ( $_SESSION['maxDistance'] == 0 ) { $_SESSION['maxDistance'] = 10726000; }
 
 // Get Areas from API
 
-$areas = @file_get_contents("$api_address/api/humans/".$_SESSION['id'], false, $context);
+$areas = @file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['id']), false, $context);
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {

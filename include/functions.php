@@ -112,18 +112,22 @@ function get_areas() {
 
     foreach ($_SESSION['areas'] as $i => $area) {
 
-        foreach ($area as $type => $value) {
+        foreach ($area as $type => $value) { 
                 if ($type === "group" ) { $group = $value; }
-                if ($type === "name" ) { $areaName = $value; }
+                if ($type === "name" ) { $areaName = $value;}
+                if ($type === "userSelectable" ) { $userselectable = $value;}
+                if ($type === "description" ) { $description = $value;}
 	}
 
-        if(array_key_exists($group, $areas)){
-            $groupAreas = $areas[$group];
-            array_push($groupAreas, $areaName);
-            $areas[$group] = $groupAreas;
-        }else{
-            $areas[$group] = array($areaName);
-        }
+	if ( $userselectable == 1 || isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) ) {
+            if(array_key_exists($group, $areas)){
+                $groupAreas = $areas[$group];
+                array_push($groupAreas, $areaName);
+                $areas[$group] = $groupAreas;
+            } else {
+                $areas[$group] = array($areaName);
+   	    }
+	}
 
     }
 
@@ -144,7 +148,7 @@ function get_raid_bosses_json() {
 
       foreach ($list_id as $id => $boss_values) { 
          
-         $id = str_pad($boss_values['id'], 3, "0", STR_PAD_LEFT);
+         $id = $boss_values['id'];
          $form = $boss_values['form'];
          $evolution = $boss_values['temp_evolution_id'];
 
@@ -194,6 +198,38 @@ function get_lure_name($id) {
         }
 
         return $lure_name;	
+
+}
+
+function get_gym_name($id) {
+
+        if ( $id == "0") {
+                $name = "Harmony";
+        } else if ( $id == "1") {
+                $name = "Mystic";
+        } else if ( $id == "2") {
+                $name = "Valor";
+        } else if ( $id == "3") {
+                $name = "Instinct";
+        }
+
+        return $name;
+
+}
+
+function get_gym_color($id) {
+
+        if ( $id == "0") {
+                $color = "Grey";
+        } else if ( $id == "1") {
+                $color = "Blue";
+        } else if ( $id == "2") {
+                $color = "Red";
+        } else if ( $id == "3") {
+                $color = "Yellow";
+        }
+
+        return $color;
 
 }
 
