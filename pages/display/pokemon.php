@@ -149,7 +149,9 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                            if ( @$_GET['gen'] == 3 ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
                            if ( @$_GET['gen'] == 4 ) { $gen_selector = "AND pokemon_id between 387 and 493"; }
                            if ( @$_GET['gen'] == 5 ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
-			   if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id >= 650"; }
+                           if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id between 650 and 721"; }
+                           if ( @$_GET['gen'] == 7 ) { $gen_selector = "AND pokemon_id between 722 and 809"; }
+			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id >= 810"; }
 
                         ?>
                         
