@@ -5026,6 +5026,10 @@ input[type="button"].btn-block {
     border: 1px solid #dddfeb;
 }
 
+.gen-link {
+    padding: 0.50rem 0.40rem;
+}
+
 .page-link:hover {
     z-index: 2;
     color: #224abe;

@@ -343,7 +343,7 @@ if (!isset($_SESSION['admin_id'])) {
 				    }
                                 ?>
 
-				<?php echo $msg; ?>
+				<?php echo @$msg; ?>
 
 				<div class="mb-1">
 
