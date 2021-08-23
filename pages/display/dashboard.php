@@ -76,11 +76,11 @@ foreach ($areas as $key => $area) {
 
 						<?php } ?>
 
-                                                <?php if ($area == "[]") { ?>
+                                                <?php if ($area == "[]" && @$disable_areas <> "True") { ?>
                                                 <div class="alert alert-warning w-80 m-3" role="alert">
                                                     <?php echo i8ln("You have not set any area yet!"); ?>
                                                 </div>
-						<?php } else { ?>
+						<?php } else if ( @$disable_areas <> "True" ) { ?>
                                                     <a href="?type=display&page=area"><b>
                                                     <div class="alert alert-success w-80 m-3" role="alert">
 						    <?php echo i8ln("You have configured"); ?>

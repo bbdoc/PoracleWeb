@@ -198,9 +198,20 @@
         <div id="collapse-settings" class="collapse" aria-labelledby="heading-settings" data-parent="#accordion-test">
 	  <div class="card-body">
 
+              <?php if (@$disable_areas <> "True" && @$disable_location <> "True") { ?>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=area">
                 <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Areas & Location'); ?>
 	      </a>
+	      <?php } else if (@$disable_areas == "True" && @$disable_location <>  "True") { ?>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=area">
+                <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Location'); ?>
+	      </a>
+	      <?php } else { ?>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=area">
+                <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; <?php echo i8ln('Areas'); ?>
+	      </a>
+              <?php } ?>
+
               <?php if (@$disable_profiles <> "True") { ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=profiles">

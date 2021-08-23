@@ -157,6 +157,15 @@ if (!isset($_SESSION['admin_id'])) {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Cache Folder found. Cache Active")."</div>";
                         }
 
+			// Check if Areas and Locations are both disabled
+			
+                        if ( $disable_areas == 'True' && $disable_location == 'True' ) {
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
+                           echo i8ln("Both Areas & Locations are Disabled").".<br>";
+                           echo i8ln("You won't be able to set any working alarms").".<br>";
+                           echo "</div>";
+                        }
+
 
                         ?>
 
