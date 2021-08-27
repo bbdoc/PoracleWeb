@@ -101,7 +101,8 @@
 
         $arr = explode("_", $mon_id);
         $mon_id = $arr[0];
-        $form_id = $arr[1];
+	$form_id = $arr[1];
+	if ( !isset($form_id) || $form_id = "" ) { $form_id = 0;}
 
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no, form)
                                VALUES ( ?, '', ? , ?, ?, 0, 7, ?, ?, ?)");
