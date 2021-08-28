@@ -30,9 +30,11 @@ if (file_exists("./.cache") && @$disable_geomap <> 'True') {
          $geo = file_get_contents("$api_address/api/geofence/".$encode_name."/map", false, $context);
 	 $json = json_decode($geo, true);
 	 $png=$json['url'];
-	 if ( @fopen($png, 'r') ) { 
-	       file_put_contents("./.cache/geo_".$area_name."_".$hash.".png", file_get_contents($png));
-            }
+	 if ( isset($png) ) {
+	    if ( @fopen($png, 'r') ) { 
+	          file_put_contents("./.cache/geo_".$area_name."_".$hash.".png", file_get_contents($png));
+	    }
+	 }
       }
 
    }
