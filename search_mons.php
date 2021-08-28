@@ -18,7 +18,8 @@ if ( $_POST['searchtype'] == "questmon" ) {
     if ($pokemon_id <= $max_pokemon) {
      if ( $_POST['search'] == "ALL" || stripos($pokemon_name, $_POST['search']) !== FALSE ) {
         $i=$pokemon_id;
-        echo "<li><input type='checkbox' name='mon_$i' id='mon_$i' />\n";
+	echo "<li>";
+	echo "<input type='checkbox' name='mon_$i' id='mon_$i' />\n";
         echo "<label for='mon_$i'><img loading=lazy src='$uicons_pkmn/pokemon/".$i.".png' style='margin-bottom:10px;' />";
         echo "<br>";
         echo "<font size=2>".str_pad($i, 3, "0", STR_PAD_LEFT)."<br>".$pokemon_name."</font></label>";

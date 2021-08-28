@@ -411,6 +411,8 @@
     "PvP datasource set to internal, Little Cup enabled":"Source de données PvP configurée sur 'internal'. Little Cup activée",
     "Required Version":"Version Requise",
     "Please Update PoracleJS":"Veuillez mettre PoracleJS à jour",
-    "Current PoracleJS Version":"Version PoracleJS Actuelle"
+    "Current PoracleJS Version":"Version PoracleJS Actuelle",
+    "Both Areas & Locations are Disabled":"Les zones ET la localisation sont désactivées",
+    "You won't be able to set any working alarms":"Aucune alarme ne fonctionnera!"
 
 }

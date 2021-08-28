@@ -116,7 +116,7 @@
                                     $quest_unique_id = "quest_" . $row['uid'];
 
                                     // Add Hidden Fancy Boxes
-                                    $mon_id = str_pad($row['reward'], 3, "0", STR_PAD_LEFT);
+                                    $mon_id = $row['reward'];
 				    $pokemon_name = get_mons($row['reward']);
 				    $form=get_form_name($row['reward'],$row['form']);
 				    if ( $form == "Normal" ) { $form = ""; }

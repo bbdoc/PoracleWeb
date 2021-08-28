@@ -86,6 +86,10 @@ if (!isset($_SESSION['admin_id'])) {
 			$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 			$api_result = json_decode($api, true); 
 
+                        if ( $api_result['status']=="ok" ) {
+				$_SESSION['poracleVersion'] = $api_result['version'];
+			}
+
                         if (!$api)
 			{
                            echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle API")."</div>";
@@ -114,27 +118,31 @@ if (!isset($_SESSION['admin_id'])) {
 			$obj = json_decode($file);
 			$PJSversion = $obj->version;
 
-                        // Check PoracleJS Version
+                        // Check PoracleJS Version (if API is ok)
 
-                        if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			   echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
-			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-                           echo i8ln("Required Version").": ".$min_poracle_version;
-			   echo i8ln("Please Update PoracleJS")."</div>";
-			   echo "</div>";
-			} else if ( version_compare($_SESSION['poracleVersion'], $PJSversion) < 0 ) {
-			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
-			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-			   echo "</div>";
-                        } else {
-			   echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			   echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
-			   echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-			   echo i8ln("Required Version").": ".$min_poracle_version;
-			   echo "</div>";
-                        }
+			if ( $api_result['status'] == "ok" ) {
+
+                           if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
+                              echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			      echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
+			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+                              echo i8ln("Required Version").": ".$min_poracle_version."<br>";
+			      echo i8ln("Please Update PoracleJS")."</div>";
+			      echo "</div>";
+		   	   } else if ( version_compare($_SESSION['poracleVersion'], $PJSversion) < 0 ) {
+			      echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			      echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			      echo "</div>";
+                           } else {
+			      echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			      echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
+			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
+			      echo i8ln("Required Version").": ".$min_poracle_version;
+			      echo "</div>";
+			   }
+
+			}
 
                         // Check Cache Folder
 
@@ -147,6 +155,15 @@ if (!isset($_SESSION['admin_id'])) {
 			   echo "</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Cache Folder found. Cache Active")."</div>";
+                        }
+
+			// Check if Areas and Locations are both disabled
+			
+                        if ( $disable_areas == 'True' && $disable_location == 'True' ) {
+                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
+                           echo i8ln("Both Areas & Locations are Disabled").".<br>";
+                           echo i8ln("You won't be able to set any working alarms").".<br>";
+                           echo "</div>";
                         }
 
 
