@@ -82,7 +82,7 @@ global $localePkmnData_json;
 if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_locales_cache ))) { 
     $localePkmnData_json = file_get_contents($file_localePkmnData);
 } else if ( @fopen($repo_locales."_".$locale.".json", 'r') ) { 
-    $localePkmnData_json = file_get_contents($repo_locales."pokemon_".$locale.".json");
+    $localePkmnData_json = file_get_contents($repo_locales."/pokemon_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
 } else if (isset($locale)) {
     $localePkmnData_json = file_get_contents($repo_locales."pokemon_en.json");
