@@ -259,6 +259,10 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
                                                         src='<?php echo $uicons_reward . "/reward/item/" . $row['reward'] . ".png"; ?>'>
+						</div>
+                                                <?php $item_name=get_item_name($row['reward']); ?>
+                                                <div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                   <span class="badge badge-primary badge-pill w-100"><?php echo $item_name; ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
 

@@ -10,6 +10,7 @@ if(!isset($_SESSION)){
 
 global $localeData;
 global $localePkmnData;
+global $localeItemsData;
 
 function get_form_name($pokemon_id, $form_id) {
 
@@ -22,6 +23,18 @@ function get_form_name($pokemon_id, $form_id) {
          if ( $pokemon['form']['id'] == "$form_id" && $pokemon['form']['id'] <> 0) {
             return $pokemon['form']['name'];
          }
+      }
+   }
+}
+
+function get_item_name($item_id) {
+
+   global $items_json;
+   $json = json_decode($items_json, true);
+
+   foreach ($json as $id => $item) { 
+      if ($id == "$item_id") { 
+            return translate_item($item['name']);
       }
    }
 }
@@ -100,6 +113,27 @@ function translate_mon($word)
 
     if (isset($localePkmnData[$word])) {
         return $localePkmnData[$word];
+    } else {
+        return $word;
+    }
+}
+
+function translate_item($word)
+{
+    $locale = @$_SESSION['locale'];
+    if ($locale == "en") {
+        return $word; exit();
+    }
+
+    global $localeItemsData;
+    global $localeItemsData_json;
+
+    if ($localeItemsData == null) {
+        $localeItemsData = json_decode($localeItemsData_json, true);
+    }
+
+    if (isset($localeItemsData[$word])) {
+        return $localeItemsData[$word];
     } else {
         return $word;
     }

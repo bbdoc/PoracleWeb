@@ -186,7 +186,9 @@ if ( $disable_quests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='item_<?php echo $item; ?>'
                                         id='item_<?php echo $item; ?>' />
                                     <label for='item_<?php echo $item; ?>'>
-                                        <img src='<?php echo $uicons_reward; ?>/reward/item/<?php echo $item; ?>.png' />
+					<img src='<?php echo $uicons_reward; ?>/reward/item/<?php echo $item; ?>.png' />
+                                        <?php get_item_name($item); $item_name=get_item_name($item); ?>
+                                        <br><?php echo $item_name; ?>
                                     </label>
                                 </li>
                                 <?php
