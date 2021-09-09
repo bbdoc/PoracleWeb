@@ -17,6 +17,14 @@ global $repo_poracle;
 $repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
 $repo_poracle_cache="24";
 
+global $repo_MasterData;
+$repo_MasterData="https://github.com/WatWowMap/Masterfile-Generator/raw/master/master-latest-poracle.json";
+$repo_MasterData_cache="24";
+
+global $repo_locales;
+$repo_locales="https://raw.githubusercontent.com/WatWowMap/pogo-translations/master/static/englishRef";
+$repo_locales_cache="24";
+
 global $repo_pogoinfo;
 $repo_pogoinfo = "https://raw.githubusercontent.com/ccev/pogoinfo";
 $repo_pogoinfo_cache="2";
@@ -26,11 +34,13 @@ $img_cache="24";
 // Cache Monsters.json
 
 global $monsters_json;
-if (file_exists($file_monsters) && (filemtime($file_monsters) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
+if (file_exists($file_monsters) && (filemtime($file_monsters) > (time() - 60 * 60 * $repo_monsters_cache ))) { 
     $monsters_json = file_get_contents($file_monsters);
 
 } else { 
-    $monsters_json = file_get_contents($repo_poracle."/src/util/monsters.json");
+    $MasterData_json = file_get_contents($repo_MasterData);
+    $json = json_decode($MasterData_json, true);
+    $monsters_json = json_encode($json['monsters'],JSON_PRETTY_PRINT);
     file_put_contents($file_monsters, $monsters_json);
 }
 
@@ -71,13 +81,13 @@ if (file_exists($file_nest_species) && (filemtime($file_nest_species) > (time() 
 // Cache pokemonNames locale file
 
 global $localePkmnData_json;
-if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
+if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (time() - 60 * 60 * $repo_locales_cache ))) { 
     $localePkmnData_json = file_get_contents($file_localePkmnData);
-} else if ( @fopen($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json", 'r') ) { 
-    $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_".$locale.".json");
+} else if ( @fopen($repo_locales."/pokemon_".$locale.".json", 'r') ) { 
+    $localePkmnData_json = file_get_contents($repo_locales."/pokemon_".$locale.".json");
     file_put_contents($file_localePkmnData, $localePkmnData_json);
 } else if (isset($locale)) {
-    $localePkmnData_json = file_get_contents($repo_poracle."/src/util/locale/pokemonNames_en.json");
+    $localePkmnData_json = file_get_contents($repo_locales."pokemon_en.json");
 }	
 
 ?>
