@@ -111,6 +111,8 @@
 
                                 while ($row = $result->fetch_assoc()) {
 
+                                    $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
+
                                     // Build a Unique Index
                                     $invasion_unique_id = "invasion_" . $row['uid'];
 
@@ -122,22 +124,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['grunt_type'] == "mixed" && $row['gender'] == "0") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/James.png?"; ?>'>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/Jessie.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "1") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/James.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "2") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/Jessie.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "everything") { ?>
-                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
-                                                         style="height: 70px;">
-                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
-                                                    </div>
-
-                                                    <?php } else { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/" . $row['grunt_type'] . ".png?"; ?>'>
-                                                    <?php } ?>
+                                                    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
 						</div>
                                                 <?php if ( $row['grunt_type'] <> "everything") { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">

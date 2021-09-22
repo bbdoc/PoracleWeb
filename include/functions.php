@@ -196,22 +196,23 @@ function get_raid_bosses_json() {
 
 }
 
-function get_grunts() {
+function get_grunt($type,$gender) {
 
    global $grunts_json;
    $json = json_decode($grunts_json, true);
    $grunts=array();
 
    foreach ($json as $key => $value) { 
-      if ( $key == "gruntTypes" ) { 
-	    foreach ($value as $id => $params) { 
-	       if ($params['gender']=="") { $params['gender'] = "0"; }    
-	       $result = $params['type'] . ',' . $params['gender'];
-	       array_push($grunts, $result); 
-	 }
-      }
+	   if ( strtoupper($value['type']) == strtoupper($type) && $value['gender'] == $gender ) 
+	   { 
+                   return $key;
+	   }
+	   else if ( strtoupper($value['type']) == strtoupper($type) && $gender == 0 )
+           {
+                   return $key;
+           }
+
    }
-   return $grunts;
 
 }
 

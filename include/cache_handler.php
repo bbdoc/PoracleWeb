@@ -10,7 +10,7 @@ $file_monsters = "./.cache/monsters.json";
 $file_items = "./.cache/items.json";
 $file_raid_bosses = "./.cache/raid-bosses.json";
 $file_nest_species = "./.cache/nest-species.json";
-$file_util = "./.cache/util.json";
+$file_grunts = "./.cache/grunts.json";
 
 global $file_localePkmnData;
 $file_localePkmnData = "./.cache/localePkmnData_".$locale.".json";
@@ -63,12 +63,12 @@ if (file_exists($file_items) && (filemtime($file_items) > (time() - 60 * 60 * $r
 // Cache Util.json
 
 global $grunts_json;
-if (file_exists($file_util) && (filemtime($file_util) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
-    $grunts_json = file_get_contents($file_util);
+if (file_exists($file_grunts) && (filemtime($file_grunts) > (time() - 60 * 60 * $repo_poracle_cache ))) { 
+    $grunts_json = file_get_contents($file_grunts);
 
 } else { 
-    $grunts_json = file_get_contents($repo_poracle."/src/util/util.json");
-    file_put_contents($file_util, $grunts_json);
+    $grunts_json = file_get_contents($repo_poracle."/src/util/grunts.json");
+    file_put_contents($file_grunts, $grunts_json);
 }
 
 // Cache raid-bosses.json

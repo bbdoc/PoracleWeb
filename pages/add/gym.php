@@ -5,9 +5,6 @@ if ( $disable_gyms == "True" ) {
         exit();
 }
 
-$grunt_type_list="bug,dark,dragon,electric,fairy,fighting,fire,flying,ghost,grass,ground,ice,normal,poison,psychic,rock,steel,water";
-$grunt_type_list.=",arlo,cliff,giovanni,sierra";
-
 ?>
 
                     <!-- Page Heading -->
