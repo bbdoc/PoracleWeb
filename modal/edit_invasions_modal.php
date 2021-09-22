@@ -5,22 +5,19 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-if ($row['grunt_type'] == "everything") {
-	echo "<font style='font-size:24px;'>".i8ln("ALL")."</font><br>";
-} else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "0") {
-        echo "<img width=100 loading=lazy src='./grunts/James.png?'>"; 
-        echo "<img width=100 loading=lazy src='./grunts/Jessie.png?'>";
-	echo "<center><font size=5>".ucfirst(i8ln($row['grunt_type']))."</font></center>";
-} else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "1") {
-        echo "<img width=100 loading=lazy src='./grunts/James.png?'>";
-	echo "<center><font size=5>".ucfirst(i8ln($row['grunt_type']))."</font></center>";
-} else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "2") {
-        echo "<img width=100 loading=lazy src='./grunts/Jessie.png?'>";
-	echo "<center><font size=5>".ucfirst(i8ln($row['grunt_type']))."</font></center>";
-} else {
-	echo "<img width=100 src='./grunts/" . $row['grunt_type'] . ".png?'><br>";
-	echo "<center><font size=5>".ucfirst(i8ln($row['grunt_type']))."</font></center>";
-}
+
+if ( $row['gender'] <> 0 ) { 
+   echo "<img width=100 loading=lazy src='".$uicons_reward."/invasion/".$grunt_id.".png' />";
+} else { 
+   if ( isset($grunt_id_male) ) { 
+      echo "<img width=100 loading=lazy src='".$uicons_reward."/invasion/".$grunt_id_male.".png' />";
+   }
+   if ( isset($grunt_id_female) ) {
+      echo "<img width=100 loading=lazy src='".$uicons_reward."/invasion/".$grunt_id_female.".png' />";
+   }
+} 
+
+
 echo "</div>";
 
 ?>
