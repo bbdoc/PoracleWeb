@@ -123,7 +123,7 @@ if ( $disable_invasions == "True" ) {
 				       $grunt_name = $value['type'];
 				       $grunt_gender = $value['gender'];
 
-				       if(@fopen($uicons_reward."/invasion/".$grunt_id.".png", 'r')) {
+				       if(@checkRemoteFile($uicons_reward."/invasion/".$grunt_id.".png")) {
 
                                     ?>
 
