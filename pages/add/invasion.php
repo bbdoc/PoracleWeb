@@ -118,12 +118,19 @@ if ( $disable_invasions == "True" ) {
                                     $json = json_decode($grunts_json, true);
                                     $grunts=array();
 
+				    $grunts_index_json = file_get_contents("$uicons_reward/invasion/index.json");
+				    $grunts_index = json_decode($grunts_index_json, true);
+
 				    foreach ($json as $key => $value) { 
 				       $grunt_id = $key;
 				       $grunt_name = $value['type'];
 				       $grunt_gender = $value['gender'];
 
-				       if(@checkRemoteFile($uicons_reward."/invasion/".$grunt_id.".png")) {
+				       foreach ($grunts_index as $value) { 
+					       if ( $value == $grunt_id.".png" ) { $exist = 1; break; } else { $exist = 0; }
+				       }
+
+				       if ( $exist == 1 ) {
 
                                     ?>
 
