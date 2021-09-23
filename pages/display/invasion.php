@@ -142,7 +142,7 @@
 						</div>
                                                 <?php if ( $row['grunt_type'] <> "everything") { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo ucfirst(i8ln($row['grunt_type'])); ?>
+                                                    <?php echo ucfirst(i8ln(strtolower($row['grunt_type']))); ?>
                                                 </div>
                                                 <?php } ?>
 						<div class="mt-2 text-center">
