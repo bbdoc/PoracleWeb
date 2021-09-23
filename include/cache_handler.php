@@ -35,6 +35,18 @@ $repo_pogoinfo_cache="2";
 
 $img_cache="24";
 
+
+// Get Config Items from API and Store in Session Variables
+
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "X-Poracle-Secret: $api_secret\r\n"
+  )
+);
+$context = stream_context_create($opts);
+
 // Cache Monsters.json 
 
 global $monsters_json;
@@ -67,7 +79,9 @@ if (file_exists($file_grunts) && (filemtime($file_grunts) > (time() - 60 * 60 * 
     $grunts_json = file_get_contents($file_grunts);
 
 } else { 
-    $grunts_json = file_get_contents($repo_poracle."/src/util/grunts.json");
+    $grunts_api_json = file_get_contents("$api_address/api/masterdata/grunts", false, $context);
+    $json = json_decode($grunts_api_json, true);
+    $grunts_json = json_encode($json,JSON_PRETTY_PRINT);
     file_put_contents($file_grunts, $grunts_json);
 }
 

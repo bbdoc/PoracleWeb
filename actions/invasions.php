@@ -104,7 +104,8 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 6) === "grunt_") {
         $gender = substr($key, 6,1); 
-        $grunt = substr($key, 8); 
+	$grunt = substr($key, 8); 
+	$grunt = str_replace("_", " ", $grunt);
 
         $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type, profile_no)
 	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");

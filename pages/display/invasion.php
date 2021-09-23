@@ -111,12 +111,7 @@
 
                                 while ($row = $result->fetch_assoc()) {
 
-                                    if ( $row['gender'] <> 0 ) {
-					    $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
-				    } else {
-					    $grunt_id_male = get_grunt($row['grunt_type'],1);
-					    $grunt_id_female = get_grunt($row['grunt_type'],2);
-				    }
+  			            $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
 
                                     // Build a Unique Index
                                     $invasion_unique_id = "invasion_" . $row['uid'];
@@ -129,16 +124,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-						    <?php if ( $row['gender'] <> 0 ) { ?>
-                                                       <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
-						    <?php } else { ?>
-						       <?php if ( isset($grunt_id_male) ) { ?>
-                                                       <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id_male; ?>.png' />
-						       <?php } ?>
-						       <?php if ( isset($grunt_id_female) ) { ?>
-                                                       <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id_female; ?>.png' />
-						       <?php } ?>
-						    <?php } ?>
+                                                    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
 						</div>
                                                 <?php if ( $row['grunt_type'] <> "everything") { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
