@@ -212,10 +212,30 @@
 
 						    <?php 
                                                             }
-                                                            if (isset($allowed_templates["nests"])) {
+                                                    if ( $enable_templates = "True" ) {
                                                     ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["nests"]) ? $allowed_templates["nests"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['nest'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['nest']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                 </ul>

@@ -92,8 +92,8 @@ if ( $disable_invasions == "True" ) {
                         <?php
 
                         $type = explode(":", $_SESSION['type'], 2);
-                        $templates_locale = $_SESSION['templates'][$type[0]]['invasion'][$_SESSION['locale']];
-                        $templates_undefined = $_SESSION['templates'][$type[0]]['invasion']['%'];
+                        $templates_locale = @$_SESSION['templates'][$type[0]]['invasion'][$_SESSION['locale']];
+                        $templates_undefined = @$_SESSION['templates'][$type[0]]['invasion']['%'];
                         $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
                         if (count($templates_list) > 1 && $enable_templates == "True" ) {

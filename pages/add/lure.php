@@ -95,8 +95,8 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                         <?php
 
                         $type = explode(":", $_SESSION['type'], 2);
-                        $templates_locale = $_SESSION['templates'][$type[0]]['lure'][$_SESSION['locale']];
-                        $templates_undefined = $_SESSION['templates'][$type[0]]['lure']['%'];
+                        $templates_locale = @$_SESSION['templates'][$type[0]]['lure'][$_SESSION['locale']];
+                        $templates_undefined = @$_SESSION['templates'][$type[0]]['lure']['%'];
                         $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
                         if (count($templates_list) > 1 && $enable_templates == "True" ) {
