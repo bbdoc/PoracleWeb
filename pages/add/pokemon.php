@@ -341,7 +341,14 @@ if ( $disable_mons == "True" ) {
                             </div>
                         </div>
 
-                        <?php if (isset($allowed_templates["mons"])) {
+			<?php 
+
+			$type = explode(":", $_SESSION['type'], 2); 
+			$templates_locale = $_SESSION['templates'][$type[0]]['monster'][$_SESSION['locale']];
+			$templates_undefined = $_SESSION['templates'][$type[0]]['monster']['%'];
+			$templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                        if (count($templates_list) > 1 ) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -350,9 +357,9 @@ if ( $disable_mons == "True" ) {
                                                 <div class="input-group-text">Template</div>
                                             </div>
                                         </div>';
-                                        foreach ( $allowed_templates["mons"]as $key => $name ) {
+                                        foreach ( $templates_list as $key => $name ) {
                                             echo '<label class="btn btn-secondary">';
-                                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
+                                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '">';
                                             echo $name . '</label>';
                                         }
                                     echo '</div>

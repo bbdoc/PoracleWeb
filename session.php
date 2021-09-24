@@ -122,6 +122,13 @@ if ( $json['status']=="ok" ) {
    $no_api = "True";
 }
 
+// Get Templates from API
+
+$templates = @file_get_contents("$api_address/api/config/templates", false, $context);
+$json = json_decode($templates, true);
+
+$_SESSION['templates'] = $json;
+
 // Get Delegated Admin from API
 
 $delegated = @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/getAdministrationRoles", false, $context);
