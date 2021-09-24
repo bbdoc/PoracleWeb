@@ -93,7 +93,7 @@ echo "</div>";
         </label>
     </div>
     <hr>
-    <?php if (isset($allowed_templates["lures"])) {
+    <?php if ( count($templates_list) > 1 && $enable_templates == "True" ) {
         echo '<div class="form-row align-items-center">
             <div class="col-sm-12 my-1">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -102,9 +102,9 @@ echo "</div>";
                             <div class="input-group-text">Template</div>
                             </div>
                         </div>';
-                        foreach ( $allowed_templates["lures"] as $key => $name ) {
+                        foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary">';
-                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '" ' . (($key == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>
