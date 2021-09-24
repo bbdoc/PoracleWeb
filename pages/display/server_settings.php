@@ -882,6 +882,13 @@ if (!isset($_SESSION['admin_id'])) {
                                 </div>
 
                                 <div class="mb-1">
+                                <input type="hidden" name="enable_templates" id="enable_templates" value="off">
+                                <input type="checkbox" name="enable_templates" id="enable_templates" <?php
+                                if (@$enable_templates == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable Templates"); ?>
+                                </div>
+
+                                <div class="mb-1">
                                 <input type="hidden" name="enable_admin_dis" id="enable_admin_dis" value="off">
                                 <input type="checkbox" name="enable_admin_dis" id="enable_admin_dis" <?php
                                 if (@$enable_admin_dis <> "False") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">

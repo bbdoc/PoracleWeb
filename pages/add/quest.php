@@ -94,7 +94,7 @@ if ( $disable_quests == "True" ) {
                         $templates_undefined = $_SESSION['templates'][$type[0]]['quest']['%'];
                         $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                        if (count($templates_list) > 1 ) {
+                        if (count($templates_list) > 1 && $enable_templates == "True" ) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
