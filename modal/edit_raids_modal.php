@@ -95,7 +95,7 @@ echo "</div>";
         </label>
     </div>
     <hr>
-    <?php if ( count($templates_list) > 1 && $enable_templates == "True" ) {
+    <?php if ( $enable_templates == "True" && count($templates_list) > 1 ) {
         echo '<div class="form-row align-items-center">
             <div class="col-sm-12 my-1">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
