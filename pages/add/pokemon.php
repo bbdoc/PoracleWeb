@@ -324,7 +324,7 @@ if ( $disable_mons == "True" ) {
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text"><?php echo i8ln("Content"); ?></div>
+                                            <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
                                         </div>
                                         <input type='text' id='content_add' name='content' maxlength=255 size=50 class="form-control">
                                     </div>
@@ -381,18 +381,7 @@ if ( $disable_mons == "True" ) {
 
                         <hr>
 
-
-                        <?php
-
-                        $sql = "SELECT type FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-                        $result = $conn->query($sql);
-                        while ($row = $result->fetch_assoc()) {
-                            $type = $row['type'];
-                        }
-
-                        ?>
-
-                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($type, ":user") == false ) { ?>
+                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($_SESSION['type'], ":user") == false ) { ?>
                         <div class='searchmons text-center'>
                             <ul>
                                 <li><input type='checkbox' name='mon_0' id='mon_0' />
