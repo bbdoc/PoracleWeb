@@ -20,7 +20,7 @@ if (isset($custom_title)) {
     $title = "PoracleWeb";
 }
 
-if (isset($_SESSION['avatar']) && false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
+if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 	$avatar = "$redirect_url/img/no_avatar.png";
 } else {
 	$avatar = $_SESSION['avatar'];
