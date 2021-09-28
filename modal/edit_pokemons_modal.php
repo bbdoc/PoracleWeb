@@ -487,7 +487,7 @@ if ($row['pokemon_id'] == '0') {
                                 </div>
                             </div>';
                             foreach ( $templates_list as $key => $name ) {
-                                echo '<label class="btn btn-secondary mb-1">';
+                                echo '<label class="btn btn-secondary mb-1 mr-1">';
 		                echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
                                 echo $name . '</label>';
                             }
