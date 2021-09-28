@@ -19,9 +19,9 @@ $discordBotClientSecret = "";
 // If you don't want to use Discord but ONLY use Telegram
 // If you use both you will be able to set those on Server Settings page
 
-$enable_telegram = "True";
-$enable_discord = "False";
-$telegram_bot = "YourBotName";
+#$enable_telegram = "True";
+#$enable_discord = "False";
+#$telegram_bot = "YourBotName";
 
 // Admin User
 $admin_id   = "";
