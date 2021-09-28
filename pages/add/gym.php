@@ -46,6 +46,7 @@ if ( $disable_gyms == "True" ) {
 			<?php } ?>
 
 			<div class="form-row align-items-center">
+							<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     <div class="input-group">
@@ -56,6 +57,9 @@ if ( $disable_gyms == "True" ) {
                                     </div>
                                 </div>
                             </div>
+							<?php } else { ?>
+								<input type="hidden" id='content_add' name='content' value=''>
+							<?php } ?>
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
 

@@ -47,6 +47,7 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                         <?php } else { ?>
                            <input type="hidden" id='distance' name='distance' value='0'>
 			<?php } ?>
+						<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -59,6 +60,9 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
                                 </div>
                             </div>
                         </div>
+						<?php } else { ?>
+							<input type="hidden" id='content_add' name='content' value=''>
+						<?php } ?>
 
 			<div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">

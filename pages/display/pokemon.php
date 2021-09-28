@@ -425,6 +425,16 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         ?>
                                                         </span>
                                                     </li>
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("ROLE TO PING"); ?>
+                                                        <span class="badge badge-primary badge-pill">
+                                                            <?=$row['ping']?>
+                                                        </span>
+                                                    </li>
                                                     <?php } ?>
 
 

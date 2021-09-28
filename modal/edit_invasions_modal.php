@@ -109,6 +109,7 @@ echo "</div>";
     </div>
 
     <hr>
+    <?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">
@@ -118,6 +119,9 @@ echo "</div>";
         </div>
     </div>
     <hr>
+    <?php } else { ?>
+    <input type="hidden" id='content_edit' name='content' value=''>
+    <?php } ?>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">
