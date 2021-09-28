@@ -320,7 +320,7 @@
                                                             <span class="small"><?=$row['ping']?></span>
                                                         </div>
                                                     </li>
-													<?  }
+													<?php  }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
