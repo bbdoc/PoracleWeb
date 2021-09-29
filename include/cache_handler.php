@@ -14,7 +14,7 @@ global $file_localePkmnData;
 $file_localePkmnData = "./.cache/localePkmnData_".$locale.".json";
 
 global $repo_poracle;
-$repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
+$repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/master";
 $repo_poracle_cache="24";
 
 global $repo_pogoinfo;
