@@ -16,7 +16,7 @@
 
     $stmt = $conn->prepare("
       UPDATE quest
-      SET distance = ?, clean = ?, template = ?
+      SET distance = ?, clean = ?, template = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -25,10 +25,11 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisi",
+      "iissi",
       $_POST['distance'],
       $clean,
       $template,
+      $_POST['content'],
       $_POST['uid']
     );
 
@@ -105,12 +106,12 @@
 	if ( !isset($form_id) || $form_id = "" ) { $form_id = 0;}
 
         $stmt = $conn->prepare("INSERT INTO quest ( id, ping, clean, reward, template, shiny, reward_type, distance, profile_no, form)
-                               VALUES ( ?, '', ? , ?, ?, 0, 7, ?, ?, ?)");
+                               VALUES ( ?, ?, ? , ?, ?, 0, 7, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $mon_id, $template, $_POST['distance'], $_SESSION['profile'], $form_id);
+        $rs = $stmt->bind_param("ssiisiii", $_SESSION['id'], $_POST['content'], $clean, $mon_id, $template, $_POST['distance'], $_SESSION['profile'], $form_id);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=quest&return=sql_error&phase=AQM2&sql=$stmt->error");
           exit();

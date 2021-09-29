@@ -86,7 +86,19 @@ echo "</div>";
     </div>
 
 
-
+    <?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
+            </div>
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+        </div>
+    </div>
+    <hr>
+    <?php } else { ?>
+    <input type="hidden" id='content_edit' name='content' value=''>
+    <?php } ?>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">

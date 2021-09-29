@@ -61,7 +61,7 @@
 
     $stmt = $conn->prepare("
       UPDATE monsters
-      SET distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
+      SET ping = ?, distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?,
@@ -74,7 +74,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiisi",
+      "siiiiiiiiiiiiiiiiiiiiiisi",
+      $_POST['content'],
       $_POST['distance'],
       $_POST['min_iv'],
       $_POST['max_iv'],
@@ -184,7 +185,7 @@
              pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league,
              profile_no
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=sql_error&phase=AM1&sql=$stmt->error");
@@ -192,8 +193,9 @@
         }
 
         $rs = $stmt->bind_param(
-          "ssiiiiiiiiiisiiiiiiiiiiii",
+          "sssiiiiiiiiiisiiiiiiiiiiii",
           $_SESSION['id'],
+          $_POST['content'],
           $pokemon_id,
           $_POST['distance'],
           $_POST['min_iv'],
