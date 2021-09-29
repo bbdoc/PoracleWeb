@@ -4,7 +4,12 @@
    include "../include/db_connect.php";
    include "../include/defaults.php";
 
-   $gen = $_POST['gen'];
+   if ( isset($_POST['gen']) ) { 
+	   $gen = $_POST['gen'];
+   } else {
+	   $gen = "" ;
+   }
+
 
    // Use Default Values if Empty POST or no set
    if (!isset($_POST['min_iv']) || $_POST['min_iv'] == "") { $_POST['min_iv'] = $monster_defaults['min_iv']; }
@@ -23,13 +28,13 @@
    if (!isset($_POST['max_sta']) || $_POST['max_sta'] == "") { $_POST['max_sta'] = $monster_defaults['max_sta']; }
 
    // Replace Default Values if Set
-   if ($_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
+   if (@$_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
 
-   if ($_POST['pvp_ranking_min_cp'] == "" ) 
+   if (@$_POST['pvp_ranking_min_cp'] == "" ) 
    { 
-	   if ( $_POST['league'] == 500 ) { $_POST['pvp_ranking_min_cp']  = $_SESSION['pvpFilterLittleMinCP']; } 
-	   else if ( $_POST['league'] == 1500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterGreatMinCP']; }
-	   else if ( $_POST['league'] == 2500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterUltraMinCP']; } 
+	   if ( @$_POST['league'] == 500 ) { $_POST['pvp_ranking_min_cp']  = $_SESSION['pvpFilterLittleMinCP']; } 
+	   else if ( @$_POST['league'] == 1500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterGreatMinCP']; }
+	   else if ( @$_POST['league'] == 2500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterUltraMinCP']; } 
    }
 
    // Handle NO IV Pokemon
