@@ -160,9 +160,17 @@
                                                         </div>
 						    </div>
                                                     <?php } ?>
-
-                                                    <?php
-                                                            }
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
+                                                    <?php }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
@@ -302,9 +310,17 @@
                                                         </div>
 						    </div>
                                                     <?php } ?>
-
-                                                    <?php
-                                                            }
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
+													<?php  }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">

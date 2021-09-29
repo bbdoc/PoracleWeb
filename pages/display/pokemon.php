@@ -425,10 +425,17 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         ?>
                                                         </span>
                                                     </li>
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
                                                     <?php } ?>
-
-
-
                                                 </ul>
                                                 <?php
                                                         if ($row['clean'] == '1' && $all_mon_cleaned == '0') {
