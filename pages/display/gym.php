@@ -181,18 +181,30 @@
 
 						    <?php 
                                                             }
-                                                            if ($row['slot_changes'] == '1') {
+                                                    if ($enable_templates == "True") {
                                                     ?>
-                                                    <div class="mt-1">
-                                                       <span class="badge badge-pill badge-info w-100"><i class="fas fa-volume-up"></i>&nbsp;<?php echo i8ln("Slots Available"); ?></span>
-                                                    </div>
+						    <div class="mt-1">
 
                                                     <?php
-                                                            }
-                                                            if (isset($allowed_templates["gyms"])) {
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['gym'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['gym']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
                                                     ?>
-						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["gyms"]) ? $allowed_templates["gyms"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                 </ul>

@@ -116,18 +116,18 @@ echo "</div>";
     </div>
 
     <hr>
-    <?php if (isset($allowed_templates["gyms"])) {
+    <?php if ( $enable_templates == "True" && count($templates_list) > 1 ) {
         echo '<div class="form-row align-items-center">
             <div class="col-sm-12 my-1">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
+                    <div class="input-group-justify">
+                        <div class="input-group mb-1">
                             <div class="input-group-text">Template</div>
                             </div>
                         </div>';
-                        foreach ( $allowed_templates["gyms"] as $key => $name ) {
-                            echo '<label class="btn btn-secondary">';
-                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '" ' . (($key == $row['template']) ? 'checked' : '') . '>';
+                        foreach ( $templates_list as $key => $name ) {
+                            echo '<label class="btn btn-secondary mb-1 mr-1">';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>

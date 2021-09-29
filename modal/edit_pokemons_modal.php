@@ -395,9 +395,9 @@ if ($row['pokemon_id'] == '0') {
         </div>
         <div class="tab-pane fade" id="pills-other-<?php echo $pkm_unique_id ?>" role="tabpanel"
             aria-labelledby="pills-other-tab-<?php echo $pkm_unique_id ?>">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div class="btn-group-justified btn-group-toggle" data-toggle="buttons">
                 <div class="input-group">
-                    <div class="input-group-prepend">
+                    <div class="input-group mb-1">
 			<div class="input-group-text"><?php echo i8ln("Form"); ?></div>
                     </div>
                 </div>
@@ -411,7 +411,7 @@ if ($row['pokemon_id'] == '0') {
                                                 $checked = '';
                                         }
                                 ?>
-                <label class="btn btn-secondary">
+                <label class="btn btn-secondary mb-1">
                     <input type="radio" name="form" id="form_<?php echo $key; ?>" value="form_<?php echo $key; ?>"
                         <?php echo $checked; ?>> <?php echo i8ln($value); ?>
                 </label>
@@ -477,18 +477,18 @@ if ($row['pokemon_id'] == '0') {
                 </label>
             </div>
             <hr>
-            <?php if (isset($allowed_templates["mons"])) {
+            <?php if ( $enable_templates == "True" && count($templates_list) > 1 ) {
                 echo '<div class="form-row align-items-center">
                     <div class="col-sm-12 my-1">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div class="btn-group-justify btn-group-toggle" data-toggle="buttons">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-1">
                                     <div class="input-group-text">Template</div>
                                 </div>
                             </div>';
-                            foreach ( $allowed_templates["mons"] as $key => $name ) {
-                                echo '<label class="btn btn-secondary">';
-		                echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '" ' . (($key == $row['template']) ? 'checked' : '') . '>';
+                            foreach ( $templates_list as $key => $name ) {
+                                echo '<label class="btn btn-secondary mb-1 mr-1">';
+		                echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
                                 echo $name . '</label>';
                             }
                         echo '</div>
