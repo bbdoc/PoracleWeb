@@ -380,14 +380,24 @@ if (!isset($_SESSION['admin_id'])) {
 				&nbsp;&nbsp;<?php echo i8ln("Enable Telegram Login ?"); ?>
                                 </div>
 				     
-				<div class="input-group">
+				<div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"  style="width:120px;">
                                             &nbsp;&nbsp;<?php echo i8ln("BOT Name"); ?>
                                         </div>
                                     </div>
                                     <input type='text' id='telegram_bot' name='telegram_bot' class="form-control text-center" value="<?php echo @$telegram_bot; ?>">
+				</div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:120px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("BOT Token"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='text' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" value="<?php echo @$telegram_bot_token; ?>">
                                 </div>
+
                             </div>
                          </div>
 

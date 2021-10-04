@@ -22,6 +22,7 @@ $discordBotClientSecret = "";
 #$enable_telegram = "True";
 #$enable_discord = "False";
 #$telegram_bot = "YourBotName";
+#$telegram_bot_name = "YourBotToken";
 
 // Admin User
 $admin_id   = "";

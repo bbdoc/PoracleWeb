@@ -414,6 +414,7 @@
     "Current PoracleJS Version":"Version PoracleJS Actuelle",
     "Both Areas & Locations are Disabled":"Les zones ET la localisation sont désactivées",
     "You won't be able to set any working alarms":"Aucune alarme ne fonctionnera!",
-    "Enable Templates":"Activer les Templates"
+    "Enable Templates":"Activer les Templates",
+    "Invalid Authentication. Please contact your admin":"Authentification non valide. Veuillez contacter votre administrateur"
 
 }
