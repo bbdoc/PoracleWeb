@@ -395,7 +395,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("BOT Token"); ?>
                                         </div>
                                     </div>
-                                    <input type='text' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" value="<?php echo @$telegram_bot_token; ?>">
+                                    <input type='password' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" value="<?php echo @$telegram_bot_token; ?>">
                                 </div>
 
                             </div>
