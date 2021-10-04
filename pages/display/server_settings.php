@@ -252,7 +252,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Password"); ?>
                                         </div>
                                     </div>
-                                    <input type='password' id='scan_dbpass' name='scan_dbpass' class="form-control text-center" value="<?php echo $scan_dbpass; ?>">
+                                    <input type='password' id='scan_dbpass' name='scan_dbpass' class="form-control text-center" placeholder="********">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -327,7 +327,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("API Secret"); ?>
                                         </div>
                                     </div>
-                                    <input type='password' id='api_secret' name='api_secret' class="form-control text-center" value="<?php echo $api_secret; ?>">
+                                    <input type='password' id='api_secret' name='api_secret' class="form-control text-center" placeholder="********">
                                 </div>
                             </div>
 			 </div>
@@ -395,7 +395,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("BOT Token"); ?>
                                         </div>
                                     </div>
-                                    <input type='password' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" value="<?php echo @$telegram_bot_token; ?>">
+                                    <input type='password' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" placeholder="********">
                                 </div>
 
                             </div>

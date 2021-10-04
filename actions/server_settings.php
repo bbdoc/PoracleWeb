@@ -13,6 +13,12 @@
 
 	   if (strpos($key, 'language') !== false) {
 		   array_push($languages,substr($key,9,11));
+           } else if ( $key == "scan_dbpass" && trim($value) == "" ) {
+                   continue;
+           } else if ( $key == "api_secret" && trim($value) == "" ) {
+                   continue;
+           } else if ( $key == "telegram_bot_token" && trim($value) == "" ) {
+                   continue;
 	   } 
 	   else if ( $key != "action" && $key != "update" )
 	   {
@@ -20,11 +26,11 @@
 		      if ( $value == "on" ) { $value = "False"; }
 		      if ( $value == "off" ) { $value = "True"; }
                    } else if ( $key == "api_address" ) { 
-                      $value = rtrim($value, '/');
+			   $value = rtrim($value, '/');
 		   } else { 
 	              if ( $value == "on" ) { $value = "True"; }
                       if ( $value == "off" ) { $value = "False"; }
-		   }
+		   } 
 
 		   $stmt = $conn->prepare("INSERT INTO pweb_settings (setting, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value=?");
                    if (false === $stmt) {
