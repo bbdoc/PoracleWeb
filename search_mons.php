@@ -1,9 +1,9 @@
 <?php 
 
-include "./include/functions.php";
-include "./include/db_mad.php";
-include "./config.php";
-include "./include/defaults.php";
+include_once "./include/functions.php";
+include_once "./include/db_mad.php";
+include_once "./config.php";
+include_once "./include/defaults.php";
 
 $mons=get_all_mons();
 

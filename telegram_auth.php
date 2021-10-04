@@ -1,8 +1,8 @@
 <?php
 
-include "./config.php";
-include "include/defaults.php";
-include "include/db_connect.php";
+include_once "./config.php";
+include_once "include/defaults.php";
+include_once "include/db_connect.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();
@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
 	$_SESSION['username']=$_GET['first_name']." ".$_GET['last_name'];
 }
 
-include "./session.php";
+include_once "./session.php";
 
 if (isset($no_api) && $no_api == "True") 
 {

@@ -1,8 +1,8 @@
 <?php
 
-include "../config.php";
-include "../include/db_connect.php";
-include "../include/functions.php";
+include_once "../config.php";
+include_once "../include/db_connect.php";
+include_once "../include/functions.php";
 
 
 if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
