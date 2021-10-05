@@ -30,7 +30,7 @@ $collapsedState = 'collapsed';
 // Show no accordions when there is only one list of areas (likely a user with no grouping)
 if(count(array_keys($areas)) === 1){
     $collapsedState = '';
-    $areaList = $areas[""];
+    $areaList = $areas[array_keys($areas)[0]];
     echo "<ul>\n";
     sort($areaList);
     foreach ($areaList as $i => $area) {
