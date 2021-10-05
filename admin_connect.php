@@ -2,9 +2,9 @@
 
 $time_start = microtime(true); 
 
-include "./config.php";
-include "./include/db_connect.php";
-include "./include/functions.php";
+include_once "./config.php";
+include_once "./include/db_connect.php";
+include_once "./include/functions.php";
 
 if (!isset($_SESSION['admin_id']) && !isset($_SESSION['delegated_id'])) {
         header("Location: $redirect_url");

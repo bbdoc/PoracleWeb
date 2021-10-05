@@ -5,7 +5,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes. In case if your C
 
 error_reporting(E_ALL);
 
-include "./config.php";
+include_once "./config.php";
 
 define('OAUTH2_CLIENT_ID', $discordBotClientId); //Your client Id
 define('OAUTH2_CLIENT_SECRET', $discordBotClientSecret); //Your secret client code
@@ -61,7 +61,7 @@ if(session('access_token')) {
   $_SESSION['avatar_id']=$user->avatar;
   $_SESSION['avatar'] = "https://cdn.discordapp.com/avatars/" . $_SESSION['id'] . "/" . $_SESSION['avatar_id'] . ".png";
 
-  include "./session.php";
+  include_once "./session.php";
 
   if (isset($no_api) && $no_api == "True") 
   {

@@ -1,17 +1,17 @@
 <?php
 
-include "./config.php";
-include "./include/db_connect.php";
-include "./include/functions.php";
-include "./include/defaults.php";
+include_once "./config.php";
+include_once "./include/db_connect.php";
+include_once "./include/functions.php";
+include_once "./include/defaults.php";
 
 set_locale();
 
 if (isset($scan_dbtype) && $scan_dbtype == "MAD") {
-    include "./include/db_mad.php";
+    include_once "./include/db_mad.php";
 }
 if (isset($scan_dbtype) && $scan_dbtype == "RDM") {
-    include "./include/db_rdm.php";
+    include_once "./include/db_rdm.php";
 }
 
 if (isset($custom_title)) {

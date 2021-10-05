@@ -1,8 +1,8 @@
 <?php
 
-@include "./config.php";
-@include "./include/db_connect.php";
-@include "./include/cache_handler.php";
+@include_once "./config.php";
+@include_once "./include/db_connect.php";
+@include_once "./include/cache_handler.php";
 
 if(!isset($_SESSION)){
     session_start();
@@ -172,8 +172,8 @@ function get_areas() {
 
 function get_raid_bosses_json() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
    global $bosses_json;
    $json = json_decode($bosses_json, true);
    $bosses=array(); 
@@ -269,10 +269,10 @@ function get_gym_color($id) {
 }
 
 function set_locale() {
-
+   global $conn;
    if (isset($_SESSION['id'])) {
-      include "./config.php";
-      include "./include/db_connect.php";
+      include_once "./config.php";
+      include_once "./include/db_connect.php";
       $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
       $result = $conn->query($sql) or die(mysqli_error($conn));
       while ($row = $result->fetch_assoc()) {  

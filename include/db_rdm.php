@@ -2,8 +2,8 @@
 
 function get_quest_mons() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct quest_pokemon_id id, json_extract(json_extract(`quest_rewards`,'$[*].info.form_id'),'$[0]') form
@@ -30,8 +30,8 @@ function get_quest_mons() {
 
 function get_quest_items() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct quest_item_id id FROM pokestop WHERE quest_item_id > 0 order by quest_item_id;";
@@ -48,8 +48,8 @@ function get_quest_items() {
 
 function get_quest_energy() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS id
@@ -67,8 +67,8 @@ function get_quest_energy() {
 
 function get_quest_candy() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT distinct json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS id
@@ -87,8 +87,8 @@ function get_quest_candy() {
 
 function get_raid_bosses() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
 
    $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
    $sql = "SELECT raid_level, raid_pokemon_id, raid_pokemon_form, raid_pokemon_evolution, raid_pokemon_costume FROM gym

@@ -1,8 +1,8 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
-   include "../include/defaults.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
+   include_once "../include/defaults.php";
 
    if ( isset($_POST['gen']) ) { 
 	   $gen = $_POST['gen'];
