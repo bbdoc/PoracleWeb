@@ -1,13 +1,15 @@
 <?php
 
+include_once "./config.php";
+include_once "./include/db_connect.php";
+
+$scan_conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+
 function get_quest_mons() {
 
-   include_once "./config.php";
-   include_once "./include/db_connect.php";
-
-   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   global $scan_conn;
    $sql = "SELECT distinct quest_pokemon_id id, quest_pokemon_form_id form FROM trs_quest WHERE quest_pokemon_id > 0 AND quest_reward_type = 7 order by quest_pokemon_id;";
-   $result = $conn->query($sql);
+   $result = $scan_conn->query($sql);
 
    $mons=array();
    while($row = $result->fetch_assoc()) { 
@@ -29,12 +31,9 @@ function get_quest_mons() {
 
 function get_quest_items() {
 
-   include_once "./config.php";
-   include_once "./include/db_connect.php";
-
-   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   global $scan_conn;
    $sql = "SELECT distinct quest_item_id id FROM trs_quest WHERE quest_item_id > 0 order by quest_item_id;";
-   $result = $conn->query($sql);
+   $result = $scan_conn->query($sql);
 
    $items=array();
    while($row = $result->fetch_assoc()) {
@@ -47,12 +46,9 @@ function get_quest_items() {
 
 function get_quest_energy() {
 
-   include_once "./config.php";
-   include_once "./include/db_connect.php";
-
-   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   global $scan_conn;
    $sql = "SELECT distinct(quest_pokemon_id) id  FROM trs_quest WHERE quest_reward_type = 12 ORDER BY quest_pokemon_id;";
-   $result = $conn->query($sql);
+   $result = $scan_conn->query($sql);
 
    $mons=array();
    while($row = $result->fetch_assoc()) {
@@ -65,12 +61,9 @@ function get_quest_energy() {
 
 function get_quest_candy() {
 
-   include_once "./config.php";
-   include_once "./include/db_connect.php";
-
-   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   global $scan_conn;
    $sql = "SELECT distinct(quest_pokemon_id) id  FROM trs_quest WHERE quest_reward_type = 4 ORDER BY quest_pokemon_id;";
-   $result = $conn->query($sql);
+   $result = $scan_conn->query($sql);
 
    $mons=array();
    while($row = $result->fetch_assoc()) {
@@ -84,14 +77,11 @@ function get_quest_candy() {
 
 function get_raid_bosses() {
 
-   include_once "./config.php";
-   include_once "./include/db_connect.php";
-
-   $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+   global $scan_conn;
    $sql = "SELECT level, pokemon_id, form, evolution, costume FROM raid 
 	   WHERE pokemon_id is not null and last_scanned > now() - INTERVAL 1 DAY 
            GROUP BY level, pokemon_id, form, evolution, costume ORDER BY level, pokemon_id;";
-   $result = $conn->query($sql);
+   $result = $scan_conn->query($sql);
 
    $bosses=array();
    while($row = $result->fetch_assoc()) {

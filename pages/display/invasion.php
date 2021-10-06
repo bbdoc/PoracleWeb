@@ -189,7 +189,7 @@
                                                         </div>
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_invasions_cleaned == '0') {
+                                                            if ($row['clean'] == '1' && $all_invasion_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
