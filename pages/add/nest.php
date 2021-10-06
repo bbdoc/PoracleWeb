@@ -82,16 +82,6 @@ if ( $disable_nests == "True" ) {
 
                                     <?php
 
-                                        if ($row['clean'] == 0) {
-                                            $checked0 = 'checked';
-                                        } else {
-                                            $checked0 = '';
-                                        }
-                                        if ($row['clean'] == 1) {
-                                            $checked1 = 'checked';
-                                        } else {
-                                            $checked1 = '';
-                                        }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
                                         if ($all_nests_cleaned == "1") {
@@ -158,14 +148,7 @@ if ( $disable_nests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='nest_<?php echo $nest; ?>'
                                         id='nest_<?php echo $nest; ?>' />
 				    <label for='nest_<?php echo $nest; ?>'>
-                                    <?php
-                                        if ( $row['form'] <> 0 ) {
-                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . "_f" . $row['form'] . ".png";
-                                        } else {
-                                           $PkmnImg = "$uicons_pkmn/pokemon/" . $nest . ".png";
-                                        }
-                                    ?>
-					<img class='m-2' src=<?php echo $PkmnImg; ?> />
+					<img class='m-2' src=<?php echo "$uicons_pkmn/pokemon/" . $nest . ".png"; ?> />
 					<br><?php echo i8ln(get_mons($nest)); ?>
                                     </label>
                                 </li>

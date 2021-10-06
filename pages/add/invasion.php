@@ -66,16 +66,6 @@ if ( $disable_invasions == "True" ) {
 
                                     <?php
 
-                                        if ($row['clean'] == 0) {
-                                            $checked0 = 'checked';
-                                        } else {
-                                            $checked0 = '';
-                                        }
-                                        if ($row['clean'] == 1) {
-                                            $checked1 = 'checked';
-                                        } else {
-                                            $checked1 = '';
-                                        }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
                                         if ($all_invasion_cleaned == "1") {

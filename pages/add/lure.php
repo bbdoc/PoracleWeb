@@ -70,16 +70,6 @@ $grunt_type_list.=",arlo,cliff,giovanni,sierra";
 
                                     <?php
 
-                                        if ($row['clean'] == 0) {
-                                            $checked0 = 'checked';
-                                        } else {
-                                            $checked0 = '';
-                                        }
-                                        if ($row['clean'] == 1) {
-                                            $checked1 = 'checked';
-                                        } else {
-                                            $checked1 = '';
-                                        }
                                         $clean_0_checked = 0;
                                         $clean_1_checked = 0;
                                         if ($all_lures_cleaned == "1") {
