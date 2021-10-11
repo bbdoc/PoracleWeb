@@ -63,46 +63,7 @@ if ($row['pokemon_id'] == '0') {
     <div class="tab-content" id="pills-tab-<?php echo $pkm_unique_id ?>Content">
         <div class="tab-pane fade show active" id="pills-stats-<?php echo $pkm_unique_id ?>" role="tabpanel"
 	    aria-labelledby="pills-stats-tab-<?php echo $pkm_unique_id ?>">
-            <?php if (@$disable_location <> "True") { ?>
-            <div class="form-row align-items-center">
-		<div class="col-sm-12 my-1">
-                    <?php 
-                    if ( $row['distance'] == 0 ) { 
-		       $area_check="checked"; 
-		       $distance_check=""; 
-		       $style="style='display:none;'"; 
-                    } else { 
-		       $area_check=""; 
-		       $distance_check="checked"; 
-		       $style="";
-		    } 
-                    ?>
-		    <div class="input-group">
-                        <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
-                        <label class="btn btn-secondary">
-			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="areas" <?php echo $area_check; ?> 
-                            onclick="areas('<?php echo $pkm_unique_id; ?>')">
-                            <?php echo i8ln("Use Areas"); ?>
-                        </label>
-                        <label class="btn btn-secondary mr-2">
-			    <input type="radio" name="use_areas_pkmn" id="use_areas_<?php echo $pkm_unique_id; ?>" value="distance" <?php echo $distance_check; ?> 
-                            onclick="areas('<?php echo $pkm_unique_id; ?>')">
-                            <?php echo i8ln("Set Distance"); ?>
-                        </label>
-                        </div>
-                    </div>
-		    <div class="input-group mt-2">
-			<input type="number" id='distance_<?php echo $pkm_unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
-                            min='0' max='<?php echo $_SESSION['maxDistance']; ?>' class="form-control text-center">
-                        <div class="input-group-append" id="distance_label_<?php echo $pkm_unique_id; ?>" <?php echo $style; ?>>
-			    <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
-                        </div>
-                    </div>
-                </div>
-	    </div>
-            <?php } else { ?>
-                <input type="hidden" id='distance' name='distance' value='<?php echo $row['distance'] ?>' min='0'>
-            <?php } ?>
+	    <?php include "./include/edit_area_distance.php"; ?>
 
             <div class="form-row align-items-center">
 		<div class="col-sm-12 my-1">
