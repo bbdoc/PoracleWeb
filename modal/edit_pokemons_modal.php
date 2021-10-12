@@ -34,13 +34,8 @@ if ($row['pokemon_id'] == '0') {
 ?>
 <div class="modal-body">
 
-    <?php
-
-        echo "
-        <input type='hidden' id='type' name='type' value='monsters'>
-        <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
-    ";
-        ?>
+    <input type='hidden' id='type' name='type' value='monsters'>
+    <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
 
     <ul class="nav nav-pills mb-3 mx-auto justify-content-center" id="pills-tab-<?php echo $pkm_unique_id ?>"
         role="tablist">
