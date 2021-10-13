@@ -18,7 +18,8 @@ $monster_defaults = array(
 	"sta"=>0,
 	"max_atk"=>15,
 	"max_def"=>15,
-	"max_sta"=>15
+	"max_sta"=>15,
+	"gender"=>0
 );
 
 $min_poracle_version = "4.2.6";

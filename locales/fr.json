@@ -415,6 +415,18 @@
     "Both Areas & Locations are Disabled":"Les zones ET la localisation sont désactivées",
     "You won't be able to set any working alarms":"Aucune alarme ne fonctionnera!",
     "Enable Templates":"Activer les Templates",
-    "Invalid Authentication. Please contact your admin":"Authentification non valide. Veuillez contacter votre administrateur"
+    "Invalid Authentication. Please contact your admin":"Authentification non valide. Veuillez contacter votre administrateur",
+    "Quick Pick":"Suivi Rapide",
+    "Common Trackings":"Suivis classiques",
+    "Big Magikarps":"Gros Magicarpes",
+    "Tiny Ratatas":"Petits Ratatas",
+    "100% IV Pokemon":"Pokemon 100% IV",
+    "PvP Little Rank 1":"Ligue Little Rank 1",
+    "PvP Great Rank 1":"Ligue Super Rank 1",
+    "PvP Ultra Rank 1":"Ligue Ultra Rank 1",
+    "Size":"Taille",
+    "Click the <i class='fas fa-plus'></i> button to quickly add a tracking":"Cliquez sur <i class='fas fa-plus'></i> pour ajouter un suivi rapide",
+    "Already tracked are shown in green":"Les suivis actifs sont visibles en vert"
+
 
 }

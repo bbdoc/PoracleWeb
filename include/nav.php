@@ -127,6 +127,15 @@
         </div>
       </div>
 
+      <div class="card z-depth-0 bordered">
+        <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" style="margin-top:-5px;margin-bottom:-5px;">
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="<?php echo $redirect_url; ?>?type=display&page=quick_pick">
+               <font color="grey"><i class="fas fa-bolt mr-2"></i></font> <?php echo i8ln('Quick Pick'); ?>
+            </a>
+        </li>
+        </div>
+      </div>
 
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" data-toggle="collapse" data-target="#collapse-pages" aria-expanded="false" aria-controls="collapse-pages">

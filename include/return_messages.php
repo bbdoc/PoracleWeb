@@ -10,6 +10,28 @@
 </div>
 <?php
     }
+    if (isset($_GET['return']) && $_GET['return'] == 'success_added_quick_pick') {
+    ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
+    <?php echo "<br>".i8ln("Quick Pick").": "; echo $_GET['pick']; ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'success_delete_quick_pick') {
+    ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php echo i8ln("Successfully Deleted Monster Alarm(s)"); ?>
+    <?php echo "<br>".i8ln("Quick Pick").": "; echo $_GET['pick']; ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
     if (isset($_GET['return']) && $_GET['return'] == 'success_update_mons') {
     ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
