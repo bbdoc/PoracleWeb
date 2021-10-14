@@ -40,7 +40,7 @@ if (!isset($_SESSION['admin_id'])) {
 					   if (strpos($line, $row['setting']) !== false) {
 						   $setting_value = strstr($line, '"');
 						   $setting_value =  substr($setting_value, 1, strrpos ($setting_value, '"') - 1);
-						   if ( $setting_value <> "" && strpos($line, "#") !== 0 ) {
+						   if ( $setting_value <> "" && strpos($line, "#") !== 0  && strpos($line, "//") !== 0 ) {
 							   array_push($duplicates,$row['setting']);
 						   }
 					   }
