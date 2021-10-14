@@ -1,13 +1,13 @@
 
 <?php
 
-   $sql = "select min(clean) clean FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+   $sql = "select min(clean) clean FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $mon_cleaned = $row['clean'];
    }
 
-   $sql = "select min(distance) distance FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
+   $sql = "select min(distance) distance FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
    $result = $conn->query($sql);
    while ($row = $result->fetch_assoc()) {
        $mon_distance = $row['distance'];
@@ -42,7 +42,7 @@
 
                                 <?php
                                    
-                                   $sql = "select uid FROM monsters WHERE min_iv = 100 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE min_iv = 100 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
 				   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
                                    
@@ -79,7 +79,7 @@
 
                                 <?php
 
-                                   $sql = "select uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -116,7 +116,7 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -152,7 +152,7 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 1500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 1500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -188,7 +188,7 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 2500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 2500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -246,7 +246,7 @@
 				<div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 129 AND min_weight = 13130 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE pokemon_id = 129 AND min_weight = 13130 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -285,7 +285,7 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 19 AND max_weight = 2410 AND id = '" . $_SESSION['id'] . "'";
+                                   $sql = "select uid FROM monsters WHERE pokemon_id = 19 AND max_weight = 2410 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
