@@ -78,6 +78,44 @@
                                 </form>
 
                                 <?php
+
+                                   $sql = "select uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "'";
+                                   $result = $conn->query($sql);
+                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
+
+                                   while ($row = $result->fetch_assoc()) {
+                                           $uid = $row['uid'];
+                                   }
+
+                                ?>
+
+                                <form action='./actions/quick_pick.php' method='POST' class="w-100">
+                                <div class="input-group mt-2 justify-content-center">
+                                   <div class="input-group-text mr-1 justify-content-center" style="width:80%; <?php echo $style; ?>"><?php echo i8ln("0% IV Pokemon"); ?></div>
+                                   <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
+                                   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
+                                   <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("0% IV Pokemon"); ?>'>
+                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='min_iv' name='min_iv' value='0'>
+                                   <input type='hidden' id='max_iv' name='max_iv' value='0'>
+                                   <?php if ( $found == 1 ) { ?>
+                                   <input type='hidden' id='action' name='action' value='delete'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <button type='submit' class="btn btn-danger btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
+                                   </button>
+                                   <?php } else { ?>
+                                   <input type='hidden' id='action' name='action' value='add'>
+                                   <button type='submit' class="btn btn-success btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-plus"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("ADD"); ?></span>
+                                   </button>
+                                   <?php } ?>
+                                </div>
+                                </form>
+
+                                <?php
                                    $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
