@@ -124,7 +124,14 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
+                                                    <?php if ( $row['grunt_type'] == "everything") { ?>
+                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
+                                                         style="height: 70px;">
+                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
+                                                    </div>
+                                                    <?php } else { ?>
+						    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
+                                                    <?php } ?>
 						</div>
                                                 <?php if ( $row['grunt_type'] <> "everything") { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
