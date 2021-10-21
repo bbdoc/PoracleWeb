@@ -33,11 +33,19 @@ if (!isset($_SESSION['admin_id'])) {
                            $result = $conn->query($sql);
            
 	      		   $duplicates=array();
-                           while ($row = $result->fetch_assoc()) {
-				if( strpos(file_get_contents("./config.php"),$row['setting']) !== false )
-				{
-					array_push($duplicates,$row['setting']);
-				}
+			   while ($row = $result->fetch_assoc()) { 
+
+				   $lines = file("./config.php");
+				   foreach ($lines as $lineNumber => $line) {
+					   if (strpos($line, $row['setting']) !== false) {
+						   $setting_value = strstr($line, '"');
+						   $setting_value =  substr($setting_value, 1, strrpos ($setting_value, '"') - 1);
+						   if ( $setting_value <> "" && strpos($line, "#") !== 0  && strpos($line, "//") !== 0 ) {
+							   array_push($duplicates,$row['setting']);
+						   }
+					   }
+				   }
+
                            }   
 
 	   		   if ( count($duplicates) > 0 ) {
