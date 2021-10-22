@@ -275,7 +275,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                     ?>
                                                 <div>
                                                     <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo $row['pokemon_id']." | ".$pokemon_name." ".$form_name; ?></span>
+                                                        class="badge badge-primary badge-pill w-100"><?php echo $row['pokemon_id']." | ".$pokemon_name." ".i8ln($form_name); ?></span>
                                                 </div>
 
                                                 <?php

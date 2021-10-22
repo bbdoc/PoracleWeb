@@ -427,7 +427,9 @@
     "PvP Ultra Rank 1":"Ligue Ultra Rank 1",
     "Size":"Taille",
     "Click the <i class='fas fa-plus'></i> button to quickly add a tracking":"Cliquez sur <i class='fas fa-plus'></i> pour ajouter un suivi rapide",
-    "Already tracked are shown in green":"Les suivis actifs sont visibles en vert"
-
-
+    "Already tracked are shown in green":"Les suivis actifs sont visibles en vert",
+    "Small":"Mini",
+    "Average":"Normale",
+    "Large":"Maxi",
+    "Super":"Ultra"
 }
