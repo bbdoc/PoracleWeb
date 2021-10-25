@@ -19,8 +19,11 @@
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- QUICK PIC Card -->
 
+                    <!-- Disable Common Tracking id everythingFlagPermissions set to Deny -->
+                    <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($_SESSION['type'], ":user") == false ) { ?>
+
+                    <!-- QUICK PIC Card -->
 		    <div class="col-xl-12 col-sm-12 col-12">
 
                         <div class="mb-3">
@@ -229,7 +232,8 @@
                             </div>
 
                         </div>
-                    </div>
+		    </div>
+                    <?php } ?>
 
 		    <!-- QUICK PIC Card -->
 
