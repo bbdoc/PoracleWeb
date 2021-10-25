@@ -29,31 +29,8 @@ if ( $disable_mons == "True" ) {
 
                     <form action='./actions/monsters.php' method='POST'>
 
-                        <?php if (@$disable_location <> "True") { ?>
-                        <div class="form-row align-items-center">
-			    <div class="col-sm-12 my-1">
-				<div class="input-group">
-                                    <div class="btn-group btn-group-toggle ml-1" data-toggle="buttons" style="width:100%;">
-				    <label class="btn btn-secondary">
-					<input type="radio" name="use_areas" id="use_areas" value="areas" checked onclick="areas_add()"><?php echo i8ln("Use Areas"); ?>
-				    </label>
-                                    <label class="btn btn-secondary mr-2">
-                                        <input type="radio" name="use_areas" id="use_areas" value="distance" onclick="areas_add()"><?php echo i8ln("Set Distance"); ?>
-                                    </label>
-                                    </div>
-                                </div>
-				<div class="input-group mt-2">
-                                    <input type="number" id='distance' name='distance' value='0' min='0' max='<?php echo $_SESSION['maxDistance']; ?>' style="display:none;"
-                                        class="form-control text-center">
-                                    <div class="input-group-append" id="distance_label" style="display:none;">
-                                        <span class="input-group-text"><?php echo i8ln("meters"); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-			</div>
-			<?php } else { ?>
-                           <input type="hidden" id='distance' name='distance' value='0'>
-                        <?php } ?>
+                        <?php include "./include/add_area_distance.php"; ?>
+
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
 				<div class="input-group mb-1">
@@ -319,6 +296,22 @@ if ( $disable_mons == "True" ) {
                                 </div>
                             </div>
                         </div>
+						<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
+                                        </div>
+                                        <input type='text' id='content_add' name='content' maxlength=255 size=50 class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<?php } else { ?>
+							<input type="hidden" id='content_add' name='content' value=''>
+						<?php } ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -341,18 +334,25 @@ if ( $disable_mons == "True" ) {
                             </div>
                         </div>
 
-                        <?php if (isset($allowed_templates["mons"])) {
+			<?php 
+
+			$type = explode(":", $_SESSION['type'], 2); 
+			$templates_locale = @$_SESSION['templates'][$type[0]]['monster'][$_SESSION['locale']];
+			$templates_undefined = @$_SESSION['templates'][$type[0]]['monster']['%'];
+			$templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                        if (count($templates_list) > 1 && $enable_templates == "True" ) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
+                                        <div class="input-group-justify">
+                                            <div class="input-group mb-1">
                                                 <div class="input-group-text">Template</div>
                                             </div>
                                         </div>';
-                                        foreach ( $allowed_templates["mons"]as $key => $name ) {
-                                            echo '<label class="btn btn-secondary">';
-                                            echo '<input type="radio" name="template" id="' . $key . '" value="' . $key . '">';
+                                        foreach ( $templates_list as $key => $name ) {
+                                            echo '<label class="btn btn-secondary mb-1 mr-1">';
+                                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '">';
                                             echo $name . '</label>';
                                         }
                                     echo '</div>
@@ -362,18 +362,7 @@ if ( $disable_mons == "True" ) {
 
                         <hr>
 
-
-                        <?php
-
-                        $sql = "SELECT type FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-                        $result = $conn->query($sql);
-                        while ($row = $result->fetch_assoc()) {
-                            $type = $row['type'];
-                        }
-
-                        ?>
-
-                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($type, ":user") == false ) { ?>
+                        <?php if ($_SESSION['everythingFlagPermissions'] <> "deny" || strpos($_SESSION['type'], ":user") == false ) { ?>
                         <div class='searchmons text-center'>
                             <ul>
                                 <li><input type='checkbox' name='mon_0' id='mon_0' />

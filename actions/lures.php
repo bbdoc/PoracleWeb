@@ -1,7 +1,7 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
 
   // UPDATE LURES
 
@@ -16,7 +16,7 @@
 
     $stmt = $conn->prepare("
       UPDATE lures
-      SET distance = ?, clean = ?, template = ?
+      SET distance = ?, clean = ?, template = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -25,10 +25,11 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisi",
+      "iissi",
       $_POST['distance'],
       $clean,
       $template,
+      $_POST['content'],
       $_POST['uid']
     );
 
@@ -102,12 +103,12 @@
         $lure = substr($key, 5); 
 
         $stmt = $conn->prepare("INSERT INTO lures ( id, ping, clean, distance, template, lure_id, profile_no)
-	                       VALUES ( ?, '', ? , ?, ?, ?, ?)");
+	                       VALUES ( ?, ?, ? , ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=lure&return=sql_error&phase=AL1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisii", $_SESSION['id'], $clean, $_POST['distance'], $template, $lure, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssiisii", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $lure, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=lure&return=sql_error&phase=AL2&sql=$stmt->error");
           exit();

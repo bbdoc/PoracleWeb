@@ -1,7 +1,7 @@
 <?php
 
-include "./config.php";
-include "./include/functions.php";
+include_once "./config.php";
+include_once "./include/functions.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();
@@ -121,6 +121,13 @@ if ( $json['status']=="ok" ) {
 } else {
    $no_api = "True";
 }
+
+// Get Templates from API
+
+$templates = @file_get_contents("$api_address/api/config/templates", false, $context);
+$json = json_decode($templates, true);
+
+$_SESSION['templates'] = $json;
 
 // Get Delegated Admin from API
 

@@ -1,5 +1,5 @@
 
-<?php include "include/geo_cache.php"; ?>
+<?php include_once "include/geo_cache.php"; ?>
 
                     <!-- LOCATION Card -->
                     <?php if (@$disable_location <> "True" ) { ?>

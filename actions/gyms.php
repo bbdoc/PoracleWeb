@@ -1,7 +1,7 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
 
   // UPDATE GYMS
 
@@ -20,7 +20,7 @@
 
     $stmt = $conn->prepare("
       UPDATE gym
-      SET distance = ?, clean = ?, slot_changes = ?, template = ?
+      SET distance = ?, clean = ?, slot_changes = ?, template = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -29,11 +29,12 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiisi",
+      "iiissi",
       $_POST['distance'],
       $clean,
       $slots,
       $template,
+      $_POST['content'],
       $_POST['uid']
     );
 
@@ -111,12 +112,12 @@
         $team = substr($key, 4); 
 
         $stmt = $conn->prepare("INSERT INTO gym ( id, ping, clean, distance, template, team, slot_changes, profile_no)
-	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");
+	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $team, $slots, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssiisiii", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $team, $slots, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG2&sql=$stmt->error");
           exit();

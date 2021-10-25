@@ -275,7 +275,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                     ?>
                                                 <div>
                                                     <span
-                                                        class="badge badge-primary badge-pill w-100"><?php echo $row['pokemon_id']." | ".$pokemon_name." ".$form_name; ?></span>
+                                                        class="badge badge-primary badge-pill w-100"><?php echo $row['pokemon_id']." | ".$pokemon_name." ".i8ln($form_name); ?></span>
                                                 </div>
 
                                                 <?php
@@ -425,10 +425,17 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         ?>
                                                         </span>
                                                     </li>
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
                                                     <?php } ?>
-
-
-
                                                 </ul>
                                                 <?php
                                                         if ($row['clean'] == '1' && $all_mon_cleaned == '0') {
@@ -438,12 +445,35 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
                                                 </div>
                                                 <?php
-                                                        }
-                                                        if (isset($allowed_templates["mons"])) {
+							}
+
+                                                if ( $enable_templates == "True" ) {
                                                 ?>
-                                                <div class="mt-1">
-                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["mons"]) ? $allowed_templates["mons"][$row['template']] : 'UNKNOWN'; ?></span>
-                                                </div>
+
+						<div class="mt-1">
+
+                                                    <?php 
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['monster'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['monster']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+					   	    if ( in_array($row['template'], $templates_list ) )
+						    {
+							    $template = $row['template'];
+						    }
+						    else 
+						    {
+							    $template = "UNKNOWN";
+						    }
+
+                                                    ?>
+
+						    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
+						</div>
+
                                                 <?php } ?>
 
                                             </div>

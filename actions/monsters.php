@@ -1,10 +1,15 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
-   include "../include/defaults.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
+   include_once "../include/defaults.php";
 
-   $gen = $_POST['gen'];
+   if ( isset($_POST['gen']) ) { 
+	   $gen = $_POST['gen'];
+   } else {
+	   $gen = "" ;
+   }
+
 
    // Use Default Values if Empty POST or no set
    if (!isset($_POST['min_iv']) || $_POST['min_iv'] == "") { $_POST['min_iv'] = $monster_defaults['min_iv']; }
@@ -23,13 +28,13 @@
    if (!isset($_POST['max_sta']) || $_POST['max_sta'] == "") { $_POST['max_sta'] = $monster_defaults['max_sta']; }
 
    // Replace Default Values if Set
-   if ($_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
+   if (@$_POST['pvp_ranking_worst'] == "" ) { $_POST['pvp_ranking_worst'] = 4096; }
 
-   if ($_POST['pvp_ranking_min_cp'] == "" ) 
+   if (@$_POST['pvp_ranking_min_cp'] == "" ) 
    { 
-	   if ( $_POST['league'] == 500 ) { $_POST['pvp_ranking_min_cp']  = $_SESSION['pvpFilterLittleMinCP']; } 
-	   else if ( $_POST['league'] == 1500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterGreatMinCP']; }
-	   else if ( $_POST['league'] == 2500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterUltraMinCP']; } 
+	   if ( @$_POST['league'] == 500 ) { $_POST['pvp_ranking_min_cp']  = $_SESSION['pvpFilterLittleMinCP']; } 
+	   else if ( @$_POST['league'] == 1500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterGreatMinCP']; }
+	   else if ( @$_POST['league'] == 2500 ) { $_POST['pvp_ranking_min_cp'] = $_SESSION['pvpFilterUltraMinCP']; } 
    }
 
    // Handle NO IV Pokemon
@@ -56,7 +61,7 @@
 
     $stmt = $conn->prepare("
       UPDATE monsters
-      SET distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
+      SET ping = ?, distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?,
@@ -69,7 +74,8 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiiiiiiiiiiiiiiiiiiiiisi",
+      "siiiiiiiiiiiiiiiiiiiiiisi",
+      $_POST['content'],
       $_POST['distance'],
       $_POST['min_iv'],
       $_POST['max_iv'],
@@ -179,7 +185,7 @@
              pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league,
              profile_no
            )
-	   VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=sql_error&phase=AM1&sql=$stmt->error");
@@ -187,8 +193,9 @@
         }
 
         $rs = $stmt->bind_param(
-          "ssiiiiiiiiiisiiiiiiiiiiii",
+          "sssiiiiiiiiiisiiiiiiiiiiii",
           $_SESSION['id'],
+          $_POST['content'],
           $pokemon_id,
           $_POST['distance'],
           $_POST['min_iv'],

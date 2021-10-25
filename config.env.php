@@ -17,6 +17,13 @@ $redirect_url           = getenv("REDIRECT_URL") ?: "";
 $discordBotClientId     = getenv("DISCORD_BOT_CLIENT_ID") ?: "";
 $discordBotClientSecret = getenv("DISCORD_BOT_CLIENT_SECRET") ?: "";
 
+// If you don't want to use Discord but ONLY use Telegram
+// If you use both you will be able to set those on Server Settings page
+
+$enable_telegram        = getenv("ENABLE_TELEGRAM") ?: "";
+$enable_discord         = getenv("ENABLE_DISCOR") ?: "";
+$telegram_bot           = getenv("TELEGRAM_BOT") ?: "";
+
 // Admin User
 
 $admin_id                = getenv("ADMIN_ID") ?: "";

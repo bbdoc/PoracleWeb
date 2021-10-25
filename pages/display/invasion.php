@@ -111,6 +111,8 @@
 
                                 while ($row = $result->fetch_assoc()) {
 
+  			            $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
+
                                     // Build a Unique Index
                                     $invasion_unique_id = "invasion_" . $row['uid'];
 
@@ -122,26 +124,18 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
 						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['grunt_type'] == "mixed" && $row['gender'] == "0") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/James.png?"; ?>'>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/Jessie.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "1") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/James.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "mixed" && $row['gender'] == "2") { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/Jessie.png?"; ?>'>
-                                                    <?php } else if ( $row['grunt_type'] == "everything") { ?>
+                                                    <?php if ( $row['grunt_type'] == "everything") { ?>
                                                     <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
                                                          style="height: 70px;">
                                                          <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
                                                     </div>
-
                                                     <?php } else { ?>
-                                                    <img width=50 loading=lazy src='<?php echo "./grunts/" . $row['grunt_type'] . ".png?"; ?>'>
+						    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
                                                     <?php } ?>
 						</div>
                                                 <?php if ( $row['grunt_type'] <> "everything") { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo ucfirst(i8ln($row['grunt_type'])); ?>
+                                                    <?php echo ucfirst(i8ln(strtolower($row['grunt_type']))); ?>
                                                 </div>
                                                 <?php } ?>
 						<div class="mt-2 text-center">
@@ -191,11 +185,18 @@
                                                         </div>
 						    </div>
                                                     <?php } ?>
-
-
-                                                    <?php
-                                                            }
-                                                            if ($row['clean'] == '1' && $all_invasions_cleaned == '0') {
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
+                                                    <?php }
+                                                            if ($row['clean'] == '1' && $all_invasion_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
@@ -203,10 +204,30 @@
 
 						    <?php 
                                                             }
-                                                            if (isset($allowed_templates["invasions"])) {
+                                                    if ( $enable_templates == "True" ) {
                                                     ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["invasions"]) ? $allowed_templates["invasions"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['invasion'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['invasion']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                 </ul>

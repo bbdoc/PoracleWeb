@@ -1,8 +1,8 @@
 <?php
 
-@include "./config.php";
-@include "./include/db_connect.php";
-@include "./include/cache_handler.php";
+@include_once "./config.php";
+@include_once "./include/db_connect.php";
+@include_once "./include/cache_handler.php";
 
 if(!isset($_SESSION)){
     session_start();
@@ -10,6 +10,7 @@ if(!isset($_SESSION)){
 
 global $localeData;
 global $localePkmnData;
+global $localeItemsData;
 
 function get_form_name($pokemon_id, $form_id) {
 
@@ -22,6 +23,18 @@ function get_form_name($pokemon_id, $form_id) {
          if ( $pokemon['form']['id'] == "$form_id" && $pokemon['form']['id'] <> 0) {
             return $pokemon['form']['name'];
          }
+      }
+   }
+}
+
+function get_item_name($item_id) {
+
+   global $items_json;
+   $json = json_decode($items_json, true);
+
+   foreach ($json as $id => $item) { 
+      if ($id == "$item_id") { 
+            return translate_item($item['name']);
       }
    }
 }
@@ -105,6 +118,27 @@ function translate_mon($word)
     }
 }
 
+function translate_item($word)
+{
+    $locale = @$_SESSION['locale'];
+    if ($locale == "en") {
+        return $word; exit();
+    }
+
+    global $localeItemsData;
+    global $localeItemsData_json;
+
+    if ($localeItemsData == null) {
+        $localeItemsData = json_decode($localeItemsData_json, true);
+    }
+
+    if (isset($localeItemsData[$word])) {
+        return $localeItemsData[$word];
+    } else {
+        return $word;
+    }
+}
+
 function get_areas() {
 
     $areas = $_SESSION['areas']; 
@@ -138,8 +172,8 @@ function get_areas() {
 
 function get_raid_bosses_json() {
 
-   include "./config.php";
-   include "./include/db_connect.php";
+   include_once "./config.php";
+   include_once "./include/db_connect.php";
    global $bosses_json;
    $json = json_decode($bosses_json, true);
    $bosses=array(); 
@@ -162,22 +196,23 @@ function get_raid_bosses_json() {
 
 }
 
-function get_grunts() {
+function get_grunt($type,$gender) {
 
    global $grunts_json;
    $json = json_decode($grunts_json, true);
    $grunts=array();
 
    foreach ($json as $key => $value) { 
-      if ( $key == "gruntTypes" ) { 
-	    foreach ($value as $id => $params) { 
-	       if ($params['gender']=="") { $params['gender'] = "0"; }    
-	       $result = $params['type'] . ',' . $params['gender'];
-	       array_push($grunts, $result); 
-	 }
-      }
+	   if ( strtoupper($value['type']) == strtoupper($type) && $value['gender'] == $gender ) 
+	   { 
+                   return $key;
+	   }
+	   else if ( strtoupper($value['type']) == strtoupper($type) && $gender == 0 )
+           {
+                   return $key;
+           }
+
    }
-   return $grunts;
 
 }
 
@@ -234,10 +269,10 @@ function get_gym_color($id) {
 }
 
 function set_locale() {
-
+   global $conn;
    if (isset($_SESSION['id'])) {
-      include "./config.php";
-      include "./include/db_connect.php";
+      include_once "./config.php";
+      include_once "./include/db_connect.php";
       $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
       $result = $conn->query($sql) or die(mysqli_error($conn));
       while ($row = $result->fetch_assoc()) {  
@@ -312,7 +347,24 @@ function stripComments( $str )
         return $str;
 }
 
-#$grunts=get_grunts();
-#foreach($grunts as $key => $grunt) {
-#	echo $key." | ".$grunt."<br>";
-#}
+
+function checkRemoteFile($url)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    // don't download content
+    curl_setopt($ch, CURLOPT_NOBODY, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+    if($result !== FALSE)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

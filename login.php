@@ -68,6 +68,19 @@
         }
         ?>
 
+        <?php
+        if (isset($_GET['return']) && $_GET['return'] == 'invalid_auth') {
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id='dvAlertTypeAll'>
+            <?php echo i8ln("Invalid Authentication. Please contact your admin"); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?php
+        }
+        ?>
+
         <!-- Outer Row -->
         <div class="row justify-content-center text-center">
 

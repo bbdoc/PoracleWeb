@@ -177,9 +177,17 @@
                                                         </div>
 						    </div>
                                                     <?php } ?>
-
-                                                    <?php
-                                                            }
+                                                    <?php }
+                                                        if ($row['ping'] <> '') {
+                                                    ?>
+                                                    <li
+                                                        class="list-group-item justify-content-between align-items-center">
+                                                        <?php echo i8ln("PING"); ?><br>
+                                                        <div class="bg-secondary text-break text-white p-1 rounded">
+                                                            <span class="small"><?=$row['ping']?></span>
+                                                        </div>
+                                                    </li>
+                                                    <?php }
                                                             if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
@@ -188,10 +196,31 @@
                                                     </div>
                                                     <?php
                                                             }
-                                                            if (isset($allowed_templates["quests"])) {
+                                                    if ( $enable_templates == "True" ) {
                                                             ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
+
                                                     </div>
                                                     <?php } ?>
                                                 </div>
@@ -259,6 +288,10 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
                                                         src='<?php echo $uicons_reward . "/reward/item/" . $row['reward'] . ".png"; ?>'>
+						</div>
+                                                <?php $item_name=get_item_name($row['reward']); ?>
+                                                <div class="mb-0 font-weight-bold text-gray-800 text-center mt-2">
+                                                   <span class="badge badge-primary badge-pill w-100"><?php echo $item_name; ?></span>
                                                 </div>
                                                 <div class="mt-2 text-center">
 
@@ -306,10 +339,30 @@
                                                     </div>
                                                     <?php
                                                             }
-                                                            if (isset($allowed_templates["quests"])) {
-                                                            ?>
+                                                    if ( $enable_templates == "True" ) {
+                                                    ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                     </ul>
@@ -436,10 +489,30 @@
                                                     </div>
                                                     <?php
                                                             }
-                                                            if (isset($allowed_templates)) {
-                                                            ?>
+                                                    if ( $enable_templates == "True" ) {
+                                                    ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                     </ul>
@@ -566,10 +639,30 @@
                                                     </div>
                                                     <?php
                                                             }
-                                                            if (isset($allowed_templates)) {
-                                                            ?>
+                                                    if ( $enable_templates == "True" ) {
+                                                    ?>
 						    <div class="mb-2">
-                                                        <span class="badge badge-pill badge-info w-100">Template: <?php echo array_key_exists($row['template'], $allowed_templates["quests"]) ? $allowed_templates["quests"][$row['template']] : 'UNKNOWN'; ?></span>
+
+                                                    <?php
+
+                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
+                                                    $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
+                                                    $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+
+                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    {
+                                                            $template = $row['template'];
+                                                    }
+                                                    else
+                                                    {
+                                                            $template = "UNKNOWN";
+                                                    }
+
+                                                    ?>
+
+                                                    <span class="badge badge-pill badge-info w-100">Template: <?php echo $template; ?></span>
+
                                                     </div>
                                                     <?php } ?>
                                                     </ul>

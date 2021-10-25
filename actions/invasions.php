@@ -1,7 +1,7 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
 
   // UPDATE INVASIONS
 
@@ -19,7 +19,7 @@
 
     $stmt = $conn->prepare("
       UPDATE invasion
-      SET distance = ?, clean = ?, template = ?, gender = ?
+      SET distance = ?, clean = ?, template = ?, gender = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -28,11 +28,12 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisii",
+      "iisisi",
       $_POST['distance'],
       $clean,
       $template,
       $gender,
+      $_POST['content'],
       $_POST['uid']
     );
 
@@ -98,23 +99,22 @@
       if (substr($value, 0, 6) === "clean_") {
         $clean = ltrim($value, 'clean_');
       }
-      if (substr($value, 0, 7) === "gender_") {
-        $gender = ltrim($value, 'gender_');
-      }
     }
     $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 6) === "grunt_") {
-        $grunt = substr($key, 6); 
+        $gender = substr($key, 6,1); 
+	$grunt = substr($key, 8); 
+	$grunt = str_replace("_", " ", $grunt);
 
         $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type, profile_no)
-	                       VALUES ( ?, '', ? , ?, ?, ?, ?, ?)");
+	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=invasion&return=sql_error&phase=AI1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("siisisi", $_SESSION['id'], $clean, $_POST['distance'], $template, $gender, $grunt, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssiisisi", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $gender, $grunt, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=invasion&return=sql_error&phase=AI2&sql=$stmt->error");
           exit();

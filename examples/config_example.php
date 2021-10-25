@@ -16,6 +16,14 @@ $redirect_url="";
 $discordBotClientId = "";
 $discordBotClientSecret = "";
 
+// If you don't want to use Discord but ONLY use Telegram
+// If you use both you will be able to set those on Server Settings page
+
+#$enable_telegram = "True";
+#$enable_discord = "False";
+#$telegram_bot = "YourBotName";
+#$telegram_bot_name = "YourBotToken";
+
 // Admin User
 $admin_id   = "";
 
@@ -28,58 +36,4 @@ $admin_id   = "";
 # If you need other pokemons to added, use this setting.
 # List all Pokemon IDs separated by commas
 $additional_quest_mons="";
-
-
-// To use different allowed templates for different areas you can use below
-// code block. 
-// if ($_SERVER['HTTP_HOST'] == 'area1.example.com') {
-//      $allowed_templates = []; // different set of templates
-// } else if ($_SERVER['HTTP_HOST'] == 'area2.example.com') {
-//      $allowed_templates = []; // different set of templates
-// }
-// Disable template options by removing or commenting below code block.
-$allowed_templates = [
-	"mons" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	],
-	"raids" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	],
-	"eggs" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	],
-	"quests" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	],
-	"invasions" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	],
-	"lures" => [
-	        1 => "Template 1",
-	        2 => "Template 2",
-	        3 => "Template 3",
-		4 => "Template 4",
-		"Named_Template" => "Template NAME"
-	]
-];
 

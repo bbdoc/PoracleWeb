@@ -1,7 +1,7 @@
 <?php
 
-   include "../config.php";
-   include "../include/db_connect.php";
+   include_once "../config.php";
+   include_once "../include/db_connect.php";
 
   // UPDATE NESTS
 
@@ -16,7 +16,7 @@
 
     $stmt = $conn->prepare("
       UPDATE nests
-      SET distance = ?, clean = ?, min_spawn_avg = ?, template = ?
+      SET distance = ?, clean = ?, min_spawn_avg = ?, template = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -25,11 +25,12 @@
     }
 
     $rs = $stmt->bind_param(
-      "iisii",
+      "iiissi",
       $_POST['distance'],
       $clean,
       $_POST['min_spawns'],
       $template,
+      $_POST['content'],
       $_POST['uid']
     );
 
@@ -103,12 +104,12 @@
         $nest = substr($key, 5); 
 
         $stmt = $conn->prepare("INSERT INTO nests ( id, ping, clean, distance, template, pokemon_id, min_spawn_avg, form, profile_no)
-	                       VALUES ( ?, '', ? , ?, ?, ?, ?, 0, ?)");
+	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, 0, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=nest&return=sql_error&phase=AN1&sql=$stmt->error");
           exit();
         } 
-        $rs = $stmt->bind_param("siisiii", $_SESSION['id'], $clean, $_POST['distance'], $template, $nest, $_POST['min_spawns'], $_SESSION['profile']); 
+        $rs = $stmt->bind_param("ssiisiii", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $nest, $_POST['min_spawns'], $_SESSION['profile']); 
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=nest&return=sql_error&phase=AN2&sql=$stmt->error");
           exit();

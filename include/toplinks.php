@@ -1,38 +1,55 @@
 
 <?php
 
-$sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_mon_tracked = $row['count']; }
+$user_id = $_SESSION['id'];
+$profile_id = $_SESSION['profile'];
+$sql = "
+   SELECT COUNT(*) AS 'Total', 'monsters' AS 'Type' FROM monsters WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'raid' AS 'Type' FROM raid WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'egg' AS 'Type' FROM egg WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'quest' AS 'Type' FROM quest WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'invasion' AS 'Type' FROM invasion WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'lures' AS 'Type' FROM lures WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'nests' AS 'Type' FROM nests WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   UNION
+   SELECT COUNT(*) AS 'Total', 'gym' AS 'Type' FROM gym WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+";
 
-$sql = "select count(*) count FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
 $result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_raid_tracked = $row['count']; }
-
-$sql = "select count(*) count FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_raid_tracked += $row['count']; }
-
-$sql = "select count(*) count FROM quest WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_quest_tracked = $row['count']; }
-
-$sql = "select count(*) count FROM invasion WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_invasion_tracked = $row['count']; }
-
-$sql = "select count(*) count FROM lures WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_lure_tracked = $row['count']; }
-
-$sql = "select count(*) count FROM nests WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_nest_tracked = $row['count']; }
-
-$sql = "select count(*) count FROM gym WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $num_gym_tracked = $row['count']; }
-
+while ($row = $result->fetch_assoc()) {
+   switch ($row['Type']) {
+      case 'monsters':
+         $num_mon_tracked = $row['Total'];
+         break;
+      case 'raid':
+         $num_raid_tracked = $row['Total'];
+         break;
+      case 'egg':
+         $num_raid_tracked = $row['Total'];
+         break;
+      case 'quest':
+         $num_quest_tracked = $row['Total'];
+         break;
+      case 'invasion':
+         $num_invasion_tracked = $row['Total'];
+         break;
+      case 'lures':
+         $num_lure_tracked = $row['Total'];
+         break;
+      case 'nests':
+         $num_nest_tracked = $row['Total'];
+         break;
+      case 'gym':
+         $num_gym_tracked = $row['Total'];
+         break;
+   };
+}
 
 ?>
 

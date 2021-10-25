@@ -33,11 +33,19 @@ if (!isset($_SESSION['admin_id'])) {
                            $result = $conn->query($sql);
            
 	      		   $duplicates=array();
-                           while ($row = $result->fetch_assoc()) {
-				if( strpos(file_get_contents("./config.php"),$row['setting']) !== false )
-				{
-					array_push($duplicates,$row['setting']);
-				}
+			   while ($row = $result->fetch_assoc()) { 
+
+				   $lines = file("./config.php");
+				   foreach ($lines as $lineNumber => $line) {
+					   if (strpos($line, $row['setting']) !== false) {
+						   $setting_value = strstr($line, '"');
+						   $setting_value =  substr($setting_value, 1, strrpos ($setting_value, '"') - 1);
+						   if ( $setting_value <> "" && strpos($line, "#") !== 0  && strpos($line, "//") !== 0 ) {
+							   array_push($duplicates,$row['setting']);
+						   }
+					   }
+				   }
+
                            }   
 
 	   		   if ( count($duplicates) > 0 ) {
@@ -252,7 +260,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("Password"); ?>
                                         </div>
                                     </div>
-                                    <input type='password' id='scan_dbpass' name='scan_dbpass' class="form-control text-center" value="<?php echo $scan_dbpass; ?>">
+                                    <input type='password' id='scan_dbpass' name='scan_dbpass' class="form-control text-center" placeholder="********">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -327,7 +335,7 @@ if (!isset($_SESSION['admin_id'])) {
                                             &nbsp;&nbsp;<?php echo i8ln("API Secret"); ?>
                                         </div>
                                     </div>
-                                    <input type='password' id='api_secret' name='api_secret' class="form-control text-center" value="<?php echo $api_secret; ?>">
+                                    <input type='password' id='api_secret' name='api_secret' class="form-control text-center" placeholder="********">
                                 </div>
                             </div>
 			 </div>
@@ -380,14 +388,24 @@ if (!isset($_SESSION['admin_id'])) {
 				&nbsp;&nbsp;<?php echo i8ln("Enable Telegram Login ?"); ?>
                                 </div>
 				     
-				<div class="input-group">
+				<div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"  style="width:120px;">
                                             &nbsp;&nbsp;<?php echo i8ln("BOT Name"); ?>
                                         </div>
                                     </div>
                                     <input type='text' id='telegram_bot' name='telegram_bot' class="form-control text-center" value="<?php echo @$telegram_bot; ?>">
+				</div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="width:120px;">
+                                            &nbsp;&nbsp;<?php echo i8ln("BOT Token"); ?>
+                                        </div>
+                                    </div>
+                                    <input type='password' id='telegram_bot_token' name='telegram_bot_token' class="form-control text-center" placeholder="********">
                                 </div>
+
                             </div>
                          </div>
 
@@ -879,6 +897,13 @@ if (!isset($_SESSION['admin_id'])) {
                                 <input type="checkbox" name="debug" id="debug" <?php
                                 if (@$debug == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
                                 &nbsp;&nbsp;<?php echo i8ln("Enable Debug Mode"); ?>
+                                </div>
+
+                                <div class="mb-1">
+                                <input type="hidden" name="enable_templates" id="enable_templates" value="off">
+                                <input type="checkbox" name="enable_templates" id="enable_templates" <?php
+                                if (@$enable_templates == "True") { echo "checked"; } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                &nbsp;&nbsp;<?php echo i8ln("Enable Templates"); ?>
                                 </div>
 
                                 <div class="mb-1">
