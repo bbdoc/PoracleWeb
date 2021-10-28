@@ -221,7 +221,7 @@
 
 						    <?php 
                                                             }
-                                                    if ( $enable_templates = "True" ) {
+                                                    if ( $enable_templates == "True" ) {
                                                     ?>
 						    <div class="mb-2">
 
