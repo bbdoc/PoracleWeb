@@ -447,6 +447,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                 <?php
 							}
 
+							
                                                 if ( $enable_templates == "True" ) {
                                                 ?>
 
@@ -454,7 +455,8 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
                                                     <?php 
 
-                                                    $type = explode(":", $_SESSION['type'], 2);
+                                                    $type = explode(":", $_SESSION['type'], 2); 
+						    if ( $type[0] == "webhook" ) { $type[0] = "discord"; }
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['monster'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['monster']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);

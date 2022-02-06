@@ -203,6 +203,7 @@
                                                     <?php
 
                                                     $type = explode(":", $_SESSION['type'], 2);
+                                                    if ( $type[0] == "webhook" ) { $type[0] = "discord"; }
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
@@ -346,6 +347,7 @@
                                                     <?php
 
                                                     $type = explode(":", $_SESSION['type'], 2);
+                                                    if ( $type[0] == "webhook" ) { $type[0] = "discord"; }
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
@@ -496,6 +498,7 @@
                                                     <?php
 
                                                     $type = explode(":", $_SESSION['type'], 2);
+                                                    if ( $type[0] == "webhook" ) { $type[0] = "discord"; }
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
@@ -646,6 +649,7 @@
                                                     <?php
 
                                                     $type = explode(":", $_SESSION['type'], 2);
+                                                    if ( $type[0] == "webhook" ) { $type[0] = "discord"; }
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['quest'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
