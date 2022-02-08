@@ -195,7 +195,7 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
       
           <?php while ($row = $result->fetch_assoc()) { ?>
 
-             <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['webhooks']) ) { ?>
+             <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['name'],$_SESSION['delegated_channels']['discord']['webhooks']) ) { ?>
 
              <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
                  class="btn btn-secondary btn-icon-split mr-2 mt-1">
