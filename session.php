@@ -165,7 +165,7 @@ if ( $json['status']=="ok" ) {
    if ( isset($json['admin']['discord']['users']) && $json['admin']['discord']['users'] == "true" ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
-   if ( isset($json['admin']['telegram']['users']) && $json['admin']['discord']['users'] == "true" ) { 
+   if ( isset($json['admin']['telegram']['users']) && $json['admin']['telegram']['users'] == "true" ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
    if ( $_SESSION['delegated_count'] > 0 ) 
