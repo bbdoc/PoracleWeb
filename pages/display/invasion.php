@@ -172,7 +172,11 @@
 							<?php } ?>
                                                     </li>
 
+<<<<<<< HEAD
                                                     <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True") { ?>
+=======
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
+>>>>>>> parent of 7257e2a... Don't load Modal if Nominatim is disabled
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowInvasions_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowInvasions" aria-hidden="true">

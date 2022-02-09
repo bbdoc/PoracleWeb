@@ -164,7 +164,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -316,7 +316,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -467,7 +467,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -618,7 +618,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+                                                    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
