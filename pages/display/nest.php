@@ -178,7 +178,7 @@
                                                         <?php } ?>
 						    </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowNests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowNests" aria-hidden="true">
