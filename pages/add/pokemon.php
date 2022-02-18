@@ -291,7 +291,7 @@ if ( $disable_mons == "True" ) {
 						if ( $cap == 0 ) { $display_cap = "ALL"; } else { $display_cap = $cap; }
                                     ?>
                                     <label class="btn btn-secondary">
-                                        <input type="radio" name="cap_<?php echo $cap; ?>" id="cap_<?php echo $cap; ?>" value="cap_<?php echo $cap; ?>" <?php echo $checked; ?>><?php echo i8ln($display_cap); ?>
+                                        <input type="radio" name="cap" id="cap_<?php echo $cap; ?>" value="cap_<?php echo $cap; ?>" <?php echo $checked; ?>><?php echo i8ln($display_cap); ?>
                                     </label>
                                     <?php } ?>
                                 </div>
