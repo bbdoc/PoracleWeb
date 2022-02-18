@@ -4,12 +4,8 @@
    include_once "../include/db_connect.php";
    include_once "../include/defaults.php";
 
-   if ( isset($_POST['gen']) ) { 
-	   $gen = $_POST['gen'];
-   } else {
-	   $gen = "" ;
-   }
-
+   if ( isset($_POST['gen']) ) { $gen = $_POST['gen']; } else { $gen = "" ; }
+   if ( !isset($_POST['cap']) ) { $cap = $_SESSION['defaultPvpCap']; }
 
    // Use Default Values if Empty POST or no set
    if (!isset($_POST['min_iv']) || $_POST['min_iv'] == "") { $_POST['min_iv'] = $monster_defaults['min_iv']; }
