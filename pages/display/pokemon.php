@@ -389,6 +389,17 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 							    <?php if ( $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
                                                             <?php echo $row['pvp_ranking_worst']; ?>
                                                             @<?php echo $row['pvp_ranking_min_cp']; ?></span>
+						    </li>
+                                                    <?php
+                                                            }
+                                                            if ($row['pvp_ranking_cap'] <> '0') {
+                                                            ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("PvP Cap"); ?>
+                                                        <span
+                                                            class="badge badge-primary badge-pill"><?php echo $row['pvp_ranking_cap']; ?>
+                                                        </span>
                                                     </li>
                                                     <?php
                                                             }
