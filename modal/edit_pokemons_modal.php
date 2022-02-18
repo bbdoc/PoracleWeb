@@ -346,6 +346,32 @@ if ($row['pokemon_id'] == '0') {
                             class="form-control text-center">
                     </div>
                 </div>
+
+                <?php if ( count($_SESSION['pvpCaps']) > 0 ) { ?>
+                <div class="col-sm-12 my-1">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><?php echo i8ln("Cap"); ?></div>
+                            </div>
+                        </div>
+                        <?php
+                            $pvpCaps = $_SESSION['pvpCaps'];
+                            array_push($pvpCaps, $_SESSION['defaultPvpCap']);
+                            $pvpCaps = array_unique($pvpCaps);
+                            sort($pvpCaps);
+                            foreach($pvpCaps as $key => $cap)
+                            {
+                                    if ( $cap == $row['pvp_ranking_cap'] ) { $checked = "checked"; } else { $checked = ""; } 
+                        ?>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="cap_<?php echo $cap; ?>" id="cap_<?php echo $cap; ?>" value="cap_<?php echo $cap; ?>" <?php echo $checked; ?>><?php echo $cap; ?>
+                        </label>
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php } ?>
+
 	    </div>
 
         </div>
