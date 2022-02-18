@@ -347,7 +347,7 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
 
-                <?php if ( count($_SESSION['pvpCaps']) > 0 ) { ?>
+                <?php if ( count($_SESSION['pvpCaps']) > 1 ) { ?>
                 <div class="col-sm-12 my-1">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <div class="input-group">
