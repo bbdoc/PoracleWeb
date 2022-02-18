@@ -88,14 +88,6 @@ if (isset($_POST['sync'])) {
                       WHERE id = ?
                       ");
 
-
-	      echo "INSERT INTO ".$target_db.".raid
-                      (id, ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no)
-                      SELECT REPLACE(id, ".$_SESSION['id'].", ".$target_id." ),
-                      ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no
-                      FROM raid
-                      WHERE id = ".$_SESSION['id'];
-
               $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
               $rs = $stmt->execute();
               $stmt->close();
