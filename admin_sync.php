@@ -72,9 +72,6 @@ foreach ($dbnames as &$db) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid col-lg-8 col-md-12">
 
-                    <!-- Profile Settings Modal -->
-		    <?php include "./modal/profile_settings_modal.php"; ?>
-
                     <!-- Title -->
 
                     <h4 class="modal-title m-2">
