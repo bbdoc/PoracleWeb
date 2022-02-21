@@ -11,6 +11,7 @@ if (isset($_POST['sync'])) {
 	      $target_fields = explode("|", $target);
 	      $target_db=$target_fields[0];
 	      $target_id=$target_fields[1];
+	      $target_id=str_replace("_com", ".com", $target_id);
 
               // Delete All Previous Trackings
 	      $stmt = $conn->prepare("DELETE FROM ".$target_db.".monsters WHERE id = ?");
