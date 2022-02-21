@@ -206,7 +206,7 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
    $admin_alarm.="</div>";
    $admin_mode = "True";
 
-   if ($_SESSION['type'] == "discord:channel" || $_SESSION['type'] == "telegram:channel" || $_SESSION['type'] == "telegram:group" ) {
+   if ($_SESSION['type'] == "discord:channel" || $_SESSION['type'] == "telegram:channel" || $_SESSION['type'] == "telegram:group" || $_SESSION['type'] == "webhook" ) {
            $admin_alarm.="<a href='./admin_sync.php'>";
            $admin_alarm.="<button type='button' class='btn mb-2' style='width:100%; background-color:darkred; color:white;'>";
            $admin_alarm.=i8ln("Synchronize Other Channels with this one");

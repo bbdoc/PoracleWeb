@@ -188,6 +188,56 @@ foreach ($dbnames as &$db) {
 
                     <?php } ?>
 
+                    <!-- Webhooks -->
+
+                    <?php
+
+                    $dbnames = explode(",", $dbname);
+                    foreach ($dbnames as &$db) {
+
+                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
+                       $sql = "select id, name, type FROM humans WHERE type like 'webhook' AND id <> '".$_SESSION['id']."' ORDER by name";
+                       $result = $conn->query($sql);
+                       ?>
+
+                    <?php if ($result->num_rows <> 0) { ?>
+
+                    <hr>
+
+                    <!-- Heading -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-secondary text-center" role="alert">
+                                <?php if ($num_dbs > 1) { echo $db."<br>"; } ?>
+                                <strong><?php echo i8ln("WEBHOOKS TO SYNC WITH"); ?></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id='discord' class='areasform text-uppercase text-center'>
+
+                        <ul>
+                        <?php while ($row = $result->fetch_assoc()) {
+                           $target_id=$db."|".$row['id'];
+                        ?>
+
+                        <li class="btn btn-secondary btn-icon-split mr-2 mt-1">
+                            <span class="icon text-white-50">
+                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
+                                <label for='target_<?php echo $target_id; ?>'><font size="1">WH</font></label>
+                            </span>
+                            <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                        </li>
+
+                        <?php } ?>
+                        </ul>
+
+                    </div>
+
+                    <?php } ?>
+
+                    <?php } ?>
+
 		    <center><hr>
 		    <input class="btn" style="background-color:darkred; color:white;" type='submit' name='sync' id="sync" 
                            value='<?php echo i8ln("CONFIRM CHANNEL SYNCHRONIZATION"); ?>'>
