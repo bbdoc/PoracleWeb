@@ -4,12 +4,8 @@
    include_once "../include/db_connect.php";
    include_once "../include/defaults.php";
 
-   if ( isset($_POST['gen']) ) { 
-	   $gen = $_POST['gen'];
-   } else {
-	   $gen = "" ;
-   }
-
+   if ( isset($_POST['gen']) ) { $gen = $_POST['gen']; } else { $gen = "" ; }
+   if ( !isset($_POST['cap']) ) { $cap = $_SESSION['defaultPvpCap']; }
 
    // Use Default Values if Empty POST or no set
    if (!isset($_POST['min_iv']) || $_POST['min_iv'] == "") { $_POST['min_iv'] = $monster_defaults['min_iv']; }
@@ -53,6 +49,9 @@
       if (substr($value, 0, 7) == "gender_") {
         $gender = ltrim($value, 'gender_');
       }
+      if (substr($value, 0, 4) == "cap_") {
+        $cap = ltrim($value, 'cap_');
+      }
       if (substr($value, 0, 6) == "clean_") {
         $clean = ltrim($value, 'clean_'); 
       }
@@ -64,7 +63,7 @@
       SET ping = ?, distance = ?, min_iv = ?, max_iv = ?, min_cp = ?, max_cp = ?, 
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
-          pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?,
+          pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?, pvp_ranking_cap = ?,
           form = ?, gender = ?, clean = ?, template = ? 
       WHERE uid = ?");
 
@@ -74,7 +73,7 @@
     }
 
     $rs = $stmt->bind_param(
-      "siiiiiiiiiiiiiiiiiiiiiisi",
+      "siiiiiiiiiiiiiiiiiiiiiiisi",
       $_POST['content'],
       $_POST['distance'],
       $_POST['min_iv'],
@@ -95,6 +94,7 @@
       $_POST['pvp_ranking_best'],
       $_POST['pvp_ranking_min_cp'],
       $_POST['league'],
+      $cap,
       $form,
       $gender,
       $clean,
@@ -163,6 +163,9 @@
       if (substr($value, 0, 7) === "gender_") {
         $gender = ltrim($value, 'gender_');
       }
+      if (substr($value, 0, 4) === "cap_") {
+        $cap = ltrim($value, 'cap_');
+      }
       if (substr($value, 0, 6) === "clean_") { 
         $clean = ltrim($value, 'clean_'); 
       }
@@ -182,10 +185,10 @@
              atk, def, sta, template, clean,
              min_weight, max_weight, form,
              max_atk, max_def, max_sta, gender,
-             pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league,
+             pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
              profile_no
            )
-	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=sql_error&phase=AM1&sql=$stmt->error");
@@ -193,7 +196,7 @@
         }
 
         $rs = $stmt->bind_param(
-          "sssiiiiiiiiiisiiiiiiiiiiii",
+          "sssiiiiiiiiiisiiiiiiiiiiiii",
           $_SESSION['id'],
           $_POST['content'],
           $pokemon_id,
@@ -219,6 +222,7 @@
           $_POST['pvp_ranking_best'],
           $_POST['pvp_ranking_min_cp'],
 	  $_POST['league'],
+	  $cap,
 	  $_SESSION['profile']
         );
 

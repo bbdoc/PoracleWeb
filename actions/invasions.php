@@ -109,7 +109,7 @@
 	$grunt = str_replace("_", " ", $grunt);
 
         $stmt = $conn->prepare("INSERT INTO invasion ( id, ping, clean, distance, template, gender, grunt_type, profile_no)
-	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, ?)");
+	                       VALUES ( ?, ?, ? , ?, ?, ?, LCASE(?), ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=invasion&return=sql_error&phase=AI1&sql=$stmt->error");
           exit();

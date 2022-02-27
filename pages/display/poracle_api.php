@@ -131,6 +131,35 @@ if (!isset($_SESSION['admin_id'])) {
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text" style="width:220px;">
+                        &nbsp;&nbsp;<?php echo i8ln("PvP Caps"); ?>
+                    </div>
+                </div>
+		<div class="form-control text-center">
+                    <?php 
+                    foreach($_SESSION['pvpCaps'] as $key => $cap) {
+		        echo "<span class='badge badge-dark' style='width:80px;'>".$cap."</span>";
+		    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:220px;">
+                        &nbsp;&nbsp;<?php echo i8ln("PvP Default Cap"); ?>
+                    </div>
+                </div>
+                <div class="form-control text-center"><?php echo $_SESSION['defaultPvpCap']; ?></div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:220px;">
                         &nbsp;&nbsp;<?php echo i8ln("PvP Little Min CP"); ?>
                     </div>
                 </div>

@@ -39,7 +39,7 @@ $_SESSION['avatar'] = $_GET['photo_url'];
 if (isset($_SESSION['username'])) {
    $_SESSION['username'] = $_GET['username'];
 } else {
-   $_SESSION['username'] = $_GET['first_name'] . " " . $_GET['last_name'];
+   $_SESSION['username'] = @$_GET['first_name'] . " " . @$_GET['last_name'];
 }
 
 include_once "./session.php";

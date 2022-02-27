@@ -91,6 +91,8 @@ if ( $json['status']=="ok" ) {
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
    $_SESSION['poracle_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
+   $_SESSION['pvpCaps'] = $json['pvpCaps'];
+   $_SESSION['defaultPvpCap'] = $json['defaultPvpCap'];
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
@@ -165,7 +167,7 @@ if ( $json['status']=="ok" ) {
    if ( isset($json['admin']['discord']['users']) && $json['admin']['discord']['users'] == "true" ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
-   if ( isset($json['admin']['telegram']['users']) && $json['admin']['discord']['users'] == "true" ) { 
+   if ( isset($json['admin']['telegram']['users']) && $json['admin']['telegram']['users'] == "true" ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
    if ( $_SESSION['delegated_count'] > 0 ) 

@@ -37,8 +37,7 @@ echo "</div>";
     <hr>
     <?php } else { ?>
     <input type="hidden" id='content_edit' name='content' value=''>
-    <?php } ?>>
-    <hr>
+    <?php } ?>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
             <div class="input-group-prepend">
