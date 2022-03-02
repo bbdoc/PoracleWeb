@@ -431,5 +431,6 @@
     "Small":"Mini",
     "Average":"Normale",
     "Large":"Maxi",
-    "Super":"Ultra"
+    "Super":"Ultra",
+    "Cannot Write to Cache Folder": "Pas d'accès en écriture sur le dossier cache"
 }

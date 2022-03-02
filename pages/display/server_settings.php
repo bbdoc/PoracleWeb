@@ -154,13 +154,19 @@ if (!isset($_SESSION['admin_id'])) {
 
                         // Check Cache Folder
 
-			if (!file_exists("./.cache")) 
+			if (!file_exists("./.cache"))
 			{
 			   echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
 			   echo i8ln("No Cache Folder found")."<br>";
 			   echo i8ln("To activate cache please perform following actions from your PoracleWeb root folder").":<br>";
 			   echo "<code>mkdir .cache<br>chown www-data:www-data .cache<br>chmod 744 .cache</code>";
 			   echo "</div>";
+			} else if (!is_writable("./.cache")) {
+                           echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
+                           echo i8ln("Cannot Write to Cache Folder")."<br>";
+                           echo i8ln("To activate cache please perform following actions from your PoracleWeb root folder").":<br>";
+                           echo "<code>chown www-data:www-data .cache<br>chmod 744 .cache</code>";
+                           echo "</div>";
                         } else {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Cache Folder found. Cache Active")."</div>";
                         }
