@@ -4,7 +4,7 @@ include_once "../config.php";
 
 $opts = array(
   'http'=>array(
-    'method'=>"GET",
+    'method'=>"POST",
     'header'=>"Accept-language: en\r\n" .
               "X-Poracle-Secret: $api_secret\r\n"
   )
