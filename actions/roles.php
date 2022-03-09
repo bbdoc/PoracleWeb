@@ -1,6 +1,7 @@
 <?php
 
 include_once "../config.php";
+include_once "../include/db_connect.php";
 
 $opts = array(
   'http'=>array(
