@@ -432,5 +432,9 @@
     "Average":"Normale",
     "Large":"Maxi",
     "Super":"Ultra",
-    "Cannot Write to Cache Folder": "Pas d'accès en écriture sur le dossier cache"
+    "Cannot Write to Cache Folder": "Pas d'accès en écriture sur le dossier cache",
+    "Select multiple options":"Sélectionnez les options souhaitées",
+    "Select Max 1 option":"Sélectionnez Max 1 option",
+    "Sorry Nothing to Show":"Désolé, aucun résultat",
+    "Role Management":"Gestion des Roles"
 }
