@@ -1,5 +1,3 @@
-<!-- Title -->
-
 <?php
 
         echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
@@ -20,8 +18,8 @@ else {
 ?>
 
 <center>
-<form action='#' method='POST' id='search'>
-<select name='guild' class='form-select form-select-lg m-1' style='height:35px;'>
+<form action='#' method='POST' id="guild">
+<select onchange="this.form.submit()" name='guild' class='form-select form-select-lg m-1' style='height:35px;'>
 
 <?php
 
@@ -36,7 +34,6 @@ foreach ($json['guilds'] as $key => $value) {
 ?>
 
 </select>
-<button type='submit' id='submit' name='submit' class='btn btn-light'><i class='fas fa-search'></i></button>
 </form>
 </center>
 <br>
