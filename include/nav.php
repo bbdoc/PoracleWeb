@@ -226,11 +226,20 @@
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=profiles">
                 <i class="fas fa-users"></i>&nbsp;&nbsp; <?php echo i8ln('Profiles'); ?>
 	      </a>
-              <?php }  ?>
+	      <?php }  ?>
+
 	      <div class="dropdown-divider"></div>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=cleaning">
                 <i class="fas fa-eraser"></i>&nbsp;&nbsp; <?php echo i8ln('Cleaning'); ?>
+	      </a>
+
+              <?php if (@$enable_roles == "True") { ?>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="<?php echo $redirect_url; ?>?type=display&page=manage_roles">
+                <i class="fab fa-discord"></i>&nbsp;&nbsp; <?php echo i8ln('Roles'); ?>
               </a>
+              <?php }  ?>
+
 
           </div>
         </div>
