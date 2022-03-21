@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="<?php echo $raid_unique_id ?>DeleteModalTitle">
+    <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for Raids Level"); ?>
         <?php echo $row['level']; ?>
     </h5>

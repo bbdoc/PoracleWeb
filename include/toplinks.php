@@ -31,7 +31,7 @@ while ($row = $result->fetch_assoc()) {
          $num_raid_tracked = $row['Total'];
          break;
       case 'egg':
-         $num_raid_tracked = $row['Total'];
+         $num_raid_tracked += $row['Total'];
          break;
       case 'quest':
          $num_quest_tracked = $row['Total'];

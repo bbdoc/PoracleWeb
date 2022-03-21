@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="<?php echo $pkm_unique_id ?>DeleteModalTitle">
+    <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for"); ?>
         <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
         <?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?> ?

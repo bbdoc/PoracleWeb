@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="<?php echo $quest_unique_id ?>DeleteModalTitle">
+    <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo $delete_title; ?>
         <?php echo $pokemon_name; ?>
     </h5>

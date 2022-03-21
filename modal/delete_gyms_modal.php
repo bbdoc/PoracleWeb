@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="<?php echo $gym_unique_id ?>DeleteModalTitle">
+    <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for Gyms"); ?>
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
