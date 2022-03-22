@@ -8,7 +8,7 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $sql = "SELECT distance from gyms WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
+    $sql = "SELECT distance from gym WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
     $result = $conn->query($sql);
     if (!empty($result) && $result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
