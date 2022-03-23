@@ -388,7 +388,7 @@ function getMiniMap($latitude, $longitude, $distance)
    $urlkey=str_replace('.', '_', $urlkey);
    $fileURL = ".cache/MiniMaps/".$urlkey.".png";
 
-   #if (!file_exists($fileURL)) { 
+   if (!file_exists($fileURL)) { 
            $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/$distance", false, $context); 
            $json = json_decode($config, true); 
            if ( $json['status']="ok" ) { 
@@ -396,7 +396,7 @@ function getMiniMap($latitude, $longitude, $distance)
 		   $map_image = file_get_contents($mapURL);
                    file_put_contents($fileURL, $map_image);
            }
-   #}
+   }
 
    return $fileURL;
 
