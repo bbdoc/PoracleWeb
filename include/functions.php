@@ -368,3 +368,36 @@ function checkRemoteFile($url)
         return false;
     }
 }
+
+function getMiniMap($latitude, $longitude, $distance)
+{
+
+   include "./config.php";
+   include "./include/db_connect.php"; 
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+   $context = stream_context_create($opts);
+
+   $urlkey=$latitude."_".$longitude."_".$distance;
+   $urlkey=str_replace('.', '_', $urlkey);
+   $fileURL = ".cache/MiniMaps/".$urlkey.".png";
+
+   #if (!file_exists($fileURL)) { 
+           $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/$distance", false, $context); 
+           $json = json_decode($config, true); 
+           if ( $json['status']="ok" ) { 
+		   $mapURL = $json['url'];  
+		   $map_image = file_get_contents($mapURL);
+                   file_put_contents($fileURL, $map_image);
+           }
+   #}
+
+   return $fileURL;
+
+}
