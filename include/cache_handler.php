@@ -41,6 +41,10 @@ if (!file_exists('./.cache/MiniMaps')) {
     mkdir('./.cache/MiniMaps', 0744, true);
 }
 
+if (!file_exists('./.cache/LocationMaps')) {
+    mkdir('./.cache/LocationMaps', 0744, true);
+}
+
 // Get Config Items from API and Store in Session Variables
 
 $opts = array(

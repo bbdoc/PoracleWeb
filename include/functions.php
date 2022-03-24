@@ -399,5 +399,39 @@ function getMiniMap($latitude, $longitude, $distance)
    }
 
    return $fileURL;
-
 }
+
+function getLocationMap($latitude, $longitude)
+{
+
+   include "./config.php";
+   include "./include/db_connect.php";
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+   $context = stream_context_create($opts);
+
+   $urlkey=$latitude."_".$longitude;
+   $urlkey=str_replace('.', '_', $urlkey);
+   $fileURL = ".cache/LocationMaps/".$urlkey.".png";
+
+   if (!file_exists($fileURL)) {
+           $config = file_get_contents("$api_address/api/geofence/locationMap/$latitude/$longitude", false, $context);
+           $json = json_decode($config, true);
+           if ( $json['status']="ok" ) {
+                   $mapURL = $json['url'];
+                   $map_image = file_get_contents($mapURL);
+                   file_put_contents($fileURL, $map_image);
+           }
+   }
+
+   return $fileURL;
+}
+
+
+
