@@ -110,7 +110,7 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $eggs = explode(',', "1,3,5,6");
+                                    $eggs = explode(',', "1,3,5,6,7");
                                     foreach ($eggs as &$egg) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
@@ -137,7 +137,7 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $raids = explode(',', "1,3,5,6");
+                                    $raids = explode(',', "1,3,5,6,7");
                                     foreach ($raids as &$raid) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='raid_<?php echo $raid; ?>'
