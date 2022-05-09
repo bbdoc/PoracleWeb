@@ -23,7 +23,6 @@ $monster_defaults = array(
 );
 
 $min_poracle_version = "4.5.3";
-
 $max_pokemon="890";
 
 ?>

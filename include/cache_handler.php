@@ -18,7 +18,7 @@ global $file_localeItemsData;
 $file_localeItemsData = "./.cache/localeItemsData_".$locale.".json";
 
 global $repo_poracle;
-$repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop";
+$repo_poracle="https://raw.githubusercontent.com/KartulUdus/PoracleJS/master";
 $repo_poracle_cache="24";
 
 global $repo_MasterData;
