@@ -41,12 +41,14 @@ input[type="checkbox"][id^="lure"],
 input[type="checkbox"][id^="gym"],
 input[type="checkbox"][id^="nest"],
 input[type="checkbox"][id^="language"],
+input[type="checkbox"][id^="role"],
 input[type="checkbox"][id^="item"] {
     display: none;
 }
 
 input[type="radio"][id^="area"],
 input[type="radio"][id^="profile"],
+input[type="radio"][id^="role"],
 input[type="radio"][id^="uicons_repo"]
 {
     display: none;
@@ -63,6 +65,7 @@ label[for^="grunt"],
 label[for^="lure"],
 label[for^="gym"],
 label[for^="nest"],
+label[for^="role"],
 label[for^="item"] {
     background-color: #858796;
     color: #ffffff;
@@ -177,6 +180,7 @@ label img {
 :checked+label[for^="lure"], 
 :checked+label[for^="gym"], 
 :checked+label[for^="nest"], 
+:checked+label[for^="role"], 
 :checked+label[for^="item"] {
     border-color: #ddd;
     position: relative;
@@ -222,6 +226,7 @@ label[for^="uicons_repo"] {
  :checked+label[for^="lure"]::before,
  :checked+label[for^="gym"]::before,
  :checked+label[for^="nest"]::before,
+ :checked+label[for^="role"]::before,
  :checked+label[for^="item"]::before {
     content: "✓";
     color: #ffffff;

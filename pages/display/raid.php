@@ -108,7 +108,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $egg_unique_id = "raid_" . $row['uid'];
+                                    $unique_id = "egg_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -214,12 +214,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $egg_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $egg_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -229,8 +229,8 @@
                             </div>
 
                             <!-- EDIT EGG Modal -->
-                            <div class="modal fade" id="<?php echo $egg_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $egg_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_eggs_modal.php"; ?>
@@ -239,8 +239,8 @@
                             </div>
 
                             <!-- DELETE EGG Modal -->
-                            <div class="modal fade" id="<?php echo $egg_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $egg_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -259,7 +259,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['uid'];
+                                    $unique_id = "raid_" . $row['uid'];
 
                                 ?>
 
@@ -364,12 +364,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $raid_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $raid_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -379,8 +379,8 @@
                             </div>
 
                             <!-- EDIT Raid Modal -->
-                            <div class="modal fade" id="<?php echo $raid_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $raid_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_raids_modal.php"; ?>
@@ -388,8 +388,8 @@
                                 </div>
                             </div>
                             <!-- DELETE RAID Modal -->
-                            <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -407,7 +407,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $raid_unique_id = "raid_" . $row['uid'];
+                                    $unique_id = "raid_" . $row['uid'];
                                     $pokemon_name = get_mons($row['pokemon_id']);
 
                                 ?>
@@ -535,12 +535,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $raid_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $raid_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -550,8 +550,8 @@
                             </div>
 
                             <!-- EDIT Monster Raid Modal -->
-                            <div class="modal fade" id="<?php echo $raid_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $raid_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_raids_modal.php"; ?>
@@ -560,8 +560,8 @@
                             </div>
                             <!-- DELETE Monster RAID Modal -->
                             <?php $pokemon_name=get_mons($row['pokemon_id']); ?>
-                            <div class="modal fade" id="<?php echo $raid_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $raid_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">

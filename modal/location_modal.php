@@ -21,22 +21,10 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 
 }
 
-// Get Map Image URL from API
+   // Get Map Image URL from API
 
-   $opts = array(
-     'http'=>array(
-       'method'=>"GET",
-       'header'=>"Accept-language: en\r\n" .
-                 "X-Poracle-Secret: $api_secret\r\n"
-     )
-   );
-
-   $context = stream_context_create($opts);
-
-   $config = file_get_contents("$api_address/api/geofence/locationMap/$latitude/$longitude", false, $context);
-   $json = json_decode($config, true); 
-
-   if ( $json['status']="ok" ) { echo " <div class='text-center'> <img src='".$json['url']."' width=300> </div> "; }
+   $map = getLocationMap($latitude, $longitude, $row['distance']);
+   echo "<div class='text-center'> <img src='".$map."' width=300> </div> ";
 
 ?>
 

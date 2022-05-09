@@ -112,7 +112,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $nest_unique_id = "nest_" . $row['uid'];
+                                    $unique_id = "nest_" . $row['uid'];
 
                                 ?>
 			    <!-- Card -->
@@ -256,12 +256,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $nest_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $nest_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -271,8 +271,8 @@
                             </div>
 
                             <!-- EDIT NEST Modal -->
-                            <div class="modal fade" id="<?php echo $nest_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $nest_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_nests_modal.php"; ?>
@@ -281,8 +281,8 @@
                             </div>
 
                             <!-- DELETE NEST Modal -->
-                            <div class="modal fade" id="<?php echo $nest_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $nest_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">

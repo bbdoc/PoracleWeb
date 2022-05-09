@@ -8,7 +8,7 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $sql = "SELECT distance from invasions WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
+    $sql = "SELECT distance from invasion WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
     $result = $conn->query($sql);
     if (!empty($result) && $result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
@@ -29,7 +29,8 @@
                    <div class="input-group-text"><?php echo i8ln("Distance"); ?></div>
                </div>
                <input type='hidden' id='type' name='type' value='quests'>
-               <input type="number" id='distance' name='distance' value='<?php echo $distance_set; ?>' min='0'
+	       <input type="number" id='distance' name='distance' value='<?php echo $distance_set; ?>' min='0'
+                   max='<?php echo $_SESSION['maxDistance']; ?>'
                    class="form-control text-center">
                <div class="input-group-append">
                   <span class="input-group-text"><?php echo i8ln("meters"); ?></span>

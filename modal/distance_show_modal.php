@@ -10,27 +10,9 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 <?php 
 } else {
 
-// Get Map Image URL from API
+   // Get Map Image URL from API
+   $map = getMiniMap($latitude, $longitude, $row['distance']);
 
-   $opts = array(
-     'http'=>array(
-       'method'=>"GET",
-       'header'=>"Accept-language: en\r\n" .
-                 "X-Poracle-Secret: $api_secret\r\n"
-     )
-   );
-   $context = stream_context_create($opts);
-
-   $urlkey=$latitude."_".$longitude."_".$row['distance'];
-   if (!isset($url_list[$urlkey])) {
-	   $config = file_get_contents("$api_address/api/geofence/distanceMap/$latitude/$longitude/".$row['distance'], false, $context);
-	   $json = json_decode($config, true);
-	   if ( $json['status']="ok" ) { 
-		   $map = $json['url']; 
-		   $url_list[$urlkey] = $json['url']; 
-	   } 
-   } 
-   $map = $url_list[$urlkey]; 
 ?>
 
 <div class="modal-header">

@@ -35,6 +35,15 @@ $repo_pogoinfo_cache="2";
 
 $img_cache="24";
 
+// Create MiniMap Cache Dir if not Exist
+
+if (!file_exists('./.cache/MiniMaps')) {
+    mkdir('./.cache/MiniMaps', 0744, true);
+}
+
+if (!file_exists('./.cache/LocationMaps')) {
+    mkdir('./.cache/LocationMaps', 0744, true);
+}
 
 // Get Config Items from API and Store in Session Variables
 

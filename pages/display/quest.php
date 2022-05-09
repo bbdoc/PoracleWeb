@@ -113,7 +113,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['uid'];
+                                    $unique_id = "quest_" . $row['uid'];
 
                                     // Add Hidden Fancy Boxes
                                     $mon_id = $row['reward'];
@@ -231,12 +231,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -246,8 +246,8 @@
                             </div>
 
                             <!-- EDIT QUEST Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_quests_modal.php"; ?>
@@ -255,8 +255,8 @@
                                 </div>
                             </div>
                             <!-- DELETE QUEST Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
@@ -277,7 +277,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['uid'];
+                                    $unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -375,12 +375,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -390,8 +390,8 @@
                             </div>
 
                             <!-- EDIT QUEST Item Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_quests_modal.php"; ?>
@@ -399,8 +399,8 @@
                                 </div>
                             </div>
                             <!-- DELETE QUEST Item Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -423,7 +423,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['uid'];
+                                    $unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -526,12 +526,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -540,8 +540,8 @@
                                 </div>
                             </div>
                             <!-- EDIT QUEST MEGA Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_quests_modal.php"; ?>
@@ -549,8 +549,8 @@
                                 </div>
                             </div>
                             <!-- DELETE QUEST MEGA Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
@@ -572,7 +572,7 @@
                                 while ($row = $result->fetch_assoc()) {
 
                                     // Build a Unique Index
-                                    $quest_unique_id = "quest_" . $row['uid'];
+                                    $unique_id = "quest_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
@@ -677,12 +677,12 @@
                                             <div class="row">
                                                 <a href="#" class="btn btn-danger btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>DeleteModal">
+                                                    data-target="#<?php echo $unique_id ?>DeleteModal">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-success btn-circle btn-md m-1"
                                                     data-toggle="modal"
-                                                    data-target="#<?php echo $quest_unique_id ?>Modal">
+                                                    data-target="#<?php echo $unique_id ?>Modal">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
@@ -691,8 +691,8 @@
                                 </div>
                             </div>
                             <!-- EDIT QUEST MEGA Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="<?php echo $quest_unique_id ?>ModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?php echo $unique_id ?>Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="<?php echo $unique_id ?>ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <?php include "./modal/edit_quests_modal.php"; ?>
@@ -700,8 +700,8 @@
                                 </div>
                             </div>
                             <!-- DELETE QUEST MEGA Modal -->
-                            <div class="modal fade" id="<?php echo $quest_unique_id ?>DeleteModal" tabindex="-1"
-                                role="dialog" aria-labelledby="<?php echo $quest_unique_id ?>DeleteModalLabel"
+                            <div class="modal fade" id="<?php echo $unique_id ?>DeleteModal" tabindex="-1"
+                                role="dialog" aria-labelledby="<?php echo $unique_id ?>DeleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">

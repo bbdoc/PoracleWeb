@@ -37,35 +37,35 @@ if ($row['pokemon_id'] == '0') {
     <input type='hidden' id='type' name='type' value='monsters'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
 
-    <ul class="nav nav-pills mb-3 mx-auto justify-content-center" id="pills-tab-<?php echo $pkm_unique_id ?>"
+    <ul class="nav nav-pills mb-3 mx-auto justify-content-center" id="pills-tab-<?php echo $unique_id ?>"
         role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="pills-stats-tab-<?php echo $pkm_unique_id ?>" data-toggle="pill"
-                href="#pills-stats-<?php echo $pkm_unique_id ?>" role="tab"
-                aria-controls="pills-stats-<?php echo $pkm_unique_id ?>" aria-selected="true">Stats</a>
+            <a class="nav-link active" id="pills-stats-tab-<?php echo $unique_id ?>" data-toggle="pill"
+                href="#pills-stats-<?php echo $unique_id ?>" role="tab"
+                aria-controls="pills-stats-<?php echo $unique_id ?>" aria-selected="true">Stats</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-pvp-tab-<?php echo $pkm_unique_id ?>" data-toggle="pill"
-                href="#pills-pvp-<?php echo $pkm_unique_id ?>" role="tab"
-                aria-controls="pills-pvp-<?php echo $pkm_unique_id ?>" aria-selected="false">PvP</a>
+            <a class="nav-link" id="pills-pvp-tab-<?php echo $unique_id ?>" data-toggle="pill"
+                href="#pills-pvp-<?php echo $unique_id ?>" role="tab"
+                aria-controls="pills-pvp-<?php echo $unique_id ?>" aria-selected="false">PvP</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-other-tab-<?php echo $pkm_unique_id ?>" data-toggle="pill"
-                href="#pills-other-<?php echo $pkm_unique_id ?>" role="tab"
-		aria-controls="pills-other-<?php echo $pkm_unique_id ?>" aria-selected="false"><?php echo i8ln("Other"); ?></a>
+            <a class="nav-link" id="pills-other-tab-<?php echo $unique_id ?>" data-toggle="pill"
+                href="#pills-other-<?php echo $unique_id ?>" role="tab"
+		aria-controls="pills-other-<?php echo $unique_id ?>" aria-selected="false"><?php echo i8ln("Other"); ?></a>
         </li>
     </ul>
-    <div class="tab-content" id="pills-tab-<?php echo $pkm_unique_id ?>Content">
-        <div class="tab-pane fade show active" id="pills-stats-<?php echo $pkm_unique_id ?>" role="tabpanel"
-	    aria-labelledby="pills-stats-tab-<?php echo $pkm_unique_id ?>">
+    <div class="tab-content" id="pills-tab-<?php echo $unique_id ?>Content">
+        <div class="tab-pane fade show active" id="pills-stats-<?php echo $unique_id ?>" role="tabpanel"
+	    aria-labelledby="pills-stats-tab-<?php echo $unique_id ?>">
 	    <?php include "./include/edit_area_distance.php"; ?>
 
             <div class="form-row align-items-center">
 		<div class="col-sm-12 my-1">
                     <div class="input-group mb-1">
-		    <input type="checkbox" name="noiv" id="noiv_<?php echo $pkm_unique_id; ?>" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
+		    <input type="checkbox" name="noiv" id="noiv_<?php echo $unique_id; ?>" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
 		    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; $disabled="disabled"; } else { $disabled=""; } ?> 
-                    onChange="setnoiv('<?php echo $pkm_unique_id; ?>')"
+                    onChange="setnoiv('<?php echo $unique_id; ?>')"
                     >
                        &nbsp;&nbsp;<?php echo i8ln("Include Pokemon with unknown IV"); ?>
                     </div>
@@ -73,7 +73,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("IV"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
-			<input type='number' id='min_iv_<?php echo $pkm_unique_id; ?>' name='min_iv' size=1 
+			<input type='number' id='min_iv_<?php echo $unique_id; ?>' name='min_iv' size=1 
                             value='<?php echo $row['min_iv'] ?>'
                             placeholder='<?php echo $monster_defaults['min_iv']; ?>'
 			    min='<?php echo $monster_defaults['min_iv'] ?>' 
@@ -240,8 +240,8 @@ if ($row['pokemon_id'] == '0') {
             </div>
 	</div>
 
-        <div class="tab-pane fade" id="pills-pvp-<?php echo $pkm_unique_id ?>" role="tabpanel"
-	    aria-labelledby="pills-pvp-tab-<?php echo $pkm_unique_id ?>">
+        <div class="tab-pane fade" id="pills-pvp-<?php echo $unique_id ?>" role="tabpanel"
+	    aria-labelledby="pills-pvp-tab-<?php echo $unique_id ?>">
 
                     <div class='alert alert-info fade show' role='alert' style='padding:3px; margin:3px;'>
                        <?php echo i8ln("Only fill this section if you want to track PvP"); ?><br>
@@ -292,22 +292,22 @@ if ($row['pokemon_id'] == '0') {
                      </div>
                      <div class="btn-group btn-group-toggle mt-1" data-toggle="buttons">
                         <label class="btn btn-secondary">
-			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="0" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
+			    <input type="radio" name="league" id="league_<?php echo $unique_id; ?>" 
+                                   value="0" onclick="setpvp('<?php echo $unique_id; ?>')" <?php echo $none_checked; ?>><?php echo i8ln("None"); ?>
 			</label>
                         <?php if ( $_SESSION['pvpLittleLeagueAllowed'] == "True" ) { ?>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>"
-                                   value="500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $little_checked; ?>><?php echo i8ln("Little"); ?>
+                            <input type="radio" name="league" id="league_<?php echo $unique_id; ?>"
+                                   value="500" onclick="setpvp('<?php echo $unique_id; ?>')" <?php echo $little_checked; ?>><?php echo i8ln("Little"); ?>
 			</label>
                         <?php } ?>
                         <label class="btn btn-secondary">
-			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="1500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>
+			    <input type="radio" name="league" id="league_<?php echo $unique_id; ?>" 
+                                   value="1500" onclick="setpvp('<?php echo $unique_id; ?>')" <?php echo $great_checked; ?>><?php echo i8ln("Great"); ?>
                         </label>
                         <label class="btn btn-secondary">
-			    <input type="radio" name="league" id="league_<?php echo $pkm_unique_id; ?>" 
-                                   value="2500" onclick="setpvp('<?php echo $pkm_unique_id; ?>')" <?php echo $ultra_checked; ?>><?php echo i8ln("Ultra"); ?>
+			    <input type="radio" name="league" id="league_<?php echo $unique_id; ?>" 
+                                   value="2500" onclick="setpvp('<?php echo $unique_id; ?>')" <?php echo $ultra_checked; ?>><?php echo i8ln("Ultra"); ?>
                         </label>
                     </div>
                 </div>
@@ -318,20 +318,20 @@ if ($row['pokemon_id'] == '0') {
 	    <input type="hidden" id="pvpFilterGreatMinCP" name="pvpFilterGreatMinCP" value="<?php echo $_SESSION['pvpFilterGreatMinCP']; ?>">
 	    <input type="hidden" id="pvpFilterUltraMinCP" name="pvpFilterultraMinCP" value="<?php echo $_SESSION['pvpFilterUltraMinCP']; ?>">
 
-            <div class="form-row align-items-center" id="pvp_league_<?php echo $pkm_unique_id; ?>" style="display:<?php echo $pvp_display; ?>;">
+            <div class="form-row align-items-center" id="pvp_league_<?php echo $unique_id; ?>" style="display:<?php echo $pvp_display; ?>;">
 		<div class="col-sm-12 my-1">
                     <div class="input-group">
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("Rank between"); ?></div>
 			</div>
 			<?php if ($row['pvp_ranking_best'] == 0) { $row['pvp_ranking_best'] = ""; } ?>
-			<input type='number' id='pvp_ranking_best_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_best' size=1
+			<input type='number' id='pvp_ranking_best_<?php echo $unique_id; ?>' name='pvp_ranking_best' size=1
                             value='<?php echo $row['pvp_ranking_best'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("and"); ?></span>
 			</div>
-                        <input type='number' id='pvp_ranking_worst_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_worst' size=1
+                        <input type='number' id='pvp_ranking_worst_<?php echo $unique_id; ?>' name='pvp_ranking_worst' size=1
                             value='<?php echo $row['pvp_ranking_worst'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
                             class="form-control text-center">
 		    </div>
@@ -341,7 +341,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
                             <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
-                        <input type='number' id='pvp_ranking_min_cp_<?php echo $pkm_unique_id; ?>' name='pvp_ranking_min_cp' size=1
+                        <input type='number' id='pvp_ranking_min_cp_<?php echo $unique_id; ?>' name='pvp_ranking_min_cp' size=1
                             value='<?php echo $row['pvp_ranking_min_cp'] ?>' min='0' max='4096'
                             class="form-control text-center">
                     </div>
@@ -376,8 +376,8 @@ if ($row['pokemon_id'] == '0') {
 	    </div>
 
         </div>
-        <div class="tab-pane fade" id="pills-other-<?php echo $pkm_unique_id ?>" role="tabpanel"
-            aria-labelledby="pills-other-tab-<?php echo $pkm_unique_id ?>">
+        <div class="tab-pane fade" id="pills-other-<?php echo $unique_id ?>" role="tabpanel"
+            aria-labelledby="pills-other-tab-<?php echo $unique_id ?>">
             <div class="btn-group-justified btn-group-toggle" data-toggle="buttons">
                 <div class="input-group">
                     <div class="input-group mb-1">
