@@ -5,7 +5,6 @@ $uicons_repos = array(
     "Nileplumb Home" => "https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS",
     "Nileplumb Outline" => "https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS_OS_128",
     "Nileplumn Shuffle" => "https://raw.githubusercontent.com/nileplumb/PkmnShuffleMap/master/UICONS",
-    "PokeDave Shuffle" => "https://raw.githubusercontent.com/jepke/pokedave_shuffle_icons_-PMSF-/master/UICONS",
     "Jms412 Shuffle" => "https://raw.githubusercontent.com/jms412/PkmnShuffleMap/master/UICONS_Half_Shiny_128",
     "Jms412 Home" => "https://raw.githubusercontent.com/jms412/PkmnHomeIcons/master/UICONS_Half_Shiny_128"
 );
