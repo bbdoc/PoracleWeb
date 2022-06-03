@@ -437,5 +437,8 @@
     "Select Max 1 option":"Sélectionnez Max 1 option",
     "Sorry Nothing to Show":"Désolé, aucun résultat",
     "Role Management":"Gestion des Roles",
-    "Enable Roles":"Activer les Roles"
+    "Enable Roles":"Activer les Roles",
+    "Alert on Battle Changes":"Alerte en cas d'attaque",
+    "Slots Changes":"Changement # Places",
+    "Battle Changes":"Attaque en cours"
 }

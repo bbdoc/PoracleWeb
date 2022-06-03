@@ -178,6 +178,23 @@
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
                                                             <span class="small"><?=$row['ping']?></span>
                                                         </div>
+						    </li>
+
+                                                    <?php }
+
+						            if ($row['slot_changes'] == '1') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Slots Changes"); ?></span>
+						    </div>
+
+                                                    <?php }
+                                                            if ($row['battle_changes'] == '1') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Battle Changes"); ?></span>
+                                                    </div>
+
                                                     </li>
                                                     <?php }
                                                             if ($row['clean'] == '1' && $all_gyms_cleaned == '0') {
