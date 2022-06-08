@@ -1,9 +1,16 @@
 <?php 
 
 include_once "./include/functions.php";
-include_once "./include/db_mad.php";
 include_once "./config.php";
 include_once "./include/defaults.php";
+
+if (isset($scan_dbtype) && $scan_dbtype == "MAD") {
+    include_once "./include/db_mad.php";
+}
+if (isset($scan_dbtype) && $scan_dbtype == "RDM") {
+    include_once "./include/db_rdm.php";
+}
+
 
 $mons=get_all_mons();
 
