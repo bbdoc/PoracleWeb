@@ -100,8 +100,7 @@
 
                                 // Show Quests
 
-				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
-					AND reward_type = 7 ORDER BY reward";
+				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
 				$result = $conn->query($sql); 
 
 				if ($result->num_rows == 0) {
@@ -109,6 +108,10 @@
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
 				}
+
+                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
+                                        AND reward_type = 7 ORDER BY reward";
+                                $result = $conn->query($sql);
 
                                 while ($row = $result->fetch_assoc()) {
 
