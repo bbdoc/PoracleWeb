@@ -98,3 +98,17 @@ function get_raid_bosses() {
 
 }
 
+function get_gym_by_id($id) {
+
+        global $scan_conn;
+        $sql = "SELECT name from gymdetails where gym_id = '".$id."'";
+        $result = $scan_conn->query($sql);
+
+        while($row = $result->fetch_assoc()) {
+                $gym_name = $row['name'];
+        }
+
+        return $gym_name;
+
+}
+

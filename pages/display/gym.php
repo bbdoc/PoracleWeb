@@ -122,12 +122,12 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['gym_id'] == "0") { ?>
+                                                    <?php if ( $row['team'] == "4") { ?>
                                                     <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
                                                          style="height: 70px;">
                                                          <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
-                                                    </div>
-                                                    <?php } else { ?>
+						    </div>
+						    <?php } else { ?>
 						    <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
                                                     <?php } ?>
 						</div>
@@ -135,6 +135,10 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <?php echo i8ln(get_gym_name($row['team']));?>
 						</div>
+
+						<?php if ( !is_null($row['gym_id']) ) { ?>
+						<span class="badge badge-pill badge-dark w-100"><?php echo get_gym_by_id($row['gym_id']); ?></span>
+                                                <?php } ?>
 
                                                 <div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
