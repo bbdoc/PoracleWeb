@@ -25,7 +25,7 @@ echo "</div>";
 
     <?php
     if ( !is_null($row['gym_id']) ) {
-	    echo '<span class="badge badge-pill badge-light w-100 mb-2" style="border: 1px solid grey">';
+	    echo '<span class="badge badge-pill badge-light w-100 mb-2" style="border: 1px solid grey;  border-radius: 10px;">';
 	    echo '<img class="m-2" style="border-radius: 50%" width=80 loading=lazy src="'.get_gym_url($row['gym_id']).'"><br>';
 	    echo get_gym_by_id($row['gym_id']);
 	    echo '</span>';
