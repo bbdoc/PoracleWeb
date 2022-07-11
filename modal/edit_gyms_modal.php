@@ -5,13 +5,30 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'><br>";
-echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
+
+if ( $row['team'] == "4") { 
+        echo '<div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center">';
+        echo '<font style="font-size:32px;">'.i8ln("ALL").'</font>';
+        echo '</div>';
+}
+else
+{
+
+	echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'><br>";
+        echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
+}
 echo "</div>";
 
 ?>
 
 <div class="modal-body">
+
+    <?php
+    if ( !is_null($row['gym_id']) ) {
+        echo '<span class="badge badge-pill badge-dark w-100 mb-2">'.get_gym_by_id($row['gym_id']).'</span>';
+    }
+    ?>
+
 
     <input type='hidden' id='type' name='type' value='gyms'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
