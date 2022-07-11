@@ -115,3 +115,17 @@ function get_gym_by_id($id) {
 
 }
 
+function get_gym_url($id) {
+
+        global $scan_conn;
+        $sql = "SELECT url from gym where id = '".$id."'";
+        $result = $scan_conn->query($sql);
+
+        while($row = $result->fetch_assoc()) {
+                $gym_url = $row['url'];
+        }
+
+        return $gym_url;
+
+}
+

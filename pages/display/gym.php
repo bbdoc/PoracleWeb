@@ -137,7 +137,11 @@
 						</div>
 
 						<?php if ( !is_null($row['gym_id']) ) { ?>
-						<span class="badge badge-pill badge-dark w-100"><?php echo get_gym_by_id($row['gym_id']); ?></span>
+						<span class="badge badge-pill badge-light w-100" style='border:1px solid grey;'>
+						    <img class='m-2' style='border-radius: 50%' width=80 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'><br>
+						    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                        
                                                 <?php } ?>
 
                                                 <div class="mt-2 text-center">
