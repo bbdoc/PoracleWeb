@@ -271,11 +271,22 @@
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                                     <img width=50 loading=lazy
-                                                        src='<?php echo "./img/raid_" . $row['level'] . ".png"; ?>'>
+							src='<?php echo "./img/raid_" . $row['level'] . ".png"; ?>'>
+						    <?php if ( !is_null($row['gym_id']) ) { ?>
+							<img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
+                                                    <?php } ?>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo i8ln("Raids"); ?> <?php echo $row['level']; ?>
-                                                </div>
+                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Raids")." ".$row['level']; } else { echo i8ln("All Raids"); } ?>
+						</div>
+
+                                                <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                <span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
+                                                    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                                                <?php } ?>
+
+
                                                 <div class="mt-2 text-center">
                                                     <?php
 
@@ -421,20 +432,8 @@
 
                                                     <?php
 
-				                       #if ($row['evolution'] == 2) {
-                                                       #    $mega_name = "Mega X";
-                                                       #} else if ($row['evolution'] == 3) {
-                                                       #    $mega_name = "Mega Y";
-                                                       #} else if ($row['evolution'] == 1) {
-                                                       #    $mega_name = "Mega";
-                                                       #} else {
-                                                       #$mega_name = "";
-                                                       #}
-
                                                        if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
-                                                       #if ($row['evolution'] <> 0 ) { $addevolution = "_e".$row['evolution']; } else { $addevolution = ""; }
                                                        $PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
-                                                       #$PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addevolution . $addform . ".png";
                                                        if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
                                                           $PkmnImg="$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
                                                        }

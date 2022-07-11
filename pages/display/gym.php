@@ -122,13 +122,13 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['team'] == "4") { ?>
-                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
-                                                         style="height: 70px;">
-                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
-						    </div>
+						    <?php if ( $row['team'] == "4") { ?>
+                                                       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/0.png?"; ?>'>
 						    <?php } else { ?>
-						    <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
+						       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
+						    <?php } ?>
+                                                    <?php if ( !is_null($row['gym_id']) ) { ?>
+							<img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
                                                     <?php } ?>
 						</div>
 
@@ -138,7 +138,6 @@
 
 						<?php if ( !is_null($row['gym_id']) ) { ?>
 						<span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
-						    <img class='m-2' style='border-radius: 10px;' height=80 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'><br>
 						    <?php echo get_gym_by_id($row['gym_id']); ?>
                                                 </span>
                                                 <?php } ?>

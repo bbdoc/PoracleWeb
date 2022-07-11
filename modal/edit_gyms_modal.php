@@ -7,16 +7,20 @@ echo "
 echo "<div class='text-center mt-3'>";
 
 if ( $row['team'] == "4") { 
-        echo '<div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center">';
-        echo '<font style="font-size:32px;">'.i8ln("ALL").'</font>';
-        echo '</div>';
+	echo "<img width=100 src='$uicons_gym/gym/0.png?'>";
 }
 else
 {
 
-	echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'><br>";
-        echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
+	echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'>";
 }
+
+if ( !is_null($row['gym_id']) ) { 
+	echo '<img class="ml-2" style="border-radius: 10px" height=80 loading=lazy src="'.get_gym_url($row['gym_id']).'"><br>';
+}
+
+echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
+
 echo "</div>";
 
 ?>
@@ -26,7 +30,6 @@ echo "</div>";
     <?php
     if ( !is_null($row['gym_id']) ) {
 	    echo '<span class="badge badge-pill badge-light w-100 mb-2" style="border: 1px solid grey;  border-radius: 10px;">';
-	    echo '<img class="m-2" style="border-radius: 50%" height=80 loading=lazy src="'.get_gym_url($row['gym_id']).'"><br>';
 	    echo get_gym_by_id($row['gym_id']);
 	    echo '</span>';
     }

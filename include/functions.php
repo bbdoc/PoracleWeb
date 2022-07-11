@@ -246,7 +246,9 @@ function get_gym_name($id) {
                 $name = "Valor";
         } else if ( $id == "3") {
                 $name = "Instinct";
-        }
+	} else if ( $id == "4") {
+		$name = "All";
+	}
 
         return $name;
 
