@@ -117,13 +117,31 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <img width=50 loading=lazy
-                                                        src='<?php echo $uicons_raid . "/raid/egg/" . $row['level'] . ".png"; ?>'>
+						<div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+
+						    <?php if ( $row['level'] == 90 ) { ?>
+                                                    <img width=50 loading=lazy src='<?php echo $uicons_raid . "/raid/egg/1.png"; ?>'>
+                                                    <img width=50 style='margin-left:-40px;' loading=lazy src='<?php echo $uicons_raid . "/raid/egg/3.png"; ?>'>
+                                                    <img width=50 style='margin-left:-40px;' loading=lazy src='<?php echo $uicons_raid . "/raid/egg/5.png"; ?>'>
+                                                    <img width=50 style='margin-left:-40px;' loading=lazy src='<?php echo $uicons_raid . "/raid/egg/7.png"; ?>'>
+						    <?php } else { ?>
+                                                    <img width=50 loading=lazy src='<?php echo $uicons_raid . "/raid/egg/" . $row['level'] . ".png"; ?>'>
+						    <?php } ?>
+
+                                                    <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                        <img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
+                                                    <?php } ?>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo i8ln("Eggs"); ?> <?php echo $row['level']; ?>
-                                                </div>
+                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Eggs")." ".$row['level']; } else { echo i8ln("All Eggs"); } ?>
+						</div>
+
+                                                <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                <span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
+                                                    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                                                <?php } ?>
+
                                                 <ul class="list-group mt-2">
 
                                                     <?php
@@ -442,6 +460,11 @@
 
 						    <img width=50 loading=lazy src='<?php echo $PkmnImg; ?>'>
 
+                                                    <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                        <img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
+                                                    <?php } ?>
+
+
 						</div>
 
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -452,6 +475,12 @@
 						       #echo "<br>".$mega_name;
 						    ?>
 						</div>
+
+                                                <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                <span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
+                                                    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                                                <?php } ?>
 
                                                 <div class="mt-2 text-center">
 
