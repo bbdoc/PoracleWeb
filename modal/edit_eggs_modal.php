@@ -5,14 +5,40 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$uicons_raid/raid/egg/" . $row['level'] . ".png'><br>";
-echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>".
-        i8ln("Eggs Level")." " . $row['level'] . "</div>";
+
+if ( $row['level'] == 90 ) {
+	echo "<img width=100 src='$uicons_raid/raid/egg/1.png'>";
+	echo "<img width=100 style='margin-left:-80px;' src='$uicons_raid/raid/egg/3.png'>";
+	echo "<img width=100 style='margin-left:-80px;' src='$uicons_raid/raid/egg/5.png'>";
+	echo "<img width=100 style='margin-left:-80px;' src='$uicons_raid/raid/egg/7.png'>";
+} else {
+	echo "<img width=100 src='$uicons_raid/raid/egg/" . $row['level'] . ".png'>";
+}
+
+if ( !is_null($row['gym_id']) ) {
+        echo '<img class="ml-2" style="border-radius: 10px" height=100 loading=lazy src="'.get_gym_url($row['gym_id']).'"><br>';
+}
+
+echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>";
+if ( $row['level'] <> 90 ) {
+	echo i8ln("Eggs Level")." " . $row['level'];
+} else {
+	echo i8ln("All Eggs");
+}
+echo "</div>";
 echo "</div>";
 
 ?>
 
 <div class="modal-body">
+
+    <?php
+    if ( !is_null($row['gym_id']) ) {
+            echo '<span class="badge badge-pill badge-light w-100 mb-2" style="border: 1px solid grey;  border-radius: 10px;">';
+            echo get_gym_by_id($row['gym_id']);
+            echo '</span>';
+    }
+    ?>
 
     <input type='hidden' id='type' name='type' value='eggs'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
