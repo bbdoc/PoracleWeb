@@ -6,7 +6,7 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ($row['level'] == "9000") {
-        echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'><br>";
+        echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'>";
 } else {
 	echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'>";
 }
@@ -16,7 +16,14 @@ if ( !is_null($row['gym_id']) ) {
 }
 
 echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>";
-if ( $row['level'] <> 90 ) { echo i8ln("Raids")." ".$row['level']; } else { echo i8ln("All Raids"); }
+if ( $row['level'] <> 90 && $row['level'] <> 9000) { 
+	echo i8ln("Raids")." ".$row['level']; 
+} else if ( $row['level'] == 9000 ) { 
+	echo i8ln("Raids")." ".$pokemon_name." ".$form_name;
+} else {
+	echo i8ln("All Raids"); 
+}
+
 echo "</div>";
 
 echo "</div>";

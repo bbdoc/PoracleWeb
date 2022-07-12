@@ -460,6 +460,11 @@
 
 						    <img width=50 loading=lazy src='<?php echo $PkmnImg; ?>'>
 
+                                                    <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                        <img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
+                                                    <?php } ?>
+
+
 						</div>
 
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
@@ -470,6 +475,12 @@
 						       #echo "<br>".$mega_name;
 						    ?>
 						</div>
+
+                                                <?php if ( !is_null($row['gym_id']) ) { ?>
+                                                <span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
+                                                    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                                                <?php } ?>
 
                                                 <div class="mt-2 text-center">
 
