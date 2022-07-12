@@ -124,6 +124,9 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
 						    <?php if ( $row['team'] == "4") { ?>
                                                        <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/0.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/1.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/2.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/3.png?"; ?>'>
 						    <?php } else { ?>
 						       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
 						    <?php } ?>

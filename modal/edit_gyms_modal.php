@@ -8,6 +8,9 @@ echo "<div class='text-center mt-3'>";
 
 if ( $row['team'] == "4") { 
 	echo "<img width=100 src='$uicons_gym/gym/0.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/1.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/2.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/3.png?'>";
 }
 else
 {
