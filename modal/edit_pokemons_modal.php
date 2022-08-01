@@ -42,12 +42,12 @@ if ($row['pokemon_id'] == '0') {
         <li class="nav-item">
             <a class="nav-link active" id="pills-stats-tab-<?php echo $unique_id ?>" data-toggle="pill"
                 href="#pills-stats-<?php echo $unique_id ?>" role="tab"
-                aria-controls="pills-stats-<?php echo $unique_id ?>" aria-selected="true">Stats</a>
+                aria-controls="pills-stats-<?php echo $unique_id ?>" aria-selected="true"><?php echo i8ln("Stats"); ?></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-pvp-tab-<?php echo $unique_id ?>" data-toggle="pill"
                 href="#pills-pvp-<?php echo $unique_id ?>" role="tab"
-                aria-controls="pills-pvp-<?php echo $unique_id ?>" aria-selected="false">PvP</a>
+                aria-controls="pills-pvp-<?php echo $unique_id ?>" aria-selected="false"><?php echo i8ln("PvP"); ?></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-other-tab-<?php echo $unique_id ?>" data-toggle="pill"
