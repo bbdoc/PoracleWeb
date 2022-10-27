@@ -14,7 +14,7 @@ if ( !empty($_SESSION['search']) )
 $sql_base = "select count(*) count 
              FROM monsters 
 	     WHERE id = '" . $_SESSION['id'] . "' 
-             $search_sql
+             ".@$search_sql."
              AND profile_no = '" . $_SESSION['profile'] . "' "; 
 
 $sql = $sql_base."AND pokemon_id =0";
@@ -185,7 +185,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                         // Count Trackings
                         $sql = "select * FROM monsters 
 					 WHERE id = '" . $_SESSION['id'] . "' 
-                                         $search_sql
+                                         ".@$search_sql."
                                          AND profile_no = '" . $_SESSION['profile'] . "'";
                         $result = $conn->query($sql);
 
@@ -236,7 +236,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 				$sql = "select count(*) count 
 					FROM monsters 
 					WHERE id = '" . $_SESSION['id'] . "' 
-                                        $search_sql
+                                        ".@$search_sql."
                                         AND profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
 				while ($row = $result->fetch_assoc()) {
@@ -247,7 +247,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
 				$sql = "select * FROM monsters 
 					WHERE id = '" . $_SESSION['id'] . "' 
-                                        $search_sql
+                                        ".@$search_sql."
                                         AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
 					ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
