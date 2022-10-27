@@ -97,6 +97,26 @@ function get_mons($pokemon_id) {
   return $found_name; 
 }
 
+function get_matching_ids($search) {
+
+    $search = strtolower($search);
+    global $monsters_json;
+    $json = json_decode($monsters_json, true);
+
+    $ids = array(0);
+    foreach ($json as $name => $pokemon) {
+	    $arr = explode("_", $name, 2);
+	    if ( strpos(strtolower(translate_mon($pokemon['name'])),$search) !== false )
+	    {
+		    array_push($ids,$arr['0']);
+
+	    } 
+    }
+    $ids = array_unique($ids);
+    return $ids;
+}
+
+
 function translate_mon($word)
 {
     $locale = @$_SESSION['locale']; 

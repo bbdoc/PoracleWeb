@@ -1,7 +1,21 @@
 
 <?php
 
-$sql_base = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ";
+
+if ( isset($_POST['search']) ) { $_SESSION['search'] = $_POST['search']; unset($_POST['search']); }
+
+if ( !empty($_SESSION['search']) )
+{
+	$matching_ids = get_matching_ids($_SESSION['search']);
+	$matching_ids = implode(',', $matching_ids);
+	$search_sql = "AND pokemon_id in ( $matching_ids )";
+}
+
+$sql_base = "select count(*) count 
+             FROM monsters 
+	     WHERE id = '" . $_SESSION['id'] . "' 
+             $search_sql
+             AND profile_no = '" . $_SESSION['profile'] . "' "; 
 
 $sql = $sql_base."AND pokemon_id =0";
 $result = $conn->query($sql);
@@ -136,6 +150,17 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                             </div>
                         </div>
 
+                        <form action='#' method='POST' id='search'>
+                          <div class="form-row align-items-center">
+                            <div style="width:300px; margin-left:10px;">
+			    <input type="text" class="form-control" id="search" name="search" minlength="3" value='<?php echo @$_POST['search']; ?>' 
+                                   placeholder="<?php echo i8ln("Search - Leave empty for ALL"); ?>">
+                            </div>
+                            <div class="col-auto">
+                              <button type='submit' id='submit' name='submit' class='btn btn-light' style='margin-top:-15px;'><i class='fas fa-search'></i></button>
+                            </div>
+                          </div>
+                        </form>
 
                         <!-- GEN SELECTOR -->
 
@@ -158,7 +183,10 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                         <?php 
 
                         // Count Trackings
-                        $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                        $sql = "select * FROM monsters 
+					 WHERE id = '" . $_SESSION['id'] . "' 
+                                         $search_sql
+                                         AND profile_no = '" . $_SESSION['profile'] . "'";
                         $result = $conn->query($sql);
 
 			// Show ALL Mons if less than 50 trackings
@@ -205,7 +233,11 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
                                 // Check if User is already tracking something
 
-                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
+				$sql = "select count(*) count 
+					FROM monsters 
+					WHERE id = '" . $_SESSION['id'] . "' 
+                                        $search_sql
+                                        AND profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
 				while ($row = $result->fetch_assoc()) {
 					$num_mon_tracked = $row['count'];
@@ -213,7 +245,10 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
                                 // Show Monsters Alarms         
 
-				$sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
+				$sql = "select * FROM monsters 
+					WHERE id = '" . $_SESSION['id'] . "' 
+                                        $search_sql
+                                        AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
 					ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
 				if ($num_mon_tracked == 0) {
