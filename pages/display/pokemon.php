@@ -153,7 +153,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                         <form action='#' method='POST' id='search'>
                           <div class="form-row align-items-center">
                             <div style="width:300px; margin-left:10px;">
-			    <input type="text" class="form-control" id="search" name="search" minlength="3" value='<?php echo @$_POST['search']; ?>' 
+			    <input type="text" class="form-control" id="search" name="search" minlength="3" value='<?php echo @$_SESSION['search']; ?>' 
                                    placeholder="<?php echo i8ln("Search - Leave empty for ALL"); ?>">
                             </div>
                             <div class="col-auto">
