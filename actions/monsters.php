@@ -3,6 +3,7 @@
    include_once "../config.php";
    include_once "../include/db_connect.php";
    include_once "../include/defaults.php";
+   include_once "../include/functions.php";
 
    if ( isset($_POST['gen']) ) { $gen = $_POST['gen']; } else { $gen = "" ; }
    if ( !isset($_POST['cap']) ) { $cap = $_SESSION['defaultPvpCap']; }
