@@ -115,6 +115,7 @@
     }
 
     $stmt->close();
+    reloadPokemon();
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_update_mons");
     exit();
   }
@@ -150,6 +151,7 @@
     }
 
     $stmt->close();
+    reloadPokemon();
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_delete_mons");
     exit();
   }
@@ -248,6 +250,7 @@
         }
       }
     }
+    reloadPokemon();
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_added_mons");
     exit();
   }
@@ -273,6 +276,7 @@
       exit();
     }
     $stmt->close();
+    reloadPokemon();
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_delete_mons");
     exit();
   }
@@ -298,6 +302,7 @@
       exit();
     }
     $stmt->close();
+    reloadPokemon();
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_update_mons_distance");
     exit();
   }
