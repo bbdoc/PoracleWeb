@@ -395,6 +395,7 @@ function reloadPokemon()
 {
 	
    include "./config.php";
+   include "./include/db_connect.php"; 
 
    $opts = array(
      'http'=>array(
