@@ -393,9 +393,10 @@ function checkRemoteFile($url)
 
 function reloadPokemon()
 {
-	
-   include "./config.php";
-   include "./include/db_connect.php"; 
+
+   // Include one Dir Back as Calling from /actions	
+   include "../config.php";
+   include "../include/db_connect.php";
 
    $opts = array(
      'http'=>array(
@@ -414,7 +415,7 @@ function getMiniMap($latitude, $longitude, $distance)
 {
 
    include "./config.php";
-   include "./include/db_connect.php"; 
+   include "./include/db_connect.php";
 
    $opts = array(
      'http'=>array(
