@@ -106,11 +106,23 @@ function get_matching_ids($search) {
     $ids = array(0);
     foreach ($json as $name => $pokemon) {
 	    $arr = explode("_", $name, 2);
+	    // Match on Pokemon Name
 	    if ( strpos(strtolower(translate_mon($pokemon['name'])),$search) !== false )
 	    {
 		    array_push($ids,$arr['0']);
-
 	    } 
+	    // Match on Pokemon Type
+	    foreach ($pokemon['types'] as $id => $type) {
+		    if ( strpos(strtolower(i8ln($type['name'])),$search) !== false )
+		    {
+			    array_push($ids,$arr['0']);
+		    }
+	    }
+            // Match on ID
+            if ( $search == $arr['0'] )
+            {
+                    array_push($ids,$arr['0']);
+            }
     }
     $ids = array_unique($ids);
     return $ids;
