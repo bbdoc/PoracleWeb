@@ -154,7 +154,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                           <div class="form-row align-items-center">
                             <div style="width:300px; margin-left:10px;">
 			    <input type="text" class="form-control" id="search" name="search" minlength="3" value='<?php echo @$_SESSION['search']; ?>' 
-                                   placeholder="<?php echo i8ln("Search - Leave empty for ALL"); ?>">
+                                   placeholder="<?php echo i8ln("Search by name, type or ID"); ?>">
                             </div>
                             <div class="col-auto">
                               <button type='submit' id='submit' name='submit' class='btn btn-light' style='margin-top:-15px;'><i class='fas fa-search'></i></button>

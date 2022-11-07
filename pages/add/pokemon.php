@@ -411,7 +411,7 @@ if ( $disable_mons == "True" ) {
 			<!-- Add Search Box -->
                         <input type='hidden' id='search_type' value='mon'>
                         <div class='mb-3' id='dvSearchBox'>
-			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search") ?>'>
+			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search by name or type") ?>'>
                         </div>
 
                         <div class='searchmons text-center' id='dvMonsList'>
