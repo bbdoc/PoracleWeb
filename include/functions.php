@@ -58,6 +58,10 @@ function get_all_forms($pokemon_id) {
    return $forms;
 }
 
+function stripAccents($str) {
+    return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
+
 function get_all_mons() {
 
    global $monsters_json;
@@ -65,9 +69,16 @@ function get_all_mons() {
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
+
 	$arr = explode("_", $name, 2);
         $pokemon_id = $arr[0];
 	$monsters[$pokemon_id] = translate_mon($pokemon['name']);
+
+	// Append type to Mon Name
+	foreach ($pokemon['types'] as $id => $type) {
+		$monsters[$pokemon_id] .= "_".i8ln($type['name']);
+	}
+
    }
    $monsters=array_unique($monsters);
    return $monsters;
