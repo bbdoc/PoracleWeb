@@ -338,7 +338,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         <?php } ?>
 						    </li>
 
-						    <?php if ( $row['distance'] > 0 ) { ?>
+						    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
