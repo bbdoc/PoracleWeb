@@ -23,7 +23,7 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 
    // Get Map Image URL from API
 
-   $map = getLocationMap($latitude, $longitude, $row['distance']);
+   $map = getLocationMap($latitude, $longitude);
    echo "<div class='text-center'> <img src='".$map."' width=300> </div> ";
 
 ?>
