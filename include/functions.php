@@ -498,5 +498,3 @@ function getLocationMap($latitude, $longitude)
    return $fileURL;
 }
 
-
-

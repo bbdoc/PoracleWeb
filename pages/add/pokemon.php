@@ -321,7 +321,38 @@ if ( $disable_mons == "True" ) {
                                     </label>
                                 </div>
                             </div>
+			</div>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Size"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_-1" value="size_0" checked><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_1" value="size_1"><?php echo i8ln("XXS"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_2"><?php echo i8ln("XS"); ?>
+				    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_3"><?php echo i8ln("M"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_4"><?php echo i8ln("XL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_5"><?php echo i8ln("XXL"); ?>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
+
 						<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">

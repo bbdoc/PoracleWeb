@@ -50,6 +50,10 @@
       if (substr($value, 0, 7) == "gender_") {
         $gender = ltrim($value, 'gender_');
       }
+      if (substr($value, 0,5) === "size_") { echo $value."<br>";
+        $size = ltrim($value, 'size_');
+        if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
+      }
       if (substr($value, 0, 4) == "cap_") {
         $cap = ltrim($value, 'cap_');
       }
@@ -65,7 +69,7 @@
           min_level = ?, max_level = ?, min_weight = ?, max_weight = ?,
 	  atk = ?, def = ?, sta = ?, max_atk = ?, max_def = ?, max_sta = ?,
           pvp_ranking_worst = ?, pvp_ranking_best = ?, pvp_ranking_min_cp = ?, pvp_ranking_league = ?, pvp_ranking_cap = ?,
-          form = ?, gender = ?, clean = ?, template = ? 
+          form = ?, gender = ?, size = ?, max_size = ?, clean = ?, template = ? 
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -74,7 +78,7 @@
     }
 
     $rs = $stmt->bind_param(
-      "siiiiiiiiiiiiiiiiiiiiiiisi",
+      "siiiiiiiiiiiiiiiiiiiiiiiiisi",
       $_POST['content'],
       $_POST['distance'],
       $_POST['min_iv'],
@@ -98,6 +102,8 @@
       $cap,
       $form,
       $gender,
+      $size,
+      $max_size,
       $clean,
       $template,
       $_POST['uid']
@@ -163,8 +169,12 @@
   if (isset($_POST['add_mon'])) {
 
     foreach ($_POST as $key => $value) { 
-      if (substr($value, 0, 7) === "gender_") {
+      if (substr($value, 0, 7) === "gender_") {  
         $gender = ltrim($value, 'gender_');
+      }
+      if (substr($value, 0,5) === "size_") { echo $value."<br>";
+        $size = ltrim($value, 'size_');
+        if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
       }
       if (substr($value, 0, 4) === "cap_") {
         $cap = ltrim($value, 'cap_');
@@ -187,11 +197,11 @@
              min_level, max_level,
              atk, def, sta, template, clean,
              min_weight, max_weight, form,
-             max_atk, max_def, max_sta, gender,
+             max_atk, max_def, max_sta, gender, size, max_size,
              pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
              profile_no
            )
-	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=sql_error&phase=AM1&sql=$stmt->error");
@@ -199,7 +209,7 @@
         }
 
         $rs = $stmt->bind_param(
-          "sssiiiiiiiiiisiiiiiiiiiiiii",
+          "sssiiiiiiiiiisiiiiiiiiiiiiiii",
           $_SESSION['id'],
           $_POST['content'],
           $pokemon_id,
@@ -221,6 +231,8 @@
           $_POST['max_def'],
           $_POST['max_sta'],
           $gender,
+          $size,
+          $max_size,
           $_POST['pvp_ranking_worst'],
           $_POST['pvp_ranking_best'],
           $_POST['pvp_ranking_min_cp'],
