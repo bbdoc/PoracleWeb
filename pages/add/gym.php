@@ -18,6 +18,7 @@ if ( $disable_gyms == "True" ) {
 
                     <form action='./actions/gyms.php' method='POST'>
 
+                        <?php $default_distance = default_distance('gym'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<div class="form-row align-items-center">

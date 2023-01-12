@@ -18,6 +18,7 @@ if ( $disable_nests == "True" ) {
 
                     <form action='./actions/nests.php' method='POST'>
 
+                        <?php $default_distance = default_distance('nests'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
                         <div class="form-row align-items-center">

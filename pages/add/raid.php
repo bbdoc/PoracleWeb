@@ -20,6 +20,7 @@ if ( $disable_raids == "True" ) {
 
                     <form action='./actions/raids.php' method='POST'>
 
+                        <?php $default_distance = default_distance('raid'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>

@@ -29,6 +29,7 @@ if ( $disable_mons == "True" ) {
 
                     <form action='./actions/monsters.php' method='POST'>
 
+			<?php $default_distance = default_distance('monsters'); ?>
                         <?php include "./include/add_area_distance.php"; ?>
 
                         <div class="form-row align-items-center">

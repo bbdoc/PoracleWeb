@@ -69,6 +69,19 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </div>
 
+        <div class="col-sm-12 my-1">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width:230px;">
+                        &nbsp;&nbsp;<?php echo i8ln("Default Distance"); ?>
+                    </div>
+                </div>
+                <div class="form-control text-center">
+                <?php echo $_SESSION['defaultDistance']; ?>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <br>

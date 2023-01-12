@@ -18,6 +18,7 @@ if ( $disable_invasions == "True" ) {
 
                     <form action='./actions/invasions.php' method='POST'>
 
+                        <?php $default_distance = default_distance('invasion'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>

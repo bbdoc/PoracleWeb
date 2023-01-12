@@ -498,3 +498,21 @@ function getLocationMap($latitude, $longitude)
    return $fileURL;
 }
 
+function default_distance($table) {
+
+   global $conn;
+   if (isset($_SESSION['id'])) {
+      include_once "./config.php";
+      include_once "./include/db_connect.php";
+      $sql = "select max(distance) distance FROM $table WHERE id = '" . $_SESSION['id'] . "'";
+      $sql = "SELECT distance, count(*) FROM $table WHERE id = '" . $_SESSION['id'] . "' GROUP BY distance ORDER BY count(*) DESC LIMIT 1"; 
+      $result = $conn->query($sql) or die(mysqli_error($conn));
+      while ($row = $result->fetch_assoc()) { $default_distance = $row['distance']; }
+   }
+
+   if ( $default_distance == 0 && @$disable_areas == "True" ) { $default_distance = $_SESSION['defaultDistance']; };
+
+   return $default_distance;
+
+}
+

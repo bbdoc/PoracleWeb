@@ -22,7 +22,7 @@ $monster_defaults = array(
 	"gender"=>0
 );
 
-$min_poracle_version = "4.5.3";
+$min_poracle_version = "4.6.1";
 $max_pokemon="904";
 
 ?>
