@@ -510,6 +510,7 @@ function default_distance($table) {
       while ($row = $result->fetch_assoc()) { $default_distance = $row['distance']; }
    }
 
+   if ( !isset($default_distance) ) { $default_distance = 0; }
    if ( $default_distance == 0 && @$disable_areas == "True" ) { $default_distance = $_SESSION['defaultDistance']; };
 
    return $default_distance;
