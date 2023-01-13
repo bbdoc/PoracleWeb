@@ -50,7 +50,7 @@
       if (substr($value, 0, 7) == "gender_") {
         $gender = ltrim($value, 'gender_');
       }
-      if (substr($value, 0,5) === "size_") { echo $value."<br>";
+      if (substr($value, 0,5) === "size_") { 
         $size = ltrim($value, 'size_');
         if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
       }
@@ -172,7 +172,7 @@
       if (substr($value, 0, 7) === "gender_") {  
         $gender = ltrim($value, 'gender_');
       }
-      if (substr($value, 0,5) === "size_") { echo $value."<br>";
+      if (substr($value, 0,5) === "size_") { 
         $size = ltrim($value, 'size_');
         if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
       }
