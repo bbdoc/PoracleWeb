@@ -333,7 +333,7 @@ if ( $disable_mons == "True" ) {
                                         </div>
                                     </div>
                                     <label class="btn btn-secondary">
-                                        <input type="radio" name="size" id="size_-1" value="size_0" checked><?php echo i8ln("ALL"); ?>
+                                        <input type="radio" name="size" id="size_-1" value="size_-1" checked><?php echo i8ln("ALL"); ?>
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="size" id="size_1" value="size_1"><?php echo i8ln("XXS"); ?>
