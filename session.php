@@ -93,6 +93,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['poracle_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
    $_SESSION['pvpCaps'] = $json['pvpCaps'];
    $_SESSION['defaultPvpCap'] = $json['defaultPvpCap'];
+   $_SESSION['defaultDistance'] = $json['defaultDistance'];
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");

@@ -5,13 +5,37 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'><br>";
+
+if ( $row['team'] == "4") { 
+	echo "<img width=100 src='$uicons_gym/gym/0.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/1.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/2.png?'>";
+	echo "<img width=100 style='margin-left:-80px' src='$uicons_gym/gym/3.png?'>";
+}
+else {
+	echo "<img width=100 src='$uicons_gym/gym/" . $row['team'] . ".png?'>";
+}
+
+if ( !is_null($row['gym_id']) ) { 
+	echo '<img class="ml-2" style="border-radius: 10px" height=80 loading=lazy src="'.get_gym_url($row['gym_id']).'"><br>';
+}
+
 echo "<center><font size=5>".i8ln(get_gym_name($row['team']))."</font></center>";
+
 echo "</div>";
 
 ?>
 
 <div class="modal-body">
+
+    <?php
+    if ( !is_null($row['gym_id']) ) {
+	    echo '<span class="badge badge-pill badge-light w-100 mb-2" style="border: 1px solid grey;  border-radius: 10px;">';
+	    echo get_gym_by_id($row['gym_id']);
+	    echo '</span>';
+    }
+    ?>
+
 
     <input type='hidden' id='type' name='type' value='gyms'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
@@ -81,6 +105,32 @@ echo "</div>";
         </label>
         <label class="btn btn-secondary">
             <input type="radio" name="slots" id="slot_1" value="slot_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
+        </label>
+    </div>
+
+    <div class="btn-group btn-group-toggle mt-1" data-toggle="buttons">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><?php echo i8ln("Alert on Battle Changes"); ?></div>
+            </div>
+        </div>
+        <?php
+                if ($row['battle_changes'] == 0) {
+                        $checked0 = 'checked';
+                } else {
+                        $checked0 = '';
+                }
+                if ($row['battle_changes'] == 1) {
+                        $checked1 = 'checked';
+                } else {
+                        $checked1 = '';
+                }
+                ?>
+        <label class="btn btn-secondary">
+            <input type="radio" name="battles" id="battle_0" value="battle_0" <?php echo $checked0; ?>> <?php echo i8ln("No"); ?>
+        </label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="battles" id="battle_1" value="battle_1" <?php echo $checked1; ?>> <?php echo i8ln("Yes"); ?>
         </label>
     </div>
 

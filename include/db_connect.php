@@ -35,6 +35,7 @@ if ($result->num_rows <> 0) {
 	   ${$row['setting']} = $row['value'];
 	   if ( ${$row['setting']}  == "") { unset( ${$row['setting']} ); } 
    }
+
 }
 
 // Set Default UICONS Repo

@@ -6,18 +6,37 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ($row['level'] == "9000") {
-        echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'><br>";
+        echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'>";
 } else {
-        echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'><br>";
-
-        echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>".
-                i8ln("Raids Level")." " . $row['level'] . "</div>";
+	echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'>";
 }
+
+if ( !is_null($row['gym_id']) ) {
+	echo "<img class='m-2' style='border-radius: 10px;' height=100 loading=lazy src='".get_gym_url($row['gym_id'])."'>";
+}
+
+echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>";
+if ( $row['level'] <> 90 && $row['level'] <> 9000) { 
+	echo i8ln("Raids")." ".$row['level']; 
+} else if ( $row['level'] == 9000 ) { 
+	echo i8ln("Raids")." ".$pokemon_name." ".$form_name;
+} else {
+	echo i8ln("All Raids"); 
+}
+
+echo "</div>";
+
 echo "</div>";
 
 ?>
 
 <div class="modal-body">
+
+    <?php if ( !is_null($row['gym_id']) ) { ?>
+    <span class="badge-wrap badge-pill badge-light w-100 mb-2" style='border:1px solid grey; border-radius: 10px;'>
+        <?php echo get_gym_by_id($row['gym_id']); ?>
+    </span>
+    <?php } ?>
 
     <input type='hidden' id='type' name='type' value='raids'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>

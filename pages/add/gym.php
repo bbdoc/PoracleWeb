@@ -18,6 +18,7 @@ if ( $disable_gyms == "True" ) {
 
                     <form action='./actions/gyms.php' method='POST'>
 
+                        <?php $default_distance = default_distance('gym'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<div class="form-row align-items-center">
@@ -87,6 +88,26 @@ if ( $disable_gyms == "True" ) {
                             </div>
                         </div>
 
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Alert on Battle Changes"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="battle" id="battle_0" value="battle_0" checked>
+                                        <?php echo i8ln("No"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="battle" id="battle_1" value="battle_1">
+                                        <?php echo i8ln("Yes"); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <?php
 

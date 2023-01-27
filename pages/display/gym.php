@@ -122,19 +122,28 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['gym_id'] == "0") { ?>
-                                                    <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
-                                                         style="height: 70px;">
-                                                         <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
-                                                    </div>
-                                                    <?php } else { ?>
-						    <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
+						    <?php if ( $row['team'] == "4") { ?>
+                                                       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/0.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/1.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/2.png?"; ?>'>
+                                                       <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/3.png?"; ?>'>
+						    <?php } else { ?>
+						       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
+						    <?php } ?>
+                                                    <?php if ( !is_null($row['gym_id']) ) { ?>
+							<img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
                                                     <?php } ?>
 						</div>
 
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
                                                     <?php echo i8ln(get_gym_name($row['team']));?>
 						</div>
+
+						<?php if ( !is_null($row['gym_id']) ) { ?>
+						<span class="badge-wrap badge-pill badge-light w-100" style='border:1px solid grey; border-radius: 10px;'>
+						    <?php echo get_gym_by_id($row['gym_id']); ?>
+                                                </span>
+                                                <?php } ?>
 
                                                 <div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
@@ -178,6 +187,23 @@
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
                                                             <span class="small"><?=$row['ping']?></span>
                                                         </div>
+						    </li>
+
+                                                    <?php }
+
+						            if ($row['slot_changes'] == '1') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Slots Changes"); ?></span>
+						    </div>
+
+                                                    <?php }
+                                                            if ($row['battle_changes'] == '1') {
+                                                    ?>
+                                                    <div class="mt-1">
+                                                       <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Battle Changes"); ?></span>
+                                                    </div>
+
                                                     </li>
                                                     <?php }
                                                             if ($row['clean'] == '1' && $all_gyms_cleaned == '0') {

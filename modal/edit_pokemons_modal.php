@@ -42,12 +42,12 @@ if ($row['pokemon_id'] == '0') {
         <li class="nav-item">
             <a class="nav-link active" id="pills-stats-tab-<?php echo $unique_id ?>" data-toggle="pill"
                 href="#pills-stats-<?php echo $unique_id ?>" role="tab"
-                aria-controls="pills-stats-<?php echo $unique_id ?>" aria-selected="true">Stats</a>
+                aria-controls="pills-stats-<?php echo $unique_id ?>" aria-selected="true"><?php echo i8ln("Stats"); ?></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-pvp-tab-<?php echo $unique_id ?>" data-toggle="pill"
                 href="#pills-pvp-<?php echo $unique_id ?>" role="tab"
-                aria-controls="pills-pvp-<?php echo $unique_id ?>" aria-selected="false">PvP</a>
+                aria-controls="pills-pvp-<?php echo $unique_id ?>" aria-selected="false"><?php echo i8ln("PvP"); ?></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-other-tab-<?php echo $unique_id ?>" data-toggle="pill"
@@ -410,22 +410,10 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
                 <?php
-                                if ($row['gender'] == 0) {
-                                        $checked0 = 'checked';
-                                } else {
-                                        $checked0 = '';
-                                }
-                                if ($row['gender'] == 1) {
-                                        $checked1 = 'checked';
-                                } else {
-                                        $checked1 = '';
-                                }
-                                if ($row['gender'] == 2) {
-                                        $checked2 = 'checked';
-                                } else {
-                                        $checked2 = '';
-                                }
-                                ?>
+                                if ($row['gender'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($row['gender'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($row['gender'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                ?>
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_0" value="gender_0" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
                 </label>
@@ -434,6 +422,40 @@ if ($row['pokemon_id'] == '0') {
                 </label>
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
+                </label>
+            </div>
+	    <hr>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><?php echo i8ln("Size"); ?></div>
+                    </div>
+                </div>
+                <?php
+				if ($row['size'] == -1) { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($row['size'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($row['size'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($row['size'] == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
+                                if ($row['size'] == 4) { $checked4 = 'checked'; } else { $checked4 = ''; }
+				if ($row['size'] == 5) { $checked5 = 'checked'; } else { $checked5 = ''; }
+                ?>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_-1" value="size_-1" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_1" value="size_1" <?php echo $checked1; ?>> <?php echo i8ln("XXS"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_2" value="size_2" <?php echo $checked2; ?>> <?php echo i8ln("XS"); ?>
+		</label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_3" value="size_3" <?php echo $checked3; ?>> <?php echo i8ln("M"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_4" value="size_4" <?php echo $checked4; ?>> <?php echo i8ln("XL"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="size" id="size_5" value="size_5" <?php echo $checked5; ?>> <?php echo i8ln("XXL"); ?>
                 </label>
             </div>
             <hr>

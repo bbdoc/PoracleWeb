@@ -35,7 +35,7 @@ if ((time() - $auth_data['auth_date']) > 86400) {
 
 $_SESSION['type'] = "telegram:user";
 $_SESSION['id'] = $_GET['id'];
-$_SESSION['avatar'] = $_GET['photo_url'];
+$_SESSION['avatar'] = @$_GET['photo_url'];
 if (isset($_SESSION['username'])) {
    $_SESSION['username'] = $_GET['username'];
 } else {

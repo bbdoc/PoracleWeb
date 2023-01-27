@@ -18,6 +18,7 @@ if ( $disable_lures == "True" ) {
 
                     <form action='./actions/lures.php' method='POST'>
 
+                        <?php $default_distance = default_distance('lures'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>

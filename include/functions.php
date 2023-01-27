@@ -58,6 +58,10 @@ function get_all_forms($pokemon_id) {
    return $forms;
 }
 
+function stripAccents($str) {
+    return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
+
 function get_all_mons() {
 
    global $monsters_json;
@@ -65,9 +69,16 @@ function get_all_mons() {
    $monsters=array();
 
    foreach ($json as $name => $pokemon) {
+
 	$arr = explode("_", $name, 2);
         $pokemon_id = $arr[0];
 	$monsters[$pokemon_id] = translate_mon($pokemon['name']);
+
+	// Append type to Mon Name
+	foreach ($pokemon['types'] as $id => $type) {
+		$monsters[$pokemon_id] .= "_".i8ln($type['name']);
+	}
+
    }
    $monsters=array_unique($monsters);
    return $monsters;
@@ -96,6 +107,38 @@ function get_mons($pokemon_id) {
    }
   return $found_name; 
 }
+
+function get_matching_ids($search) {
+
+    $search = strtolower($search);
+    global $monsters_json;
+    $json = json_decode($monsters_json, true);
+
+    $ids = array(0);
+    foreach ($json as $name => $pokemon) {
+	    $arr = explode("_", $name, 2);
+	    // Match on Pokemon Name
+	    if ( strpos(strtolower(translate_mon($pokemon['name'])),$search) !== false )
+	    {
+		    array_push($ids,$arr['0']);
+	    } 
+	    // Match on Pokemon Type
+	    foreach ($pokemon['types'] as $id => $type) {
+		    if ( strpos(strtolower(i8ln($type['name'])),$search) !== false )
+		    {
+			    array_push($ids,$arr['0']);
+		    }
+	    }
+            // Match on ID
+            if ( $search == $arr['0'] )
+            {
+                    array_push($ids,$arr['0']);
+            }
+    }
+    $ids = array_unique($ids);
+    return $ids;
+}
+
 
 function translate_mon($word)
 {
@@ -246,7 +289,9 @@ function get_gym_name($id) {
                 $name = "Valor";
         } else if ( $id == "3") {
                 $name = "Instinct";
-        }
+	} else if ( $id == "4") {
+		$name = "All";
+	}
 
         return $name;
 
@@ -369,11 +414,31 @@ function checkRemoteFile($url)
     }
 }
 
+function reloadPokemon()
+{
+
+   // Include one Dir Back as Calling from /actions	
+   include "../config.php";
+   include "../include/db_connect.php";
+
+   $opts = array(
+     'http'=>array(
+       'method'=>"GET",
+       'header'=>"Accept-language: en\r\n" .
+                 "X-Poracle-Secret: $api_secret\r\n"
+     )
+   );
+   $context = stream_context_create($opts);
+
+   $reload = file_get_contents("$api_address/api/tracking/pokemon/refresh", false, $context);
+
+}
+
 function getMiniMap($latitude, $longitude, $distance)
 {
 
    include "./config.php";
-   include "./include/db_connect.php"; 
+   include "./include/db_connect.php";
 
    $opts = array(
      'http'=>array(
@@ -433,5 +498,22 @@ function getLocationMap($latitude, $longitude)
    return $fileURL;
 }
 
+function default_distance($table) {
 
+   global $conn;
+   if (isset($_SESSION['id'])) {
+      include_once "./config.php";
+      include_once "./include/db_connect.php";
+      $sql = "select max(distance) distance FROM $table WHERE id = '" . $_SESSION['id'] . "'";
+      $sql = "SELECT distance, count(*) FROM $table WHERE id = '" . $_SESSION['id'] . "' GROUP BY distance ORDER BY count(*) DESC LIMIT 1"; 
+      $result = $conn->query($sql) or die(mysqli_error($conn));
+      while ($row = $result->fetch_assoc()) { $default_distance = $row['distance']; }
+   }
+
+   if ( !isset($default_distance) ) { $default_distance = 0; }
+   if ( $default_distance == 0 && @$disable_areas == "True" ) { $default_distance = $_SESSION['defaultDistance']; };
+
+   return $default_distance;
+
+}
 

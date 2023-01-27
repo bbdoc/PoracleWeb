@@ -17,6 +17,7 @@ if ( $disable_quests == "True" ) {
 
                     <form action='./actions/quests.php' method='POST'>
 
+                        <?php $default_distance = default_distance('quest'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
@@ -109,7 +110,8 @@ if ( $disable_quests == "True" ) {
                             <ul>
                                 <?php
                                     
-                                    $mons =  get_quest_mons();                                    
+                                    $mons =  get_quest_mons(); 
+                                    sort($mons, SORT_NUMERIC); 
                                     foreach ($mons as &$mon) {
                                         $arr = explode("_", $mon);
                                         $mon_id = $arr[0];

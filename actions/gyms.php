@@ -14,13 +14,16 @@
       if (substr($value, 0, 5) === "slot_") {
         $slots = ltrim($value, 'slot_');
       }
+      if (substr($value, 0, 7) === "battle_") {
+        $battle = ltrim($value, 'battle_');
+      }
 
     }
     $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
 
     $stmt = $conn->prepare("
       UPDATE gym
-      SET distance = ?, clean = ?, slot_changes = ?, template = ?, ping = ?
+      SET distance = ?, clean = ?, slot_changes = ?, battle_changes = ?, template = ?, ping = ?
       WHERE uid = ?");
 
     if (false === $stmt) {
@@ -29,10 +32,11 @@
     }
 
     $rs = $stmt->bind_param(
-      "iiissi",
+      "iiiissi",
       $_POST['distance'],
       $clean,
       $slots,
+      $battle,
       $template,
       $_POST['content'],
       $_POST['uid']
@@ -103,6 +107,9 @@
       if (substr($value, 0, 5) === "slot_") {
         $slots = ltrim($value, 'slot_'); 
       }
+      if (substr($value, 0, 7) === "battle_") {
+        $battle = ltrim($value, 'battle_'); 
+      }
 
     }
     $template = !empty($_POST['template']) ? $_POST['template'] : $_SESSION['defaultTemplateName'];
@@ -111,13 +118,13 @@
       if (substr($key, 0, 4) === "gym_") {
         $team = substr($key, 4); 
 
-        $stmt = $conn->prepare("INSERT INTO gym ( id, ping, clean, distance, template, team, slot_changes, profile_no)
-	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO gym ( id, ping, clean, distance, template, team, slot_changes, battle_changes, profile_no)
+	                       VALUES ( ?, ?, ? , ?, ?, ?, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("ssiisiii", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $team, $slots, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssiisiiii", $_SESSION['id'], $_POST['content'], $clean, $_POST['distance'], $template, $team, $slots, $battle, $_SESSION['profile']);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=gym&return=sql_error&phase=AG2&sql=$stmt->error");
           exit();

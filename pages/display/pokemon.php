@@ -1,7 +1,21 @@
 
 <?php
 
-$sql_base = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ";
+
+if ( isset($_POST['search']) ) { $_SESSION['search'] = $_POST['search']; unset($_POST['search']); }
+
+if ( !empty($_SESSION['search']) )
+{
+	$matching_ids = get_matching_ids($_SESSION['search']);
+	$matching_ids = implode(',', $matching_ids);
+	$search_sql = "AND pokemon_id in ( $matching_ids )";
+}
+
+$sql_base = "select count(*) count 
+             FROM monsters 
+	     WHERE id = '" . $_SESSION['id'] . "' 
+             ".@$search_sql."
+             AND profile_no = '" . $_SESSION['profile'] . "' "; 
 
 $sql = $sql_base."AND pokemon_id =0";
 $result = $conn->query($sql);
@@ -136,6 +150,17 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                             </div>
                         </div>
 
+                        <form action='#' method='POST' id='search'>
+                          <div class="form-row align-items-center">
+                            <div style="width:300px; margin-left:10px;">
+			    <input type="text" class="form-control" id="search" name="search" minlength="3" value='<?php echo @$_SESSION['search']; ?>' 
+                                   placeholder="<?php echo i8ln("Search by name, type or ID"); ?>">
+                            </div>
+                            <div class="col-auto">
+                              <button type='submit' id='submit' name='submit' class='btn btn-light' style='margin-top:-15px;'><i class='fas fa-search'></i></button>
+                            </div>
+                          </div>
+                        </form>
 
                         <!-- GEN SELECTOR -->
 
@@ -158,7 +183,10 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                         <?php 
 
                         // Count Trackings
-                        $sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                        $sql = "select * FROM monsters 
+					 WHERE id = '" . $_SESSION['id'] . "' 
+                                         ".@$search_sql."
+                                         AND profile_no = '" . $_SESSION['profile'] . "'";
                         $result = $conn->query($sql);
 
 			// Show ALL Mons if less than 50 trackings
@@ -205,7 +233,11 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
                                 // Check if User is already tracking something
 
-                                $sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
+				$sql = "select count(*) count 
+					FROM monsters 
+					WHERE id = '" . $_SESSION['id'] . "' 
+                                        ".@$search_sql."
+                                        AND profile_no = '" . $_SESSION['profile'] . "'";
                                 $result = $conn->query($sql);
 				while ($row = $result->fetch_assoc()) {
 					$num_mon_tracked = $row['count'];
@@ -213,7 +245,10 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
 
                                 // Show Monsters Alarms         
 
-				$sql = "select * FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
+				$sql = "select * FROM monsters 
+					WHERE id = '" . $_SESSION['id'] . "' 
+                                        ".@$search_sql."
+                                        AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
 					ORDER BY pokemon_id, form"; 
                                 $result = $conn->query($sql);
 				if ($num_mon_tracked == 0) {
@@ -284,12 +319,12 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                 <ul class="list-group mt-2">
                                                     <?php
 
-                                                            if ($row['distance'] <> '0') {
+                                                            if ($row['distance'] <> '0' ) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
 							<?php echo i8ln("DISTANCE"); ?>
-							<?php if ( @$distance_map <> "True" ) { ?>
+							<?php if ( @$distance_map <> "True" || @$disable_nominatim == "True" ) { ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
 							</span>
@@ -303,7 +338,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         <?php } ?>
 						    </li>
 
-						    <?php if ( $row['distance'] > 0 ) { ?>
+						    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
@@ -437,7 +472,24 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         </span>
                                                     </li>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                            if ($row['size'] <> '-1') {
+                                                            ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("SIZE"); ?>
+                                                        <span class="badge badge-primary badge-pill">
+                                                            <?php
+                                                                    if ($row['size'] == '1') {  echo i8ln("XXS"); }
+                                                                    if ($row['size'] == '2') {  echo i8ln("XS"); }
+                                                                    if ($row['size'] == '3') {  echo i8ln("M"); }
+                                                                    if ($row['size'] == '4') {  echo i8ln("XL"); }
+                                                                    if ($row['size'] == '5') {  echo i8ln("XXL"); }
+                                                        ?>
+                                                        </span>
+                                                    </li>
+                                                    <?php }
+
+                      					    if ($row['ping'] <> '') {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">

@@ -13,6 +13,7 @@
    "Alarms will only be triggered if ALL Filters are met":"Nachrichten werden nur geschickt, wenn ALLE Filter erfüllt sind",
    "Alerts":"Nachrichten",
    "Alert on Slots Available":"Nachricht bei freien Plätzen",
+   "Alert on Battle Changes":"Nachricht bei Arena Angriff",
    "ALL Invasions Cleaning":"Invasionen nach Ablauf bereinigen",
    "ALL INVASIONS":"ALLE INVASIONEN",
    "ALL LURES":"ALLE LOCKMODULE",
@@ -409,5 +410,11 @@
    "Your location is not set. Distance settings won't be taken into account.":"Dein Standort ist nicht gesetzt. </br>Distanzen werden nicht berücksichtigt!</br>",
    "Your Location is not set yet!":"Dein Standort ist nicht gesetzt!",
    "Your Location is set to":"Dein Standort:",
-   "Your subscription is still valid until":"Dein Abo ist noch gültig bis"
+   "Your subscription is still valid until":"Dein Abo ist noch gültig bis",
+   "Slots Changes":"Platzänderung",
+   "Battle Changes":"Angriffsmeldungen",
+   "All Raids":"alle Raids",
+   "All Eggs":"alle Eier",
+   "SIZE":"GRÖßE",
+   "Size":"Größe"
 }

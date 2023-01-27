@@ -29,6 +29,7 @@ if ( $disable_mons == "True" ) {
 
                     <form action='./actions/monsters.php' method='POST'>
 
+			<?php $default_distance = default_distance('monsters'); ?>
                         <?php include "./include/add_area_distance.php"; ?>
 
                         <div class="form-row align-items-center">
@@ -321,7 +322,38 @@ if ( $disable_mons == "True" ) {
                                     </label>
                                 </div>
                             </div>
+			</div>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Size"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_-1" value="size_-1" checked><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_1" value="size_1"><?php echo i8ln("XXS"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_2"><?php echo i8ln("XS"); ?>
+				    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_3"><?php echo i8ln("M"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_4"><?php echo i8ln("XL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_2" value="size_5"><?php echo i8ln("XXL"); ?>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
+
 						<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
@@ -371,7 +403,7 @@ if ( $disable_mons == "True" ) {
                         if (count($templates_list) > 1 && $enable_templates == "True" ) {
                             echo '<div class="form-row align-items-center">
                                 <div class="col-sm-12 my-1">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="btn-group-justify btn-group-toggle" data-toggle="buttons">
                                         <div class="input-group-justify">
                                             <div class="input-group mb-1">
                                                 <div class="input-group-text">Template</div>
@@ -411,7 +443,7 @@ if ( $disable_mons == "True" ) {
 			<!-- Add Search Box -->
                         <input type='hidden' id='search_type' value='mon'>
                         <div class='mb-3' id='dvSearchBox'>
-			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search") ?>'>
+			    <input type='text' class='form-control form-control-lg' id='search' placeholder='<?php echo i8ln("Search by name or type") ?>'>
                         </div>
 
                         <div class='searchmons text-center' id='dvMonsList'>

@@ -20,6 +20,7 @@ if ( $disable_raids == "True" ) {
 
                     <form action='./actions/raids.php' method='POST'>
 
+                        <?php $default_distance = default_distance('raid'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
@@ -110,7 +111,7 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $eggs = explode(',', "1,3,5,6,7");
+                                    $eggs = explode(',', "1,3,4,5,6,7,8,9");
                                     foreach ($eggs as &$egg) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
@@ -137,7 +138,7 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $raids = explode(',', "1,3,5,6,7");
+                                    $raids = explode(',', "1,3,4,5,6,7,8,9");
                                     foreach ($raids as &$raid) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='raid_<?php echo $raid; ?>'
