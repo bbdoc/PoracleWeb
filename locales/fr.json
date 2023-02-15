@@ -463,5 +463,7 @@
     "Dragon":"Dragon",
     "Steel":"Acier",
     "Fairy":"Fée",
-    "SIZE":"TAILLE"
+    "SIZE":"TAILLE",
+    "Gym":"Arène",
+    "TRACK FOR ALL GYMS":"TOUTES LES ARENES"
 }
