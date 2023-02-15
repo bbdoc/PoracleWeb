@@ -23,6 +23,35 @@ if ( $disable_raids == "True" ) {
                         <?php $default_distance = default_distance('raid'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
+                        <!--  Gym Picker -->
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><?php echo i8ln("Gym"); ?></div>
+				    </div>
+
+				    <select class="form-control selectpicker" id="gym_id" name="gym_id" data-live-search="true">
+
+				       <option value="ALL" data-tokens="ALL"><?php echo i8ln("TRACK FOR ALL GYMS"); ?></option>
+
+                                       <?php
+ 				           $gymlist = get_gym_list();
+                                           foreach ($gymlist as $key => $gym) {
+                                              $arr = explode("_", $gym);
+                                              $gym_id = $arr[0];
+                                              $gym_name = $arr[1];
+					      echo '<option data-tokens="'.$gym_id.'" value="'.$gym_id.'">'.$gym_name.'</option>';
+					   }
+
+	                               ?>
+                               
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
