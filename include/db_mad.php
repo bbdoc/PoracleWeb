@@ -29,6 +29,21 @@ function get_quest_mons() {
 
 }
 
+function get_gym_list() {
+
+   global $scan_conn;
+   $sql = "SELECT gym_id, name FROM gymdetails WHERE name IS NOT NULL ORDER BY name;";
+   $result = $scan_conn->query($sql);
+
+   $gyms=array();
+   while($row = $result->fetch_assoc()) {
+      array_push($gyms, $row['gym_id']."_".$row['name']);
+   }
+
+   return $gyms;
+
+}
+
 function get_quest_items() {
 
    global $scan_conn;

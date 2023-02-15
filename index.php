@@ -47,6 +47,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?=time();?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="search_mons.js?v=<?=time();?>"></script>
@@ -55,6 +56,7 @@ if (!isset($_GET['page'])) { $_GET['page'] = "dashboard"; }
     <!-- Bootstrap core JavaScript-->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="node_modules/jquery.easing/jquery.easing.min.js"></script>
