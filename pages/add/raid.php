@@ -32,7 +32,7 @@ if ( $disable_raids == "True" ) {
                                         <div class="input-group-text"><?php echo i8ln("Gym"); ?></div>
 				    </div>
 
-				    <select class="form-control selectpicker" id="gym_id" name="gym_id" data-live-search="true">
+				    <select class="form-control selectpicker" data-toggle="dropdown" id="gym_id" name="gym_id" data-live-search="true" data-width="100px">
 
 				       <option value="ALL" data-tokens="ALL"><?php echo i8ln("TRACK FOR ALL GYMS"); ?></option>
 
@@ -42,7 +42,7 @@ if ( $disable_raids == "True" ) {
                                               $arr = explode("_", $gym);
                                               $gym_id = $arr[0];
                                               $gym_name = $arr[1];
-					      echo '<option data-tokens="'.$gym_id.'" value="'.$gym_id.'">'.$gym_name.'</option>';
+					      echo '<option data-tokens="'.$gym_id.'" value="'.$gym_id.'">'.substr($gym_name,0,45).'</option>';
 					   }
 
 	                               ?>
