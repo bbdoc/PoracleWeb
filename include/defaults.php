@@ -25,4 +25,9 @@ $monster_defaults = array(
 $min_poracle_version = "4.6.1";
 $max_pokemon="904";
 
+$other_grunt_types = array(
+	"7"=>"gold-stop", 
+	"8"=>"kecleon"
+);
+
 ?>
