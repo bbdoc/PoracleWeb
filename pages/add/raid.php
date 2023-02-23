@@ -41,7 +41,7 @@ if ( $disable_raids == "True" ) {
                                            foreach ($gymlist as $key => $gym) {
                                               $arr = explode("_", $gym);
                                               $gym_id = $arr[0];
-                                              $gym_name = $arr[1];
+                                              $gym_name = str_replace("'", " ", $arr[1]);
 					      echo '<option data-tokens="'.$gym_id.'" value="'.$gym_id.'">'.substr($gym_name,0,45).'</option>';
 					   }
 
