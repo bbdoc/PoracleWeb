@@ -104,7 +104,7 @@ if ( $disable_lures == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $lures_list = "501,502,503,504,505";
+                                    $lures_list = "501,502,503,504,505.506";
                                     $lures = explode(',', $lures_list);
                                     foreach ($lures as &$lure) {
                                     ?>
