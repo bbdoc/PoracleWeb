@@ -273,6 +273,8 @@ function get_lure_name($id) {
                 $lure_name = "Magnetic Lure";
         } else if ( $id == "505") {
                 $lure_name = "Rainy Lure";
+        } else if ( $id == "506") {
+                $lure_name = "Sparkly Lure";
         }
 
         return $lure_name;	
