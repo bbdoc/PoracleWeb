@@ -13,7 +13,11 @@
   <a class="navbar-brand" href=".">
     <?php echo $title; ?>&nbsp;
     <?php if ( $_SESSION['number_of_profiles'] > 1) { ?>
-    <span class="badge badge-info"><?php echo $_SESSION['profile_name']; ?></span>
+        <a href="<?php echo $redirect_url; ?>?type=display&page=profiles" style="color:white">
+	<span class="badge badge-info">
+	   <?php echo $_SESSION['profile_name']; ?>
+	</span>
+        </a>
     <?php } ?>
   </a>
 
