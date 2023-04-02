@@ -36,16 +36,17 @@
             echo "<div id='profile' class='areasform text-uppercase text-center'>";
             echo "<form action='./actions/switch_profile.php' method='POST'>";
 
-	    echo "<ul>\n";
+	    echo "<ul style='padding-left: 0;'>\n";
 
 	    while ($row = $result->fetch_assoc()) {
                        if ($_SESSION['profile'] == $row['profile_no']) { $checked="checked"; }  else { $checked=""; }
                        if ($active_profile == $row['profile_no']) { $active="background-color: #4CAF50;"; }  else { $active=""; }
-                       echo "<li><input type='radio' name='profile' value=".$row['profile_no']." id='profile_".$row['profile_no']."' $checked/>\n";
-		       echo "<label for='profile_".$row['profile_no']."' style='width:350px; $active'><font style='font-size:12px;'>";
-		       echo $row['name'];
-		       echo "</font></label>\n";
-		       echo "</li>\n";
+		       echo "<li style='width:90%; margin:0; align:center;'>";
+		       echo "<input type='radio' name='profile' value=".$row['profile_no']." id='profile_".$row['profile_no']."' $checked/>\n";
+		       echo "<label for='profile_".$row['profile_no']."' style='$active'>";
+		       echo "<font style='font-size:12px;'>".$row['name']."</font>";
+		       echo "</label>\n";
+		       echo "</li><br>\n";
 	    }
 
             echo "</ul>\n";
