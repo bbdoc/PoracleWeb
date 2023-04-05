@@ -20,7 +20,7 @@ $monster_defaults = array(
 	"max_def"=>15,
 	"max_sta"=>15,
 	"gender"=>0,
-	"size"=>1,
+	"size"=>-1,
 	"max_size"=>5
 );
 
