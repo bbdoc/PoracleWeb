@@ -327,6 +327,84 @@
 			        </div>
                                 </form>
 
+                                <?php
+                                   $sql = "select uid FROM monsters WHERE size = 1 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                                   $result = $conn->query($sql);
+                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
+
+                                   while ($row = $result->fetch_assoc()) {
+                                           $uid = $row['uid'];
+                                   }
+                                ?>
+
+                                <form action='./actions/quick_pick.php' method='POST' class="w-100">
+                                <div class="input-group mt-2 justify-content-center">
+                                   <div class="input-group-text mr-1" style="width:40%; min-width:150px; <?php echo $style; ?>"><?php echo i8ln("XXS Pokemon"); ?></div>
+                                   <div class="input-group-prepend">
+                                       <div class="input-group-text"><?php echo i8ln("IV Min"); ?></div>
+                                   </div>
+				   <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
+				   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
+                                   <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("XXS Pokemon"); ?>'>
+                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='size' name='max_size' value='1'>
+                                   <input type='number' id='min_iv' name='min_iv' size=1 placeholder='0' min='0' max='100' style="width:60px; text-align:center;">
+                                   <?php if ( $found == 1 ) { ?>
+                                   <input type='hidden' id='action' name='action' value='delete'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <button type='submit' class="btn btn-danger btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
+                                   </button>
+                                   <?php } else { ?>
+                                   <input type='hidden' id='action' name='action' value='add'>
+                                   <button type='submit' class="btn btn-success btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-plus"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("ADD"); ?></span>
+                                   </button>
+                                   <?php } ?>
+			        </div>
+                                </form>
+
+                                <?php
+                                   $sql = "select uid FROM monsters WHERE size = 5 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                                   $result = $conn->query($sql);
+                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
+
+                                   while ($row = $result->fetch_assoc()) {
+                                           $uid = $row['uid'];
+                                   }
+                                ?>
+
+                                <form action='./actions/quick_pick.php' method='POST' class="w-100">
+                                <div class="input-group mt-2 justify-content-center">
+                                   <div class="input-group-text mr-1" style="width:40%; min-width:150px; <?php echo $style; ?>"><?php echo i8ln("XXL Pokemon"); ?></div>
+                                   <div class="input-group-prepend">
+                                       <div class="input-group-text"><?php echo i8ln("IV Min"); ?></div>
+                                   </div>
+				   <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
+				   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
+                                   <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("XXL Pokemon"); ?>'>
+                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='size' name='size' value='5'>
+                                   <input type='number' id='min_iv' name='min_iv' size=1 placeholder='0' min='0' max='100' style="width:60px; text-align:center;">
+                                   <?php if ( $found == 1 ) { ?>
+                                   <input type='hidden' id='action' name='action' value='delete'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <button type='submit' class="btn btn-danger btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
+                                   </button>
+                                   <?php } else { ?>
+                                   <input type='hidden' id='action' name='action' value='add'>
+                                   <button type='submit' class="btn btn-success btn-icon-split ml-1">
+                                      <span class="icon text-white-100"><i class="fas fa-plus"></i></span>
+                                      <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("ADD"); ?></span>
+                                   </button>
+                                   <?php } ?>
+			        </div>
+                                </form>
+
 				</div>
 
 			    </div>
