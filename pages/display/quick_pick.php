@@ -328,7 +328,7 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE size = 1 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
+                                   $sql = "select uid FROM monsters WHERE size = 1 AND max_size = 1 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
@@ -347,7 +347,8 @@
 				   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("XXS Pokemon"); ?>'>
                                    <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
-                                   <input type='hidden' id='size' name='max_size' value='1'>
+                                   <input type='hidden' id='size' name='size' value='1'>
+                                   <input type='hidden' id='max_size' name='max_size' value='1'>
                                    <input type='number' id='min_iv' name='min_iv' size=1 placeholder='0' min='0' max='100' style="width:60px; text-align:center;">
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
