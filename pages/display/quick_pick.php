@@ -327,6 +327,27 @@
 			        </div>
                                 </form>
 
+                                </div>
+
+                            </div>
+
+                        </div>
+		    </div>
+
+                    <!-- QUICK PIC Card -->
+
+                    <div class="col-xl-12 col-sm-12 col-12">
+
+                        <div class="card shadow mb-4">
+
+                            <div class="card-header py-3">
+                                  <strong><center><?php echo i8ln("XXS & XXL Pokemon"); ?></center></strong>
+                            </div>
+
+                            <div class="card-body mb-2">
+
+                                <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
+
                                 <?php
                                    $sql = "select uid FROM monsters WHERE size = 1 AND max_size = 1 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
                                    $result = $conn->query($sql);
