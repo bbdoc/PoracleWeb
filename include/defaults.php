@@ -10,7 +10,7 @@ $monster_defaults = array(
 	"min_cp"=>0,
 	"max_cp"=>9000,
 	"min_level"=>0,
-	"max_level"=>50,
+	"max_level"=>40,
 	"min_weight"=>0,
 	"max_weight"=>9000000,
 	"atk"=>0,
@@ -19,7 +19,9 @@ $monster_defaults = array(
 	"max_atk"=>15,
 	"max_def"=>15,
 	"max_sta"=>15,
-	"gender"=>0
+	"gender"=>0,
+	"size"=>-1,
+	"max_size"=>5
 );
 
 $min_poracle_version = "4.6.1";
