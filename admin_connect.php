@@ -46,7 +46,7 @@ foreach ($dbnames as &$db) {
 }
 
 $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $_SESSION['dbname']);
-$sql = "select id, name, type FROM humans WHERE id = '".$search_id."'"; 
+$sql = "select id, name, type, notes FROM humans WHERE id = '".$search_id."'"; 
 $result = $conn->query($sql);
 
 if ($result->num_rows == 0) {
@@ -58,6 +58,7 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['name'];
         $_SESSION['type']=$row['type'];
+        $_SESSION['notes']=$row['notes'];
 }
 
 // Get Config Items from API and Store in Session Variables
@@ -91,7 +92,8 @@ if ( isset($_SESSION['admin_id']) && $_SESSION['id'] == $_SESSION['admin_id'] )
 { 
 	$_SESSION['username'] = $_SESSION['username'];
         $_SESSION['type']=$_SESSION['admin_type'];
-        $_SESSION['dbname']=$_SESSION['admin_dbname'];
+	$_SESSION['dbname']=$_SESSION['admin_dbname'];
+	$_SESSION['notes']='';
 }
 
 // Reset Delegated Account
@@ -101,6 +103,7 @@ if ( isset($_SESSION['delegated_id']) && $_SESSION['id'] == $_SESSION['delegated
         $_SESSION['username'] = $_SESSION['username'];
         $_SESSION['type']=$_SESSION['delegated_type'];
         $_SESSION['dbname']=$_SESSION['delegated_dbname'];
+	$_SESSION['notes']='';
 }
 
 // Switch to active Profile
