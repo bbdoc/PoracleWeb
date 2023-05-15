@@ -316,7 +316,10 @@ function get_gym_color($id) {
 }
 
 function set_locale() {
+
    global $conn;
+   $_SESSION['locale'] = $_SESSION['server_locale'];
+
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
@@ -325,11 +328,10 @@ function set_locale() {
       while ($row = $result->fetch_assoc()) {  
          if ( $row['language'] <> "" ) { 
             $_SESSION['locale'] = $row['language'];
-         } else { 
-            $_SESSION['locale'] = $_SESSION['server_locale'];
          }
       }
    }
+
 }
 
 function get_address($lat, $lon) {
