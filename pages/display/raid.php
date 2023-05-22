@@ -133,7 +133,7 @@
                                                     <?php } ?>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Eggs")." ".$row['level']; } else { echo i8ln("All Eggs"); } ?>
+                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Eggs")."<br>".i8ln(get_egg_raid_name($row['level'])); } else { echo i8ln("All Eggs"); } ?>
 						</div>
 
                                                 <?php if ( !is_null($row['gym_id']) ) { ?>
@@ -295,7 +295,7 @@
                                                     <?php } ?>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Raids")." ".$row['level']; } else { echo i8ln("All Raids"); } ?>
+                                                    <?php if ( $row['level'] <> 90 ) { echo i8ln("Raids")."<br>".i8ln(get_egg_raid_name($row['level'])); } else { echo i8ln("All Raids"); } ?>
 						</div>
 
                                                 <?php if ( !is_null($row['gym_id']) ) { ?>

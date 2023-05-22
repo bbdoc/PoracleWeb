@@ -147,7 +147,7 @@ if ( $disable_raids == "True" ) {
                                         id='egg_<?php echo $egg; ?>' />
                                     <label for='egg_<?php echo $egg; ?>'>
                                         <img src='<?php echo $uicons_raid; ?>/raid/egg/<?php echo $egg; ?>.png' />
-					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
+					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln(get_egg_raid_name($egg)); ?>
                                     </label>
                                 </li>
                                 <?php
@@ -174,7 +174,7 @@ if ( $disable_raids == "True" ) {
                                         id='raid_<?php echo $raid; ?>' />
                                     <label for='raid_<?php echo $raid; ?>'>
                                         <img src='./img/raid_<?php echo $raid; ?>.png' />
-					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln("Level"); ?> <?php echo $raid; ?>
+					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln(get_egg_raid_name($egg)); ?>
                                     </label>
                                 </li>
                                 <?php
