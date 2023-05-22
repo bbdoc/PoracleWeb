@@ -174,7 +174,7 @@ if ( $disable_raids == "True" ) {
                                         id='raid_<?php echo $raid; ?>' />
                                     <label for='raid_<?php echo $raid; ?>'>
                                         <img src='./img/raid_<?php echo $raid; ?>.png' />
-					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln(get_egg_raid_name($egg)); ?>
+					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln(get_egg_raid_name($raid)); ?>
                                     </label>
                                 </li>
                                 <?php
