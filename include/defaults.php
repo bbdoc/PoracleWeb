@@ -29,7 +29,8 @@ $max_pokemon="904";
 
 $other_grunt_types = array(
 	"7"=>"gold-stop", 
-	"8"=>"kecleon"
+	"8"=>"kecleon",
+	"9"=>"showcase"
 );
 
 ?>
