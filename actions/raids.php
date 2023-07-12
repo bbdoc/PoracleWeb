@@ -182,14 +182,15 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 4) === "egg_") {
         $level = ltrim($key, 'egg_');
+        $gym_id = ($_POST['gym_id'] != 'ALL') ? $_POST['gym_id'] : NULL;
 
-        $stmt = $conn->prepare("INSERT INTO egg ( id, ping, clean, template, distance, team, level, profile_no)
-	                       VALUES ( ?, ?, ? , ?, ?, 4, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO egg ( id, ping, clean, template, distance, team, level, profile_no, gym_id)
+	                       VALUES ( ?, ?, ? , ?, ?, 4, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=AE1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("ssisiii", $_SESSION['id'], $_POST['content'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssisiiis", $_SESSION['id'], $_POST['content'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile'], $gym_id);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=AE2&sql=$stmt->error");
           exit();
@@ -210,14 +211,15 @@
     foreach ($_POST as $key => $value) {
       if (substr($key, 0, 5) === "raid_") {
         $level = ltrim($key, 'raid_');
+	$gym_id = ($_POST['gym_id'] != 'ALL') ? $_POST['gym_id'] : NULL;
 
-        $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no)
-                               VALUES ( ?, ?, ? , ?, 9000, ?, 4, ?, 0, ?)");
+        $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no, gym_id)
+                               VALUES ( ?, ?, ? , ?, 9000, ?, 4, ?, 0, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=AR1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("ssisiii", $_SESSION['id'], $_POST['content'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile']);
+        $rs = $stmt->bind_param("ssisiiis", $_SESSION['id'], $_POST['content'], $clean, $template, $_POST['distance'], $level, $_SESSION['profile'], $gym_id);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=AR2&sql=$stmt->error");
           exit();
@@ -240,15 +242,16 @@
         $arr = explode("_", $key);
         $boss_id = $arr[1];
         $boss_form = $arr[2];
-        if (isset($arr[3])) { $boss_mega = $arr[3];} 
+	if (isset($arr[3])) { $boss_mega = $arr[3];} 
+	$gym_id = ($_POST['gym_id'] != 'ALL') ? $_POST['gym_id'] : NULL;
 
-        $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no)
-                               VALUES ( ?, '', ? , ?, ? , ?, 4, 9000, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO raid ( id, ping, clean, template, pokemon_id, distance, team, level, form, profile_no, gym_id)
+                               VALUES ( ?, '', ? , ?, ? , ?, 4, 9000, ?, ?, ?)");
         if (false === $stmt) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=ARM1&sql=$stmt->error");
           exit();
         }
-        $rs = $stmt->bind_param("sisiiii", $_SESSION['id'], $clean, $template, $boss_id, $_POST['distance'], $boss_form, $_SESSION['profile']);
+        $rs = $stmt->bind_param("sisiiiis", $_SESSION['id'], $clean, $template, $boss_id, $_POST['distance'], $boss_form, $_SESSION['profile'], $gym_id);
         if (false === $rs) {
           header("Location: $redirect_url?type=display&page=raid&return=sql_error&phase=ARM2&sql=$stmt->error");
           exit();

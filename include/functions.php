@@ -259,6 +259,44 @@ function get_grunt($type,$gender) {
 
 }
 
+function get_egg_raid_name($id) {
+	if ( $id == "0") {
+	} else if ( $id == "1") {
+		$name = "Level 1";
+	} else if ( $id == "2") {
+		$name = "Level 2";
+	} else if ( $id == "3") {
+		$name = "Level 3";
+	} else if ( $id == "4") {
+		$name = "Level 4";
+	} else if ( $id == "5") {
+		$name = "Legendary";
+	} else if ( $id == "6") {
+		$name = "Mega";
+	} else if ( $id == "7") {
+		$name = "Mega Legendary";
+	} else if ( $id == "8") {
+		$name = "Ultra Beast";
+	} else if ( $id == "9") {
+		$name = "Elite";
+	} else if ( $id == "10") {
+		$name = "Primal";
+	} else if ( $id == "11") {
+		$name = "Level 1 Shadow";
+	} else if ( $id == "12") {
+		$name = "Level 2 Shadow";
+	} else if ( $id == "13") {
+		$name = "Level 3 Shadow";
+	} else if ( $id == "14") {
+		$name = "Level 4 Shadow";
+	} else if ( $id == "15") {
+		$name = "Shadow Legendary";
+	}
+
+	return $name;
+
+}
+
 function get_lure_name($id) {
 
 	if ( $id == "0") {
@@ -273,6 +311,8 @@ function get_lure_name($id) {
                 $lure_name = "Magnetic Lure";
         } else if ( $id == "505") {
                 $lure_name = "Rainy Lure";
+        } else if ( $id == "506") {
+                $lure_name = "Sparkly Lure";
         }
 
         return $lure_name;	
@@ -314,7 +354,10 @@ function get_gym_color($id) {
 }
 
 function set_locale() {
+
    global $conn;
+   $_SESSION['locale'] = $_SESSION['server_locale'];
+
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
@@ -323,11 +366,10 @@ function set_locale() {
       while ($row = $result->fetch_assoc()) {  
          if ( $row['language'] <> "" ) { 
             $_SESSION['locale'] = $row['language'];
-         } else { 
-            $_SESSION['locale'] = $_SESSION['server_locale'];
          }
       }
    }
+
 }
 
 function get_address($lat, $lon) {

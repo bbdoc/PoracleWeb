@@ -23,6 +23,35 @@ if ( $disable_raids == "True" ) {
                         <?php $default_distance = default_distance('raid'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
+                        <!--  Gym Picker -->
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><?php echo i8ln("Gym"); ?></div>
+				    </div>
+
+				    <select class="form-control selectpicker" data-toggle="dropdown" id="gym_id" name="gym_id" data-live-search="true" data-width="100px">
+
+				       <option value="ALL" data-tokens="ALL"><?php echo i8ln("TRACK FOR ALL GYMS"); ?></option>
+
+                                       <?php
+ 				           $gymlist = get_gym_list();
+                                           foreach ($gymlist as $key => $gym) {
+                                              $arr = explode("_", $gym);
+                                              $gym_id = $arr[0];
+                                              $gym_name = str_replace("'", " ", $arr[1]);
+					      echo '<option data-tokens="'.$gym_id.'" value="'.$gym_id.'">'.substr($gym_name,0,45).'</option>';
+					   }
+
+	                               ?>
+                               
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
 			<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
@@ -111,14 +140,14 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $eggs = explode(',', "1,3,4,5,6,7,8,9");
+                                    $eggs = explode(',', "1,3,4,5,6,7,8,9,10,11,13,14,15");
                                     foreach ($eggs as &$egg) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='egg_<?php echo $egg; ?>'
                                         id='egg_<?php echo $egg; ?>' />
                                     <label for='egg_<?php echo $egg; ?>'>
                                         <img src='<?php echo $uicons_raid; ?>/raid/egg/<?php echo $egg; ?>.png' />
-					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln("Level"); ?> <?php echo $egg; ?>
+					<br><?php echo i8ln("Eggs"); ?><br><?php echo i8ln(get_egg_raid_name($egg)); ?>
                                     </label>
                                 </li>
                                 <?php
@@ -138,14 +167,14 @@ if ( $disable_raids == "True" ) {
                         <div class='selectionList'>
                             <ul>
                                 <?php
-                                    $raids = explode(',', "1,3,4,5,6,7,8,9");
+                                    $raids = explode(',', "1,3,4,5,6,7,8,9,10,11,13,14,15");
                                     foreach ($raids as &$raid) {
                                     ?>
                                 <li class='text-center'><input type='checkbox' name='raid_<?php echo $raid; ?>'
                                         id='raid_<?php echo $raid; ?>' />
                                     <label for='raid_<?php echo $raid; ?>'>
                                         <img src='./img/raid_<?php echo $raid; ?>.png' />
-					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln("Level"); ?> <?php echo $raid; ?>
+					<br><?php echo i8ln("Raids"); ?><br><?php echo i8ln(get_egg_raid_name($raid)); ?>
                                     </label>
                                 </li>
                                 <?php

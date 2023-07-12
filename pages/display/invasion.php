@@ -114,7 +114,7 @@
   			            $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
 
                                     // Build a Unique Index
-                                    $unique_id = "invasion_" . $row['uid'];
+                                    $unique_id = "invasion_" . $row['uid']; 
 
                                 ?>
                             <!-- Card -->
@@ -128,7 +128,11 @@
                                                     <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
                                                          style="height: 70px;">
                                                          <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
-                                                    </div>
+						    </div>
+						    <?php } else if ( in_array($row['grunt_type'], $other_grunt_types) ) { 
+						    $grunt_id =array_search($row['grunt_type'], $other_grunt_types); 
+                                                    ?>
+                                                    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/pokestop/0_i<?php echo $grunt_id; ?>.png' />
                                                     <?php } else { ?>
 						    <img width=50 loading=lazy src='<?php echo $uicons_reward; ?>/invasion/<?php echo $grunt_id; ?>.png' />
                                                     <?php } ?>

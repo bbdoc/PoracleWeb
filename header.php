@@ -182,6 +182,11 @@ if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['
    $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
    $admin_alarm.="<b>".i8ln("ADMIN MODE ACTIVE")."</b><br>";
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
+
+   if ( isset($_SESSION['notes']) ) {
+	   $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+   }
+
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
    if ($_SESSION['delegated_dbname'] <> $_SESSION['dbname'])
    {
@@ -198,6 +203,11 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
    $admin_alarm="<div class='alert alert-danger fade show mb-1' role='alert' style='background-color:darkred; color:white;'>";
    $admin_alarm.="<b>".i8ln("ADMIN MODE ACTIVE")."</b><br>";
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
+
+   if ( isset($_SESSION['notes']) ) {
+           $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+   }
+
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
    if ($_SESSION['admin_dbname'] <> $_SESSION['dbname'])
    {

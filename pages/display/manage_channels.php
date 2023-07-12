@@ -54,7 +54,7 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
    foreach ($dbnames as &$db) {
    
       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, type FROM humans WHERE type like 'discord:channel' ORDER by name";
+      $sql = "select id, name, notes, type FROM humans WHERE type like 'discord:channel' ORDER by name";
       $result = $conn->query($sql); 
       ?>
    
@@ -84,7 +84,12 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                      <i class="fab fa-discord"></i>
                  </span>
                     <span class="text" style="width:250px;">
-                       <?php echo $row['name']; ?>
+		       <?php echo $row['name']; ?>
+		       <?php 
+                         if ( isset($row['notes']) ) {
+				 echo "<br><span class='badge badge-light'>".$row['notes']."</span>"; 
+			 }
+                       ?>
                        <?php if (@$admin_channel_id == "True") { ?>
                           <font size=2><br><?php echo $row['id']."</font>"; ?>
                        <?php } ?>
@@ -114,7 +119,7 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
    foreach ($dbnames as &$db) {
    
       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-         		       $sql = "select id, name, type FROM humans WHERE type in ('telegram:channel','telegram:group') ORDER by name";
+         		       $sql = "select id, name, notes, type FROM humans WHERE type in ('telegram:channel','telegram:group') ORDER by name";
       $result = $conn->query($sql);
       ?>
    
@@ -145,6 +150,11 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                     </span>
 		    <span class="text" style="width:250px;">
 		       <?php echo $row['name']; ?>
+                       <?php
+                         if ( isset($row['notes']) ) {
+                                 echo "<br><span class='badge badge-light'>".$row['notes']."</span>";
+                         }
+                       ?>
 		       <?php if (@$admin_channel_id == "True") { ?>
 		          <font size=2><br><?php echo $row['id']."</font>"; ?>
                        <?php } ?>
@@ -173,7 +183,7 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
    foreach ($dbnames as &$db) {
    
       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, type FROM humans WHERE type like 'webhook' ORDER by name";
+      $sql = "select id, name, notes, type FROM humans WHERE type like 'webhook' ORDER by name";
       $result = $conn->query($sql);
       ?>
    
@@ -203,7 +213,12 @@ if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count(
                      <font size=1>WH</font>
                  </span>
                     <span class="text" style="width:250px;">
-                       <?php echo $row['name']; ?>
+		       <?php echo $row['name']; ?>
+                       <?php
+                         if ( isset($row['notes']) ) {
+                                 echo "<br><span class='badge badge-light'>".$row['notes']."</span>";
+                         }
+                       ?>
                        <?php if (@$admin_channel_id == "True") { ?>
                           <font size=2><br><?php echo $row['id']."</font>"; ?>
                        <?php } ?>

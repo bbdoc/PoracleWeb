@@ -102,10 +102,30 @@ if ( $disable_invasions == "True" ) {
 
                         <div class='selectionList'>
                             <ul>
-                                <?php
+                                   <?php
+
+				    foreach ($other_grunt_types as $key => $value) {
+                                       $grunt_id = $key;
+                                       $grunt_name = $value;
+				       $grunt_gender = 0;
+
+                                   ?>
+
+                                        <li class='text-center'><input type='checkbox' name='grunt_<?php echo $grunt_gender; ?>_<?php echo $grunt_name; ?>'
+                                                 id='grunt_<?php echo $grunt_gender; ?>_<?php echo $grunt_name; ?>' />
+                                             <label for='grunt_<?php echo $grunt_gender; ?>_<?php echo $grunt_name; ?>'>
+                                                 <img src='<?php echo $uicons_reward; ?>/pokestop/0_i<?php echo $grunt_id; ?>.png' />
+                                                 <br><?php echo ucfirst(i8ln(strtolower($grunt_name))); ?>
+                                             </label>
+					</li>
+
+                                    <?php 
+
+				    }
+
 
                                     global $grunts_json;
-                                    $json = json_decode($grunts_json, true);
+                                    $json = json_decode($grunts_json, true); 
                                     $grunts=array();
 
 				    $grunts_index_json = file_get_contents("$uicons_reward/invasion/index.json");

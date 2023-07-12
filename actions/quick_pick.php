@@ -20,6 +20,8 @@
    if (!isset($_POST['max_def']) || $_POST['max_def'] == "") { $_POST['max_def'] = $monster_defaults['max_def']; }
    if (!isset($_POST['max_sta']) || $_POST['max_sta'] == "") { $_POST['max_sta'] = $monster_defaults['max_sta']; }
    if (!isset($_POST['gender']) || $_POST['gender'] == "") { $_POST['gender'] = $monster_defaults['gender']; }
+   if (!isset($_POST['size']) || $_POST['size'] == "") { $_POST['size'] = $monster_defaults['size']; }
+   if (!isset($_POST['max_size']) || $_POST['max_size'] == "") { $_POST['max_size'] = $monster_defaults['max_size']; }
    if (!isset($_POST['content']) || $_POST['content'] == "") { $_POST['content'] = ''; }
    if (!isset($_POST['league']) || $_POST['league'] == "") { $_POST['league'] = 0; }
    if (!isset($_POST['pvp_ranking_best']) || $_POST['pvp_ranking_best'] == "") { $_POST['pvp_ranking_best'] = 1; }
@@ -54,18 +56,18 @@
              min_level, max_level,
              atk, def, sta, template, clean,
              min_weight, max_weight, form,
-             max_atk, max_def, max_sta, gender,
+             max_atk, max_def, max_sta, gender, size, max_size,
              pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league,
              profile_no
            )
-	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
         if (false === $stmt) {
           exit();
         }
 
         $rs = $stmt->bind_param(
-          "sssiiiiiiiiiisiiiiiiiiiiii",
+          "sssiiiiiiiiiisiiiiiiiiiiiiii",
           $_SESSION['id'],
           $_POST['content'],
           $_POST['pokemon_id'],
@@ -87,6 +89,8 @@
           $_POST['max_def'],
           $_POST['max_sta'],
           $_POST['gender'],
+          $_POST['size'],
+          $_POST['max_size'],
           $_POST['pvp_ranking_worst'],
           $_POST['pvp_ranking_best'],
           $_POST['pvp_ranking_min_cp'],

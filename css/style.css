@@ -291,3 +291,8 @@ label[for^="uicons_repo"] {
     border-top: 0.25rem solid #4e73df !important;
 }
 
+.bootstrap-select .btn {
+  color: rgba(0, 0, 0, 0.5);
+  background-color: white;
+  border-color: lightgrey;
+}
