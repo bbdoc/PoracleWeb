@@ -356,7 +356,9 @@ function get_gym_color($id) {
 function set_locale() {
 
    global $conn;
-   $_SESSION['locale'] = $_SESSION['server_locale'];
+   if (isset($_SESSION['server_locale'])) {
+      $_SESSION['locale'] = $_SESSION['server_locale'];
+   }
 
    if (isset($_SESSION['id'])) {
       include_once "./config.php";

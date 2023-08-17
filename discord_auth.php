@@ -6,6 +6,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes. In case if your C
 error_reporting(E_ALL);
 
 include_once "./config.php";
+include_once "include/defaults.php";
 
 define('OAUTH2_CLIENT_ID', $discordBotClientId); //Your client Id
 define('OAUTH2_CLIENT_SECRET', $discordBotClientSecret); //Your secret client code
@@ -67,7 +68,7 @@ if(session('access_token')) {
   {
     header("Location: $redirect_url?type=display&page=server_settings");
   }
-  else if ( version_compare($_SESSION['poracleVersion'], @$min_poracle_version) < 0 ) 
+  else if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) 
   {
     header("Location: $redirect_url?type=display&page=server_settings");
   }
