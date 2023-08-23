@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   poracle-web:
-    image: docker pull ghcr.io/bbdoc/poracleweb:main
+    image: ghcr.io/bbdoc/poracleweb:main
     container_name: poracle-web
     restart: unless-stopped
     tty: true
