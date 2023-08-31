@@ -49,9 +49,13 @@ $sql = $sql_base."AND pokemon_id between 722 and 809";
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $gen7 = $row['count']; }
 
-$sql = $sql_base."AND pokemon_id >= 810";
+$sql = $sql_base."AND pokemon_id between 810 and 905";
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id >= 906";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 
 ?>
 
@@ -176,7 +180,8 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                            if ( @$_GET['gen'] == 5 ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
                            if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id between 650 and 721"; }
                            if ( @$_GET['gen'] == 7 ) { $gen_selector = "AND pokemon_id between 722 and 809"; }
-			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id >= 810"; }
+			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id between 810 and 905"; }
+			   if ( @$_GET['gen'] == 9 ) { $gen_selector = "AND pokemon_id >= 906"; }
 
                         ?>
                         
@@ -201,7 +206,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php if (@$_GET['gen'] == "all") { echo "active";}; ?>">
                             <a class="page-link gen-link" href="?type=display&page=pokemon&gen=all">
-			    <center><?php echo i8ln("ALL"); ?><br><small><?php echo $genall; ?></small></center>
+			    <center><font size=2><?php echo i8ln("ALL"); ?></font><br><small><?php echo $genall; ?></small></center>
                             </a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 1) { echo "active";}; ?>">
 			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=1"><center>G1<br><small><?php echo $gen1; ?></small></center></a></li>
@@ -219,6 +224,8 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                             <a class="page-link gen-link" href="?type=display&page=pokemon&gen=7"><center>G7<br><small><?php echo $gen7; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 8) { echo "active";}; ?>">
                             <a class="page-link gen-link" href="?type=display&page=pokemon&gen=8"><center>G8<br><small><?php echo $gen8; ?></small></center></a></li>
+                            <li class="page-item <?php if (@$_GET['gen'] == 9) { echo "active";}; ?>">
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=9"><center>G9<br><small><?php echo $gen9; ?></small></center></a></li>
                           </ul>
 			</nav>
 
