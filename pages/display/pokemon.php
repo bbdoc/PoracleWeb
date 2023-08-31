@@ -206,26 +206,26 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php if (@$_GET['gen'] == "all") { echo "active";}; ?>">
                             <a class="page-link gen-link" href="?type=display&page=pokemon&gen=all">
-			    <center><font size=2><?php echo i8ln("ALL"); ?></font><br><small><?php echo $genall; ?></small></center>
+			    <center><small><b><?php echo i8ln("ALL"); ?></b><br><?php echo $genall; ?></small></center>
                             </a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 1) { echo "active";}; ?>">
-			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=1"><center>G1<br><small><?php echo $gen1; ?></small></center></a></li>
+			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=1"><center><small><b>G1</b><br><?php echo $gen1; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 2) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=2"><center>G2<br><small><?php echo $gen2; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=2"><center><small><b>G2</b><br><?php echo $gen2; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 3) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=3"><center>G3<br><small><?php echo $gen3; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=3"><center><small><b>G3</b><br><?php echo $gen3; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 4) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=4"><center>G4<br><small><?php echo $gen4; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=4"><center><small><b>G4</b><br><?php echo $gen4; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 5) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=5"><center>G5<br><small><?php echo $gen5; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=5"><center><small><b>G5</b><br><?php echo $gen5; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 6) { echo "active";}; ?>">
-			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=6"><center>G6<br><small><?php echo $gen6; ?></small></center></a></li>
+			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=6"><center><small><b>G6</b><br><?php echo $gen6; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 7) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=7"><center>G7<br><small><?php echo $gen7; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=7"><center><small><b>G7</b><br><?php echo $gen7; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 8) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=8"><center>G8<br><small><?php echo $gen8; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=8"><center><small><b>G8</b><br><?php echo $gen8; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 9) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=9"><center>G9<br><small><?php echo $gen9; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=9"><center><small><b>G9</b><br><?php echo $gen9; ?></small></center></a></li>
                           </ul>
 			</nav>
 
