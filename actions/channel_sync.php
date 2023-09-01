@@ -44,9 +44,8 @@ if (isset($_POST['sync'])) {
                       atk, def, sta,
                       template, min_weight, max_weight, form, max_atk,
                       max_def, max_sta, gender,
-                      pvp_ranking_worst, pvp_ranking_best,pvp_ranking_min_cp, pvp_ranking_league,
-		      profile_no, min_time, rarity, max_rarity, 
                       pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
+		      profile_no, min_time, rarity, max_rarity, 
                       size, max_size
                       )
                       SELECT REPLACE(id, ?, ? ),
@@ -57,9 +56,8 @@ if (isset($_POST['sync'])) {
                       atk, def, sta,
                       template, min_weight, max_weight, form, max_atk,
                       max_def, max_sta, gender,
-                      pvp_ranking_worst, pvp_ranking_best,pvp_ranking_min_cp, pvp_ranking_league,
-                      profile_no, min_time, rarity, max_rarity,
                       pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
+                      profile_no, min_time, rarity, max_rarity,
                       size, max_size
 		      FROM monsters
                       WHERE id = ?
