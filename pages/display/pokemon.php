@@ -331,7 +331,7 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
 							<?php echo i8ln("DISTANCE"); ?>
-							<?php if ( @$distance_map <> "True" || @$disable_nominatim == "True" ) { ?>
+							<?php if ( @$distance_map <> "True" ) { ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
 							</span>
@@ -345,7 +345,7 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                         <?php } ?>
 						    </li>
 
-						    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+						    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
