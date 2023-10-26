@@ -425,7 +425,7 @@ if ($row['pokemon_id'] == '0') {
                 </label>
             </div>
             <hr>
-			&nbsp;&nbsp;<?php echo i8ln("REMEBER! Min. Size cannot be larger than Max. Size!"); ?></br></br>
+			&nbsp;&nbsp;<?php echo i8ln("REMEMBER! Min. Size cannot be larger than Max. Size!"); ?></br></br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <div class="input-group">
                     <div class="input-group-prepend">
