@@ -424,21 +424,21 @@ if ($row['pokemon_id'] == '0') {
 		    <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
                 </label>
             </div>
-	    <hr>
+            <hr>
+			&nbsp;&nbsp;<?php echo i8ln("REMEBER! Min. Size cannot be larger than Max. Size!"); ?></br></br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><?php echo i8ln("Size"); ?></div>
+                        <div class="input-group-text"><?php echo i8ln("Min. Size"); ?></div>
                     </div>
                 </div>
                 <?php
-                                if (($row['size'] == -1 || $row['size'] == 1) && $row['max_size'] == '5') { $checked0 = 'checked'; } else { $checked0 = ''; }
-                                if ($row['size'] == 1 && $row['max_size'] == '1') { $checked1 = 'checked'; } else { $checked1 = ''; }
-                                if ($row['size'] == 2 && $row['max_size'] == '2') { $checked2 = 'checked'; } else { $checked2 = ''; }
-                                if ($row['size'] == 3 && $row['max_size'] == '3') { $checked3 = 'checked'; } else { $checked3 = ''; }
-                                if ($row['size'] == 4 && $row['max_size'] == '4') { $checked4 = 'checked'; } else { $checked4 = ''; }
-                                if ($row['size'] == 5 && $row['max_size'] == '5') { $checked5 = 'checked'; } else { $checked5 = ''; }
-                                if ($checked0 === '' && $checked1 === '' && $checked2 === '' && $checked3 === '' && $checked4 === '' && $checked5 === '') { $checked0 = 'checked'; }
+                                if ($row['size'] == -1) { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($row['size'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($row['size'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($row['size'] == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
+                                if ($row['size'] == 4) { $checked4 = 'checked'; } else { $checked4 = ''; }
+                                if ($row['size'] == 5) { $checked5 = 'checked'; } else { $checked5 = ''; }
                 ?>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_-1" value="size_-1" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
@@ -448,7 +448,7 @@ if ($row['pokemon_id'] == '0') {
                 </label>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_2" value="size_2" <?php echo $checked2; ?>> <?php echo i8ln("XS"); ?>
-		</label>
+                </label>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_3" value="size_3" <?php echo $checked3; ?>> <?php echo i8ln("M"); ?>
                 </label>
@@ -457,6 +457,41 @@ if ($row['pokemon_id'] == '0') {
                 </label>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_5" value="size_5" <?php echo $checked5; ?>> <?php echo i8ln("XXL"); ?>
+                </label>
+            </div>
+            </br>
+            </br>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><?php echo i8ln("Max. Size"); ?></div>
+                    </div>
+                </div>
+                <?php
+                                if ($row['size'] == -1 && $row['max_size'] == '5') { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($row['max_size'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($row['max_size'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($row['max_size'] == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
+                                if ($row['max_size'] == 4) { $checked4 = 'checked'; } else { $checked4 = ''; }
+                                if ($row['size'] <> -1 && $row['max_size'] == 5) { $checked5 = 'checked'; } else { $checked5 = ''; }
+                ?>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_5" value="max_size_5" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_1" value="max_size_1" <?php echo $checked1; ?>> <?php echo i8ln("XXS"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_2" value="max_size_2" <?php echo $checked2; ?>> <?php echo i8ln("XS"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_3" value="max_size_3" <?php echo $checked3; ?>> <?php echo i8ln("M"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_4" value="max_size_4" <?php echo $checked4; ?>> <?php echo i8ln("XL"); ?>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="max_size" id="max_size_5" value="max_size_5" <?php echo $checked5; ?>> <?php echo i8ln("XXL"); ?>
                 </label>
             </div>
             <hr>
