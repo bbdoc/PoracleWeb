@@ -329,7 +329,7 @@ if ( $disable_mons == "True" ) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-				<strong><?php echo i8ln("REMEBER! Min. Size cannot be larger than Max. Size!"); ?></strong>
+				<strong><?php echo i8ln("REMEMBER! Min. Size cannot be larger than Max. Size!"); ?></strong>
                             </div>
                         </div>
                     </div>
