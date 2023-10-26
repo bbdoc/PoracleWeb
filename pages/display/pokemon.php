@@ -494,8 +494,8 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                         ?>
                                                         </span>
                                                     </li>
-                                                    <?php } else 
-														if ($row['max_size'] > $row['size'] && $row['size'] != -1) { 
+                                                    <?php } else
+														if ($row['max_size'] > $row['size'] && $row['size'] != -1) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -515,8 +515,17 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 														        ?>
                                                         </span>
                                                     </li>
-														    <?php
-														}
+                                                    <?php } else
+														if ($row['max_size'] < $row['size']) {
+															?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <?php echo i8ln("SIZE"); ?>
+                                                        <span class="badge badge-primary badge-pill">
+                                                            <?php echo i8ln("ERROR"); ?>
+                                                        </span>
+                                                    </li>
+                                                    <?php }
 
                       					    if ($row['ping'] <> '') {
                                                     ?>
