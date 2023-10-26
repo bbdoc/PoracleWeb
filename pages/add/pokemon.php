@@ -322,14 +322,24 @@ if ( $disable_mons == "True" ) {
                                     </label>
                                 </div>
                             </div>
-			</div>
+                        </div>
+
+                        <hr>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-secondary text-center" role="alert">
+				<strong><?php echo i8ln("REMEBER! Min. Size cannot be larger than Max. Size!"); ?></strong>
+                            </div>
+                        </div>
+                    </div>
 
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text"><?php echo i8ln("Size"); ?></div>
+                                            <div class="input-group-text"><?php echo i8ln("Min. Size"); ?></div>
                                         </div>
                                     </div>
                                     <label class="btn btn-secondary">
@@ -340,19 +350,51 @@ if ( $disable_mons == "True" ) {
                                     </label>
                                     <label class="btn btn-secondary">
                                         <input type="radio" name="size" id="size_2" value="size_2"><?php echo i8ln("XS"); ?>
-				    </label>
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="size" id="size_2" value="size_3"><?php echo i8ln("M"); ?>
                                     </label>
                                     <label class="btn btn-secondary">
-                                        <input type="radio" name="size" id="size_2" value="size_4"><?php echo i8ln("XL"); ?>
+                                        <input type="radio" name="size" id="size_3" value="size_3"><?php echo i8ln("M"); ?>
                                     </label>
                                     <label class="btn btn-secondary">
-                                        <input type="radio" name="size" id="size_2" value="size_5"><?php echo i8ln("XXL"); ?>
+                                        <input type="radio" name="size" id="size_4" value="size_4"><?php echo i8ln("XL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="size" id="size_5" value="size_5"><?php echo i8ln("XXL"); ?>
                                     </label>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><?php echo i8ln("Max. Size"); ?></div>
+                                        </div>
+                                    </div>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_5" value="max_size_5" checked><?php echo i8ln("ALL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_1" value="max_size_1"><?php echo i8ln("XXS"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_2" value="max_size_2"><?php echo i8ln("XS"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_3" value="max_size_3"><?php echo i8ln("M"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_4" value="max_size_4"><?php echo i8ln("XL"); ?>
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="max_size" id="max_size_5" value="max_size_5"><?php echo i8ln("XXL"); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
 
 						<?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
                         <div class="form-row align-items-center">
