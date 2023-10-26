@@ -479,18 +479,18 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                         </span>
                                                     </li>
                                                     <?php }
-                                                            if ($row['size'] <> '-1') {
+                                                            if ($row['size'] == $row['max_size']) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("SIZE"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php
-                                                                    if ($row['size'] == '1') {  echo i8ln("XXS"); }
-                                                                    if ($row['size'] == '2') {  echo i8ln("XS"); }
-                                                                    if ($row['size'] == '3') {  echo i8ln("M"); }
-                                                                    if ($row['size'] == '4') {  echo i8ln("XL"); }
-                                                                    if ($row['size'] == '5') {  echo i8ln("XXL"); }
+                                                                    if ($row['size'] == '1' && $row['max_size'] == '1') {  echo i8ln("XXS"); }
+                                                                    if ($row['size'] == '2' && $row['max_size'] == '2') {  echo i8ln("XS"); }
+                                                                    if ($row['size'] == '3' && $row['max_size'] == '3') {  echo i8ln("M"); }
+                                                                    if ($row['size'] == '4' && $row['max_size'] == '4') {  echo i8ln("XL"); }
+                                                                    if ($row['size'] == '5' && $row['max_size'] == '5') {  echo i8ln("XXL"); }
                                                         ?>
                                                         </span>
                                                     </li>
