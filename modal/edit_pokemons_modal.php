@@ -438,6 +438,7 @@ if ($row['pokemon_id'] == '0') {
                                 if ($row['size'] == 3 && $row['max_size'] == '3') { $checked3 = 'checked'; } else { $checked3 = ''; }
                                 if ($row['size'] == 4 && $row['max_size'] == '4') { $checked4 = 'checked'; } else { $checked4 = ''; }
                                 if ($row['size'] == 5 && $row['max_size'] == '5') { $checked5 = 'checked'; } else { $checked5 = ''; }
+                                if ($checked0 === '' && $checked1 === '' && $checked2 === '' && $checked3 === '' && $checked4 === '' && $checked5 === '') { $checked0 = 'checked'; }
                 ?>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_-1" value="size_-1" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
