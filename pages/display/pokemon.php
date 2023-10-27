@@ -486,11 +486,13 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                         <?php echo i8ln("SIZE"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php
-                                                                    if ($row['size'] == '1') {  echo i8ln("XXS"); }
-                                                                    if ($row['size'] == '2') {  echo i8ln("XS"); }
-                                                                    if ($row['size'] == '3') {  echo i8ln("M"); }
-                                                                    if ($row['size'] == '4') {  echo i8ln("XL"); }
-                                                                    if ($row['size'] == '5') {  echo i8ln("XXL"); }
+								    $size_name=get_size_name($row['size']);
+								    echo $size_name;
+								    if ( $row['max_size'] <> $row['size'] )
+								    {
+									    $max_size_name=get_size_name($row['max_size']);
+									    echo "-".$max_size_name;
+								    }
                                                         ?>
                                                         </span>
                                                     </li>
