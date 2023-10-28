@@ -319,6 +319,18 @@ function get_lure_name($id) {
 
 }
 
+function get_size_name($id) {
+
+        if ($id == '1') { $size_name = "XXS"; }
+	else if ($id == '2') { $size_name = "XS";  }
+	else if ($id == '3') { $size_name = "M";  }
+	else if ($id == '4') { $size_name = "L"; }
+	else if ($id == '5') { $size_name = "XL"; }
+
+        return $size_name;	
+
+}
+
 function get_gym_name($id) {
 
         if ( $id == "0") {
@@ -560,4 +572,3 @@ function default_distance($table) {
    return $default_distance;
 
 }
-
