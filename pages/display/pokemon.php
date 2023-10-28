@@ -479,50 +479,21 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                                                         </span>
                                                     </li>
                                                     <?php }
-                                                            if ($row['size'] == $row['max_size']) {
+                                                            if ($row['size'] <> '-1') {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("SIZE"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php
-                                                                    if ($row['size'] == '1') {  echo i8ln("XXS"); }
-                                                                    if ($row['size'] == '2') {  echo i8ln("XS"); }
-                                                                    if ($row['size'] == '3') {  echo i8ln("M"); }
-                                                                    if ($row['size'] == '4') {  echo i8ln("XL"); }
-                                                                    if ($row['size'] == '5') {  echo i8ln("XXL"); }
+								    $size_name=get_size_name($row['size']);
+								    echo $size_name;
+								    if ( $row['max_size'] <> $row['size'] )
+								    {
+									    $max_size_name=get_size_name($row['max_size']);
+									    echo "-".$max_size_name;
+								    }
                                                         ?>
-                                                        </span>
-                                                    </li>
-                                                    <?php } else
-														if ($row['max_size'] > $row['size'] && $row['size'] != -1) {
-                                                            ?>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("SIZE"); ?>
-                                                        <span class="badge badge-primary badge-pill">
-														        <?php
-														        $size_mapping = [
-														        '1' => i8ln("XXS"),
-														        '2' => i8ln("XS"),
-														        '3' => i8ln("M"),
-														        '4' => i8ln("XL"),
-														        '5' => i8ln("XXL")
-														        ];
-														        $display_size = isset($size_mapping[$row['size']]) ? $size_mapping[$row['size']] : $row['size'];
-														        $display_max_size = isset($size_mapping[$row['max_size']]) ? $size_mapping[$row['max_size']] : $row['max_size'];
-														        echo $display_size . '-' . $display_max_size;
-														        ?>
-                                                        </span>
-                                                    </li>
-                                                    <?php } else
-														if ($row['max_size'] < $row['size']) {
-															?>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <?php echo i8ln("SIZE"); ?>
-                                                        <span class="badge badge-primary badge-pill">
-                                                            <?php echo i8ln("ERROR"); ?>
                                                         </span>
                                                     </li>
                                                     <?php }
@@ -631,4 +602,3 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                     <?php
                     } // End of Mons Disable 
                     ?>
-
