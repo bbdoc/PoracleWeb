@@ -319,6 +319,18 @@ function get_lure_name($id) {
 
 }
 
+function get_size_name($id) {
+
+        if ($id == '1') { $size_name = "XXS"; }
+	else if ($id == '2') { $size_name = "XS";  }
+	else if ($id == '3') { $size_name = "M";  }
+	else if ($id == '4') { $size_name = "XL"; }
+	else if ($id == '5') { $size_name = "XXL"; }
+
+        return $size_name;	
+
+}
+
 function get_gym_name($id) {
 
         if ( $id == "0") {
@@ -356,7 +368,9 @@ function get_gym_color($id) {
 function set_locale() {
 
    global $conn;
-   $_SESSION['locale'] = $_SESSION['server_locale'];
+   if (isset($_SESSION['server_locale'])) {
+      $_SESSION['locale'] = $_SESSION['server_locale'];
+   }
 
    if (isset($_SESSION['id'])) {
       include_once "./config.php";

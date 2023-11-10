@@ -80,11 +80,16 @@ if (!isset($_SESSION['admin_id'])) {
 
                         // Check Connection to Scanner DB
 
-                        $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
-                        if ($conn->connect_errno) {
-                           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Unable to Connect to Scanner DB")."</div>";
-                        } else {
-                           echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Successfully Connected to Scanner DB")."</div>";
+			if ( isset($scan_dbhost) ) {
+                           $conn = new mysqli($scan_dbhost.":".$scan_dbport, $scan_dbuser, $scan_dbpass, $scan_dbname);
+                           if ($conn->connect_errno) {
+                              echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Unable to Connect to Scanner DB")."</div>";
+                           } else {
+                              echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Successfully Connected to Scanner DB")."</div>";
+			   }
+			} else 
+			{
+		           echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>".i8ln("Please configure Scanner DB")."</div>";
 			}
 
                         // Check Connection to API

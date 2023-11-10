@@ -56,13 +56,15 @@ if(count(array_keys($areas)) === 1){
     echo "<div class='accordion' id='accordion'>";
 
     foreach ($areas as $group => $areaList) {
+        // Check if $group is empty or null, and set the default text accordingly
+        $buttonText = !empty($group) ? $group : "No group";
         $updatedGroup = str_replace(' ', '_', $group);
 
         echo "<div class='card'>
              <div class='card-header' id='heading$updatedGroup'>
                   <h5 class='mb-0'>
                 <button class='btn btn-link $collapsedState' type='button' data-toggle='collapse' data-target='#collapse$updatedGroup' aria-expanded='false' aria-controls='collapse$updatedGroup'>
-                  $group
+                  $buttonText
                 </button>
               </h5>
             </div>

@@ -335,6 +335,7 @@
     "Successfully Connected to Poracle DB":"Connecté à la DB Poracle",
     "Unable to Connect to Scanner DB":"Impossible de se connecter à la DB du scanneur",
     "Successfully Connected to Scanner DB":"Connecté à la DB du scanneur",
+    "Please configure Scanner DB":"Veuillez configurer la DB su scanneur",
     "Unable to Connect to Poracle API":"Impossible de se connecter à l'API Poracle",
     "Successfully Connected to Poracle API":"Connecté à l'API Poracle",
     "To activate cache please perform following actions from your PoracleWeb root folder":"Pour l'activer, veuillez lancer les commandes suivantes depuis votre dossier principal",

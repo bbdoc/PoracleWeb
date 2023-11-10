@@ -49,9 +49,13 @@ $sql = $sql_base."AND pokemon_id between 722 and 809";
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $gen7 = $row['count']; }
 
-$sql = $sql_base."AND pokemon_id >= 810";
+$sql = $sql_base."AND pokemon_id between 810 and 905";
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
+
+$sql = $sql_base."AND pokemon_id >= 906";
+$result = $conn->query($sql);
+while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 
 ?>
 
@@ -176,7 +180,8 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                            if ( @$_GET['gen'] == 5 ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
                            if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id between 650 and 721"; }
                            if ( @$_GET['gen'] == 7 ) { $gen_selector = "AND pokemon_id between 722 and 809"; }
-			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id >= 810"; }
+			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id between 810 and 905"; }
+			   if ( @$_GET['gen'] == 9 ) { $gen_selector = "AND pokemon_id >= 906"; }
 
                         ?>
                         
@@ -201,24 +206,26 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                           <ul class="pagination justify-content-left ml-1">
 			    <li class="page-item <?php if (@$_GET['gen'] == "all") { echo "active";}; ?>">
                             <a class="page-link gen-link" href="?type=display&page=pokemon&gen=all">
-			    <center><?php echo i8ln("ALL"); ?><br><small><?php echo $genall; ?></small></center>
+			    <center><small><b><?php echo i8ln("ALL"); ?></b><br><?php echo $genall; ?></small></center>
                             </a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 1) { echo "active";}; ?>">
-			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=1"><center>G1<br><small><?php echo $gen1; ?></small></center></a></li>
+			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=1"><center><small><b>G1</b><br><?php echo $gen1; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 2) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=2"><center>G2<br><small><?php echo $gen2; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=2"><center><small><b>G2</b><br><?php echo $gen2; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 3) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=3"><center>G3<br><small><?php echo $gen3; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=3"><center><small><b>G3</b><br><?php echo $gen3; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 4) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=4"><center>G4<br><small><?php echo $gen4; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=4"><center><small><b>G4</b><br><?php echo $gen4; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 5) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=5"><center>G5<br><small><?php echo $gen5; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=5"><center><small><b>G5</b><br><?php echo $gen5; ?></small></center></a></li>
 			    <li class="page-item <?php if (@$_GET['gen'] == 6) { echo "active";}; ?>">
-			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=6"><center>G6<br><small><?php echo $gen6; ?></small></center></a></li>
+			    <a class="page-link gen-link" href="?type=display&page=pokemon&gen=6"><center><small><b>G6</b><br><?php echo $gen6; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 7) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=7"><center>G7<br><small><?php echo $gen7; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=7"><center><small><b>G7</b><br><?php echo $gen7; ?></small></center></a></li>
                             <li class="page-item <?php if (@$_GET['gen'] == 8) { echo "active";}; ?>">
-                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=8"><center>G8<br><small><?php echo $gen8; ?></small></center></a></li>
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=8"><center><small><b>G8</b><br><?php echo $gen8; ?></small></center></a></li>
+                            <li class="page-item <?php if (@$_GET['gen'] == 9) { echo "active";}; ?>">
+                            <a class="page-link gen-link" href="?type=display&page=pokemon&gen=9"><center><small><b>G9</b><br><?php echo $gen9; ?></small></center></a></li>
                           </ul>
 			</nav>
 
@@ -324,7 +331,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
 							<?php echo i8ln("DISTANCE"); ?>
-							<?php if ( @$distance_map <> "True" || @$disable_nominatim == "True" ) { ?>
+							<?php if ( @$distance_map <> "True" ) { ?>
                                                         <span
                                                             class="badge badge-primary badge-pill"><?php echo $row['distance']; ?>
 							</span>
@@ -338,7 +345,7 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         <?php } ?>
 						    </li>
 
-						    <?php if ( $row['distance'] > 0 && @$disable_nominatim <> "True" ) { ?>
+						    <?php if ( $row['distance'] > 0 ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
@@ -479,11 +486,13 @@ while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
                                                         <?php echo i8ln("SIZE"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php
-                                                                    if ($row['size'] == '1') {  echo i8ln("XXS"); }
-                                                                    if ($row['size'] == '2') {  echo i8ln("XS"); }
-                                                                    if ($row['size'] == '3') {  echo i8ln("M"); }
-                                                                    if ($row['size'] == '4') {  echo i8ln("XL"); }
-                                                                    if ($row['size'] == '5') {  echo i8ln("XXL"); }
+								    $size_name=get_size_name($row['size']);
+								    echo $size_name;
+								    if ( $row['max_size'] <> $row['size'] )
+								    {
+									    $max_size_name=get_size_name($row['max_size']);
+									    echo "-".$max_size_name;
+								    }
                                                         ?>
                                                         </span>
                                                     </li>

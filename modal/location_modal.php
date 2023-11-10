@@ -13,7 +13,7 @@ if ($latitude == "0.0000000000" && $longitude == "0.0000000000") {
 
 <div class="alert alert-success" role="alert">
     <?php echo i8ln("Your Location is set to"); ?><br>
-    <?php echo "<b>".$address."</b><br>"; ?>
+    <?php if (@$disable_nominatim <> "True") { echo "<b>".$address."</b><br>"; } ?>
     <?php echo "[ ".round($latitude, 4); ?>, <?php echo round($longitude, 4)." ]"; ?>
 </div>
 
