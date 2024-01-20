@@ -602,4 +602,3 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
                     <?php
                     } // End of Mons Disable 
                     ?>
-
