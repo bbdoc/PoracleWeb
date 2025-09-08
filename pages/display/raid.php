@@ -178,12 +178,6 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == 1) {
-                                                    ?>
-                                                    <li class="list-group-item justify-content-between align-items-center">
-                                                        <?php echo i8ln("Raids + RSVP"); ?><br>
-                                                    </li>
-                                                    <?php }
 						    if ($row['ping'] <> '') {
                                                     ?>
                                                     <li
