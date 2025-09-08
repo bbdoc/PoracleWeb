@@ -20,6 +20,8 @@ if (isset($custom_title)) {
     $title = "PoracleWeb";
 }
 
+ini_set('default_socket_timeout', 1);
+
 if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 	$avatar = "$redirect_url/img/no_avatar.png";
 } else {
@@ -45,7 +47,6 @@ if (isset($_SESSION['id'])) {
 }
 
 // Get Profile Name
-
 
 if (isset($_SESSION['id'])) {
    $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
@@ -142,7 +143,6 @@ if (isset($_SESSION['id'])) {
    }
 
 }
-
 
 if (isset($_SESSION['username'])) {
 
