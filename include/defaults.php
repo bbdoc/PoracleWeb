@@ -24,7 +24,7 @@ $monster_defaults = array(
 	"max_size"=>5
 );
 
-$min_poracle_version = "4.6.2";
+$min_poracle_version = "4.8.3";
 $max_pokemon="1008";
 
 $other_grunt_types = array(
