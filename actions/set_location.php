@@ -27,11 +27,10 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
    $lon = $_GET['lon'];
 
 } else {
-
-   $street = str_replace(" ", "%20", $_POST['street']);
-   $city = str_replace(" ", "%20", $_POST['city']);
-
-   $filepath=$_SESSION['providerURL']."/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
+   
+   $address = urlencode($_POST['street'] . ' ' . $_POST['city']);
+   $filepath=$_SESSION['providerURL']."/search?addressdetails=1&q=$address&format=json&limit=1";
+   
    if ( strlen($_SESSION['staticKey']) == 32  ) { 
 	   $filepath.="&key=".$_SESSION['staticKey'];
    }
