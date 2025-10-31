@@ -25,13 +25,18 @@
 
             // Check Currently Active Profile
 
-            $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
+            $stmt->bind_param("s", $_SESSION['id']);
+            $stmt->execute();
+            $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) { $active_profile = $row['current_profile_no']; }
+            $stmt->close();
 
             // Check User's existing Profiles
-            $sql = "SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = '" . $_SESSION['id'] . "' ORDER BY profile_no";
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare("SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = ? ORDER BY profile_no");
+            $stmt->bind_param("s", $_SESSION['id']);
+            $stmt->execute();
+            $result = $stmt->get_result();
             
             echo "<div id='profile' class='areasform text-uppercase text-center'>";
             echo "<form action='./actions/switch_profile.php' method='POST'>";
@@ -51,6 +56,7 @@
 
             echo "</ul>\n";
             echo "</div>";
+            $stmt->close();
 
             ?>
 
@@ -80,14 +86,17 @@
 	    <center>
             <form action='./actions/switch_profile.php' method='POST'>
             <?php
-	    $sql = "SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
-	    $result = $conn->query($sql);
+	    $stmt = $conn->prepare("SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = ?");
+	    $stmt->bind_param("s", $_SESSION['id']);
+	    $stmt->execute();
+	    $result = $stmt->get_result();
 	    if ( $result->num_rows == 0 ) {
 		    echo i8ln("You currently don't have any profile configured").".<br>";
 		    echo i8ln("Please Name default Profile");
 	    } else {
 		    echo i8ln("Choose the name of your new Profile");
 	    }
+	    $stmt->close();
             ?>
 
             </center>
