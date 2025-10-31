@@ -102,8 +102,11 @@
 
                                 // Show Eggs & Raids
 
-                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ORDER BY level";
-                                $result = $conn->query($sql);
+                                $sql = "SELECT * FROM egg WHERE id = ? AND profile_no = ? ORDER BY level";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -286,10 +289,13 @@
 
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' 
-					AND pokemon_id = 9000 ORDER BY level";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id = 9000 ORDER BY level";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -462,10 +468,13 @@
                             </div>
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
-					AND pokemon_id <> 9000 ORDER BY pokemon_id";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id <> 9000 ORDER BY pokemon_id";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -649,6 +658,7 @@
                             </div>
                             <?php
                                 }
+				$stmt->close();
                                 ?>
 
                         </div>

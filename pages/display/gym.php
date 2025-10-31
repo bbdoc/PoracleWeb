@@ -99,9 +99,11 @@
 
                                 // Show Gyms
 
-                                $sql = "SELECT * FROM gym WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
-                                        ORDER BY team"; 
-				$result = $conn->query($sql);
+                                $sql = "SELECT * FROM gym WHERE id = ? AND profile_no = ? ORDER BY team";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+				$result = $stmt->get_result();
 
                                 if ($result->num_rows == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
@@ -284,7 +286,9 @@
                                 </div>
                             </div>
 
-                            <?php } ?>
+                            <?php }
+				$stmt->close();
+				?>
 
                         </div>
 

@@ -1,17 +1,25 @@
 
 <?php
 
-   $sql = "select min(clean) clean FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-   $result = $conn->query($sql);
+   $sql = "SELECT min(clean) clean FROM monsters WHERE id = ? AND profile_no = ?";
+   $stmt = $conn->prepare($sql);
+   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $mon_cleaned = $row['clean'];
    }
+   $stmt->close();
 
-   $sql = "select min(distance) distance FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-   $result = $conn->query($sql);
+   $sql = "SELECT min(distance) distance FROM monsters WHERE id = ? AND profile_no = ?";
+   $stmt = $conn->prepare($sql);
+   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $mon_distance = $row['distance'];
    }
+   $stmt->close();
 
 
 ?>

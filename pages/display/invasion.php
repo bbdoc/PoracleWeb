@@ -99,9 +99,11 @@
 
                                 // Show Invasions
 
-		                $sql = "SELECT * FROM invasion WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
-			                ORDER BY grunt_type";
-				$result = $conn->query($sql); 
+		                $sql = "SELECT * FROM invasion WHERE id = ? AND profile_no = ? ORDER BY grunt_type";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+				$result = $stmt->get_result(); 
 
                                 if ($result->num_rows == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
@@ -278,7 +280,9 @@
                                 </div>
                             </div>
 
-                            <?php } ?>
+                            <?php }
+				$stmt->close();
+				?>
 
                         </div>
 

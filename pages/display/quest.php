@@ -100,18 +100,24 @@
 
                                 // Show Quests
 
-				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'";
-				$result = $conn->query($sql); 
+				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ?";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+				$result = $stmt->get_result();
 
 				if ($result->num_rows == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
 				}
+				$stmt->close();
 
-                                $sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'
-                                        AND reward_type = 7 ORDER BY reward";
-                                $result = $conn->query($sql);
+                                $sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 7 ORDER BY reward";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -272,10 +278,13 @@
 
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "' 
-					AND reward_type = 2 ORDER BY reward";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 2 ORDER BY reward";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -418,10 +427,13 @@
 
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
-					AND reward_type = 12 ORDER BY reward";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 12 ORDER BY reward";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -565,12 +577,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php } 
+                            <?php }
+				$stmt->close();
 
 
-				$sql = "select * FROM quest WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
-					AND reward_type = 4 ORDER BY reward";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 4 ORDER BY reward";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -716,7 +731,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }
+				$stmt->close();
+				?>
 
 
                         </div>
