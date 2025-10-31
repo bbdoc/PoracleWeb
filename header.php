@@ -273,11 +273,14 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 // Check if IV + PvP is used
 
 $sql = "SELECT * FROM monsters
-	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15) 
+	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15)
 	AND pvp_ranking_league <> 0
-        AND id = '" . $_SESSION['id'] . "'";
+        AND id = ?";
 
-$result = $conn->query($sql);
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $_SESSION['id']);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!empty($result) && $result->num_rows > 0) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
@@ -286,6 +289,7 @@ if (!empty($result) && $result->num_rows > 0) {
    $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
    $config_alarm.="</div>";
 }
+$stmt->close();
 
 // Check If Distance Map should be displayed
 

@@ -4,24 +4,27 @@
 $user_id = $_SESSION['id'];
 $profile_id = $_SESSION['profile'];
 $sql = "
-   SELECT COUNT(*) AS 'Total', 'monsters' AS 'Type' FROM monsters WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'monsters' AS 'Type' FROM monsters WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'raid' AS 'Type' FROM raid WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'raid' AS 'Type' FROM raid WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'egg' AS 'Type' FROM egg WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'egg' AS 'Type' FROM egg WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'quest' AS 'Type' FROM quest WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'quest' AS 'Type' FROM quest WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'invasion' AS 'Type' FROM invasion WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'invasion' AS 'Type' FROM invasion WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'lures' AS 'Type' FROM lures WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'lures' AS 'Type' FROM lures WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'nests' AS 'Type' FROM nests WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'nests' AS 'Type' FROM nests WHERE id = ? AND profile_no = ?
    UNION
-   SELECT COUNT(*) AS 'Total', 'gym' AS 'Type' FROM gym WHERE id = '{$user_id}' AND profile_no = '{$profile_id}'
+   SELECT COUNT(*) AS 'Total', 'gym' AS 'Type' FROM gym WHERE id = ? AND profile_no = ?
 ";
 
-$result = $conn->query($sql);
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sisisisisisisisi", $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id, $user_id, $profile_id);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
    switch ($row['Type']) {
       case 'monsters':
@@ -50,6 +53,7 @@ while ($row = $result->fetch_assoc()) {
          break;
    };
 }
+$stmt->close();
 
 ?>
 
