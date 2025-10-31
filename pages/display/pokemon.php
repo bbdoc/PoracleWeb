@@ -1,61 +1,48 @@
 
 <?php
 
+// SECURITY NOTE: Search functionality uses dynamic IN clauses from get_matching_ids() which parses
+// JSON Pokemon data. We validate these as integers below for safety. The remaining SQL uses prepared
+// statements for session variables ($_SESSION['id'] and $_SESSION['profile']) for defense in depth.
 
 if ( isset($_POST['search']) ) { $_SESSION['search'] = $_POST['search']; unset($_POST['search']); }
 
+$search_sql = "";
 if ( !empty($_SESSION['search']) )
 {
 	$matching_ids = get_matching_ids($_SESSION['search']);
-	$matching_ids = implode(',', $matching_ids);
-	$search_sql = "AND pokemon_id in ( $matching_ids )";
+	// Validate and cast to integers (get_matching_ids returns Pokemon IDs from JSON)
+	$matching_ids = array_filter($matching_ids, 'is_numeric');
+	$matching_ids = array_map('intval', $matching_ids);
+	if (!empty($matching_ids)) {
+		$matching_ids_str = implode(',', $matching_ids);
+		$search_sql = "AND pokemon_id IN ($matching_ids_str)";
+	}
 }
 
-$sql_base = "select count(*) count 
-             FROM monsters 
-	     WHERE id = '" . $_SESSION['id'] . "' 
-             ".@$search_sql."
-             AND profile_no = '" . $_SESSION['profile'] . "' "; 
+// Helper function to execute count queries with prepared statements
+function execute_count_query($conn, $session_id, $profile, $search_sql, $additional_condition) {
+	$sql = "SELECT count(*) count FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ? ".$additional_condition;
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("si", $session_id, $profile);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$count = 0;
+	while ($row = $result->fetch_assoc()) { $count = $row['count']; }
+	$stmt->close();
+	return $count;
+}
 
-$sql = $sql_base."AND pokemon_id =0";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $genall = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 1 and 151";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen1 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 152 and 251";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen2 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 252 and 386";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen3 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 387 and 493";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen4 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 494 and 649";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen5 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 650 and 721";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen6 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 722 and 809";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen7 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id between 810 and 905";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen8 = $row['count']; }
-
-$sql = $sql_base."AND pokemon_id >= 906";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
+$genall = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id = 0");
+$gen1 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 1 AND 151");
+$gen2 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 152 AND 251");
+$gen3 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 252 AND 386");
+$gen4 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 387 AND 493");
+$gen5 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 494 AND 649");
+$gen6 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 650 AND 721");
+$gen7 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 722 AND 809");
+$gen8 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 810 AND 905");
+$gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id >= 906");
 
 ?>
 
@@ -185,17 +172,18 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 
                         ?>
                         
-                        <?php 
+                        <?php
 
                         // Count Trackings
-                        $sql = "select * FROM monsters 
-					 WHERE id = '" . $_SESSION['id'] . "' 
-                                         ".@$search_sql."
-                                         AND profile_no = '" . $_SESSION['profile'] . "'";
-                        $result = $conn->query($sql);
+                        $sql = "SELECT * FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
 
 			// Show ALL Mons if less than 50 trackings
 			if ( $result->num_rows <= 50 ) { $gen_selector = ""; }
+			$stmt->close();
 
                         // Only Show Gen Selector if More than 50 trackings
                         if ( $result->num_rows > 50 ) {
@@ -240,24 +228,15 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 
                                 // Check if User is already tracking something
 
-				$sql = "select count(*) count 
-					FROM monsters 
-					WHERE id = '" . $_SESSION['id'] . "' 
-                                        ".@$search_sql."
-                                        AND profile_no = '" . $_SESSION['profile'] . "'";
-                                $result = $conn->query($sql);
-				while ($row = $result->fetch_assoc()) {
-					$num_mon_tracked = $row['count'];
-				}
+				$num_mon_tracked = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "");
 
-                                // Show Monsters Alarms         
+                                // Show Monsters Alarms
 
-				$sql = "select * FROM monsters 
-					WHERE id = '" . $_SESSION['id'] . "' 
-                                        ".@$search_sql."
-                                        AND profile_no = '" . $_SESSION['profile'] . "' " . @$gen_selector ." 
-					ORDER BY pokemon_id, form"; 
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ? ".@$gen_selector." ORDER BY pokemon_id, form";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 				if ($num_mon_tracked == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
@@ -594,6 +573,7 @@ while ($row = $result->fetch_assoc()) { $gen9 = $row['count']; }
 
                             <?php
                                 }
+				$stmt->close();
                                 ?>
                         </div>
                         <!-- Content Row -->
