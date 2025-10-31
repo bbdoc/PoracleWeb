@@ -46,8 +46,10 @@ foreach ($dbnames as &$db) {
 }
 
 $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $_SESSION['dbname']);
-$sql = "select id, name, type, notes FROM humans WHERE id = '".$search_id."'"; 
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT id, name, type, notes FROM humans WHERE id = ?");
+$stmt->bind_param("s", $search_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows == 0) {
 	header("Location: $redirect_url?return=user_not_found");
@@ -60,6 +62,7 @@ while ($row = $result->fetch_assoc()) {
         $_SESSION['type']=$row['type'];
         $_SESSION['notes']=$row['notes'];
 }
+$stmt->close();
 
 // Get Config Items from API and Store in Session Variables
 
@@ -108,11 +111,14 @@ if ( isset($_SESSION['delegated_id']) && $_SESSION['id'] == $_SESSION['delegated
 
 // Switch to active Profile
 
-$sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
+$stmt->bind_param("s", $_SESSION['id']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
     $_SESSION['profile'] = $row['current_profile_no'];
 }
+$stmt->close();
 
 header("Location: $redirect_url");
 

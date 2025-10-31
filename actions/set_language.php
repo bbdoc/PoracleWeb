@@ -11,8 +11,10 @@ $_SESSION['locale']=$_GET['lng'];
 
 // Update Language in DB
 
-$sql = "UPDATE humans set language  = '".$_GET['lng']."'  WHERE id = '" . $_SESSION['id'] . "'"; 
-$result = $conn->query($sql) or die(mysqli_error($conn));
+$stmt = $conn->prepare("UPDATE humans SET language = ? WHERE id = ?");
+$stmt->bind_param("ss", $_GET['lng'], $_SESSION['id']);
+$stmt->execute() or die(mysqli_error($conn));
+$stmt->close();
 
 header("Location: $redirect_url");
 

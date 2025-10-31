@@ -396,13 +396,16 @@ function set_locale() {
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
-      $sql = "select language FROM humans WHERE id = '" . $_SESSION['id'] . "'"; 
-      $result = $conn->query($sql) or die(mysqli_error($conn));
-      while ($row = $result->fetch_assoc()) {  
-         if ( $row['language'] <> "" ) { 
+      $stmt = $conn->prepare("SELECT language FROM humans WHERE id = ?");
+      $stmt->bind_param("s", $_SESSION['id']);
+      $stmt->execute() or die(mysqli_error($conn));
+      $result = $stmt->get_result();
+      while ($row = $result->fetch_assoc()) {
+         if ( $row['language'] <> "" ) {
             $_SESSION['locale'] = $row['language'];
          }
       }
+      $stmt->close();
    }
 
 }
@@ -581,10 +584,17 @@ function default_distance($table) {
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
-      $sql = "select max(distance) distance FROM $table WHERE id = '" . $_SESSION['id'] . "'";
-      $sql = "SELECT distance, count(*) FROM $table WHERE id = '" . $_SESSION['id'] . "' GROUP BY distance ORDER BY count(*) DESC LIMIT 1"; 
-      $result = $conn->query($sql) or die(mysqli_error($conn));
+      // Table names cannot be parameterized in prepared statements (they are identifiers, not values)
+      // so we use a whitelist to validate the table name before using string interpolation
+      $allowed_tables = array('monsters', 'raid', 'egg', 'quest', 'invasion', 'lures', 'gym');
+      if (!in_array($table, $allowed_tables)) { die("Invalid table"); }
+      $sql = "SELECT distance, count(*) FROM $table WHERE id = ? GROUP BY distance ORDER BY count(*) DESC LIMIT 1";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $_SESSION['id']);
+      $stmt->execute() or die(mysqli_error($conn));
+      $result = $stmt->get_result();
       while ($row = $result->fetch_assoc()) { $default_distance = $row['distance']; }
+      $stmt->close();
    }
 
    if ( !isset($default_distance) ) { $default_distance = 0; }

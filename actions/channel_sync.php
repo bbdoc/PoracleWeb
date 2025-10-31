@@ -5,13 +5,20 @@
 
 if (isset($_POST['sync'])) {
 
-    foreach ($_POST as $key => $value) {  
+    foreach ($_POST as $key => $value) {
       if (substr($key, 0, 7) == "target_") {
 	      $target = ltrim($key, 'target_');
 	      $target_fields = explode("|", $target);
 	      $target_db=$target_fields[0];
 	      $target_id=$target_fields[1];
 	      $target_id=str_replace("_com", ".com", $target_id);
+
+              // Database names cannot be parameterized in prepared statements (they are identifiers, not values)
+              // so we use a whitelist to validate the database name before using string interpolation
+              $allowed_dbs = explode(",", $dbname);
+              if (!in_array($target_db, $allowed_dbs)) {
+                  die("Invalid database");
+              }
 
               // Delete All Previous Trackings
 	      $stmt = $conn->prepare("DELETE FROM ".$target_db.".monsters WHERE id = ?");
