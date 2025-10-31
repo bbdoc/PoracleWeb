@@ -52,15 +52,19 @@
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                 <?php
-                                   
-                                   $sql = "select uid FROM monsters WHERE min_iv = 100 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+
+                                   $sql = "SELECT uid FROM monsters WHERE min_iv = 100 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
 				   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-                                   
+
                                    while ($row = $result->fetch_assoc()) {
 					   $uid = $row['uid'];
-                                   } 
-                                   
+                                   }
+				   $stmt->close();
+
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -90,13 +94,17 @@
 
                                 <?php
 
-                                   $sql = "select uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
 
                                 ?>
 
@@ -127,13 +135,17 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -163,13 +175,17 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 1500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 1500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -199,13 +215,17 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 2500 AND pvp_ranking_worst = 1 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 2500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -258,13 +278,17 @@
 				<div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 129 AND min_weight = 13130 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 129 AND min_weight = 13130 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -297,13 +321,17 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE pokemon_id = 19 AND max_weight = 2410 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 19 AND max_weight = 2410 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -357,13 +385,17 @@
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE size = 1 AND max_size = 1 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE size = 1 AND max_size = 1 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -397,13 +429,17 @@
                                 </form>
 
                                 <?php
-                                   $sql = "select uid FROM monsters WHERE size = 5 AND pokemon_id = 0 AND id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-                                   $result = $conn->query($sql);
+                                   $sql = "SELECT uid FROM monsters WHERE size = 5 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
+                                   $stmt = $conn->prepare($sql);
+                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                   $stmt->execute();
+                                   $result = $stmt->get_result();
                                    if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
 
                                    while ($row = $result->fetch_assoc()) {
                                            $uid = $row['uid'];
                                    }
+				   $stmt->close();
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
