@@ -94,8 +94,10 @@ foreach ($dbnames as &$db) {
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $sql = "select id, name, type FROM humans WHERE type like 'discord:channel' AND id <> '".$_SESSION['id']."' ORDER by name";
-                       $result = $conn->query($sql);
+                       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type like 'discord:channel' AND id <> ? ORDER by name");
+                       $stmt->bind_param("s", $_SESSION['id']);
+                       $stmt->execute();
+                       $result = $stmt->get_result();
                        ?>
 
                     <?php if ($result->num_rows <> 0) { ?>
@@ -145,8 +147,10 @@ foreach ($dbnames as &$db) {
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      		       $sql = "select id, name, type FROM humans WHERE type in ('telegram:channel','telegram:group') AND id <> '".$_SESSION['id']."' ORDER by name";
-                       $result = $conn->query($sql);
+      		       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type in ('telegram:channel','telegram:group') AND id <> ? ORDER by name");
+                       $stmt->bind_param("s", $_SESSION['id']);
+                       $stmt->execute();
+                       $result = $stmt->get_result();
                        ?>
 
                     <?php if ($result->num_rows <> 0) { ?>
@@ -196,8 +200,10 @@ foreach ($dbnames as &$db) {
                     foreach ($dbnames as &$db) {
 
                        $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $sql = "select id, name, type FROM humans WHERE type like 'webhook' AND id <> '".$_SESSION['id']."' ORDER by name";
-                       $result = $conn->query($sql);
+                       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type like 'webhook' AND id <> ? ORDER by name");
+                       $stmt->bind_param("s", $_SESSION['id']);
+                       $stmt->execute();
+                       $result = $stmt->get_result();
                        ?>
 
                     <?php if ($result->num_rows <> 0) { ?>

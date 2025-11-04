@@ -10,16 +10,26 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
   $lat = "0.0000000000";
   $lon = "0.0000000000";
 
-  $sql = "UPDATE monsters set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
-  $result = $conn->query($sql);
-  $sql = "UPDATE raid set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
-  $result = $conn->query($sql);
-  $sql = "UPDATE egg set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
-  $result = $conn->query($sql);
-  $sql = "UPDATE quest set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
-  $result = $conn->query($sql);
-  $sql = "UPDATE invasion set distance = 0 WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_SESSION['profile']."'";
-  $result = $conn->query($sql);
+  $stmt = $conn->prepare("UPDATE monsters set distance = 0 WHERE id = ? AND profile_no = ?");
+  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+  $stmt->execute();
+  $stmt->close();
+  $stmt = $conn->prepare("UPDATE raid set distance = 0 WHERE id = ? AND profile_no = ?");
+  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+  $stmt->execute();
+  $stmt->close();
+  $stmt = $conn->prepare("UPDATE egg set distance = 0 WHERE id = ? AND profile_no = ?");
+  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+  $stmt->execute();
+  $stmt->close();
+  $stmt = $conn->prepare("UPDATE quest set distance = 0 WHERE id = ? AND profile_no = ?");
+  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+  $stmt->execute();
+  $stmt->close();
+  $stmt = $conn->prepare("UPDATE invasion set distance = 0 WHERE id = ? AND profile_no = ?");
+  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+  $stmt->execute();
+  $stmt->close();
 
 } else if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 

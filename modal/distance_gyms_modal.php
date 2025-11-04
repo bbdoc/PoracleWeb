@@ -8,8 +8,10 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $sql = "SELECT distance from gym WHERE id = '" . $_SESSION['id'] . "' GROUP by distance";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT distance from gym WHERE id = ? GROUP by distance");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if (!empty($result) && $result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
                     $distance_set = $row['distance'];
@@ -17,6 +19,7 @@
     } else {
             $distance_set = 0;
     }
+    $stmt->close();
 ?>
 <form action='./actions/gyms.php?action=update_gyms_distance' method='POST'>
 <div class="modal-body">

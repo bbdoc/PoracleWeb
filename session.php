@@ -19,12 +19,15 @@ foreach ($dbnames as &$db) {
       exit();
    }
 
-   $sql = "SELECT * from humans WHERE id = '".$_SESSION['id']."'";
-   $result = $conn->query($sql) or die(mysqli_error($conn));
+   $stmt = $conn->prepare("SELECT * from humans WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute() or die(mysqli_error($conn));
+   $result = $stmt->get_result();
 
    if ( $result->num_rows > 0 ) {
 	  $_SESSION['dbname'] = $db;
    }
+   $stmt->close();
 
 }
 

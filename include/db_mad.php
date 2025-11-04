@@ -116,12 +116,15 @@ function get_raid_bosses() {
 function get_gym_by_id($id) {
 
         global $scan_conn;
-        $sql = "SELECT name from gymdetails where gym_id = '".$id."'";
-        $result = $scan_conn->query($sql);
+        $stmt = $scan_conn->prepare("SELECT name from gymdetails where gym_id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         while($row = $result->fetch_assoc()) {
                 $gym_name = $row['name'];
         }
+        $stmt->close();
 
         return $gym_name;
 
@@ -130,12 +133,15 @@ function get_gym_by_id($id) {
 function get_gym_url($id) {
 
         global $scan_conn;
-        $sql = "SELECT url from gymdetails where gym_id = '".$id."'";
-        $result = $scan_conn->query($sql);
+        $stmt = $scan_conn->prepare("SELECT url from gymdetails where gym_id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         while($row = $result->fetch_assoc()) {
                 $gym_url = $row['url'];
         }
+        $stmt->close();
 
         return $gym_url;
 
