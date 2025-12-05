@@ -1,37 +1,61 @@
 
 <?php
 
-$sql = "select count(*) count FROM monsters WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM monsters WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_mon_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM raid WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_raid_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM egg WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_egg_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM quest WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM quest WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_quest_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM invasion WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM invasion WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_invasion_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM lures WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM lures WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_lure_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM nests WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM nests WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_nests_tracked = $row['count']; }
+$stmt->close();
 
-$sql = "select count(*) count FROM gym WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT count(*) count FROM gym WHERE id = ? AND profile_no = ?");
+$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+$stmt->execute();
+$result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) { $num_gyms_tracked = $row['count']; }
+$stmt->close();
 
 
 $num_areas=0;

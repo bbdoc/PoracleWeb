@@ -233,15 +233,19 @@ if (!isset($_SESSION['admin_id'])) {
 
                 <?php
 
-                foreach($_SESSION['poracle_admins'] as $key => $padmin) { 
+                foreach($_SESSION['poracle_admins'] as $key => $padmin) {
 
-                   $sql = "select type, name FROM humans where id = '$padmin'";
-                   $result = $conn->query($sql);
+                   $sql = "SELECT type, name FROM humans WHERE id = ?";
+                   $stmt = $conn->prepare($sql);
+                   $stmt->bind_param("s", $padmin);
+                   $stmt->execute();
+                   $result = $stmt->get_result();
 
 		   while ($row = $result->fetch_assoc()) {
                       if ($row['type'] == "discord:user") { $color="primary"; } else if ($row['type'] == "telegram:user") { $color="info"; }
                       echo "<span class='badge badge-$color' style='width:100%;'>".$row['type']." | ".$padmin." | ".$row['name']."</span><br>";
                    }
+		   $stmt->close();
 
 		}
 

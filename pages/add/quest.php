@@ -124,7 +124,7 @@ if ( $disable_quests == "True" ) {
                                 <li class='text-center'><input type='checkbox' name='mon_<?php echo $mon; ?>'
 				id='mon_<?php echo $mon; ?>' />
 				    <label for='mon_<?php echo $mon; ?>'>
-					<?php if ($form_id <> 0  && $form_name <> 'Normal' ) { $addform = "_f".$form_id; } else { $addform = ""; } ?>
+					<?php if ($form_id <> 0 && $form_id <> "" && $form_name <> 'Normal' ) { $addform = "_f".$form_id; } else { $addform = ""; } ?>
                                         <img class="mb-2" src='<?php echo $uicons_pkmn; ?>/pokemon/<?php echo $mon_id.$addform; ?>.png' />
 					<br><?php echo $mon_id; ?><br><?php echo $pokemon_name; ?><br>
                                         <?php if ( $form_name <> "Normal" && $form_name <> "" && $form_id <> "00" ) { ?>

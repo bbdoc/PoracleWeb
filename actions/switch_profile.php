@@ -11,23 +11,23 @@
 	  $_SESSION['profile'] = $_POST['profile'];
   }
 
-  if ( isset($_POST['activate']) ) { 
+  if ( isset($_POST['activate']) ) {
 
-	  $sql = "SELECT area, latitude, longitude from profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '".$_POST['profile']."'";
-          $result = $conn->query($sql); 
-	  while ($row = $result->fetch_assoc()) { 
-		  $area = $row['area']; 
-		  $latitude = $row['latitude']; 
-		  $longitude = $row['longitude']; 
+	  $stmt = $conn->prepare("SELECT area, latitude, longitude from profiles WHERE id = ? AND profile_no = ?");
+	  $stmt->bind_param("si", $_SESSION['id'], $_POST['profile']);
+	  $stmt->execute();
+	  $result = $stmt->get_result();
+	  while ($row = $result->fetch_assoc()) {
+		  $area = $row['area'];
+		  $latitude = $row['latitude'];
+		  $longitude = $row['longitude'];
 	  }
+	  $stmt->close();
 
-	  $sql = "UPDATE humans 
-		  SET area = '".$area."', 
-		      latitude = '".$latitude."', 
-		      longitude = '".$longitude."', 
-                      current_profile_no = '".$_POST['profile']."'
-		   WHERE id = '" . $_SESSION['id'] . "'";
-          $result = $conn->query($sql);
+	  $stmt = $conn->prepare("UPDATE humans SET area = ?, latitude = ?, longitude = ?, current_profile_no = ? WHERE id = ?");
+	  $stmt->bind_param("ssdis", $area, $latitude, $longitude, $_POST['profile'], $_SESSION['id']);
+	  $stmt->execute();
+	  $stmt->close();
 	  header("Location: $redirect_url?type=display&page=profiles&return=success_switch_profile_activate");
 
 
@@ -41,27 +41,32 @@
 
 	  // Get Next Profile Number
           #$sql = "SELECT IFNULL(max(profile_no),0)+1 next_profile from profiles WHERE id = '" . $_SESSION['id'] . "'";
-	  $sql = "SELECT MIN(t1.profile_no + 1) AS nextID
-                  FROM (select profile_no from profiles  WHERE id = '".$_SESSION['id']."' UNION select 0 profile_no) t1
-                  LEFT JOIN (select profile_no from profiles  WHERE id = '".$_SESSION['id']."' UNION select 0 profile_no) t2
+	  $stmt = $conn->prepare("SELECT MIN(t1.profile_no + 1) AS nextID
+                  FROM (select profile_no from profiles  WHERE id = ? UNION select 0 profile_no) t1
+                  LEFT JOIN (select profile_no from profiles  WHERE id = ? UNION select 0 profile_no) t2
                   ON t1.profile_no + 1 = t2.profile_no
-                  WHERE t2.profile_no IS NULL";
-
-	  $result = $conn->query($sql);
+                  WHERE t2.profile_no IS NULL");
+	  $stmt->bind_param("ss", $_SESSION['id'], $_SESSION['id']);
+	  $stmt->execute();
+	  $result = $stmt->get_result();
 	  while ($row = $result->fetch_assoc()) {
 		  $next_profile = $row['nextID'];
 	  }
+	  $stmt->close();
 
 	  if ( $next_profile == 1 ) {
              // Get Info on currently active Profile
-             $sql = "SELECT area, latitude, longitude from humans WHERE id = '" . $_SESSION['id'] . "'";
-             $result = $conn->query($sql);
+             $stmt = $conn->prepare("SELECT area, latitude, longitude from humans WHERE id = ?");
+	     $stmt->bind_param("s", $_SESSION['id']);
+	     $stmt->execute();
+             $result = $stmt->get_result();
              while ($row = $result->fetch_assoc()) {
                   $area = $row['area'];
                   $latitude = $row['latitude'];
 		  $longitude = $row['longitude'];
 		  $_SESSION['profile_name'] = $_POST['profile_name'];
              }
+	     $stmt->close();
 	  } else {
 		  $area = "[]";
 		  $latitude = "0.0000000000";
@@ -153,26 +158,32 @@
 
           // Change Active Profile if Deleting Active one
 
-          $sql = "select current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-          $result = $conn->query($sql);
+          $stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
+          $stmt->bind_param("s", $_SESSION['id']);
+          $stmt->execute();
+          $result = $stmt->get_result();
           while ($row = $result->fetch_assoc()) {
              $current_profile = $row['current_profile_no'];
           }
+          $stmt->close();
 
           if ( $current_profile == $_SESSION['profile'])  {
-                  $sql = "UPDATE humans set current_profile_no =
-                          (select IFNULL(min(profile_no),1) from profiles where id = '".$_SESSION['id']."')
-			  WHERE id = '" . $_SESSION['id'] . "'";
-                  $result = $conn->query($sql); 
+                  $stmt = $conn->prepare("UPDATE humans set current_profile_no = (select IFNULL(min(profile_no),1) from profiles where id = ?) WHERE id = ?");
+                  $stmt->bind_param("ss", $_SESSION['id'], $_SESSION['id']);
+                  $stmt->execute();
+                  $stmt->close();
           }
 
 	  // Check for smaller Profiles and redirect
 
-          $sql = "select IFNULL(min(profile_no),1) min from profiles WHERE id = '" . $_SESSION['id'] . "'";
-	  $result = $conn->query($sql);
+          $stmt = $conn->prepare("SELECT IFNULL(min(profile_no),1) min from profiles WHERE id = ?");
+          $stmt->bind_param("s", $_SESSION['id']);
+          $stmt->execute();
+          $result = $stmt->get_result();
           while ($row = $result->fetch_assoc()) {
              $_SESSION['profile'] = $row['min'];
           }
+          $stmt->close();
 
           header("Location: $redirect_url?type=display&page=profiles&return=success_delete_profile");
 

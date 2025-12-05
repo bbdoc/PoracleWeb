@@ -14,6 +14,8 @@ $file_grunts = "./.cache/grunts.json";
 
 global $file_localePkmnData;
 $file_localePkmnData = "./.cache/localePkmnData_".$locale.".json";
+global $file_localeFormsData;
+$file_localeFormsData = "./.cache/localeFormsData_".$locale.".json";
 global $file_localeItemsData;
 $file_localeItemsData = "./.cache/localeItemsData_".$locale.".json";
 
@@ -128,6 +130,19 @@ if (file_exists($file_localePkmnData) && (filemtime($file_localePkmnData) > (tim
 } else if (isset($locale)) {
     $localePkmnData_json = file_get_contents($repo_locales."pokemon_en.json");
 }	
+
+// Cache FormsNames locale file
+
+global $localeFormsData_json;
+if (file_exists($file_localeFormsData) && (filemtime($file_localeFormsData) > (time() - 60 * 60 * $repo_locales_cache ))) {
+    $localeFormsData_json = file_get_contents($file_localeFormsData);
+} else if ( @fopen($repo_locales."/forms_".$locale.".json", 'r') ) {
+    $localeFormsData_json = file_get_contents($repo_locales."/forms_".$locale.".json");
+    file_put_contents($file_localeFormsData, $localeFormsData_json);
+} else if (isset($locale)) {
+    $localeFormsData_json = file_get_contents($repo_locales."forms_en.json");
+}
+
 
 // Cache itemNames locale file
 

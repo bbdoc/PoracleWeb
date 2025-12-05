@@ -102,8 +102,11 @@
 
                                 // Show Eggs & Raids
 
-                                $sql = "select * FROM egg WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' ORDER BY level";
-                                $result = $conn->query($sql);
+                                $sql = "SELECT * FROM egg WHERE id = ? AND profile_no = ? ORDER BY level";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -148,8 +151,7 @@
 
                                                             if ($row['distance'] <> '0') {
                                                             ?>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
                                                         <?php if ( @$distance_map <> "True" ) { ?>
                                                         <span
@@ -179,7 +181,7 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+						    if ($row['ping'] <> '') {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
@@ -187,9 +189,27 @@
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
                                                             <span class="small"><?=$row['ping']?></span>
                                                         </div>
-                                                    </li>
+						    </li>
+
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
+                                                    if ($row['rsvp_changes'] == '1') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Raids + RSVP"); ?></span>
+						    </div>
+
+                                                    <?php }
+                                                    if ($row['rsvp_changes'] == '2') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("RSVP Only"); ?></span>
+                                                    </div>
+                                                    <?php }
+
+
+						    if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -269,10 +289,13 @@
 
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "' 
-					AND pokemon_id = 9000 ORDER BY level";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id = 9000 ORDER BY level";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -349,8 +372,25 @@
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
                                                             <span class="small"><?=$row['ping']?></span>
                                                         </div>
-                                                    </li>
-													<?php  }
+						    </li>
+
+                                                    <?php }
+                                                    if ($row['rsvp_changes'] == '1') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Raids + RSVP"); ?></span>
+                                                    </div>
+
+                                                    <?php }
+                                                    if ($row['rsvp_changes'] == '2') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("RSVP Only"); ?></span>
+                                                    </div>
+
+                                                    <?php  }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
@@ -428,10 +468,13 @@
                             </div>
                             <?php
                                 }
+				$stmt->close();
 
-				$sql = "select * FROM raid WHERE id = '" . $_SESSION['id'] . "' and profile_no = '" . $_SESSION['profile'] . "'  
-					AND pokemon_id <> 9000 ORDER BY pokemon_id";
-                                $result = $conn->query($sql);
+				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id <> 9000 ORDER BY pokemon_id";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+				$stmt->execute();
+                                $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
 
@@ -519,6 +562,22 @@
 						    </div>
                                                     <?php } ?>
 
+                                                    <?php }
+                                                    if ($row['rsvp_changes'] == '1') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("Raids + RSVP"); ?></span>
+                                                    </div>
+
+                                                    <?php }
+                                                    if ($row['rsvp_changes'] == '2') {
+                                                            ?>
+                                                    <div class="mb-2">
+                                                        <span
+                                                            class="badge badge-pill badge-info w-100"><?php echo i8ln("RSVP Only"); ?></span>
+                                                    </div>
+
                                                     <?php
                                                             }
                                                             if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
@@ -599,6 +658,7 @@
                             </div>
                             <?php
                                 }
+				$stmt->close();
                                 ?>
 
                         </div>

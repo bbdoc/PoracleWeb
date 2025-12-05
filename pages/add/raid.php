@@ -23,6 +23,26 @@ if ( $disable_raids == "True" ) {
                         <?php $default_distance = default_distance('raid'); ?>
 			<?php include "./include/add_area_distance.php"; ?>
 
+                        <!--  RSVP¨ Picker -->
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-12 my-1">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><?php echo i8ln("RSVP"); ?></div>
+                                    </div>
+
+                                    <select class="form-control selectpicker" data-toggle="dropdown" id="rsvp" name="rsvp" data-live-search="true" data-width="100px">
+
+                                       <option value="0" data-tokens="0"><?php echo i8ln("Alarm when raid matches"); ?></option>
+                                       <option value="1" data-tokens="1"><?php echo i8ln("Alarm when raid matches + RSVP changes"); ?></option>
+                                       <option value="2" data-tokens="2"><?php echo i8ln("Alarm on RSVP changes only"); ?></option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!--  Gym Picker -->
                         <div class="form-row align-items-center">
                             <div class="col-sm-12 my-1">

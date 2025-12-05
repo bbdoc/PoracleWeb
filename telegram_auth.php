@@ -48,6 +48,6 @@ if (isset($no_api) && $no_api == "True") {
    header("Location: $redirect_url?type=display&page=server_settings");
 } else if (version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0) {
    header("Location: $redirect_url?type=display&page=server_settings");
-} else {
+} else { 
    header("Location: $redirect_url");
 }

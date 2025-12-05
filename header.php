@@ -20,6 +20,8 @@ if (isset($custom_title)) {
     $title = "PoracleWeb";
 }
 
+ini_set('default_socket_timeout', 1);
+
 if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avatar'], 0, null, 0, 1)) {
 	$avatar = "$redirect_url/img/no_avatar.png";
 } else {
@@ -29,27 +31,34 @@ if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avata
 // Set Profile to current if not yet set
 
 if (!isset($_SESSION['profile']) && isset($_SESSION['id'])) {
-   $sql = "SELECT current_profile_no FROM humans WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $_SESSION['profile'] = $row['current_profile_no'];
    }
+   $stmt->close();
 }
 
 // Check if user has Multiple Profiles
 
 if (isset($_SESSION['id'])) {
-   $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT name FROM profiles WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    $_SESSION['number_of_profiles'] = $result->num_rows;
+   $stmt->close();
 }
 
 // Get Profile Name
 
-
 if (isset($_SESSION['id'])) {
-   $sql = "SELECT name FROM profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '" . $_SESSION['profile'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT name FROM profiles WHERE id = ? AND profile_no = ?");
+   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
          $_SESSION['profile_name'] = $row['name'];
@@ -57,68 +66,95 @@ if (isset($_SESSION['id'])) {
    } else {
          $_SESSION['profile_name'] = i8ln("Default");
    }
+   $stmt->close();
 }
 
 // Get Active Profile
 
 if (isset($_SESSION['id'])) {
-   $sql = "SELECT current_profile_no from humans WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT current_profile_no from humans WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
       $_SESSION['current_profile'] = $row['current_profile_no'];
    }
+   $stmt->close();
 }
 
 // Check for Cleaned
 
 if (isset($_SESSION['id'])) {
 
-   $sql = "select min(clean) clean FROM monsters WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM monsters WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_mon_cleaned = $row['clean'];
    }
-   
-   $sql = "select min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt->close();
+
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_raid_cleaned = $row['clean'];
    }
-   
-   $sql = "select min(clean) clean FROM quest WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt->close();
+
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM quest WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_quest_cleaned = $row['clean'];
    }
+   $stmt->close();
 
-   $sql = "select min(clean) clean FROM invasion WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM invasion WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_invasion_cleaned = $row['clean'];
    }
+   $stmt->close();
 
-   $sql = "select min(clean) clean FROM lures WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM lures WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_lures_cleaned = $row['clean'];
    }
+   $stmt->close();
 
-   $sql = "select min(clean) clean FROM nests WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM nests WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_nests_cleaned = $row['clean'];
    }
+   $stmt->close();
 
-   $sql = "select min(clean) clean FROM gym WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT min(clean) clean FROM gym WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $all_gyms_cleaned = $row['clean'];
    }
+   $stmt->close();
 
 
    // Get Areas, Lat, long and Enabled from Humans Table
-   $sql = "select area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = '" . $_SESSION['id'] . "'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = ?");
+   $stmt->bind_param("s", $_SESSION['id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
    while ($row = $result->fetch_assoc()) {
        $area_set = $row['area'];
        $latitude = $row['latitude'];
@@ -127,11 +163,14 @@ if (isset($_SESSION['id'])) {
        $admin_disable = $row['admin_disable'];
        $disabled_date = $row['disabled_date'];
    }
+   $stmt->close();
 
    // Overwrite with Profile info if a profile is available
 
-   $sql = "select area, latitude, longitude from profiles WHERE id = '" . $_SESSION['id'] . "' AND profile_no = '". $_SESSION['profile'] ."'";
-   $result = $conn->query($sql);
+   $stmt = $conn->prepare("SELECT area, latitude, longitude from profiles WHERE id = ? AND profile_no = ?");
+   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
+   $stmt->execute();
+   $result = $stmt->get_result();
 
    if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
@@ -140,9 +179,9 @@ if (isset($_SESSION['id'])) {
           $longitude = $row['longitude'];
       }
    }
+   $stmt->close();
 
 }
-
 
 if (isset($_SESSION['username'])) {
 
@@ -155,19 +194,24 @@ if (isset($_SESSION['username'])) {
             $redirect_page = "unregistered.php";
     }
 
-    if (isset($enable_admin_dis) && $enable_admin_dis == "False" && $_SESSION['id'] <> $_SESSION['admin_id'])
-    {
-	    $subs_clause .= " AND admin_disable = 0";
-    }
+    if (!isset($subs_clause)) { $subs_clause = ""; }
 
-    $sql = "SELECT * from humans WHERE id = '" . $_SESSION['id'] . "' ".@$subs_clause;
-    $result = $conn->query($sql);
-    if ($result->num_rows == 0) { 
-         if (strpos($_SERVER['REQUEST_URI'],$redirect_page) == false) { 
-		 header("Location: $redirect_url/$redirect_page"); 
+    if (isset($enable_admin_dis) && $enable_admin_dis == "False" && isset($_SESSION['admin_id']) && $_SESSION['id'] <> $_SESSION['admin_id'])
+    {
+	    $stmt = $conn->prepare("SELECT * from humans WHERE id = ? AND admin_disable = 0");
+    } else {
+	    $stmt = $conn->prepare("SELECT * from humans WHERE id = ?");
+    }
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows == 0) {
+         if (strpos($_SERVER['REQUEST_URI'],$redirect_page) == false) {
+		 header("Location: $redirect_url/$redirect_page");
 		 exit();
-	 } 
-    } 
+	 }
+    }
+    $stmt->close(); 
 
 } else { 
      // If not logged in import login page
@@ -229,11 +273,14 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 // Check if IV + PvP is used
 
 $sql = "SELECT * FROM monsters
-	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15) 
+	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15)
 	AND pvp_ranking_league <> 0
-        AND id = '" . $_SESSION['id'] . "'";
+        AND id = ?";
 
-$result = $conn->query($sql);
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $_SESSION['id']);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!empty($result) && $result->num_rows > 0) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
@@ -242,6 +289,7 @@ if (!empty($result) && $result->num_rows > 0) {
    $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
    $config_alarm.="</div>";
 }
+$stmt->close();
 
 // Check If Distance Map should be displayed
 
