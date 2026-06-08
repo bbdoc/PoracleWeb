@@ -586,7 +586,7 @@ function default_distance($table) {
       include_once "./include/db_connect.php";
       // Table names cannot be parameterized in prepared statements (they are identifiers, not values)
       // so we use a whitelist to validate the table name before using string interpolation
-      $allowed_tables = array('monsters', 'raid', 'egg', 'quest', 'invasion', 'lures', 'gym');
+      $allowed_tables = array('monsters', 'raid', 'egg', 'quest', 'invasion', 'lures', 'gym','nests');
       if (!in_array($table, $allowed_tables)) { die("Invalid table"); }
       $sql = "SELECT distance, count(*) FROM $table WHERE id = ? GROUP BY distance ORDER BY count(*) DESC LIMIT 1";
       $stmt = $conn->prepare($sql);
