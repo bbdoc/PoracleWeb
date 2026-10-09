@@ -1,0 +1,10 @@
+.git
+.worktrees
+.superpowers
+tests
+vendor
+node_modules
+docs
+phpunit.xml
+composer.json
+composer.lock

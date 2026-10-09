@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body">
     <?php echo i8ln("This will delete tracking for invasion type"); ?>
-    <?php echo i8ln($row['grunt_type']); ?><br>
+    <?php echo i8ln($row['grunt_type'] ?? ''); ?><br>
     <?php echo i8ln("Are you sure?"); ?>
 </div>
 <div class="modal-footer">
@@ -16,6 +16,7 @@
         <?php echo "
             <input type='hidden' id='type' name='type' value='invasions'>
             <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
+            <input type='hidden' name='rule_type' value='" . $row['rule_type'] . "'>
             " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>

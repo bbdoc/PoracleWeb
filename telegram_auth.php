@@ -8,27 +8,15 @@ if (session_status() == PHP_SESSION_NONE) {
    session_start();
 }
 
-// Check Telegram Bot Auth
-$auth_data = $_GET;
-$check_hash = $auth_data['hash'];
-unset($auth_data['hash']);
-
-$data_check_arr = [];
-foreach ($auth_data as $key => $value) {
-   $data_check_arr[] = $key . '=' . $value;
-}
-sort($data_check_arr);
-
-$data_check_string = implode("\n", $data_check_arr);
-$secret_key = hash('sha256', $telegram_bot_token, true);
-$hash = hash_hmac('sha256', $data_check_string, $secret_key);
-
-if (strcmp($hash, $check_hash) !== 0) {
+// Check Telegram Bot Auth: the signature first (judged as if just issued),
+// then the age, so a bad hash and an old login get different messages.
+$auth_date = isset($_GET['auth_date']) ? (int) $_GET['auth_date'] : 0;
+if (!telegram_auth_valid($_GET, $telegram_bot_token ?? '', $auth_date)) {
    header("Location: $redirect_url/?return=invalid_auth");
    exit();
 }
 
-if ((time() - $auth_data['auth_date']) > 86400) {
+if (!telegram_auth_valid($_GET, $telegram_bot_token ?? '', time())) {
    header("Location: $redirect_url/?return=expired");
    exit();
 }
@@ -45,8 +33,6 @@ if (isset($_SESSION['username'])) {
 include_once "./session.php";
 
 if (isset($no_api) && $no_api == "True") {
-   header("Location: $redirect_url?type=display&page=server_settings");
-} else if (version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0) {
    header("Location: $redirect_url?type=display&page=server_settings");
 } else { 
    header("Location: $redirect_url");

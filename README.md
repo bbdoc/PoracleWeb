@@ -10,7 +10,9 @@
 
 REQUIRES MYSQL !
 
-This tool is an add-on to [PoracleJS](https://github.com/KartulUdus/PoracleJS)
+This tool is an add-on to [PoracleNG](https://github.com/jfberry/PoracleNG).
+
+PoracleWeb now requires PoracleNG with the v2 API (`/api/v2`) and talks to it for all tracking, human, profile and location data. PoracleJS is not supported. The minimum PoracleNG must include PRs #248 and #249 (see `docs/v2-api-migration.md`).
 
 It requires a working webserver (typically Apache or nginx) + PHP.
 Alternatively it can be run out of Docker (Dockerfile is provided).
@@ -64,6 +66,41 @@ For those parameters go to :
 6. Go to your PoracleWeb site and head to Admin Tools / Server Settings for additional configuration steps and parameters. You need to be logged in as an admin (as defined by `admin_id` par
 ameter to be able to access this page.
 
+---
+
+### Running tests
+
+Install dependencies first:
+
+```bash
+docker run --rm -v "$PWD":/app -w /app composer:2 composer install --ignore-platform-req=ext-mysqli
+```
+
+Then run the test suite:
+
+```bash
+docker run --rm -v "$PWD":/app -w /app php:8.1-cli vendor/bin/phpunit
+```
+
+#### Integration tests (optional)
+
+The `integration` suite talks to a live PoracleNG (v2 API) and is skipped unless `PORACLE_TEST_API` is set. Use a throwaway PoracleNG instance: bots disabled (`[discord]`/`[telegram]` `enabled = false`), a scratch database, and its own API secret. Never point it at production.
+
+Create the test human once, then run the suite:
+
+```bash
+curl -X POST -H "X-Poracle-Secret: $SECRET" -H 'Content-Type: application/json' \
+  http://localhost:4299/api/v2/humans -d '{"id":"pweb-it-1","name":"pweb integration","type":"webhook"}'
+
+docker run --rm -v "$PWD":/app -w /app \
+  -e PORACLE_TEST_API=http://host.docker.internal:4299 \
+  -e PORACLE_TEST_SECRET="$SECRET" -e PORACLE_TEST_HUMAN=pweb-it-1 \
+  php:8.1-cli vendor/bin/phpunit --testsuite integration
+```
+
+The tests delete all pokemon and lure tracking for the test human in profile 1.
+
+---
 
 ### Setting Up Telegram Authentication
 

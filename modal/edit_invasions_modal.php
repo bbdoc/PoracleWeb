@@ -6,7 +6,7 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 
-if ( $row['gender'] <> 0 ) { 
+if ( poracle_gender_id($row['gender']) <> 0 ) { 
    echo "<img width=100 loading=lazy src='".$uicons_reward."/invasion/".$grunt_id.".png' />";
 } else { 
    if ( isset($grunt_id_male) ) { 
@@ -26,9 +26,11 @@ echo "</div>";
 
     <input type='hidden' id='type' name='type' value='invasions'>
     <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
+    <input type='hidden' name='rule_type' value='<?php echo $row['rule_type']; ?>'>
 
     <?php include "./include/edit_area_distance.php"; ?>
 
+    <?php if ($row['rule_type'] !== 'incident') { ?>
     <hr>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <div class="input-group">
@@ -37,17 +39,18 @@ echo "</div>";
             </div>
         </div>
         <?php
-                        if ($row['gender'] == 0) {
+                        $gender_id = poracle_gender_id($row['gender']);
+                        if ($gender_id == 0) {
                                 $checked0 = 'checked';
                         } else {
                                 $checked0 = '';
                         }
-                        if ($row['gender'] == 1) {
+                        if ($gender_id == 1) {
                                 $checked1 = 'checked';
                         } else {
                                 $checked1 = '';
                         }
-                        if ($row['gender'] == 2) {
+                        if ($gender_id == 2) {
                                 $checked2 = 'checked';
                         } else {
                                 $checked2 = '';
@@ -63,6 +66,7 @@ echo "</div>";
             <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
         </label>
     </div>
+    <?php } ?>
 
     <hr>
     <?php if (strpos($_SESSION['type'], ':user') === false) {  ?>
@@ -71,7 +75,7 @@ echo "</div>";
             <div class="input-group-prepend">
                 <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
             </div>
-            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars($row['ping'] ?? ''); ?>">
         </div>
     </div>
     <hr>
@@ -85,12 +89,12 @@ echo "</div>";
             </div>
         </div>
         <?php
-                if ($row['clean'] == 0) {
+                if (empty($row['clean'])) {
                         $checked0 = 'checked';
                 } else {
                         $checked0 = '';
                 }
-                if ($row['clean'] == 1) {
+                if (!empty($row['clean'])) {
                         $checked1 = 'checked';
                 } else {
                         $checked1 = '';
@@ -115,7 +119,7 @@ echo "</div>";
                         </div>';
                         foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary mb-1 mr-1">';
-                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>

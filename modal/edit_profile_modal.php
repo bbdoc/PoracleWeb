@@ -25,38 +25,30 @@
 
             // Check Currently Active Profile
 
-            $stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
-            $stmt->bind_param("s", $_SESSION['id']);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) { $active_profile = $row['current_profile_no']; }
-            $stmt->close();
+            $active_profile = poracle_snapshot()['human']['current_profile_no'];
 
             // Check User's existing Profiles
-            $stmt = $conn->prepare("SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = ? ORDER BY profile_no");
-            $stmt->bind_param("s", $_SESSION['id']);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            
+            $profiles = poracle_snapshot()['profiles'];
+            usort($profiles, function ($a, $b) { return $a['profile_no'] - $b['profile_no']; });
+
             echo "<div id='profile' class='areasform text-uppercase text-center'>";
             echo "<form action='./actions/switch_profile.php' method='POST'>";
 
 	    echo "<ul style='padding-left: 0;'>\n";
 
-	    while ($row = $result->fetch_assoc()) {
+	    foreach ($profiles as $row) {
                        if ($_SESSION['profile'] == $row['profile_no']) { $checked="checked"; }  else { $checked=""; }
                        if ($active_profile == $row['profile_no']) { $active="background-color: #4CAF50;"; }  else { $active=""; }
 		       echo "<li style='width:90%; margin:0; align:center;'>";
 		       echo "<input type='radio' name='profile' value=".$row['profile_no']." id='profile_".$row['profile_no']."' $checked/>\n";
 		       echo "<label for='profile_".$row['profile_no']."' style='$active'>";
-		       echo "<font style='font-size:12px;'>".$row['name']."</font>";
+		       echo "<font style='font-size:12px;'>".htmlspecialchars($row['name'])."</font>";
 		       echo "</label>\n";
 		       echo "</li><br>\n";
 	    }
 
             echo "</ul>\n";
             echo "</div>";
-            $stmt->close();
 
             ?>
 
@@ -86,17 +78,12 @@
 	    <center>
             <form action='./actions/switch_profile.php' method='POST'>
             <?php
-	    $stmt = $conn->prepare("SELECT profile_no, name, area, latitude, longitude, active_hours FROM profiles WHERE id = ?");
-	    $stmt->bind_param("s", $_SESSION['id']);
-	    $stmt->execute();
-	    $result = $stmt->get_result();
-	    if ( $result->num_rows == 0 ) {
+	    if ( count(poracle_snapshot()['profiles']) == 0 ) {
 		    echo i8ln("You currently don't have any profile configured").".<br>";
 		    echo i8ln("Please Name default Profile");
 	    } else {
 		    echo i8ln("Choose the name of your new Profile");
 	    }
-	    $stmt->close();
             ?>
 
             </center>

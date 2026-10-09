@@ -7,14 +7,15 @@ if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
 
+// Update Language (v2 validates the locale)
+
+try {
+  poracle_api()->post(poracle_human_path($_SESSION['id']) . '/language', array('language' => $_GET['lng']));
+} catch (PoracleApiException $e) {
+  poracle_fail('', $e);
+}
+
 $_SESSION['locale']=$_GET['lng'];
-
-// Update Language in DB
-
-$stmt = $conn->prepare("UPDATE humans SET language = ? WHERE id = ?");
-$stmt->bind_param("ss", $_GET['lng'], $_SESSION['id']);
-$stmt->execute() or die(mysqli_error($conn));
-$stmt->close();
 
 header("Location: $redirect_url");
 

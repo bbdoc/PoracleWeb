@@ -100,26 +100,19 @@
 
                                 // Show Quests
 
-				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ?";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-				$result = $stmt->get_result();
+$quests = poracle_rules('quest');
 
-				if ($result->num_rows == 0) {
+				if (count($quests) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
 				}
-				$stmt->close();
 
-                                $sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 7 ORDER BY reward";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
-
-                                while ($row = $result->fetch_assoc()) {
+                                $rows = array_filter($quests, function ($r) { return $r['reward_type'] == 7; });
+                                usort($rows, function ($a, $b) { return (int) ($a['reward'] ?? 0) - (int) ($b['reward'] ?? 0); });
+                                foreach ($rows as $row) {
+                                    $row['reward'] = (int) ($row['reward'] ?? 0);
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
                                     $unique_id = "quest_" . $row['uid'];
@@ -154,7 +147,7 @@
 
                                                     <?php
 
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -173,7 +166,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -187,17 +180,17 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -217,9 +210,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -278,15 +272,12 @@
 
                             <?php
                                 }
-				$stmt->close();
-
-				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 2 ORDER BY reward";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
-
-                                while ($row = $result->fetch_assoc()) {
+				
+				$rows = array_filter($quests, function ($r) { return $r['reward_type'] == 2; });
+                                usort($rows, function ($a, $b) { return (int) ($a['reward'] ?? 0) - (int) ($b['reward'] ?? 0); });
+                                foreach ($rows as $row) {
+                                    $row['reward'] = (int) ($row['reward'] ?? 0);
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
                                     $unique_id = "quest_" . $row['uid'];
@@ -309,7 +300,7 @@
                                                 <div class="mt-2 text-center">
 
                                                     <?php
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -328,7 +319,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -344,7 +335,7 @@
 
                                                     <?php
                                                             }
-                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -364,9 +355,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -427,15 +419,12 @@
 
                             <?php
                                 }
-				$stmt->close();
-
-				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 12 ORDER BY reward";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
-
-                                while ($row = $result->fetch_assoc()) {
+				
+				$rows = array_filter($quests, function ($r) { return $r['reward_type'] == 12; });
+                                usort($rows, function ($a, $b) { return (int) ($a['reward'] ?? 0) - (int) ($b['reward'] ?? 0); });
+                                foreach ($rows as $row) {
+                                    $row['reward'] = (int) ($row['reward'] ?? 0);
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
                                     $unique_id = "quest_" . $row['uid'];
@@ -463,7 +452,7 @@
                                                 <div class="mt-2 text-center">
 
                                                     <?php
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -482,7 +471,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -498,7 +487,7 @@
 
                                                     <?php
                                                             }
-                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -518,9 +507,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -578,16 +568,12 @@
                                 </div>
                             </div>
                             <?php }
-				$stmt->close();
-
-
-				$sql = "SELECT * FROM quest WHERE id = ? AND profile_no = ? AND reward_type = 4 ORDER BY reward";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
-
-                                while ($row = $result->fetch_assoc()) {
+				
+				$rows = array_filter($quests, function ($r) { return $r['reward_type'] == 4; });
+                                usort($rows, function ($a, $b) { return (int) ($a['reward'] ?? 0) - (int) ($b['reward'] ?? 0); });
+                                foreach ($rows as $row) {
+                                    $row['reward'] = (int) ($row['reward'] ?? 0);
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
                                     $unique_id = "quest_" . $row['uid'];
@@ -617,7 +603,7 @@
                                                 <div class="mt-2 text-center">
 
                                                     <?php
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -636,7 +622,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowQuests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowQuestsTitle" aria-hidden="true">
@@ -652,7 +638,7 @@
 
                                                     <?php
                                                             }
-                                                            if ($row['clean'] == '1' && $all_quest_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_quest_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -672,9 +658,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['quest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -732,7 +719,6 @@
                                 </div>
                             </div>
                             <?php }
-				$stmt->close();
 				?>
 
 

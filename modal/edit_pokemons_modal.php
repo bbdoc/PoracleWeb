@@ -1,26 +1,10 @@
 <?php
 
-// Replace Default Values if Set
-
-if ( $row['min_iv'] == $monster_defaults['min_iv'] ) { $row['min_iv'] = ""; }
-if ( $row['max_iv'] == $monster_defaults['max_iv'] ) { $row['max_iv'] = ""; }
-if ( $row['min_cp'] == $monster_defaults['min_cp'] ) { $row['min_cp'] = ""; }
-if ( $row['max_cp'] == $monster_defaults['max_cp'] ) { $row['max_cp'] = ""; }
-if ( $row['min_level'] == $monster_defaults['min_level'] ) { $row['min_level'] = ""; }
-if ( $row['max_level'] == $monster_defaults['max_level'] ) { $row['max_level'] = ""; }
-if ( $row['min_weight'] == $monster_defaults['min_weight'] ) { $row['min_weight'] = ""; }
-if ( $row['max_weight'] == $monster_defaults['max_weight'] ) { $row['max_weight'] = ""; }
-
-if ( $row['pvp_ranking_best'] == $monster_defaults['pvp_ranking_best'] ) { $row['pvp_ranking_best'] = ""; }
-if ( $row['pvp_ranking_worst'] == $monster_defaults['pvp_ranking_worst'] ) { $row['pvp_ranking_worst'] = ""; }
-if ( $row['pvp_ranking_min_cp'] == $monster_defaults['pvp_ranking_min_cp'] ) { $row['pvp_ranking_min_cp'] = ""; }
-
-
-$form_name = get_form_name($row['pokemon_id'], $row['form']);
+$form_name = get_form_name((int) ($row['pokemon_id'] ?? 0), (int) ($row['form'] ?? 0));
 
 echo "
     <form action='./actions/monsters.php' method='POST'>
-    <input type='hidden' id='gen' name='gen' value='".$_GET['gen']."'>
+    <input type='hidden' id='gen' name='gen' value='".htmlspecialchars((string) ($_GET['gen'] ?? 'all'))."'>
     ";
 
 if ($row['pokemon_id'] == '0') {
@@ -35,7 +19,7 @@ if ($row['pokemon_id'] == '0') {
 <div class="modal-body">
 
     <input type='hidden' id='type' name='type' value='monsters'>
-    <input type='hidden' id='uid' name='uid' value='<?php echo $row['uid']; ?>'>
+    <input type='hidden' id='uid' name='uid' value='<?php echo (int) $row['uid']; ?>'>
 
     <ul class="nav nav-pills mb-3 mx-auto justify-content-center" id="pills-tab-<?php echo $unique_id ?>"
         role="tablist">
@@ -64,7 +48,7 @@ if ($row['pokemon_id'] == '0') {
 		<div class="col-sm-12 my-1">
                     <div class="input-group mb-1">
 		    <input type="checkbox" name="noiv" id="noiv_<?php echo $unique_id; ?>" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="sm" 
-		    <?php if ( $row['min_iv'] == "-1" ) { echo "checked"; $row['min_iv'] = ""; $disabled="disabled"; } else { $disabled=""; } ?> 
+		    <?php if ( $row['min_iv'] === null ) { echo "checked"; $disabled="disabled"; } else { $disabled=""; } ?> 
                     onChange="setnoiv('<?php echo $unique_id; ?>')"
                     >
                        &nbsp;&nbsp;<?php echo i8ln("Include Pokemon with unknown IV"); ?>
@@ -74,19 +58,19 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("IV"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
 			<input type='number' id='min_iv_<?php echo $unique_id; ?>' name='min_iv' size=1 
-                            value='<?php echo $row['min_iv'] ?>'
-                            placeholder='<?php echo $monster_defaults['min_iv']; ?>'
-			    min='<?php echo $monster_defaults['min_iv'] ?>' 
-			    max='<?php echo $monster_defaults['max_iv'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['min_iv'] ?? '')); ?>'
+                            placeholder='0'
+			    min='0' 
+			    max='100' 
 			    class="form-control text-center" <?php echo $disabled; ?> >
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
 			<input type='number' id='max_iv' name='max_iv' size=1 
-                            value='<?php echo $row['max_iv'] ?>' 
-                            placeholder='<?php echo $monster_defaults['max_iv']; ?>'
-			    min='<?php echo $monster_defaults['min_iv'] ?>' 
-			    max='<?php echo $monster_defaults['max_iv'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['max_iv'] ?? '')); ?>' 
+                            placeholder='100'
+			    min='0' 
+			    max='100' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -101,19 +85,19 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("CP"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
 			<input type='number' id='min_cp' name='min_cp' size=1 
-                            value='<?php echo $row['min_cp'] ?>'
-                            placeholder='<?php echo $monster_defaults['min_cp']; ?>'
-			    min='<?php echo $monster_defaults['min_cp'] ?>' 
-			    max='<?php echo $monster_defaults['max_cp'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['min_cp'] ?? '')); ?>'
+                            placeholder='0'
+			    min='0' 
+			    max='9000' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
 			<input type='number' id='max_cp' name='max_cp' size=1 
-                            value='<?php echo $row['max_cp'] ?>'
+                            value='<?php echo htmlspecialchars((string) ($row['max_cp'] ?? '')); ?>'
                             placeholder='MAX'
-			    min='<?php echo $monster_defaults['min_cp'] ?>' 
-			    max='<?php echo $monster_defaults['max_cp'] ?>' 
+			    min='0' 
+			    max='9000' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -128,19 +112,19 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("LVL"); ?>&nbsp;&nbsp;&nbsp;</div>
                         </div>
 			<input type='number' id='min_level' name='min_level' size=1 
-                            value='<?php echo $row['min_level'] ?>'
-                            placeholder='<?php echo $monster_defaults['min_level']; ?>'
-			    min='<?php echo $monster_defaults['min_level'] ?>' 
-			    max='<?php echo $monster_defaults['max_level'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['min_level'] ?? '')); ?>'
+                            placeholder='0'
+			    min='0' 
+			    max='55' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
                         <input type='number' id='max_level' name='max_level' size=1
-                            placeholder='<?php echo $monster_defaults['max_level']; ?>'
-			    value='<?php echo $row['max_level'] ?>' 
-			    min='<?php echo $monster_defaults['min_level'] ?>' 
-			    max='<?php echo $monster_defaults['max_level'] ?>' 
+                            placeholder='55'
+			    value='<?php echo htmlspecialchars((string) ($row['max_level'] ?? '')); ?>' 
+			    min='0' 
+			    max='55' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -155,19 +139,19 @@ if ($row['pokemon_id'] == '0') {
 			    <div class="input-group-text"><?php echo i8ln("Weight"); ?></div>
                         </div>
                         <input type='number' id='min_weight' name='min_weight' size=2
-                            placeholder='<?php echo $monster_defaults['min_weight']; ?>'
-			    value='<?php echo $row['min_weight'] ?>' 
-			    min='<?php echo $monster_defaults['min_weight'] ?>' 
-                            max='<?php echo $monster_defaults['max_weight'] ?>'
+                            placeholder='0'
+			    value='<?php echo htmlspecialchars((string) ($row['min_weight'] ?? '')); ?>' 
+			    min='0' 
+                            max='9000000'
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                         </div>
                         <input type='number' id='max_weight' name='max_weight' size=4
                             placeholder='MAX'
-			    value='<?php echo $row['max_weight'] ?>' 
-			    min='<?php echo $monster_defaults['min_weight'] ?>' 
-                            max='<?php echo $monster_defaults['max_weight'] ?>'
+			    value='<?php echo htmlspecialchars((string) ($row['max_weight'] ?? '')); ?>' 
+			    min='0' 
+                            max='9000000'
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -181,25 +165,25 @@ if ($row['pokemon_id'] == '0') {
 		    <label><?php echo i8ln("MIN STATS"); ?></label>
                     <div class="input-group">
 			<input type='number' id='atk' name='atk' size=1 
-                            value='<?php echo $row['atk'] ?>' 
-                            min='<?php echo $monster_defaults['atk'] ?>'
-			    max='<?php echo $monster_defaults['max_atk'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['atk'] ?? '')); ?>' 
+                            min='0'
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                         </div>
 			<input type='number' id='def' name='def' size=1 
-                            value='<?php echo $row['def'] ?>' 
-                            min='<?php echo $monster_defaults['def'] ?>'
-			    max='<?php echo $monster_defaults['max_def'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['def'] ?? '')); ?>' 
+                            min='0'
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                         </div>
 			<input type='number' id='sta' name='sta' size=1 
-                            value='<?php echo $row['sta'] ?>' 
-                            min='<?php echo $monster_defaults['sta'] ?>'
-			    max='<?php echo $monster_defaults['max_sta'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['sta'] ?? '')); ?>' 
+                            min='0'
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("STA"); ?></span>
@@ -212,25 +196,25 @@ if ($row['pokemon_id'] == '0') {
 		    <label><?php echo i8ln("MAX STATS"); ?></label>
                     <div class="input-group">
 			<input type='number' id='max_atk' name='max_atk' size=1 
-                            value='<?php echo $row['max_atk'] ?>'
-			    min='<?php echo $monster_defaults['atk'] ?>' 
-			    max='<?php echo $monster_defaults['max_atk'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['max_atk'] ?? '')); ?>'
+			    min='0' 
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                         </div>
 			<input type='number' id='max_def' name='max_def' size=1 
-                            value='<?php echo $row['max_def'] ?>'
-			    min='<?php echo $monster_defaults['def'] ?>' 
-			    max='<?php echo $monster_defaults['max_def'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['max_def'] ?? '')); ?>'
+			    min='0' 
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                         </div>
 			<input type='number' id='max_sta' name='max_sta' size=1 
-                            value='<?php echo $row['max_sta'] ?>'
-			    min='<?php echo $monster_defaults['sta'] ?>' 
-			    max='<?php echo $monster_defaults['max_sta'] ?>' 
+                            value='<?php echo htmlspecialchars((string) ($row['max_sta'] ?? '')); ?>'
+			    min='0' 
+			    max='15' 
                             class="form-control text-center">
                         <div class="input-group-append">
 			    <span class="input-group-text"><?php echo i8ln("STA"); ?></span>
@@ -260,15 +244,16 @@ if ($row['pokemon_id'] == '0') {
 	    $great_checked = "";
 	    $ultra_checked = "";
 
-            if ( $row['pvp_ranking_league'] == 500 ) 
+            $league = (int) ($row['pvp_ranking_league'] ?? 0);
+            if ( $league == 500 ) 
             { 
 		    $pvp_display = "block"; 
 		    $little_checked = "checked"; 
-	    } else if ( $row['pvp_ranking_league'] == 1500 ) 
+	    } else if ( $league == 1500 ) 
 	    { 
                     $pvp_display = "block";
 		    $great_checked = "checked";
-            } else if ( $row['pvp_ranking_league'] == 2500 )
+            } else if ( $league == 2500 )
             {
                     $pvp_display = "block";
                     $ultra_checked = "checked";
@@ -324,15 +309,14 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("Rank between"); ?></div>
 			</div>
-			<?php if ($row['pvp_ranking_best'] == 0) { $row['pvp_ranking_best'] = ""; } ?>
-			<input type='number' id='pvp_ranking_best_<?php echo $unique_id; ?>' name='pvp_ranking_best' size=1
-                            value='<?php echo $row['pvp_ranking_best'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
+                        <input type='number' id='pvp_ranking_best_<?php echo $unique_id; ?>' name='pvp_ranking_best' size=1
+                            value='<?php echo htmlspecialchars((string) ($row['pvp_ranking_best'] ?? '')); ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
 			    <span class="input-group-text">&nbsp;&nbsp;&nbsp;<?php echo i8ln("and"); ?></span>
 			</div>
                         <input type='number' id='pvp_ranking_worst_<?php echo $unique_id; ?>' name='pvp_ranking_worst' size=1
-                            value='<?php echo $row['pvp_ranking_worst'] ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
+                            value='<?php echo htmlspecialchars((string) ($row['pvp_ranking_worst'] ?? '')); ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>'
                             class="form-control text-center">
 		    </div>
 		</div>
@@ -342,7 +326,7 @@ if ($row['pokemon_id'] == '0') {
                             <span class="input-group-text"><?php echo i8ln("MIN CP"); ?></span>
                         </div>
                         <input type='number' id='pvp_ranking_min_cp_<?php echo $unique_id; ?>' name='pvp_ranking_min_cp' size=1
-                            value='<?php echo $row['pvp_ranking_min_cp'] ?>' min='0' max='4096'
+                            value='<?php echo htmlspecialchars((string) ($row['pvp_ranking_min_cp'] ?? '')); ?>' min='0' max='4096'
                             class="form-control text-center">
                     </div>
                 </div>
@@ -362,7 +346,7 @@ if ($row['pokemon_id'] == '0') {
                             sort($pvpCaps);
                             foreach($pvpCaps as $key => $cap)
                             {
-                                    if ( $cap == $row['pvp_ranking_cap'] ) { $checked = "checked"; } else { $checked = ""; } 
+                                    if ( $cap == (int) ($row['pvp_ranking_cap'] ?? $_SESSION['defaultPvpCap']) ) { $checked = "checked"; } else { $checked = ""; } 
                                     if ( $cap == 0 ) { $display_cap = "ALL"; } else { $display_cap = $cap; } 
                         ?>
                         <label class="btn btn-secondary">
@@ -385,10 +369,10 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
                 <?php
-                                $forms = get_all_forms($row['pokemon_id']);
+                                $forms = get_all_forms((int) ($row['pokemon_id'] ?? 0));
                                 ksort($forms);
                                 foreach ($forms as $key => $value) {
-                                        if ($key == $row['form']) {
+                                        if ($key == (int) ($row['form'] ?? 0)) {
                                                 $checked = 'checked';
                                         } else {
                                                 $checked = '';
@@ -410,9 +394,11 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
                 <?php
-                                if ($row['gender'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
-                                if ($row['gender'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
-                                if ($row['gender'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                $gender_id = poracle_gender_id($row['gender']);
+                                if ($gender_id == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($gender_id == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($gender_id == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($gender_id == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
                 ?>
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_0" value="gender_0" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
@@ -423,6 +409,9 @@ if ($row['pokemon_id'] == '0') {
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
                 </label>
+                <label class="btn btn-secondary">
+		    <input type="radio" name="gender" id="gender_3" value="gender_3" <?php echo $checked3; ?>> <?php echo i8ln("Genderless"); ?>
+                </label>
             </div>
 	    <hr>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -432,12 +421,13 @@ if ($row['pokemon_id'] == '0') {
                     </div>
                 </div>
                 <?php
-				if ($row['size'] == -1) { $checked0 = 'checked'; } else { $checked0 = ''; }
-                                if ($row['size'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
-                                if ($row['size'] == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
-                                if ($row['size'] == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
-                                if ($row['size'] == 4) { $checked4 = 'checked'; } else { $checked4 = ''; }
-				if ($row['size'] == 5) { $checked5 = 'checked'; } else { $checked5 = ''; }
+				$size_id = $row['size'] === null ? -1 : $row['size'];
+				if ($size_id == -1) { $checked0 = 'checked'; } else { $checked0 = ''; }
+                                if ($size_id == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                                if ($size_id == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($size_id == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
+                                if ($size_id == 4) { $checked4 = 'checked'; } else { $checked4 = ''; }
+				if ($size_id == 5) { $checked5 = 'checked'; } else { $checked5 = ''; }
                 ?>
                 <label class="btn btn-secondary">
                     <input type="radio" name="size" id="size_-1" value="size_-1" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
@@ -465,7 +455,7 @@ if ($row['pokemon_id'] == '0') {
                     <div class="input-group-prepend">
                         <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
                     </div>
-                    <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+                    <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars((string) ($row['ping'] ?? '')); ?>">
                 </div>
             </div>
             <hr>
@@ -481,8 +471,8 @@ if ($row['pokemon_id'] == '0') {
 
                 <?php
 
-                   if ($row['clean'] == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
-	  	   if ($row['clean'] == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
+                   if (empty($row['clean'])) { $checked0 = 'checked'; } else { $checked0 = ''; }
+	  	   if (!empty($row['clean'])) { $checked1 = 'checked'; } else { $checked1 = ''; }
 
 
                 ?>
@@ -506,7 +496,7 @@ if ($row['pokemon_id'] == '0') {
                             </div>';
                             foreach ( $templates_list as $key => $name ) {
                                 echo '<label class="btn btn-secondary mb-1 mr-1">';
-		                echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+		                echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                                 echo $name . '</label>';
                             }
                         echo '</div>

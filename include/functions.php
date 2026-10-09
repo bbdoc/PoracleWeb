@@ -396,16 +396,12 @@ function set_locale() {
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
-      $stmt = $conn->prepare("SELECT language FROM humans WHERE id = ?");
-      $stmt->bind_param("s", $_SESSION['id']);
-      $stmt->execute() or die(mysqli_error($conn));
-      $result = $stmt->get_result();
-      while ($row = $result->fetch_assoc()) {
-         if ( $row['language'] <> "" ) {
-            $_SESSION['locale'] = $row['language'];
-         }
+      try {
+         $language = poracle_snapshot()['human']['language'];
+      } catch (PoracleApiException $e) {
+         $language = null;
       }
-      $stmt->close();
+      if (!empty($language)) { $_SESSION['locale'] = $language; }
    }
 
 }
@@ -494,26 +490,6 @@ function checkRemoteFile($url)
     }
 }
 
-function reloadPokemon()
-{
-
-   // Include one Dir Back as Calling from /actions	
-   include "../config.php";
-   include "../include/db_connect.php";
-
-   $opts = array(
-     'http'=>array(
-       'method'=>"GET",
-       'header'=>"Accept-language: en\r\n" .
-                 "X-Poracle-Secret: $api_secret\r\n"
-     )
-   );
-   $context = stream_context_create($opts);
-
-   $reload = file_get_contents("$api_address/api/tracking/pokemon/refresh", false, $context);
-
-}
-
 function getMiniMap($latitude, $longitude, $distance)
 {
 
@@ -580,21 +556,17 @@ function getLocationMap($latitude, $longitude)
 
 function default_distance($table) {
 
-   global $conn;
+   global $disable_areas;
    if (isset($_SESSION['id'])) {
       include_once "./config.php";
       include_once "./include/db_connect.php";
-      // Table names cannot be parameterized in prepared statements (they are identifiers, not values)
-      // so we use a whitelist to validate the table name before using string interpolation
       $allowed_tables = array('monsters', 'raid', 'egg', 'quest', 'invasion', 'lures', 'gym','nests');
       if (!in_array($table, $allowed_tables)) { die("Invalid table"); }
-      $sql = "SELECT distance, count(*) FROM $table WHERE id = ? GROUP BY distance ORDER BY count(*) DESC LIMIT 1";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param("s", $_SESSION['id']);
-      $stmt->execute() or die(mysqli_error($conn));
-      $result = $stmt->get_result();
-      while ($row = $result->fetch_assoc()) { $default_distance = $row['distance']; }
-      $stmt->close();
+      try {
+         $default_distance = poracle_common_distance(poracle_table_rules($table, null));
+      } catch (PoracleApiException $e) {
+         $default_distance = null;
+      }
    }
 
    if ( !isset($default_distance) ) { $default_distance = 0; }

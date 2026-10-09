@@ -1,6 +1,8 @@
 <?php
 
 include_once "uicons_repo.php";
+include_once __DIR__ . "/poracle_session.php";
+include_once __DIR__ . "/poracle_admin.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();

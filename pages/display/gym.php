@@ -99,38 +99,36 @@
 
                                 // Show Gyms
 
-                                $sql = "SELECT * FROM gym WHERE id = ? AND profile_no = ? ORDER BY team";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-				$result = $stmt->get_result();
+                                $gyms = poracle_rules('gym');
+                                usort($gyms, function ($a, $b) { return poracle_team_id($a['team']) - poracle_team_id($b['team']); });
 
-                                if ($result->num_rows == 0) {
+                                if (count($gyms) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
                                 }
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($gyms as $row) {
 
+                                    $team_id = poracle_team_id($row['team']);
                                     // Build a Unique Index
                                     $unique_id = "gym_" . $row['uid'];
 
                                 ?>
                             <!-- Card -->
                             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-4">
-                                <div class="card border-top-<?php echo get_gym_name($row['team']);?> shadow h-100 py-2">
+                                <div class="card border-top-<?php echo get_gym_name($team_id);?> shadow h-100 py-2">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-						    <?php if ( $row['team'] == "4") { ?>
+						    <?php if ( $team_id == 4) { ?>
                                                        <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/0.png?"; ?>'>
                                                        <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/1.png?"; ?>'>
                                                        <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/2.png?"; ?>'>
                                                        <img width=50 loading=lazy style='margin-left:-45px;' src='<?php echo "$uicons_gym/gym/3.png?"; ?>'>
 						    <?php } else { ?>
-						       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $row['team'] . ".png?"; ?>'>
+						       <img width=50 loading=lazy src='<?php echo "$uicons_gym/gym/" . $team_id . ".png?"; ?>'>
 						    <?php } ?>
                                                     <?php if ( !is_null($row['gym_id']) ) { ?>
 							<img class='ml-2' style='border-radius: 10px;' height=50 loading=lazy src='<?php echo get_gym_url($row['gym_id']); ?>'>
@@ -138,7 +136,7 @@
 						</div>
 
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo i8ln(get_gym_name($row['team']));?>
+                                                    <?php echo i8ln(get_gym_name($team_id));?>
 						</div>
 
 						<?php if ( !is_null($row['gym_id']) ) { ?>
@@ -149,7 +147,7 @@
 
                                                 <div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
-                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <?php if (!empty($row['distance'])) { ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
@@ -167,7 +165,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowGyms_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowGyms" aria-hidden="true">
@@ -181,26 +179,26 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
 						    </li>
 
                                                     <?php }
 
-						            if ($row['slot_changes'] == '1') {
+						            if (!empty($row['slot_changes'])) {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Slots Changes"); ?></span>
 						    </div>
 
                                                     <?php }
-                                                            if ($row['battle_changes'] == '1') {
+                                                            if (!empty($row['battle_changes'])) {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-success w-100"><?php echo i8ln("Battle Changes"); ?></span>
@@ -208,7 +206,7 @@
 
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_gyms_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_gyms_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
@@ -228,9 +226,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['gym']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -286,9 +285,7 @@
                                 </div>
                             </div>
 
-                            <?php }
-				$stmt->close();
-				?>
+                            <?php } ?>
 
                         </div>
 

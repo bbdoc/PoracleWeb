@@ -35,7 +35,7 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
                         <span class="icon text-white-50">
                         <font size=6><i class="fab fa-<?php echo rtrim($_SESSION['type'], ':user');?>"></i></font>
                         </span>
-                        <span class="text" style="min-width: 250px;"><?php echo $_SESSION['username']; ?><br>[ <?php echo $_SESSION['id']; ?> ]</span>
+                        <span class="text" style="min-width: 250px;"><?php echo htmlspecialchars($_SESSION['username']); ?><br>[ <?php echo htmlspecialchars($_SESSION['id']); ?> ]</span>
                     </button>
 
                     <!--  Target Connection -->
@@ -44,16 +44,45 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
 
 
 		       <?php if (isset($_GET['id'])) { ?>
-                       <?php if (!isset($_GET['username'])) { $_GET['username'] = $_GET['first_name']." ".$_GET['last_name']; } ?>
 
-		       <?php 
-                          # CHECK IF TARGET USER ALREADY EXIST
-                          $stmt = $conn->prepare("SELECT * from humans WHERE id = ?");
-                          $stmt->bind_param("s", $_GET['id']);
-                          $stmt->execute();
-                          $stmt->store_result();
-			  if ( $stmt->num_rows > 0 ) { 
+		       <?php
+                          # VERIFY THE TELEGRAM LOGIN, THEN CHECK THE TARGET USER DOES NOT EXIST
+                          unset($_SESSION['migrate_telegram']);
+                          $tg_valid = telegram_auth_valid($_GET, $telegram_bot_token ?? '', time());
+                          $tg_exists = false;
+                          $tg_error = null;
+                          if ($tg_valid) {
+                             $tg_user = array(
+                                'id' => (string) $_GET['id'],
+                                'username' => $_GET['username'] ?? trim(($_GET['first_name'] ?? '') . ' ' . ($_GET['last_name'] ?? '')),
+                                'avatar' => $_GET['photo_url'] ?? '',
+                                'source' => $_SESSION['id'],
+                             );
+                             try {
+                                poracle_api()->get(poracle_human_path($tg_user['id']));
+                                $tg_exists = true;
+                             } catch (PoracleApiException $e) {
+                                if ($e->status !== 404) {
+                                   $tg_error = $e->userMessage();
+                                }
+                             }
+                          }
+                          if (!$tg_valid) {
 	               ?>
+
+                          <div class="alert alert-danger fade show" role="alert" style='width:300px;'>
+                             <?php echo i8ln("Invalid Telegram login, please try again"); ?>
+			  </div>
+			     <a href='<?php echo $redirect_url; ?>?type=display&page=migrate'><button class="btn btn-primary" style="width:300px;"><?php echo i8ln("Back"); ?></button></a>
+
+                       <?php } else if ($tg_error !== null) { ?>
+
+                          <div class="alert alert-danger fade show" role="alert" style='width:300px;'>
+                             <?php echo htmlspecialchars($tg_error); ?>
+			  </div>
+			     <a href='<?php echo $redirect_url; ?>'><button class="btn btn-primary" style="width:300px;">Back to PoracleWeb</button></a>
+
+                       <?php } else if ($tg_exists) { ?>
 
                           <div class="alert alert-danger fade show" role="alert" style='width:300px;'>
                              <?php echo i8ln("User Already Exist"); ?>
@@ -63,7 +92,7 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
 			  </div>
 			     <a href='<?php echo $redirect_url; ?>'><button class="btn btn-primary" style="width:300px;">Back to PoracleWeb</button></a>
 
-                       <?php } else { ?>
+                       <?php } else { $_SESSION['migrate_telegram'] = $tg_user; ?>
 
 	   	          <p class="mb-2"><?php echo i8ln("Your account will be migrated to"); ?><p>
 
@@ -72,7 +101,7 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
                               <font size=6><i class="fab fa-telegram"></i></font>
                               </span>
 			      <span class="text" style="min-width: 250px;">
-			         <?php echo $_GET['username'] ?><br>[ <?php echo $_GET['id']; ?> ]
+			         <?php echo htmlspecialchars($tg_user['username']); ?><br>[ <?php echo htmlspecialchars($tg_user['id']); ?> ]
                               </span>
                           </button>
 
@@ -80,16 +109,11 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
 		          <p class="mb-2"><?php echo i8ln("Migration is definitive and cannot be reversed");?>!<p>
 		          <form action='./actions/migrate.php' method='POST'>
                           <input type='hidden' id='migration_type' name='migration_type' value='discord2telegram'>
-                          <input type='hidden' id='discord_id' name='discord_id' value='<?php echo $_SESSION['id'];?>'>
-                          <input type='hidden' id='telegram_id' name='telegram_id' value='<?php echo $_GET['id'];?>'>
-                          <input type='hidden' id='telegram_user' name='telegram_user' value='<?php echo $_GET['username'];?>'>
-                          <input type='hidden' id='telegram_avatar' name='telegram_avatar' value='<?php echo $_GET['photo_url'];?>'>
 		          <input class="btn btn-success" type='submit' name='migrate' id="migrate" value='<?php echo i8ln("CONFIRM ACCOUNT MIGRATION"); ?>'>
                           </form>
 
 		       <?php } ?>
 
-                       <?php $stmt->close(); ?> 
 		       <?php } else { ?>
 
 		       <hr>

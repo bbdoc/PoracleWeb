@@ -99,10 +99,6 @@ if (!isset($_SESSION['admin_id'])) {
 			$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
 			$api_result = json_decode($api, true); 
 
-                        if ( $api_result['status']=="ok" ) {
-				$_SESSION['poracleVersion'] = $api_result['version'];
-			}
-
                         if (!$api)
 			{
                            echo "<div class='alert alert-danger fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Unable to Connect to Poracle API")."</div>";
@@ -113,49 +109,20 @@ if (!isset($_SESSION['admin_id'])) {
                            echo "<div class='alert alert-success fade show' role='alert' style='padding:3px; margin:3px;'>".i8ln("Successfully Connected to Poracle API")."</div>";
                         }
 
-			// Get Current Working Branch
+			// Check PoracleNG Version and v2 Support (from /health)
 
-                        $stringfromfile = file('.git/HEAD', FILE_USE_INCLUDE_PATH);
-                        $firstLine = $stringfromfile[0]; //get the string from the array
-                        $explodedstring = explode("/", $firstLine, 3); //seperate out by the "/" in the string
-			$branchname = rtrim($explodedstring[2]); //get the one that is always the branch name
-
-			// Set Main to Poracle JS master & Set unknown branches to PoracleJS develop
-			
-			if ( $branchname == "main" ) { $branchname = "master"; }
-			else if ( $branchname <> "develop" ) { $branchname = "develop"; }
-
-			// Get Latest Version for Current Branch
-
-			$file = file_get_contents("https://raw.githubusercontent.com/KartulUdus/PoracleJS/".$branchname."/package.json");
-			$obj = json_decode($file);
-			$PJSversion = $obj->version;
-
-                        // Check PoracleJS Version (if API is ok)
-
-			if ( $api_result['status'] == "ok" ) {
-
-                           if ( version_compare($_SESSION['poracleVersion'], $min_poracle_version) < 0 ) {
-                              echo "<div class='alert alert-danger fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			      echo i8ln("Current PoracleJS Version")." ".$_SESSION['poracleVersion']."<br>";
-			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-                              echo i8ln("Required Version").": ".$min_poracle_version."<br>";
-			      echo i8ln("Please Update PoracleJS")."</div>";
-			      echo "</div>";
-		   	   } else if ( version_compare($_SESSION['poracleVersion'], $PJSversion) < 0 ) {
-			      echo "<div class='alert alert-warning fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			      echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
-			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-			      echo "</div>";
-                           } else {
-			      echo "<div class='alert alert-success fade show' role='alert' style='padding: 3px; margin:3px;'>";
-			      echo i8ln("Current PoracleJS Version").": ".$_SESSION['poracleVersion']."<br>";
-			      echo i8ln("Latest").": ".$PJSversion." (branch: ".$branchname.")<br>";
-			      echo i8ln("Required Version").": ".$min_poracle_version;
-			      echo "</div>";
-			   }
-
+			try {
+			   $health = poracle_api()->get('/health');
+			} catch (PoracleApiException $e) {
+			   $health = null;
 			}
+			$ng_v2 = poracle_supports_v2($health);
+			echo "<div class='alert alert-".($ng_v2 ? "success" : "danger")." fade show' role='alert' style='padding: 3px; margin:3px;'>";
+			if (is_array($health) && isset($health['version'])) {
+			   echo i8ln("PoracleNG Version").": ".htmlspecialchars($health['version'])."<br>";
+			}
+			echo i8ln("PoracleNG v2").": ".($ng_v2 ? i8ln("yes") : i8ln("no"));
+			echo "</div>";
 
                         // Check Cache Folder
 

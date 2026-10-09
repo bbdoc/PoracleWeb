@@ -1,6 +1,6 @@
 <?php
    
-if ( $row['distance'] == 0 && $disable_areas <> "True" ) {
+if ( (int) ($row['distance'] ?? 0) == 0 && $disable_areas <> "True" ) {
    $area_check="checked";
    $distance_check="";
    $style="style='display:none;'";
@@ -45,7 +45,7 @@ if ( $row['distance'] == 0 && $disable_areas <> "True" ) {
    
 <?php if ( $disable_location <> "True" ) { ?>
    <div class="input-group mt-2">
-       <input type="number" id='distance_<?php echo $unique_id; ?>' name='distance' value='<?php echo $row['distance'] ?>' <?php echo $style; ?>
+       <input type="number" id='distance_<?php echo $unique_id; ?>' name='distance' value='<?php echo (int) ($row['distance'] ?? 0); ?>' <?php echo $style; ?>
            min='0' max='<?php echo $_SESSION['maxDistance']; ?>' class="form-control text-center">
        <div class="input-group-append" id="distance_label_<?php echo $unique_id; ?>" <?php echo $style; ?>>
            <span class="input-group-text"><?php echo i8ln("meters"); ?></span>

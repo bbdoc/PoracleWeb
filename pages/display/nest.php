@@ -99,19 +99,16 @@
 
                                 // Show Nests
 
-                                $sql = "SELECT * FROM nests WHERE id = ? AND profile_no = ? ORDER BY pokemon_id";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-				$result = $stmt->get_result();
+                                $nests = poracle_rules('nest');
+                                usort($nests, function ($a, $b) { return (int) ($a['pokemon_id'] ?? 0) - (int) ($b['pokemon_id'] ?? 0); });
 
-                                if ($result->num_rows == 0) {
+                                if (count($nests) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
                                 }
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($nests as $row) {
 
                                     // Build a Unique Index
                                     $unique_id = "nest_" . $row['uid'];
@@ -120,18 +117,21 @@
 			    <!-- Card -->
 
                             <?php 
+                                    $pid = (int) ($row['pokemon_id'] ?? 0);
+                                    $form = (int) ($row['form'] ?? 0);
+
                                     // Check Images only if Form <> Normal and Substitude if necessary
-				    if ($row['form'] <> 0) {
-                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . "_f" . $row['form'] . ".png";
+				    if ($form <> 0) {
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $pid . "_f" . $form . ".png";
                                         if (false === @file_get_contents("$PkmnImg", 0, null, 0, 1)) {
-                                            $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
-                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($row['pokemon_id'], 3, "0", STR_PAD_LEFT) . "</strong></font>";
+                                            $PkmnImg_50 = "<font style='font-size:42px;'><strong>" . str_pad($pid, 3, "0", STR_PAD_LEFT) . "</strong></font>";
+                                            $PkmnImg_100 = "<font size=8><strong>" . str_pad($pid, 3, "0", STR_PAD_LEFT) . "</strong></font>";
                                         } else {
                                             $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
                                             $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
                                         }
 				    } else {
-                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . ".png";
+                                        $PkmnImg = "$uicons_pkmn/pokemon/" . $pid . ".png";
                                         $PkmnImg_50 = "<img loading=lazy width=50 src='$PkmnImg'>";
                                         $PkmnImg_100 = "<img loading=lazy width=100 src='$PkmnImg'>";
                                     }
@@ -144,7 +144,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                                    <?php if ( $row['pokemon_id'] == "0") { ?>
+                                                    <?php if ( $pid == 0) { ?>
                                                     <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800 text-center"
                                                          style="height: 70px;">
                                                          <font style='font-size:32px;'><?php echo i8ln("ALL"); ?></font>
@@ -154,15 +154,15 @@
                                                     <?php } ?>
 						</div>
 
-                                                <?php if ( $row['pokemon_id'] <> "0") { ?>
+                                                <?php if ( $pid <> 0) { ?>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-2">
-                                                    <?php echo i8ln(get_mons($row['pokemon_id'])); ?>
+                                                    <?php echo i8ln(get_mons($pid)); ?>
 						</div>
 						<?php } ?>
 
                                                 <div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
-                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <?php if (!empty($row['distance'])) { ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
@@ -180,7 +180,7 @@
                                                         <?php } ?>
 						    </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowNests_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowNests" aria-hidden="true">
@@ -196,7 +196,7 @@
 
 
                                                     <?php }
-                                                    if ($row['min_spawn_avg'] <> '0') { ?>
+                                                    if (!empty($row['min_spawn_avg'])) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("MIN SPAWNS"); ?>
                                                         <span
@@ -205,17 +205,17 @@
                                                     </li>
 
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_nests_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_nests_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
@@ -235,9 +235,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['nest']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -294,7 +295,6 @@
                             </div>
 
                             <?php }
-				$stmt->close();
 				?>
 
                         </div>

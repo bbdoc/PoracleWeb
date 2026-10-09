@@ -1,48 +1,45 @@
 
 <?php
 
-// SECURITY NOTE: Search functionality uses dynamic IN clauses from get_matching_ids() which parses
-// JSON Pokemon data. We validate these as integers below for safety. The remaining SQL uses prepared
-// statements for session variables ($_SESSION['id'] and $_SESSION['profile']) for defense in depth.
-
 if ( isset($_POST['search']) ) { $_SESSION['search'] = $_POST['search']; unset($_POST['search']); }
 
-$search_sql = "";
+// Search: get_matching_ids() returns Pokemon IDs from JSON; keep them as integers.
+$search_ids = null;
 if ( !empty($_SESSION['search']) )
 {
 	$matching_ids = get_matching_ids($_SESSION['search']);
-	// Validate and cast to integers (get_matching_ids returns Pokemon IDs from JSON)
 	$matching_ids = array_filter($matching_ids, 'is_numeric');
 	$matching_ids = array_map('intval', $matching_ids);
 	if (!empty($matching_ids)) {
-		$matching_ids_str = implode(',', $matching_ids);
-		$search_sql = "AND pokemon_id IN ($matching_ids_str)";
+		$search_ids = array_values($matching_ids);
 	}
 }
 
-// Helper function to execute count queries with prepared statements
-function execute_count_query($conn, $session_id, $profile, $search_sql, $additional_condition) {
-	$sql = "SELECT count(*) count FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ? ".$additional_condition;
-	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("si", $session_id, $profile);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$count = 0;
-	while ($row = $result->fetch_assoc()) { $count = $row['count']; }
-	$stmt->close();
-	return $count;
+// Label for a range with open ends: "a - b", "a+" or "0 - b" (floor) / "<= b"
+function pokemon_range_label($min, $max, $floor = false)
+{
+	if ($min !== null && $max !== null) { return $min . " - " . $max; }
+	if ($min !== null) { return $min . "+"; }
+	return $floor ? "0 - " . $max : "&le; " . $max;
 }
 
-$genall = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id = 0");
-$gen1 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 1 AND 151");
-$gen2 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 152 AND 251");
-$gen3 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 252 AND 386");
-$gen4 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 387 AND 493");
-$gen5 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 494 AND 649");
-$gen6 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 650 AND 721");
-$gen7 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 722 AND 809");
-$gen8 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id BETWEEN 810 AND 905");
-$gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "AND pokemon_id >= 906");
+$all = poracle_filter_by_ids(poracle_rules('pokemon'), $search_ids);
+
+// Count each generation
+$gen_counts = array();
+foreach (array('all', '1', '2', '3', '4', '5', '6', '7', '8', '9') as $g) {
+	$gen_counts[$g] = count(array_filter($all, function ($r) use ($g) { return poracle_pokemon_gen($r['pokemon_id']) === $g; }));
+}
+$genall = $gen_counts['all'];
+$gen1 = $gen_counts['1'];
+$gen2 = $gen_counts['2'];
+$gen3 = $gen_counts['3'];
+$gen4 = $gen_counts['4'];
+$gen5 = $gen_counts['5'];
+$gen6 = $gen_counts['6'];
+$gen7 = $gen_counts['7'];
+$gen8 = $gen_counts['8'];
+$gen9 = $gen_counts['9'];
 
 ?>
 
@@ -158,35 +155,18 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                         <?php
 
                            if (!isset($_GET['gen']) || $_GET['gen'] == "") { $_GET['gen'] = "all"; }
-
-                           if ( @$_GET['gen'] == "all" ) { $gen_selector = "AND pokemon_id = 0"; }
-                           if ( @$_GET['gen'] == 1 ) { $gen_selector = "AND pokemon_id between 1 and 151"; }
-                           if ( @$_GET['gen'] == 2 ) { $gen_selector = "AND pokemon_id between 152 and 251"; }
-                           if ( @$_GET['gen'] == 3 ) { $gen_selector = "AND pokemon_id between 252 and 386"; }
-                           if ( @$_GET['gen'] == 4 ) { $gen_selector = "AND pokemon_id between 387 and 493"; }
-                           if ( @$_GET['gen'] == 5 ) { $gen_selector = "AND pokemon_id between 494 and 649"; }
-                           if ( @$_GET['gen'] == 6 ) { $gen_selector = "AND pokemon_id between 650 and 721"; }
-                           if ( @$_GET['gen'] == 7 ) { $gen_selector = "AND pokemon_id between 722 and 809"; }
-			   if ( @$_GET['gen'] == 8 ) { $gen_selector = "AND pokemon_id between 810 and 905"; }
-			   if ( @$_GET['gen'] == 9 ) { $gen_selector = "AND pokemon_id >= 906"; }
-
+                           $gen_selector = (string) $_GET['gen'];
+                           if (!in_array($gen_selector, array('all', '1', '2', '3', '4', '5', '6', '7', '8', '9'), true)) { $gen_selector = ""; }
                         ?>
                         
                         <?php
 
-                        // Count Trackings
-                        $sql = "SELECT * FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
-			// Show ALL Mons if less than 50 trackings
-			if ( $result->num_rows <= 50 ) { $gen_selector = ""; }
-			$stmt->close();
+                        // Show ALL Mons if less than 50 trackings
+                        $num_mon_total = count($all);
+                        if ( $num_mon_total <= 50 ) { $gen_selector = ""; }
 
                         // Only Show Gen Selector if More than 50 trackings
-                        if ( $result->num_rows > 50 ) {
+                        if ( $num_mon_total > 50 ) {
 
                         ?>
 
@@ -228,31 +208,36 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
 
                                 // Check if User is already tracking something
 
-				$num_mon_tracked = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $search_sql, "");
+				$num_mon_tracked = count($all);
 
                                 // Show Monsters Alarms
 
-				$sql = "SELECT * FROM monsters WHERE id = ? ".$search_sql." AND profile_no = ? ".@$gen_selector." ORDER BY pokemon_id, form";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
+				$mons = $all;
+				if ( $gen_selector !== "" ) {
+					$mons = array_values(array_filter($all, function ($r) use ($gen_selector) { return poracle_pokemon_gen($r['pokemon_id']) === $gen_selector; }));
+				}
+				usort($mons, function ($a, $b) {
+					$c = (int) ($a['pokemon_id'] ?? 0) - (int) ($b['pokemon_id'] ?? 0);
+					return $c !== 0 ? $c : (int) ($a['form'] ?? 0) - (int) ($b['form'] ?? 0);
+				});
 				if ($num_mon_tracked == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
-				} else if ($result->num_rows == 0 && isset($_GET['allgen']))
+				} else if (count($mons) == 0 && isset($_GET['allgen']))
 				{ 
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm for ALL Pokemons, Please select a Gen!");
                                    echo "</div>";
-				} else if ($result->num_rows == 0) {
+				} else if (count($mons) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarms for this Generation!");
                                    echo "</div>";
 				} 
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($mons as $row) {
+                                    $row['pokemon_id'] = (int) ($row['pokemon_id'] ?? 0);
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
 
@@ -305,7 +290,7 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                 <ul class="list-group mt-2">
                                                     <?php
 
-                                                            if ($row['distance'] <> '0' ) {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -324,7 +309,7 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                         <?php } ?>
 						    </li>
 
-						    <?php if ( $row['distance'] > 0 ) { ?>
+						    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
@@ -340,15 +325,13 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
 
                                                     <?php
                                                             }
-                                                            if ($row['min_iv'] <> '-1' || $row['max_iv'] <> '100') {
+                                                            if ($row['min_iv'] !== null || $row['max_iv'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("IV"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_iv']; ?>
-                                                            -
-                                                            <?php echo $row['max_iv']; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_iv'], $row['max_iv'], true); ?></span>
                                                     </li>
                                                     <?php
                                                             } else {
@@ -361,42 +344,39 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['min_cp'] <> '0' || $row['max_cp'] <> '9000') {
+                                                            if ($row['min_cp'] !== null || $row['max_cp'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("CP"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_cp']; ?>
-                                                            -
-                                                            <?php echo $row['max_cp']; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_cp'], $row['max_cp'], true); ?></span>
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['min_level'] <> '0' || $row['max_level'] < '40') {
+                                                            if ($row['min_level'] !== null || $row['max_level'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("LEVEL"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_level']; ?>
-                                                            - <?php echo $row['max_level']; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_level'], $row['max_level']); ?></span>
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['atk'] <> '0' || $row['def'] <> '0' || $row['sta'] <> '0' || $row['max_atk'] <> '15' || $row['max_def'] <> '15' || $row['max_sta'] <> '15') {
+                                                            if ($row['atk'] !== null || $row['def'] !== null || $row['sta'] !== null || $row['max_atk'] !== null || $row['max_def'] !== null || $row['max_sta'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("STATS"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['atk'] . "/" . $row['def'] . "/" . $row['sta']; ?>
+                                                            class="badge badge-primary badge-pill"><?php echo ($row['atk'] ?? "*") . "/" . ($row['def'] ?? "*") . "/" . ($row['sta'] ?? "*"); ?>
                                                             -
-                                                            <?php echo $row['max_atk'] . "/" . $row['max_def'] . "/" . $row['max_sta']; ?></span>
+                                                            <?php echo ($row['max_atk'] ?? "*") . "/" . ($row['max_def'] ?? "*") . "/" . ($row['max_sta'] ?? "*"); ?></span>
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['pvp_ranking_league'] > 0) {
+                                                            if ($row['pvp_ranking_league'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -406,14 +386,15 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                            if ($row['pvp_ranking_league'] == 2500) { echo i8ln("ULTRA"); }
                                                         ?>
                                                         <span
-							    class="badge badge-primary badge-pill">top
-							    <?php if ( $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
+							    class="badge badge-primary badge-pill"><?php if ( $row['pvp_ranking_worst'] !== null ) { ?>top
+							    <?php if ( $row['pvp_ranking_best'] !== null && $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
                                                             <?php echo $row['pvp_ranking_worst']; ?>
-                                                            @<?php echo $row['pvp_ranking_min_cp']; ?></span>
+                                                            <?php } else { echo i8ln("ANY"); } ?>
+                                                            <?php if ( $row['pvp_ranking_min_cp'] !== null ) { ?>@<?php echo $row['pvp_ranking_min_cp']; ?><?php } ?></span>
 						    </li>
                                                     <?php
                                                             }
-                                                            if ($row['pvp_ranking_cap'] <> '0') {
+                                                            if ($row['pvp_ranking_cap'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -424,20 +405,13 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                     </li>
                                                     <?php
                                                             }
-                                                            if ($row['min_weight'] <> '0' || $row['max_weight'] <> '9000000') {
+                                                            if ($row['min_weight'] !== null || $row['max_weight'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("WEIGHT"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_weight']; ?>
-                                                            - <?php
-                                                                            if ($row['max_weight'] == '9000000') {
-                                                                                echo "MAX";
-                                                                            } else {
-                                                                                echo $row['max_weight'];
-                                                                            }
-                                                                            ?>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_weight'], $row['max_weight'], true); ?>
                                                         </span>
                                                     </li>
                                                     <?php
@@ -445,20 +419,21 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                             ?>
 
                                                     <?php
-                                                            if ($row['gender'] <> '0') {
+                                                            if ($row['gender'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("GENDER"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php 
-								    if ($row['gender'] == '1') {  echo i8ln("Male"); } 
-								    if ($row['gender'] == '2') {  echo i8ln("Female"); } 
+								    if (poracle_gender_id($row['gender']) == 1) {  echo i8ln("Male"); } 
+								    if (poracle_gender_id($row['gender']) == 2) {  echo i8ln("Female"); } 
+								    if (poracle_gender_id($row['gender']) == 3) {  echo i8ln("Genderless"); } 
                                                         ?>
                                                         </span>
                                                     </li>
                                                     <?php }
-                                                            if ($row['size'] <> '-1') {
+                                                            if ($row['size'] !== null) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -467,7 +442,11 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                             <?php
 								    $size_name=get_size_name($row['size']);
 								    echo $size_name;
-								    if ( $row['max_size'] <> $row['size'] )
+								    if ( $row['max_size'] === null )
+								    {
+									    echo "+";
+								    }
+								    else if ( $row['max_size'] <> $row['size'] )
 								    {
 									    $max_size_name=get_size_name($row['max_size']);
 									    echo "-".$max_size_name;
@@ -477,19 +456,19 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                     </li>
                                                     <?php }
 
-                      					    if ($row['ping'] <> '') {
+                      					    if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
                                                     </li>
                                                     <?php } ?>
                                                 </ul>
                                                 <?php
-                                                        if ($row['clean'] == '1' && $all_mon_cleaned == '0') {
+                                                        if (!empty($row['clean']) && $all_mon_cleaned == '0') {
                                                         ?>
                                                 <div class="mt-1">
                                                     <span
@@ -512,9 +491,10 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['monster']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-					   	    if ( in_array($row['template'], $templates_list ) )
+					   	    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+					   	    if ( in_array($tpl, $templates_list ) )
 						    {
-							    $template = $row['template'];
+							    $template = $tpl;
 						    }
 						    else 
 						    {
@@ -573,7 +553,6 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
 
                             <?php
                                 }
-				$stmt->close();
                                 ?>
                         </div>
                         <!-- Content Row -->

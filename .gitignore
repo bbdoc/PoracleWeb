@@ -6,3 +6,7 @@ subs*
 composer.lock
 node_modules/
 .cache
+!/tests/
+!/tests/**
+vendor/
+.phpunit.result.cache
