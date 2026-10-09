@@ -66,3 +66,31 @@ function poracle_fail($page, Exception $e)
    header("Location: $target");
    exit();
 }
+
+// The logged-in human's full tracking snapshot, fetched once per request.
+function poracle_snapshot($invalidate = false)
+{
+   static $snapshot = null;
+   if ($invalidate) {
+      $snapshot = null;
+      return null;
+   }
+   if ($snapshot === null) {
+      $snapshot = poracle_api()->get(poracle_human_path($_SESSION['id']) . '/tracking', array('all_profiles' => true));
+   }
+   return $snapshot;
+}
+
+function poracle_snapshot_invalidate()
+{
+   poracle_snapshot(true);
+}
+
+// Rules of one type: 'view' = the profile being viewed, null = every profile.
+function poracle_rules($type, $profile = 'view')
+{
+   if ($profile === 'view') {
+      $profile = (int) $_SESSION['profile'];
+   }
+   return poracle_rules_in(poracle_snapshot(), $type, $profile);
+}
