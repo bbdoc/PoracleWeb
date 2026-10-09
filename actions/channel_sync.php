@@ -3,6 +3,8 @@
    include_once "../config.php";
    include_once "../include/db_connect.php";
 
+   if (empty($_SESSION['admin_id'])) { header("Location: $redirect_url?return=invalid_auth"); exit(); }
+
 if (isset($_POST['sync'])) {
 
     foreach ($_POST as $key => $value) {
