@@ -289,7 +289,7 @@
                                 }
 
 				$level_raids = array_filter(poracle_rules('raid'), function ($r) { return $r['pokemon_id'] === null; });
-                                usort($level_raids, function ($a, $b) { return (int) ($a['level'] ?? 0) - (int) ($b['level'] ?? 0); });
+                                usort($level_raids, function ($a, $b) { return (int) ($a['level'] ?? 90) - (int) ($b['level'] ?? 90); });
 
                                 foreach ($level_raids as $row) {
                                     // level null = all tiers; the page treats that as level 90

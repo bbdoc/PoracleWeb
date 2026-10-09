@@ -16,7 +16,7 @@
     <form action='./actions/raids.php' method='POST'>
         <?php echo "
             <input type='hidden' id='type' name='type' value='raids'>
-            <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
+            <input type='hidden' id='uid' name='uid' value='" . (int) ($row['uid'] ?? 0) . "'>
             " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>
