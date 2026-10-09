@@ -23,20 +23,29 @@ if ( isset($_GET['id']) ) {
 
 $target = null;
 $target_instance = null;
-try {
-   foreach (($search_id === '' ? array() : poracle_all_apis()) as $instance => $api) {
-      $found = $api->get('/api/v2/humans', array('id' => $search_id))['humans'];
+$firstError = null;
+if ($search_id !== '') {
+   foreach (poracle_all_apis() as $instance => $api) {
+      try {
+         $found = $api->get('/api/v2/humans', array('id' => $search_id))['humans'] ?? array();
+      } catch (PoracleApiException $e) {
+         if ($firstError === null) {
+            $firstError = $e;
+         }
+         continue;
+      }
       if ($found) {
          $target = $found[0];
          $target_instance = $instance;
          break;
       }
    }
-} catch (PoracleApiException $e) {
-   poracle_fail('', $e);
 }
 
 if (!$target) {
+	if ($firstError !== null) {
+		poracle_fail('', $firstError);
+	}
 	header("Location: $redirect_url?return=user_not_found");
 	exit();
 }
@@ -46,20 +55,21 @@ if (!admin_may_manage($_SESSION, $target)) {
 	exit();
 }
 
+// Fetch the areas before touching the session so a failure leaves it intact
+
+try {
+   $areas = poracle_api_for($target_instance)->get(poracle_human_path($target['id']) . '/areas')['areas'] ?? array();
+} catch (PoracleApiException $e) {
+   poracle_fail('', $e);
+}
+
 $_SESSION['dbname'] = $target_instance;
 $_SESSION['id'] = $target['id'];
 $_SESSION['username'] = $target['name'];
 $_SESSION['type'] = $target['type'];
 $_SESSION['notes'] = $target['notes'];
 $_SESSION['profile'] = $target['current_profile_no'];
-
-// Update Areas to Match New User ID
-
-try {
-   $_SESSION['areas'] = poracle_api()->get(poracle_human_path($target['id']) . '/areas')['areas'];
-} catch (PoracleApiException $e) {
-   poracle_fail('', $e);
-}
+$_SESSION['areas'] = $areas;
 
 // Reset Admin Account
 
