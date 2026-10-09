@@ -490,26 +490,6 @@ function checkRemoteFile($url)
     }
 }
 
-function reloadPokemon()
-{
-
-   // Include one Dir Back as Calling from /actions	
-   include "../config.php";
-   include "../include/db_connect.php";
-
-   $opts = array(
-     'http'=>array(
-       'method'=>"GET",
-       'header'=>"Accept-language: en\r\n" .
-                 "X-Poracle-Secret: $api_secret\r\n"
-     )
-   );
-   $context = stream_context_create($opts);
-
-   $reload = file_get_contents("$api_address/api/tracking/pokemon/refresh", false, $context);
-
-}
-
 function getMiniMap($latitude, $longitude, $distance)
 {
 
