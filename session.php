@@ -118,10 +118,10 @@ $areas = @file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['i
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
-   $_SESSION['areas'] = $json['areas'];
-} else if ( $json['message'] == "User not found" ) {
-   header("Location: $redirect_url?$redirect_page");
-   exit();
+    $_SESSION['areas'] = $json['areas'];
+} elseif (($json['message'] ?? null) === "User not found") {
+    header("Location: " . rtrim($redirect_url, '/') . "/");
+    exit();
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
