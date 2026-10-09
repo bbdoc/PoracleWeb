@@ -47,14 +47,15 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
        . '/search?'
        . http_build_query($params);
 
-   $request = file_get_contents($filepath);
+   $request = @file_get_contents($filepath);
 
-   if ( $request == "[]" ) { 
+   if ( $request === false || $request == "[]" ) { 
       header("Location: $redirect_url?type=display&page=area&return=error_update_location");
       exit();
    }   
 
    $json = json_decode($request, true);
+   if (!is_array($json)) { $json = array(); }
 
    foreach ($json as $key => $value) { 
       foreach ($value as $key => $value2) { 
@@ -63,6 +64,11 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
       }
    }
 
+}
+
+if (!isset($lat, $lon) || !is_numeric($lat) || !is_numeric($lon)) {
+  header("Location: $redirect_url?type=display&page=area&return=error_update_location");
+  exit();
 }
 
 // Set the location of the viewed profile (403 = outside the allowed area)
