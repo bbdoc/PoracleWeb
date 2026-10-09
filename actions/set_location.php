@@ -38,8 +38,8 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 } else {
 
-   $street = str_replace(" ", "%20", $_POST['street']);
-   $city = str_replace(" ", "%20", $_POST['city']);
+   $street = trim($_POST['street']);
+   $city = trim($_POST['city']);
 
    $params = [
        'addressdetails' => 1,
