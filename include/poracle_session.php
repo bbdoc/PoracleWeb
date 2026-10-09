@@ -71,12 +71,24 @@ function poracle_fail($page, Exception $e)
 function poracle_snapshot($invalidate = false)
 {
    static $snapshot = null;
+   static $failure = null;
    if ($invalidate) {
       $snapshot = null;
+      $failure = null;
       return null;
    }
+   // A failed fetch is remembered for the rest of the request so callers
+   // don't each wait out the connect timeout again.
+   if ($failure !== null) {
+      throw $failure;
+   }
    if ($snapshot === null) {
-      $snapshot = poracle_api()->get(poracle_human_path($_SESSION['id']) . '/tracking', array('all_profiles' => true));
+      try {
+         $snapshot = poracle_api()->get(poracle_human_path($_SESSION['id']) . '/tracking', array('all_profiles' => true));
+      } catch (PoracleApiException $e) {
+         $failure = $e;
+         throw $e;
+      }
    }
    return $snapshot;
 }

@@ -32,11 +32,14 @@ if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avata
 // Load the human, profile and tracking snapshot from the PoracleNG API
 
 $snapshot = null;
+$api_unavailable = false;
 if (isset($_SESSION['id'])) {
    try {
       $snapshot = poracle_snapshot();
    } catch (PoracleApiException $e) {
+      // Only a 404 means the human is not registered; anything else is an outage
       $snapshot = null;
+      $api_unavailable = ($e->status != 404);
    }
 }
 if (!empty($snapshot)) {
@@ -79,6 +82,18 @@ if (isset($_SESSION['username'])) {
 
     if (!isset($subs_clause)) { $subs_clause = ""; }
 
+    // API outage, timeout or bad secret: say so rather than treating the user as unregistered.
+    // No redirect, so there is nothing to loop on; the user can retry by reloading.
+    if ($api_unavailable) {
+         echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>" . htmlspecialchars($title) . "</title></head><body style='font-family:sans-serif;margin:2em;'>";
+         echo "<div style='padding:1em;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:4px;'>";
+         echo htmlspecialchars(i8ln("Could not connect to API. Please ask admin to check server config"));
+         echo "<br><a href='" . htmlspecialchars($_SERVER['REQUEST_URI']) . "'>" . htmlspecialchars(i8ln("Retry")) . "</a>";
+         echo " | <a href='$redirect_url/logout.php'>" . htmlspecialchars(i8ln("Logout")) . "</a>";
+         echo "</div></body></html>";
+         exit();
+    }
+
     $registered = !empty($snapshot);
     if ($registered && isset($enable_admin_dis) && $enable_admin_dis == "False" && isset($_SESSION['admin_id']) && $_SESSION['id'] <> $_SESSION['admin_id'])
     {
@@ -106,10 +121,10 @@ if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
 
    if ( isset($_SESSION['notes']) ) {
-	   $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+	   $admin_alarm.="<span class='badge badge-light'>".htmlspecialchars($_SESSION['notes'])."</span>";
    }
 
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".htmlspecialchars(strtoupper($_SESSION['username']))."</span><br>";
    if ($_SESSION['delegated_dbname'] <> $_SESSION['dbname'])
    {
            $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
@@ -127,10 +142,10 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
 
    if ( isset($_SESSION['notes']) ) {
-           $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+           $admin_alarm.="<span class='badge badge-light'>".htmlspecialchars($_SESSION['notes'])."</span>";
    }
 
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".htmlspecialchars(strtoupper($_SESSION['username']))."</span><br>";
    if ($_SESSION['admin_dbname'] <> $_SESSION['dbname'])
    {
            $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
