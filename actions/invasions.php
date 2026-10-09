@@ -17,7 +17,7 @@
     try {
       $changes = form_common($_POST);
       if ($type === 'invasion') {
-        $changes = array_merge($changes, array('gender' => poracle_gender_enum((int) form_radio($_POST, 'gender_'))));
+        $changes = array_merge($changes, array('gender' => poracle_gender_enum((int) form_radio($_POST, 'gender', 'gender_'))));
       }
       // :user destinations post an empty hidden ping field; keep any ping set elsewhere
       if (substr($_SESSION['type'], -5) === ':user') {

@@ -7,9 +7,17 @@ class PoracleFormsTest extends TestCase
 
    public function testRadioUsesPrefixNotLtrim()
    {
-      $this->assertSame('-1', form_radio(array('size' => 'size_-1'), 'size_'));
-      $this->assertSame('1', form_radio(array('x' => 'clean_1'), 'clean_'));
-      $this->assertNull(form_radio(array(), 'clean_'));
+      $this->assertSame('-1', form_radio(array('size' => 'size_-1'), 'size', 'size_'));
+      $this->assertSame('1', form_radio(array('clean' => 'clean_1'), 'clean', 'clean_'));
+      $this->assertNull(form_radio(array(), 'clean', 'clean_'));
+      $this->assertNull(form_radio(array('clean' => '1'), 'clean', 'clean_'));
+   }
+
+   public function testRadioIgnoresOtherFields()
+   {
+      $post = array('distance' => '0', 'content' => 'clean_1', 'template' => 'size_3');
+      $this->assertNull(form_radio($post, 'clean', 'clean_'));
+      $this->assertNull(form_common($post)['clean']);
    }
 
    public function testCommonFields()

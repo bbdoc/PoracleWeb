@@ -5,12 +5,12 @@
 
 const PORACLE_INCIDENTS = array(7 => 'gold-stop', 8 => 'kecleon', 9 => 'showcase');
 
-function form_radio(array $post, $prefix)
+// The value of one named radio field with its prefix stripped; null when the
+// field is absent or does not carry the prefix.
+function form_radio(array $post, $field, $prefix)
 {
-   foreach ($post as $value) {
-      if (is_string($value) && strpos($value, $prefix) === 0) {
-         return substr($value, strlen($prefix));
-      }
+   if (isset($post[$field]) && is_string($post[$field]) && strpos($post[$field], $prefix) === 0) {
+      return substr($post[$field], strlen($prefix));
    }
    return null;
 }
@@ -25,7 +25,7 @@ function form_int(array $post, $key)
 
 function form_common(array $post)
 {
-   $clean = form_radio($post, 'clean_');
+   $clean = form_radio($post, 'clean', 'clean_');
    if ($clean === null && isset($post['clean'])) {
       $clean = (string) $post['clean'];    // quick pick posts a bare 0/1
    }
@@ -93,7 +93,7 @@ function form_pokemon_filters(array $post, array $pvpMinCp, $defaultCap)
       if ($minCp === null) {
          $minCp = isset($pvpMinCp[$league]) ? (int) $pvpMinCp[$league] : 0;
       }
-      $cap = form_radio($post, 'cap_');
+      $cap = form_radio($post, 'cap', 'cap_');
       $cap = ($cap !== null) ? (int) $cap : (int) $defaultCap;
       $f['pvp_ranking_league'] = $league;
       $f['pvp_ranking_best'] = form_int($post, 'pvp_ranking_best');
@@ -102,13 +102,13 @@ function form_pokemon_filters(array $post, array $pvpMinCp, $defaultCap)
       $f['pvp_ranking_cap'] = $cap ? $cap : null;
    }
 
-   $gender = form_radio($post, 'gender_');
+   $gender = form_radio($post, 'gender', 'gender_');
    $f['gender'] = $gender === null ? null : poracle_gender_enum($gender);
 
-   $form = form_radio($post, 'form_');
+   $form = form_radio($post, 'form', 'form_');
    $f['form'] = ($form !== null && (int) $form > 0) ? (int) $form : null;
 
-   $size = form_radio($post, 'size_');
+   $size = form_radio($post, 'size', 'size_');
    if ($size !== null) {
       $f['size'] = ((int) $size > 0) ? (int) $size : null;
       $f['max_size'] = $f['size'];
@@ -237,8 +237,8 @@ function form_gym_rules(array $post)
 {
    $common = form_common($post);
    $flags = array(
-      'slot_changes' => form_radio($post, 'slot_') === '1' ? true : null,
-      'battle_changes' => form_radio($post, 'battle_') === '1' ? true : null,
+      'slot_changes' => form_radio($post, 'slot', 'slot_') === '1' ? true : null,
+      'battle_changes' => form_radio($post, 'battle', 'battle_') === '1' ? true : null,
    );
    $rules = array();
    foreach ($post as $key => $value) {

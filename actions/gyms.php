@@ -13,8 +13,8 @@
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'gyms') {
     try {
       $changes = array_merge(form_common($_POST), array(
-        'slot_changes' => form_radio($_POST, 'slot_') === '1' ? true : null,
-        'battle_changes' => form_radio($_POST, 'battle_') === '1' ? true : null,
+        'slot_changes' => form_radio($_POST, 'slots', 'slot_') === '1' ? true : null,
+        'battle_changes' => form_radio($_POST, 'battles', 'battle_') === '1' ? true : null,
       ));
       // :user destinations post an empty hidden ping field; keep any ping set elsewhere
       if (substr($_SESSION['type'], -5) === ':user') {
