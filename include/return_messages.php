@@ -470,6 +470,29 @@
 </div>
 <?php
     }
+    if (isset($_GET['return']) && $_GET['return'] == 'error_api_not_poracleng') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("PoracleWeb requires PoracleNG")."<br>";
+        echo i8ln("Please contact an admin!");
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'api_error') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("You Request couldn't not be handled")."<br>";
+        echo htmlspecialchars($_SESSION['api_error'] ?? '');
+        unset($_SESSION['api_error']);
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
     if (isset($_GET['return']) && $_GET['return'] == 'error_api_nok') {
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
         echo i8ln("API returned a NOK Status")."<br>";
