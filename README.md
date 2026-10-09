@@ -80,6 +80,24 @@ Then run the test suite:
 docker run --rm -v "$PWD":/app -w /app php:8.1-cli vendor/bin/phpunit
 ```
 
+#### Integration tests (optional)
+
+The `integration` suite talks to a live PoracleNG (v2 API) and is skipped unless `PORACLE_TEST_API` is set. Use a throwaway PoracleNG instance: bots disabled (`[discord]`/`[telegram]` `enabled = false`), a scratch database, and its own API secret. Never point it at production.
+
+Create the test human once, then run the suite:
+
+```bash
+curl -X POST -H "X-Poracle-Secret: $SECRET" -H 'Content-Type: application/json' \
+  http://localhost:4299/api/v2/humans -d '{"id":"pweb-it-1","name":"pweb integration","type":"webhook"}'
+
+docker run --rm -v "$PWD":/app -w /app \
+  -e PORACLE_TEST_API=http://host.docker.internal:4299 \
+  -e PORACLE_TEST_SECRET="$SECRET" -e PORACLE_TEST_HUMAN=pweb-it-1 \
+  php:8.1-cli vendor/bin/phpunit --testsuite integration
+```
+
+The tests delete all pokemon and lure tracking for the test human in profile 1.
+
 ---
 
 ### Setting Up Telegram Authentication
