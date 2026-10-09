@@ -81,6 +81,22 @@ class PoracleTrackingTest extends TestCase
       $this->assertSame(array('lure_id' => 501, 'distance' => 250, 'edit' => true, 'override_areas' => array('north'), 'ping' => '@here'), $this->calls[1]['body']);
    }
 
+   public function testUpdateThrowsWhenRuleMissing()
+   {
+      foreach (array('{"rules":[]}', '{}') as $body) {
+         $api = $this->api(array(array(200, $body)));
+         try {
+            poracle_track_update($api, '42', 'lure', 7, array('distance' => 250), 1);
+            $this->fail('expected PoracleApiException');
+         } catch (PoracleApiException $e) {
+            $this->assertSame(404, $e->status);
+            $this->assertSame('Rule not found', $e->detail);
+         }
+         $this->assertCount(1, $this->calls);
+         $this->calls = array();
+      }
+   }
+
    public function testDeleteUidsSkipsEmpty()
    {
       $api = $this->api(array());

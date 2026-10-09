@@ -139,6 +139,9 @@ function poracle_track_update(PoracleApi $api, $human, $type, $uid, array $chang
    $path = poracle_tracking_path($human, $type) . '/' . (int) $uid;
    $query = array('profile' => (int) $profile);
    $current = $api->get($path, $query);
+   if (empty($current['rules'][0]) || !is_array($current['rules'][0])) {
+      throw new PoracleApiException(404, 'Rule not found');
+   }
    $body = poracle_rule_body(array_merge($current['rules'][0], $changes));
    return $api->put($path, $body, $query);
 }
