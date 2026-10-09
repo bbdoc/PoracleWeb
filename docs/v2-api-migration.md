@@ -1,7 +1,9 @@
 # Migrating PoracleWeb to the PoracleNG v2 API
 
-**Status:** plan, 2026-10-09
-**Target:** PoracleNG (v5+) only. PoracleJS has no v2 API and is no longer supported once this lands.
+**Status:** implemented, 2026-10-09 (this document has been updated to match what was built)
+**Target:** PoracleNG (v5+) only. PoracleJS has no v2 API and is not supported.
+
+**Minimum PoracleNG:** a build that includes jfberry/PoracleNG#248 (`DELETE /api/v2/humans/{id}/location`; v2 tracking distance clamped to `[tracking] max_distance`) and jfberry/PoracleNG#249 (v2 `ping` on every rule type; canonical diff so wildcard-alias rows don't duplicate on GET then POST).
 
 ## Goal
 
@@ -27,7 +29,7 @@ The v2 contract is the OpenAPI spec at `GET {api}/openapi.json`, with interactiv
 | Clearing a location | `DELETE /v2/humans/{id}/location?profile=` (PoracleNG change). |
 | `max_distance` | PoracleNG clamps every v2 distance to `[tracking] max_distance` (PoracleNG change). PoracleWeb also checks against `maxDistance` from `config/poracleWeb` before sending, so it can show a message. |
 
-The clear-location and `max_distance` changes are on PoracleNG branch `feat/v2-location-clear-max-distance`.
+The clear-location and `max_distance` changes are PoracleNG#248. `ping` on every rule type and the canonical diff are PoracleNG#249.
 
 ## 1. API client: `include/poracle_client.php`
 
@@ -62,16 +64,16 @@ These existing reads become in-PHP computations over the snapshot:
 
 The `human` resource keeps v1-style encodings: `area` and `community_membership` are JSON strings, and `enabled` and `admin_disable` are ints. Rules use v2 encodings: wildcards come back as `null`, there are enum strings, and `clean`/`edit`/`summary` are booleans.
 
-### Adapter first, rewrite later
+### Pages render v2 rules natively; null = any
 
-The display pages and edit modals check DB conventions directly (`pokemon_id == 9000`, `team == 4`, `clean & 1`, `min_iv == -1`). Phase 1 adds `include/v2_legacy_rows.php`, which converts v2 rules back into the old row shape so these pages can switch to the snapshot without other changes. Phase 2 rewrites each page to use v2 fields natively as its type is migrated, and the adapter is deleted at the end.
+The display pages and edit modals read v2 rules directly. A `null` field means "any". There is no legacy-row adapter, and `$monster_defaults` and the old sentinel literals (`9000`, `team == 4`, `min_iv == -1` and so on) are removed.
 
 ## 3. Multiple instances
 
 Today, `config.env.php` lets `$dbname` hold several databases, but `api_address` and `api_secret` are single `pweb_settings` rows.
 
-- Replace these with an instance list: `{name, api_address, api_secret}`. It is configured in `config.php`/env and editable on the server settings page.
-- `session.php` finds the logged-in user's instance by calling `GET /v2/humans/{id}` against each instance. That replaces the per-DB `SELECT * FROM humans`.
+- An instance is a database listed in `$dbname`. Its `api_address` and `api_secret` come from that database's `pweb_settings` rows, edited on the server settings page.
+- `session.php` finds the logged-in user's instance by calling `GET /v2/humans/{id}` against each instance, skipping instances that error. That replaces the per-DB `SELECT * FROM humans`.
   - It stores `$_SESSION['instance']` in place of `$_SESSION['dbname']`.
 - Admin lists call `GET /v2/humans?type=` on every instance and merge the results, tagging each row with its instance. This covers `manage_users`, `manage_channels` and `admin_sync`.
 - Impersonation (`admin_connect.php`) looks the target up with `GET /v2/humans?id=X` on each instance.
@@ -84,7 +86,7 @@ Today, `config.env.php` lets `$dbname` hold several databases, but `api_address`
 | PoracleWeb action | v2 call |
 |---|---|
 | Add (any type) | `POST /v2/humans/{id}/tracking/{type}?profile={p}` with an **array** body, one element per selected item. Report `created` and `unchanged`; an item in `unchanged` means the rule already exists. |
-| Edit one rule (form) | `GET …/{type}/{uid}`, merge the form fields into the returned rule, then `PUT …/{type}/{uid}`. **PUT replaces the whole rule** (fields left out reset to defaults) and returns a **new uid**. |
+| Edit one rule (form) | `GET …/{type}/{uid}`, merge the form fields into the returned rule, then `PUT …/{type}/{uid}`. **PUT replaces the whole rule** (fields left out reset to defaults) and returns a **new uid**. Fields the form doesn't show are kept by the merge. Edits to `:user` destinations do not clear `ping`. |
 | Delete one | `DELETE …/{type}/{uid}` |
 | Delete all on a profile | Take the uids from the snapshot, then `DELETE …/{type}?uid=1,2,3` |
 | Set distance on all; cleaning toggles | Take the rules from the snapshot, change the **one** field, then `POST` the array back (one request per type). See *Bulk update rule* below. |
@@ -99,11 +101,11 @@ Every item operation is scoped by `(human, uid)`. This fixes today's ability to 
 - `min_iv` on pokemon;
 - `slot_changes` and `battle_changes` on gym.
 
-If two or more fields differ, or the difference is in any other field (including `ping`), the posted rule is inserted as a **new** rule and the old one is kept. So:
+If two or more fields differ, or the difference is in any other field, the posted rule is inserted as a **new** rule and the old one is kept. PoracleNG canonicalizes the pokemon wildcard-alias rows server-side (PoracleNG#249), so posting back an unmodified GET result is `unchanged`. So:
 
 - Bulk operations change exactly one field per request. "Set distance" and "toggle clean" are separate requests.
 - Edit forms always use PUT.
-- **Check before phase 2.** POST an unmodified GET result of real rules that the old PoracleWeb wrote, and confirm the response is entirely `unchanged`. Any rule that comes back as `created` is a column the v2 schema doesn't round-trip, and it has to be resolved first.
+- The integration suite checks the round trip against a live PoracleNG.
 
 ### Field mapping (form → v2)
 
@@ -112,7 +114,7 @@ Common to all types:
 - Never send sentinel values. Leave the field out for "any".
 - `clean` is now three booleans, `clean`, `edit` and `summary`. Today's cleaning toggle overwrites the whole bitmask and wipes the `edit` and `summary` bits; the v2 booleans fix that.
 - `template`: leave it out to use the server default. PoracleWeb no longer needs to fill in `defaultTemplateName`.
-- `ping` is a string.
+- `ping` is a string, and is available on every rule type (PoracleNG#249).
 - `distance`: `0` means use areas, not a radius.
 
 | Type | Changes |
@@ -125,7 +127,7 @@ Common to all types:
 | lure | `lure_id` (`0` means any lure) |
 | nest | `pokemon_id`, `form`, `min_spawn_avg` |
 | gym | `team` enum, `slot_changes`, `battle_changes`. Now possible: `gym_id`. |
-| New | `incident`, `maxbattle`, `fort`: new add/list pages (phase 4) |
+| New | `incident` has add/list pages. `maxbattle` and `fort` have **no** add or list pages (not built); they are still carried through channel sync, account migration and the location-clear distance reset. |
 
 `reloadPokemon()` and `/api/tracking/pokemon/refresh` are removed, because every v2 write triggers a reload.
 
@@ -136,7 +138,7 @@ Common to all types:
 | Global alerts toggle (`actions/profile.php`) | `POST /v2/humans/{id}/enable` or `POST /v2/humans/{id}/disable` |
 | Language | `POST /v2/humans/{id}/language {language}`. The server checks it against the configured locales. |
 | Set location (`actions/set_location.php`) | `POST /v2/humans/{id}/location?profile={p} {lat, lon}`. Geocoding stays in PoracleWeb. A 403 means the location is outside the user's allowed areas. |
-| Delete location | `DELETE /v2/humans/{id}/location?profile={p}`, then a bulk `distance: 0` POST on **all** types for that profile. Today's code only resets 5 types. |
+| Delete location | `DELETE /v2/humans/{id}/location?profile={p}`, then a bulk `distance: 0` POST on **all 11** types for that profile. Previously only 5 types were reset. |
 | Areas | `POST /v2/humans/{id}/areas?profile={p} {areas:[…]}`. Names are matched against the fences the user may select; unmatched names come back in `rejected`. This replaces the hand-built JSON. |
 | Available areas | `GET /v2/humans/{id}/areas` |
 | Create profile | `POST /v2/humans/{id}/profiles {name}`. The response includes `profile_no`. The gap-filling query is removed. |
@@ -156,30 +158,38 @@ These endpoints stay on the existing unversioned `/api/*`:
 
 ## 6. Admin features
 
-- **Channel sync** (`actions/channel_sync.php`): read the source snapshot. For each target, bulk-delete its rules per type, then POST the source rules **without `uid`**. This copies every type and every field, unlike today's partial `INSERT…SELECT`. Targets can be on any instance.
-- **Account migration** (`actions/migrate.php`). The Telegram login hash **must** be verified first; today it is not.
+- **Channel sync** (`actions/channel_sync.php`): read the viewed profile's rules from the source snapshot. For each target, bulk-delete the rules of its **active** profile per type, then POST the source rules **without `uid`**. This copies all 11 types and every field, unlike the old partial `INSERT…SELECT`. Targets can be on any instance.
+- **Raid "delete all"** is per profile.
+- **Gym cleaning toggle** has its own checkbox.
+- **Account migration** (`actions/migrate.php`) goes through the API. The Telegram login is verified first, and the migration is bound to the session that started it.
   1. Read the old human, with the snapshot including all profiles.
   2. `POST /v2/humans` to create the new id, with the same name, language, areas and community.
   3. Recreate the profiles, then POST each profile's rules, then the saved locations.
-  4. `DELETE /v2/humans/{old}` only after every step succeeds. If a step fails, delete the partly created new human and report the error.
+  4. `DELETE /v2/humans/{old}` only after every step succeeds. If a step fails, the partly created new human is deleted (rolled back) and the error is reported.
 - **Admin authorization stays PoracleWeb's job.** The API secret can act on any human.
-  - Add admin checks to every `actions/*.php` that needs one. Today, none of them check, including `server_settings`, `channel_sync` and `migrate`.
-  - In `admin_connect.php`, check that a delegated admin is allowed to manage the target.
+  - Every admin action (including `server_settings`, `channel_sync` and `migrate`) requires admin rights.
+  - In `admin_connect.php`, a delegated admin can only impersonate destinations they manage.
 
 ## 7. Phases
 
-| Phase | Scope | Exit criterion |
-|---|---|---|
-| 0 | API client, instance list and settings UI, v2 detection, error rendering | Login and session work through the API on one or more instances |
-| 1 | Snapshot plus legacy-row adapter; switch every read (§2) | No `SELECT` against Poracle tables outside `actions/` |
-| 2 | Tracking writes in this order: pokemon (with quick-pick) → raid/egg → quest → invasion + incident → lure, nest, gym. Rewrite display pages natively and drop the adapter per type. | No tracking-table SQL left |
-| 3 | Humans, profiles, locations, areas, language, roles (§5) | No `humans`/`profiles` SQL left |
-| 4 | Admin lists, impersonation, channel sync, migration (§6); new type pages (incident, maxbattle, fort) | — |
-| 5 | Remove the Poracle `mysqli` connection (only `pweb_settings` remains) and `$min_poracle_version` | Poracle DB credentials only used for settings, or not at all |
+All phases are implemented, with one exception: the add/list pages for `maxbattle` and `fort` were not built.
+
+| Phase | Scope |
+|---|---|
+| 0 | API client, instance handling, v2 detection, error rendering |
+| 1 | Snapshot; every read switched (§2) |
+| 2 | Tracking writes for all types; display pages render v2 rules natively |
+| 3 | Humans, profiles, locations, areas, language, roles (§5) |
+| 4 | Admin lists, impersonation, channel sync, migration (§6); `incident` page |
+| 5 | Poracle `mysqli` connection removed (only `pweb_settings` remains) |
+
+## Tests
+
+PHPUnit runs via Docker (see the README, "Running tests"). An opt-in integration suite runs against a live PoracleNG and is skipped unless `PORACLE_TEST_API` is set.
 
 ## Risks
 
-- **Bulk round-trip fidelity.** A column missing from the v2 schema produces duplicate rules (see §4). Run the check before phase 2.
+- **Bulk round-trip fidelity.** A column missing from the v2 schema produces duplicate rules (see §4). PoracleNG#249 fixes the known case, and the integration suite checks it.
 - **New uids.** PUT, and updates made through POST, return new uids. Pages must re-read or use the returned uid; they can't keep the old one.
 - **Request count.** A page now costs one snapshot request. The header runs on every page, so the snapshot must be memoized, not fetched separately in each include.
 - **The `human` resource's legacy encodings** (JSON-string `area`, int flags) may change in a future v2 revision. Parse them in one place only.
