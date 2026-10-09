@@ -90,17 +90,22 @@ foreach ($dbnames as &$db) {
 
                     <?php
 
-                    $dbnames = explode(",", $dbname);
-                    foreach ($dbnames as &$db) {
+                    foreach (poracle_all_apis() as $instance => $api) {
 
-                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type like 'discord:channel' AND id <> ? ORDER by name");
-                       $stmt->bind_param("s", $_SESSION['id']);
-                       $stmt->execute();
-                       $result = $stmt->get_result();
+                       try {
+                          $humans = array();
+                          foreach (array('discord:channel') as $type) {
+                             $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+                          }
+                          $humans = array_values(array_filter($humans, function ($h) { return (string) $h['id'] !== (string) $_SESSION['id']; }));
+                          usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+                       } catch (PoracleApiException $e) {
+                          echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+                          continue;
+                       }
                        ?>
 
-                    <?php if ($result->num_rows <> 0) { ?>
+                    <?php if (count($humans) <> 0) { ?>
 
                     <hr>
 
@@ -108,8 +113,8 @@ foreach ($dbnames as &$db) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <?php if ($num_dbs > 1) { echo $db."<br>"; } ?>
-				<strong><?php echo i8ln("DISCORD CHANNELS TO SYNC WITH"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo htmlspecialchars($instance)."<br>"; } ?>
+                                <strong><?php echo i8ln("DISCORD CHANNELS TO SYNC WITH"); ?></strong>
                             </div>
                         </div>
                     </div>
@@ -117,43 +122,47 @@ foreach ($dbnames as &$db) {
                     <div id='discord' class='areasform text-uppercase text-center'>
 
                         <ul>
-			<?php while ($row = $result->fetch_assoc()) { 
-                           $target_id=$db."|".$row['id'];
+                        <?php foreach ($humans as $row) {
+                           $target_id = htmlspecialchars($instance."|".$row['id']);
                         ?>
 
-			<li class="btn btn-primary btn-icon-split mr-2 mt-1">
-			    <span class="icon text-white-50">
+                        <li class="btn btn-primary btn-icon-split mr-2 mt-1">
+                            <span class="icon text-white-50">
                                 <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font style='font-size:12px;'><i class="fab fa-discord"></i></font></label>
                             </span>
-                            <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                            <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>
                         </li>
 
-			<?php } ?>
+                        <?php } ?>
                         </ul>
-  
+
                     </div>
 
                     <?php } ?>
 
                     <?php } ?>
 
-
-                    <!--  Telegram Channels -->
+                    <!-- Telegram Channels -->
 
                     <?php
-   
-                    $dbnames = explode(",", $dbname);
-                    foreach ($dbnames as &$db) {
 
-                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      		       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type in ('telegram:channel','telegram:group') AND id <> ? ORDER by name");
-                       $stmt->bind_param("s", $_SESSION['id']);
-                       $stmt->execute();
-                       $result = $stmt->get_result();
+                    foreach (poracle_all_apis() as $instance => $api) {
+
+                       try {
+                          $humans = array();
+                          foreach (array('telegram:channel', 'telegram:group') as $type) {
+                             $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+                          }
+                          $humans = array_values(array_filter($humans, function ($h) { return (string) $h['id'] !== (string) $_SESSION['id']; }));
+                          usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+                       } catch (PoracleApiException $e) {
+                          echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+                          continue;
+                       }
                        ?>
 
-                    <?php if ($result->num_rows <> 0) { ?>
+                    <?php if (count($humans) <> 0) { ?>
 
                     <hr>
 
@@ -161,17 +170,17 @@ foreach ($dbnames as &$db) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <?php if ($num_dbs > 1) { echo $db."<br>"; } ?>
-				<strong><?php echo i8ln("TELEGRAM CHANNELS TO SYNC WITH"); ?></strong>
+                                <?php if ($num_dbs > 1) { echo htmlspecialchars($instance)."<br>"; } ?>
+                                <strong><?php echo i8ln("TELEGRAM CHANNELS TO SYNC WITH"); ?></strong>
                             </div>
                         </div>
                     </div>
 
                     <div id='discord' class='areasform text-uppercase text-center'>
 
-                        <ul>      
-                        <?php while ($row = $result->fetch_assoc()) { 
-                           $target_id=$db."|".$row['id'];
+                        <ul>
+                        <?php foreach ($humans as $row) {
+                           $target_id = htmlspecialchars($instance."|".$row['id']);
                         ?>
 
                         <li class="btn btn-info btn-icon-split mr-2 mt-1">
@@ -179,11 +188,10 @@ foreach ($dbnames as &$db) {
                                 <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font style='font-size:12px;'><i class="fab fa-telegram"></i></font></label>
                             </span>
-                            <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                            <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>
                         </li>
 
-
-			<?php } ?>
+                        <?php } ?>
                         </ul>
 
                     </div>
@@ -196,17 +204,22 @@ foreach ($dbnames as &$db) {
 
                     <?php
 
-                    $dbnames = explode(",", $dbname);
-                    foreach ($dbnames as &$db) {
+                    foreach (poracle_all_apis() as $instance => $api) {
 
-                       $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-                       $stmt = $conn->prepare("SELECT id, name, type FROM humans WHERE type like 'webhook' AND id <> ? ORDER by name");
-                       $stmt->bind_param("s", $_SESSION['id']);
-                       $stmt->execute();
-                       $result = $stmt->get_result();
+                       try {
+                          $humans = array();
+                          foreach (array('webhook') as $type) {
+                             $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+                          }
+                          $humans = array_values(array_filter($humans, function ($h) { return (string) $h['id'] !== (string) $_SESSION['id']; }));
+                          usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+                       } catch (PoracleApiException $e) {
+                          echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+                          continue;
+                       }
                        ?>
 
-                    <?php if ($result->num_rows <> 0) { ?>
+                    <?php if (count($humans) <> 0) { ?>
 
                     <hr>
 
@@ -214,7 +227,7 @@ foreach ($dbnames as &$db) {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-secondary text-center" role="alert">
-                                <?php if ($num_dbs > 1) { echo $db."<br>"; } ?>
+                                <?php if ($num_dbs > 1) { echo htmlspecialchars($instance)."<br>"; } ?>
                                 <strong><?php echo i8ln("WEBHOOKS TO SYNC WITH"); ?></strong>
                             </div>
                         </div>
@@ -223,8 +236,8 @@ foreach ($dbnames as &$db) {
                     <div id='discord' class='areasform text-uppercase text-center'>
 
                         <ul>
-                        <?php while ($row = $result->fetch_assoc()) {
-                           $target_id=$db."|".$row['id'];
+                        <?php foreach ($humans as $row) {
+                           $target_id = htmlspecialchars($instance."|".$row['id']);
                         ?>
 
                         <li class="btn btn-secondary btn-icon-split mr-2 mt-1">
@@ -232,7 +245,7 @@ foreach ($dbnames as &$db) {
                                 <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font size="1">WH</font></label>
                             </span>
-                            <span class="text" style="width:250px;"><?php echo $row['name']; ?></span>
+                            <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>
                         </li>
 
                         <?php } ?>

@@ -50,190 +50,203 @@ foreach ($dbnames as &$db) {
 
 if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['discord']['channels']) > 0 ) {
 
-   $dbnames = explode(",", $dbname);
-   foreach ($dbnames as &$db) {
-   
-      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, notes, type FROM humans WHERE type like 'discord:channel' ORDER by name";
-      $result = $conn->query($sql); 
+   foreach (poracle_all_apis() as $instance => $api) {
+
+      try {
+         $humans = array();
+         foreach (array('discord:channel') as $type) {
+            $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+         }
+         usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+      } catch (PoracleApiException $e) {
+         echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+         continue;
+      }
       ?>
-   
-   <?php if ($result->num_rows <> 0) { ?>
-   
+
+   <?php if (count($humans) <> 0) { ?>
+
       <hr>
-      
+
       <!-- Heading -->
       <div class="row">
           <div class="col">
               <div class="alert alert-secondary text-center" role="alert">
-      				<strong><?php echo i8ln("DISCORD CHANNELS LIST"); ?></strong>
-                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+                  <strong><?php echo i8ln("DISCORD CHANNELS LIST"); ?></strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".htmlspecialchars($instance); } ?>
               </div>
           </div>
       </div>
-      
+
       <div id='discord' class='areasform text-uppercase text-center'>
-      
-          <?php while ($row = $result->fetch_assoc()) { ?>
 
-   	     <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['channels']) ) { ?>
+          <?php foreach ($humans as $row) { ?>
 
-             <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
+             <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['discord']['channels']) ) { ?>
+
+             <a href="admin_connect.php?id=<?php echo htmlspecialchars(rawurlencode($row['id'])); ?>"
                  class="btn btn-primary btn-icon-split mr-2 mt-1">
                  <span class="icon text-white-50">
                      <i class="fab fa-discord"></i>
                  </span>
-                    <span class="text" style="width:250px;">
-		       <?php echo $row['name']; ?>
-		       <?php 
-                         if ( isset($row['notes']) ) {
-				 echo "<br><span class='badge badge-light'>".$row['notes']."</span>"; 
-			 }
-                       ?>
-                       <?php if (@$admin_channel_id == "True") { ?>
-                          <font size=2><br><?php echo $row['id']."</font>"; ?>
-                       <?php } ?>
-                    </span>
-
-	     </a>
+                 <span class="text" style="width:250px;">
+                    <?php echo htmlspecialchars($row['name']); ?>
+                    <?php
+                      if ( isset($row['notes']) ) {
+                         echo "<br><span class='badge badge-light'>".htmlspecialchars($row['notes'])."</span>";
+                      }
+                    ?>
+                    <?php if (@$admin_channel_id == "True") { ?>
+                       <font size=2><br><?php echo htmlspecialchars($row['id'])."</font>"; ?>
+                    <?php } ?>
+                 </span>
+             </a>
 
              <?php } ?>
-      
+
           <?php } ?>
       </div>
-      
+
       <?php } ?>
-   
+
    <?php } ?>
 
 <?php } ?>
-   
-   
-   <!--  Telegram Channels -->
-   
+
+<!-- Telegram Channels -->
+
 <?php
 
 if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['telegram']['channels']) > 0 ) {
 
-   $dbnames = explode(",", $dbname);
-   foreach ($dbnames as &$db) {
-   
-      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-         		       $sql = "select id, name, notes, type FROM humans WHERE type in ('telegram:channel','telegram:group') ORDER by name";
-      $result = $conn->query($sql);
+   foreach (poracle_all_apis() as $instance => $api) {
+
+      try {
+         $humans = array();
+         foreach (array('telegram:channel', 'telegram:group') as $type) {
+            $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+         }
+         usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+      } catch (PoracleApiException $e) {
+         echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+         continue;
+      }
       ?>
-   
-   <?php if ($result->num_rows <> 0) { ?>
-   
+
+   <?php if (count($humans) <> 0) { ?>
+
       <hr>
-      
+
       <!-- Heading -->
       <div class="row">
           <div class="col">
               <div class="alert alert-secondary text-center" role="alert">
-      				<strong><?php echo i8ln("TELEGRAM CHANNELS LIST"); ?></strong>
-                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+                  <strong><?php echo i8ln("TELEGRAM CHANNELS LIST"); ?></strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".htmlspecialchars($instance); } ?>
               </div>
           </div>
       </div>
-      
+
       <div id='discord' class='areasform text-uppercase text-center'>
-      
-          <?php while ($row = $result->fetch_assoc()) { ?>
 
-	     <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['telegram']['channels']) ) { ?>
+          <?php foreach ($humans as $row) { ?>
 
-                <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
-                    class="btn btn-info btn-icon-split mr-2 mt-1">
-                    <span class="icon text-white-50">
-                        <i class="fab fa-telegram"></i>
-                    </span>
-		    <span class="text" style="width:250px;">
-		       <?php echo $row['name']; ?>
-                       <?php
-                         if ( isset($row['notes']) ) {
-                                 echo "<br><span class='badge badge-light'>".$row['notes']."</span>";
-                         }
-                       ?>
-		       <?php if (@$admin_channel_id == "True") { ?>
-		          <font size=2><br><?php echo $row['id']."</font>"; ?>
-                       <?php } ?>
-                    </span>
-                </a>
-      
-	     <?php } ?>
+             <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['id'],$_SESSION['delegated_channels']['telegram']['channels']) ) { ?>
+
+             <a href="admin_connect.php?id=<?php echo htmlspecialchars(rawurlencode($row['id'])); ?>"
+                 class="btn btn-info btn-icon-split mr-2 mt-1">
+                 <span class="icon text-white-50">
+                     <i class="fab fa-telegram"></i>
+                 </span>
+                 <span class="text" style="width:250px;">
+                    <?php echo htmlspecialchars($row['name']); ?>
+                    <?php
+                      if ( isset($row['notes']) ) {
+                         echo "<br><span class='badge badge-light'>".htmlspecialchars($row['notes'])."</span>";
+                      }
+                    ?>
+                    <?php if (@$admin_channel_id == "True") { ?>
+                       <font size=2><br><?php echo htmlspecialchars($row['id'])."</font>"; ?>
+                    <?php } ?>
+                 </span>
+             </a>
+
+             <?php } ?>
 
           <?php } ?>
-      
       </div>
-      
+
       <?php } ?>
-      
+
    <?php } ?>
 
 <?php } ?>
-   
-   <!--  Webhooks -->
-   
+
+<!-- Webhooks -->
+
 <?php
 
 if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || count($_SESSION['delegated_channels']['discord']['webhooks']) > 0 ) {
 
-   $dbnames = explode(",", $dbname);
-   foreach ($dbnames as &$db) {
-   
-      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, notes, type FROM humans WHERE type like 'webhook' ORDER by name";
-      $result = $conn->query($sql);
+   foreach (poracle_all_apis() as $instance => $api) {
+
+      try {
+         $humans = array();
+         foreach (array('webhook') as $type) {
+            $humans = array_merge($humans, $api->get('/api/v2/humans', array('type' => $type))['humans']);
+         }
+         usort($humans, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+      } catch (PoracleApiException $e) {
+         echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+         continue;
+      }
       ?>
-   
-   <?php if ($result->num_rows <> 0) { ?>
-   
+
+   <?php if (count($humans) <> 0) { ?>
+
       <hr>
-      
+
       <!-- Heading -->
       <div class="row">
           <div class="col">
               <div class="alert alert-secondary text-center" role="alert">
-      				<strong><?php echo i8ln("WEBHOOKS LIST"); ?></strong>
-                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+                  <strong><?php echo i8ln("WEBHOOKS LIST"); ?></strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".htmlspecialchars($instance); } ?>
               </div>
           </div>
       </div>
-      
+
       <div id='discord' class='areasform text-uppercase text-center'>
-      
-          <?php while ($row = $result->fetch_assoc()) { ?>
+
+          <?php foreach ($humans as $row) { ?>
 
              <?php if ( isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin']) || in_array($row['name'],$_SESSION['delegated_channels']['discord']['webhooks']) ) { ?>
 
-             <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
+             <a href="admin_connect.php?id=<?php echo htmlspecialchars(rawurlencode($row['id'])); ?>"
                  class="btn btn-secondary btn-icon-split mr-2 mt-1">
                  <span class="icon text-white-50">
                      <font size=1>WH</font>
                  </span>
-                    <span class="text" style="width:250px;">
-		       <?php echo $row['name']; ?>
-                       <?php
-                         if ( isset($row['notes']) ) {
-                                 echo "<br><span class='badge badge-light'>".$row['notes']."</span>";
-                         }
-                       ?>
-                       <?php if (@$admin_channel_id == "True") { ?>
-                          <font size=2><br><?php echo $row['id']."</font>"; ?>
-                       <?php } ?>
-                    </span>
+                 <span class="text" style="width:250px;">
+                    <?php echo htmlspecialchars($row['name']); ?>
+                    <?php
+                      if ( isset($row['notes']) ) {
+                         echo "<br><span class='badge badge-light'>".htmlspecialchars($row['notes'])."</span>";
+                      }
+                    ?>
+                    <?php if (@$admin_channel_id == "True") { ?>
+                       <font size=2><br><?php echo htmlspecialchars($row['id'])."</font>"; ?>
+                    <?php } ?>
+                 </span>
              </a>
-      
-	     <?php } ?>
+
+             <?php } ?>
 
           <?php } ?>
-      
       </div>
-      
+
       <?php } ?>
-      
+
    <?php } ?>
 
 <?php } ?>
-   

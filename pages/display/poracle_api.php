@@ -233,19 +233,25 @@ if (!isset($_SESSION['admin_id'])) {
 
                 <?php
 
+                $admin_humans = array();
+                try {
+                   $found = empty($_SESSION['poracle_admins']) ? array() : poracle_api()->get('/api/v2/humans', array('id' => implode(',', $_SESSION['poracle_admins'])))['humans'];
+                   foreach ($found as $h) {
+                      $admin_humans[(string) $h['id']] = $h;
+                   }
+                } catch (PoracleApiException $e) {
+                   // Fall back to showing the admin ids alone.
+                }
+
                 foreach($_SESSION['poracle_admins'] as $key => $padmin) {
 
-                   $sql = "SELECT type, name FROM humans WHERE id = ?";
-                   $stmt = $conn->prepare($sql);
-                   $stmt->bind_param("s", $padmin);
-                   $stmt->execute();
-                   $result = $stmt->get_result();
-
-		   while ($row = $result->fetch_assoc()) {
-                      if ($row['type'] == "discord:user") { $color="primary"; } else if ($row['type'] == "telegram:user") { $color="info"; }
-                      echo "<span class='badge badge-$color' style='width:100%;'>".$row['type']." | ".$padmin." | ".$row['name']."</span><br>";
+                   if (isset($admin_humans[(string) $padmin])) {
+                      $row = $admin_humans[(string) $padmin];
+                      $color = ($row['type'] == "telegram:user") ? "info" : "primary";
+                      echo "<span class='badge badge-$color' style='width:100%;'>".htmlspecialchars($row['type'])." | ".htmlspecialchars($padmin)." | ".htmlspecialchars($row['name'])."</span><br>";
+                   } else {
+                      echo "<span class='badge badge-secondary' style='width:100%;'>".htmlspecialchars($padmin)."</span><br>";
                    }
-		   $stmt->close();
 
 		}
 
