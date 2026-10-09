@@ -64,6 +64,13 @@ For those parameters go to :
 6. Go to your PoracleWeb site and head to Admin Tools / Server Settings for additional configuration steps and parameters. You need to be logged in as an admin (as defined by `admin_id` par
 ameter to be able to access this page.
 
+### Running tests
+
+To run the test suite:
+
+```bash
+docker run --rm -v "$PWD":/app -w /app php:8.1-cli vendor/bin/phpunit
+```
 
 ### Setting Up Telegram Authentication
 
