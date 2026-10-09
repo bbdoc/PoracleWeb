@@ -85,4 +85,28 @@ class PoracleApiTest extends TestCase
       $api = $this->api(array(array(204, '')));
       $this->assertNull($api->delete('/api/v2/humans/1/location'));
    }
+
+   public function testNonJsonSuccessBodyThrows()
+   {
+      $api = $this->api(array(array(200, '<html>oops</html>')));
+      try {
+         $api->get('/health');
+         $this->fail('expected exception');
+      } catch (PoracleApiException $e) {
+         $this->assertSame(200, $e->status);
+         $this->assertSame('Invalid response from Poracle', $e->userMessage());
+      }
+   }
+
+   public function testInvalidUtf8InBodyThrows()
+   {
+      $api = $this->api(array(array(200, '{"ok":true}')));
+      try {
+         $api->post('/api/v2/test', "\xB1\x31");
+         $this->fail('expected exception');
+      } catch (PoracleApiException $e) {
+         $this->assertSame(0, $e->status);
+         $this->assertSame('Could not encode request', $e->userMessage());
+      }
+   }
 }

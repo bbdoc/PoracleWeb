@@ -11,6 +11,7 @@ class PoracleApiException extends RuntimeException
 
    public function __construct($status, $detail, array $errors = array())
    {
+      $detail = (string) $detail;
       parent::__construct($detail, (int) $status);
       $this->status = (int) $status;
       $this->detail = $detail;
@@ -60,6 +61,9 @@ class PoracleApi
       $payload = null;
       if ($body !== null) {
          $payload = json_encode($body);
+         if ($payload === false) {
+            throw new PoracleApiException(0, 'Could not encode request');
+         }
          $headers[] = 'Content-Type: application/json';
       }
 
@@ -70,6 +74,9 @@ class PoracleApi
       $json = ($raw === null || $raw === '') ? null : json_decode($raw, true);
       if ($status >= 400) {
          throw self::errorFrom((int) $status, $json, $raw);
+      }
+      if ($status < 400 && $raw !== null && $raw !== '' && $json === null && json_last_error() !== JSON_ERROR_NONE) {
+         throw new PoracleApiException($status, 'Invalid response from Poracle');
       }
       return $json;
    }
