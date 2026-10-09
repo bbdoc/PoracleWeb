@@ -2,6 +2,7 @@
 
   include_once "../config.php";
   include_once "../include/db_connect.php";
+  include_once "../include/functions.php";
 
   if(session_status() == PHP_SESSION_NONE){
     session_start();

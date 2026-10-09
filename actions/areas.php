@@ -2,6 +2,7 @@
 
    include_once "../config.php";
    include_once "../include/db_connect.php";
+   include_once "../include/functions.php";
 
   // UPDATE AREAS
 
@@ -18,7 +19,12 @@
     }
 
     try {
-      $res = poracle_api()->post(poracle_human_path($_SESSION['id']) . '/areas', array('areas' => $areas), array('profile' => (int) $_SESSION['profile']));
+      $body = array('areas' => $areas);
+      if (isset($_SESSION['admin_id']) || isset($_SESSION['poracle_admin'])) {
+        // Admins are shown areas that are not user selectable
+        $body['trusted'] = true;
+      }
+      $res = poracle_api()->post(poracle_human_path($_SESSION['id']) . '/areas', $body, array('profile' => (int) $_SESSION['profile']));
     } catch (PoracleApiException $e) {
       poracle_fail('area', $e);
     }

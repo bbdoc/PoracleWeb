@@ -2,6 +2,7 @@
 
 include_once "../config.php";
 include_once "../include/db_connect.php";
+include_once "../include/functions.php";
 
 if (!isset($_GET['id']) || $_GET['id'] === '' || !isset($_GET['type']) || !in_array($_GET['type'], array('add', 'remove'), true)) {
   poracle_fail('manage_roles', new Exception(i8ln("Invalid role request")));
