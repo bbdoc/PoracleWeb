@@ -1,26 +1,9 @@
 
 <?php
 
-   $sql = "SELECT min(clean) clean FROM monsters WHERE id = ? AND profile_no = ?";
-   $stmt = $conn->prepare($sql);
-   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $mon_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $sql = "SELECT min(distance) distance FROM monsters WHERE id = ? AND profile_no = ?";
-   $stmt = $conn->prepare($sql);
-   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $mon_distance = $row['distance'];
-   }
-   $stmt->close();
-
+   $mons = poracle_rules('pokemon');
+   $mon_cleaned = poracle_all_clean($mons) === '1' ? 1 : 0;
+   $mon_distance = count($mons) ? min(array_map(function ($r) { return (int) ($r['distance'] ?? 0); }, $mons)) : 0;
 
 ?>
 
@@ -53,17 +36,10 @@
 
                                 <?php
 
-                                   $sql = "SELECT uid FROM monsters WHERE min_iv = 100 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-				   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-					   $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'iv100')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
 
                                 ?>
 
@@ -73,11 +49,11 @@
                                    <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
                                    <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("100% IV Pokemon"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
 				   <input type='hidden' id='min_iv' name='min_iv' value='100'>
                                    <?php if ( $found == 1 ) { ?>
 				   <input type='hidden' id='action' name='action' value='delete'>
-				   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+				   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
 				   <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -94,17 +70,10 @@
 
                                 <?php
 
-                                   $sql = "SELECT uid FROM monsters WHERE min_iv = 0 AND max_iv = 0 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'iv0')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
 
                                 ?>
 
@@ -114,12 +83,12 @@
                                    <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
                                    <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("0% IV Pokemon"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='min_iv' name='min_iv' value='0'>
                                    <input type='hidden' id='max_iv' name='max_iv' value='0'>
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -135,17 +104,10 @@
                                 </form>
 
                                 <?php
-                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'pvp500')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -154,12 +116,13 @@
                                    <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
                                    <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("PvP Little Rank 1"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='league' name='league' value='500'>
+                                   <input type='hidden' id='pvp_ranking_best' name='pvp_ranking_best' value='1'>
                                    <input type='hidden' id='pvp_ranking_worst' name='pvp_ranking_worst' value='1'>
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -175,17 +138,10 @@
                                 </form>
 
                                 <?php
-                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 1500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'pvp1500')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -194,12 +150,13 @@
                                    <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
                                    <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("PvP Great Rank 1"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='league' name='league' value='1500'>
+                                   <input type='hidden' id='pvp_ranking_best' name='pvp_ranking_best' value='1'>
                                    <input type='hidden' id='pvp_ranking_worst' name='pvp_ranking_worst' value='1'>
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -215,17 +172,10 @@
                                 </form>
 
                                 <?php
-                                   $sql = "SELECT uid FROM monsters WHERE pokemon_id = 0 AND pvp_ranking_league = 2500 AND pvp_ranking_worst = 1 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'pvp2500')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -234,12 +184,13 @@
                                    <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
                                    <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("PvP Ultra Rank 1"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='league' name='league' value='2500'>
+                                   <input type='hidden' id='pvp_ranking_best' name='pvp_ranking_best' value='1'>
                                    <input type='hidden' id='pvp_ranking_worst' name='pvp_ranking_worst' value='1'>
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -278,17 +229,10 @@
                                 <div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 
                                 <?php
-                                   $sql = "SELECT uid FROM monsters WHERE size = 1 AND max_size = 1 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'xxs')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -300,13 +244,13 @@
 				   <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
 				   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("XXS Pokemon"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='size' name='size' value='1'>
                                    <input type='hidden' id='max_size' name='max_size' value='1'>
                                    <input type='number' id='min_iv' name='min_iv' size=1 placeholder='0' min='0' max='100' style="width:60px; text-align:center;">
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>
@@ -322,17 +266,10 @@
                                 </form>
 
                                 <?php
-                                   $sql = "SELECT uid FROM monsters WHERE size = 5 AND pokemon_id = 0 AND id = ? AND profile_no = ?";
-                                   $stmt = $conn->prepare($sql);
-                                   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                   $stmt->execute();
-                                   $result = $stmt->get_result();
-                                   if ( $result->num_rows > 0 ) { $found = 1; $style = "background:#1cc88a; color:white;"; } else { $found = ""; $style = ""; }
-
-                                   while ($row = $result->fetch_assoc()) {
-                                           $uid = $row['uid'];
-                                   }
-				   $stmt->close();
+   $found = ""; $style = "";
+   foreach ($mons as $r) {
+      if (poracle_quick_pick_match($r, 'xxl')) { $found = 1; $style = "background:#1cc88a; color:white;"; $uid = $r['uid']; }
+   }
                                 ?>
 
                                 <form action='./actions/quick_pick.php' method='POST' class="w-100">
@@ -344,12 +281,12 @@
 				   <input type='hidden' id='clean' name='clean' value='<?php echo $mon_cleaned; ?>'>
 				   <input type='hidden' id='distance' name='distance' value='<?php echo $mon_distance; ?>'>
                                    <input type='hidden' id='pick' name='pick' value='<?php echo i8ln("XXL Pokemon"); ?>'>
-                                   <input type='hidden' id='pokemon_id' name='pokemon_id' value='0'>
+                                   <input type='hidden' id='mon_0' name='mon_0' value='on'>
                                    <input type='hidden' id='size' name='size' value='5'>
                                    <input type='number' id='min_iv' name='min_iv' size=1 placeholder='0' min='0' max='100' style="width:60px; text-align:center;">
                                    <?php if ( $found == 1 ) { ?>
                                    <input type='hidden' id='action' name='action' value='delete'>
-                                   <input type='hidden' id='uid' name='uid' value='<?php echo $uid; ?>'>
+                                   <input type='hidden' id='uid' name='uid' value='<?php echo (int) $uid; ?>'>
                                    <button type='submit' class="btn btn-danger btn-icon-split ml-1">
                                       <span class="icon text-white-100"><i class="fas fa-trash"></i></span>
                                       <span class="text d-none d-lg-block" style="width:120px;"><?php echo i8ln("DELETE"); ?></span>

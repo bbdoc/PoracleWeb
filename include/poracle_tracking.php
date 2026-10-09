@@ -182,3 +182,44 @@ function poracle_profile_view(array $snapshot, $profile)
    }
    return $view;
 }
+
+function poracle_pokemon_gen($pokemonId)
+{
+   if ($pokemonId === null || (int) $pokemonId === 0) {
+      return 'all';
+   }
+   $ends = array(151, 251, 386, 493, 649, 721, 809, 905);
+   foreach ($ends as $i => $end) {
+      if ($pokemonId <= $end) {
+         return (string) ($i + 1);
+      }
+   }
+   return '9';
+}
+
+function poracle_filter_by_ids(array $rules, $ids)
+{
+   if ($ids === null) {
+      return $rules;
+   }
+   return array_values(array_filter($rules, function ($r) use ($ids) {
+      return in_array((int) ($r['pokemon_id'] ?? 0), $ids, true);
+   }));
+}
+
+function poracle_quick_pick_match(array $rule, $preset)
+{
+   $get = function ($key) use ($rule) { return array_key_exists($key, $rule) ? $rule[$key] : null; };
+   if ($get('pokemon_id') !== null) {
+      return false;
+   }
+   switch ($preset) {
+      case 'iv100': return $get('min_iv') === 100;
+      case 'iv0': return $get('min_iv') === 0 && $get('max_iv') === 0;
+      case 'pvp500': case 'pvp1500': case 'pvp2500':
+         return $get('pvp_ranking_league') === (int) substr($preset, 3) && $get('pvp_ranking_worst') === 1;
+      case 'xxs': return $get('size') === 1 && $get('max_size') === 1;
+      case 'xxl': return $get('size') === 5 && $get('max_size') === null;
+   }
+   return false;
+}

@@ -1,8 +1,8 @@
 <div class="modal-header">
     <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for"); ?>
-        <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
-        <?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?> ?
+        <?php echo get_mons((int) ($row['pokemon_id'] ?? 0))." ".$form; ?>
+        <?php if ( (int) ($row['pokemon_id'] ?? 0) == 0 ) { echo i8ln("ALL"); } ?> ?
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -10,8 +10,8 @@
 </div>
 <div class="modal-body">
     <?php echo i8ln("This will delete tracking for"); ?>
-    <?php echo get_mons($row['pokemon_id'])." ".$form; ?>
-    <?php if ( $row['pokemon_id'] == 0 ) { echo i8ln("ALL"); } ?>.<br>
+    <?php echo get_mons((int) ($row['pokemon_id'] ?? 0))." ".$form; ?>
+    <?php if ( (int) ($row['pokemon_id'] ?? 0) == 0 ) { echo i8ln("ALL"); } ?>.<br>
     <?php echo i8ln("Are you sure?"); ?>
 </div>
 <div class="modal-footer">
@@ -19,7 +19,7 @@
         <?php echo "
             <input type='hidden' id='type' name='type' value='monsters'>
             <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
-            <input type='hidden' id='gen' name='gen' value='".$_GET['gen']."'>
+            <input type='hidden' id='gen' name='gen' value='".htmlspecialchars((string) ($_GET['gen'] ?? 'all'))."'>
 	    " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>

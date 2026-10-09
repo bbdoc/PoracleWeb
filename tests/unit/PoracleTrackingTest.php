@@ -123,4 +123,28 @@ class PoracleTrackingTest extends TestCase
       $this->assertSame(array('pokemon'), poracle_type_for_table('monsters'));
       $this->assertSame(array('invasion', 'incident'), poracle_type_for_table('invasion'));
    }
+
+   public function testPokemonGen()
+   {
+      $this->assertSame('all', poracle_pokemon_gen(null));
+      $this->assertSame('1', poracle_pokemon_gen(151));
+      $this->assertSame('2', poracle_pokemon_gen(152));
+      $this->assertSame('9', poracle_pokemon_gen(1025));
+   }
+
+   public function testFilterByIds()
+   {
+      $rules = array(array('pokemon_id' => null), array('pokemon_id' => 25), array('pokemon_id' => 133));
+      $this->assertCount(2, poracle_filter_by_ids($rules, array(0, 25)));
+      $this->assertCount(3, poracle_filter_by_ids($rules, null));
+   }
+
+   public function testQuickPickMatch()
+   {
+      $this->assertTrue(poracle_quick_pick_match(array('pokemon_id' => null, 'min_iv' => 100), 'iv100'));
+      $this->assertFalse(poracle_quick_pick_match(array('pokemon_id' => 25, 'min_iv' => 100), 'iv100'));
+      $this->assertTrue(poracle_quick_pick_match(array('pokemon_id' => null, 'pvp_ranking_league' => 1500, 'pvp_ranking_worst' => 1), 'pvp1500'));
+      $this->assertTrue(poracle_quick_pick_match(array('pokemon_id' => null, 'size' => 5, 'max_size' => null), 'xxl'));
+      $this->assertFalse(poracle_quick_pick_match(array('pokemon_id' => null, 'size' => 5, 'max_size' => 5), 'xxs'));
+   }
 }
