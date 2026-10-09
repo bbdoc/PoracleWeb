@@ -99,21 +99,25 @@
 
                                 // Show Invasions
 
-		                $sql = "SELECT * FROM invasion WHERE id = ? AND profile_no = ? ORDER BY grunt_type";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-				$result = $stmt->get_result(); 
+                                $invasions = array();
+                                foreach (poracle_rules('invasion') as $rule) { $rule['rule_type'] = 'invasion'; $invasions[] = $rule; }
+                                foreach (poracle_rules('incident') as $rule) {
+                                   $rule['rule_type'] = 'incident';
+                                   $rule['grunt_type'] = PORACLE_INCIDENTS[$rule['display_type']] ?? ('event ' . $rule['display_type']);
+                                   $rule['gender'] = null;
+                                   $invasions[] = $rule;
+                                }
+                                usort($invasions, function ($a, $b) { return strcmp($a['grunt_type'], $b['grunt_type']); });
 
-                                if ($result->num_rows == 0) {
+                                if (count($invasions) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
                                 }
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($invasions as $row) {
 
-  			            $grunt_id = get_grunt($row['grunt_type'],$row['gender']);
+  			            $grunt_id = get_grunt($row['grunt_type'], poracle_gender_id($row['gender']));
 
                                     // Build a Unique Index
                                     $unique_id = "invasion_" . $row['uid']; 
@@ -147,20 +151,20 @@
 						<div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
                                                     <?php
-                                                            if ($row['gender'] <> '0') {
+                                                            if (poracle_gender_id($row['gender']) != 0) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("GENDER"); ?>
                                                         <span class="badge badge-primary badge-pill">
                                                             <?php
-                                                                    if ($row['gender'] == '1') {  echo i8ln("Male"); }
-                                                                    if ($row['gender'] == '2') {  echo i8ln("Female"); }
+                                                                    if (poracle_gender_id($row['gender']) == 1) {  echo i8ln("Male"); }
+                                                                    if (poracle_gender_id($row['gender']) == 2) {  echo i8ln("Female"); }
                                                         ?>
                                                         </span>
                                                     </li>
                                                     <?php } ?>
-                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <?php if (!empty($row['distance'])) { ?>
                                                     <li
 							class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
@@ -178,7 +182,7 @@
 							<?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowInvasions_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowInvasions" aria-hidden="true">
@@ -192,17 +196,17 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_invasion_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_invasion_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
@@ -222,9 +226,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['invasion']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -280,9 +285,7 @@
                                 </div>
                             </div>
 
-                            <?php }
-				$stmt->close();
-				?>
+                            <?php } ?>
 
                         </div>
 
