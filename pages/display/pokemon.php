@@ -15,6 +15,14 @@ if ( !empty($_SESSION['search']) )
 	}
 }
 
+// Label for a range with open ends: "a - b", "a+" or "0 - b" (floor) / "<= b"
+function pokemon_range_label($min, $max, $floor = false)
+{
+	if ($min !== null && $max !== null) { return $min . " - " . $max; }
+	if ($min !== null) { return $min . "+"; }
+	return $floor ? "0 - " . $max : "&le; " . $max;
+}
+
 $all = poracle_filter_by_ids(poracle_rules('pokemon'), $search_ids);
 
 // Count each generation
@@ -323,9 +331,7 @@ $gen9 = $gen_counts['9'];
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("IV"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_iv'] ?? -1; ?>
-                                                            -
-                                                            <?php echo $row['max_iv'] ?? 100; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_iv'], $row['max_iv'], true); ?></span>
                                                     </li>
                                                     <?php
                                                             } else {
@@ -344,9 +350,7 @@ $gen9 = $gen_counts['9'];
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("CP"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_cp'] ?? 0; ?>
-                                                            -
-                                                            <?php echo $row['max_cp'] ?? 9000; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_cp'], $row['max_cp'], true); ?></span>
                                                     </li>
                                                     <?php
                                                             }
@@ -356,8 +360,7 @@ $gen9 = $gen_counts['9'];
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("LEVEL"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_level'] ?? 0; ?>
-                                                            - <?php echo $row['max_level'] ?? 40; ?></span>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_level'], $row['max_level']); ?></span>
                                                     </li>
                                                     <?php
                                                             }
@@ -367,9 +370,9 @@ $gen9 = $gen_counts['9'];
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("STATS"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo ($row['atk'] ?? 0) . "/" . ($row['def'] ?? 0) . "/" . ($row['sta'] ?? 0); ?>
+                                                            class="badge badge-primary badge-pill"><?php echo ($row['atk'] ?? "*") . "/" . ($row['def'] ?? "*") . "/" . ($row['sta'] ?? "*"); ?>
                                                             -
-                                                            <?php echo ($row['max_atk'] ?? 15) . "/" . ($row['max_def'] ?? 15) . "/" . ($row['max_sta'] ?? 15); ?></span>
+                                                            <?php echo ($row['max_atk'] ?? "*") . "/" . ($row['max_def'] ?? "*") . "/" . ($row['max_sta'] ?? "*"); ?></span>
                                                     </li>
                                                     <?php
                                                             }
@@ -383,10 +386,11 @@ $gen9 = $gen_counts['9'];
                                                            if ($row['pvp_ranking_league'] == 2500) { echo i8ln("ULTRA"); }
                                                         ?>
                                                         <span
-							    class="badge badge-primary badge-pill">top
-							    <?php if ( ($row['pvp_ranking_worst'] ?? 4096) <> ($row['pvp_ranking_best'] ?? 1) ) { echo ($row['pvp_ranking_best'] ?? 1)."-";} ?>
-                                                            <?php echo $row['pvp_ranking_worst'] ?? 4096; ?>
-                                                            @<?php echo $row['pvp_ranking_min_cp'] ?? 0; ?></span>
+							    class="badge badge-primary badge-pill"><?php if ( $row['pvp_ranking_worst'] !== null ) { ?>top
+							    <?php if ( $row['pvp_ranking_best'] !== null && $row['pvp_ranking_worst'] <> $row['pvp_ranking_best'] ) { echo $row['pvp_ranking_best']."-";} ?>
+                                                            <?php echo $row['pvp_ranking_worst']; ?>
+                                                            <?php } else { echo i8ln("ANY"); } ?>
+                                                            <?php if ( $row['pvp_ranking_min_cp'] !== null ) { ?>@<?php echo $row['pvp_ranking_min_cp']; ?><?php } ?></span>
 						    </li>
                                                     <?php
                                                             }
@@ -407,14 +411,7 @@ $gen9 = $gen_counts['9'];
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("WEIGHT"); ?>
                                                         <span
-                                                            class="badge badge-primary badge-pill"><?php echo $row['min_weight'] ?? 0; ?>
-                                                            - <?php
-                                                                            if ($row['max_weight'] === null || $row['max_weight'] == '9000000') {
-                                                                                echo "MAX";
-                                                                            } else {
-                                                                                echo $row['max_weight'];
-                                                                            }
-                                                                            ?>
+                                                            class="badge badge-primary badge-pill"><?php echo pokemon_range_label($row['min_weight'], $row['max_weight'], true); ?>
                                                         </span>
                                                     </li>
                                                     <?php
@@ -445,9 +442,13 @@ $gen9 = $gen_counts['9'];
                                                             <?php
 								    $size_name=get_size_name($row['size']);
 								    echo $size_name;
-								    if ( ($row['max_size'] ?? 5) <> $row['size'] )
+								    if ( $row['max_size'] === null )
 								    {
-									    $max_size_name=get_size_name($row['max_size'] ?? 5);
+									    echo "+";
+								    }
+								    else if ( $row['max_size'] <> $row['size'] )
+								    {
+									    $max_size_name=get_size_name($row['max_size']);
 									    echo "-".$max_size_name;
 								    }
                                                         ?>

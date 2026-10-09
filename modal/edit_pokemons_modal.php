@@ -309,7 +309,7 @@ if ($row['pokemon_id'] == '0') {
                         <div class="input-group-prepend">
 			    <div class="input-group-text"><?php echo i8ln("Rank between"); ?></div>
 			</div>
-						<input type='number' id='pvp_ranking_best_<?php echo $unique_id; ?>' name='pvp_ranking_best' size=1
+                        <input type='number' id='pvp_ranking_best_<?php echo $unique_id; ?>' name='pvp_ranking_best' size=1
                             value='<?php echo htmlspecialchars((string) ($row['pvp_ranking_best'] ?? '')); ?>' min='1' max='<?php echo $_SESSION['pvpFilterMaxRank']; ?>' 
                             class="form-control text-center">
                         <div class="input-group-prepend">
@@ -398,6 +398,7 @@ if ($row['pokemon_id'] == '0') {
                                 if ($gender_id == 0) { $checked0 = 'checked'; } else { $checked0 = ''; }
                                 if ($gender_id == 1) { $checked1 = 'checked'; } else { $checked1 = ''; }
                                 if ($gender_id == 2) { $checked2 = 'checked'; } else { $checked2 = ''; }
+                                if ($gender_id == 3) { $checked3 = 'checked'; } else { $checked3 = ''; }
                 ?>
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_0" value="gender_0" <?php echo $checked0; ?>> <?php echo i8ln("All"); ?>
@@ -407,6 +408,9 @@ if ($row['pokemon_id'] == '0') {
                 </label>
                 <label class="btn btn-secondary">
 		    <input type="radio" name="gender" id="gender_2" value="gender_2" <?php echo $checked2; ?>> <?php echo i8ln("Female"); ?>
+                </label>
+                <label class="btn btn-secondary">
+		    <input type="radio" name="gender" id="gender_3" value="gender_3" <?php echo $checked3; ?>> <?php echo i8ln("Genderless"); ?>
                 </label>
             </div>
 	    <hr>
