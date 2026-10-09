@@ -12,7 +12,12 @@
 
   if (isset($_POST['update']) && isset($_POST['type']) && $_POST['type'] == 'lures') {
     try {
-      poracle_track_update($api, $human, 'lure', (int) $_POST['uid'], form_common($_POST), $profile);
+      $changes = form_common($_POST);
+      // :user destinations post an empty hidden ping field; keep any ping set elsewhere
+      if (substr($_SESSION['type'], -5) === ':user') {
+        unset($changes['ping']);
+      }
+      poracle_track_update($api, $human, 'lure', (int) $_POST['uid'], $changes, $profile);
     } catch (PoracleApiException $e) {
       poracle_fail('lure', $e);
     }

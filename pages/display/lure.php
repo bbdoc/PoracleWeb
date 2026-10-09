@@ -201,9 +201,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['lure']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
