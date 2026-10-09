@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body">
     <?php echo i8ln("This will delete tracking for Gym"); ?> : 
-    <?php echo i8ln(get_gym_name($row['team'])); ?><br>
+    <?php echo i8ln(get_gym_name(poracle_team_id($row['team']))); ?><br>
     <?php echo i8ln("Are you sure?"); ?>
 </div>
 <div class="modal-footer">

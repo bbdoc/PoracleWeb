@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="row d-flex justify-content-center">
                                             <div class="row">
-                                                <input type="checkbox" name="nids_clean_toggle" id="nids_clean_toggle" <?php
+                                                <input type="checkbox" name="gyms_clean_toggle" id="gyms_clean_toggle" <?php
                                                 if ($all_gyms_cleaned == "1") {
                                                     echo "checked";
                                                 } ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
