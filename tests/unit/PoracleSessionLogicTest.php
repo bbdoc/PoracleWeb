@@ -40,4 +40,13 @@ class PoracleSessionLogicTest extends TestCase
       $this->expectException(PoracleApiException::class);
       poracle_find_human_instance(array('a' => $this->fakeApi(0, null)), '42');
    }
+
+   public function testFindHumanInstanceSkipsBrokenInstance()
+   {
+      $apis = array(
+         'a' => $this->fakeApi(0, null),
+         'b' => $this->fakeApi(200, '{"human":{"id":"42"}}'),
+      );
+      $this->assertSame('b', poracle_find_human_instance($apis, '42'));
+   }
 }

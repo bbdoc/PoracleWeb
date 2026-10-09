@@ -17,15 +17,19 @@ function poracle_human_path($id)
 // The instance (Poracle database name) the human is registered on, or null.
 function poracle_find_human_instance(array $apis, $id)
 {
+   $firstError = null;
    foreach ($apis as $instance => $api) {
       try {
          $api->get(poracle_human_path($id));
          return $instance;
       } catch (PoracleApiException $e) {
-         if ($e->status !== 404) {
-            throw $e;
+         if ($e->status !== 404 && $firstError === null) {
+            $firstError = $e;
          }
       }
+   }
+   if ($firstError !== null) {
+      throw $firstError;
    }
    return null;
 }

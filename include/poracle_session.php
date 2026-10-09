@@ -17,13 +17,15 @@ function poracle_instance_settings($instance)
    static $cache = array();
    if (!isset($cache[$instance])) {
       $settings = array('api_address' => '', 'api_secret' => '');
-      $db = new mysqli($dbhost . ":" . $dbport, $dbuser, $dbpass, $instance);
-      if (!$db->connect_errno) {
+      try {
+         $db = new mysqli($dbhost . ":" . $dbport, $dbuser, $dbpass, $instance);
          $result = $db->query("SELECT setting, value FROM pweb_settings WHERE setting IN ('api_address','api_secret')");
          while ($result && $row = $result->fetch_assoc()) {
             $settings[$row['setting']] = $row['value'];
          }
          $db->close();
+      } catch (mysqli_sql_exception $e) {
+         // Unreachable database or missing pweb_settings: leave the API settings empty.
       }
       $cache[$instance] = $settings;
    }
