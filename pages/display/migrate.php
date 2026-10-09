@@ -56,6 +56,7 @@ if ( $_SESSION['type'] <> "discord:user" && $_SESSION['type'] <> "telegram:user"
                                 'id' => (string) $_GET['id'],
                                 'username' => $_GET['username'] ?? trim(($_GET['first_name'] ?? '') . ' ' . ($_GET['last_name'] ?? '')),
                                 'avatar' => $_GET['photo_url'] ?? '',
+                                'source' => $_SESSION['id'],
                              );
                              try {
                                 poracle_api()->get(poracle_human_path($tg_user['id']));

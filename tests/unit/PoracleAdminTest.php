@@ -58,4 +58,16 @@ class PoracleAdminTest extends TestCase
       $params['hash'] = hash_hmac('sha256', "auth_date=1000\nid=5", hash('sha256', '', true));
       $this->assertFalse(telegram_auth_valid($params, '', 1500));
    }
+
+   public function testTelegramAuthIgnoresNonWidgetParams()
+   {
+      $token = 'bot:token';
+      $params = array('id' => '5', 'first_name' => 'A', 'auth_date' => '1000');
+      $params['hash'] = hash_hmac('sha256', "auth_date=1000\nfirst_name=A\nid=5", hash('sha256', $token, true));
+      $params['type'] = 'display';
+      $params['page'] = 'migrate';
+      $this->assertTrue(telegram_auth_valid($params, $token, 1500));
+      $params['first_name'] = 'B';
+      $this->assertFalse(telegram_auth_valid($params, $token, 1500));
+   }
 }

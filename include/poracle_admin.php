@@ -38,7 +38,10 @@ function telegram_auth_valid(array $params, $botToken, $now)
       return false;
    }
    $hash = $params['hash'];
-   unset($params['hash']);
+   // Only the widget's own fields are signed; the redirect URL may add
+   // others (e.g. type/page on the migrate page).
+   $fields = array('id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date');
+   $params = array_intersect_key($params, array_flip($fields));
    $check = array();
    foreach ($params as $key => $value) {
       if (!is_scalar($value)) {

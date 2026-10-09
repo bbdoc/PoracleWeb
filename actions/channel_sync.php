@@ -10,7 +10,7 @@
     try {
       $source = poracle_snapshot();
       $plan = poracle_copy_plan($source, (int) $_SESSION['profile']);
-      $types = array_keys($source['tracking']);
+      $types = array('pokemon', 'raid', 'egg', 'quest', 'invasion', 'incident', 'lure', 'nest', 'gym', 'fort', 'maxbattle');
       foreach ($_POST as $key => $value) {
         if (strpos($key, 'target_') !== 0) { continue; }
         // The checkbox value carries "instance|id" intact; the name is the

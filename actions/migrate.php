@@ -1,6 +1,7 @@
 <?php
   include_once "../config.php";
   include_once "../include/db_connect.php";
+  include_once "../include/functions.php";
 
   // Discord → Telegram: create the Telegram human with the Discord human's
   // settings, profiles, saved locations and rules, then delete the Discord
@@ -11,6 +12,11 @@
     $api = poracle_api();
     $source = $_SESSION['id'];
     $target = $_SESSION['migrate_telegram'];
+    // The verified login belongs to the account that opened the migrate page.
+    if (!isset($target['source']) || (string) $target['source'] !== (string) $source) {
+      unset($_SESSION['migrate_telegram']);
+      poracle_fail('', new Exception(i8ln("Migration session expired, please start again")));
+    }
     $target_path = poracle_human_path($target['id']);
     $created = false;
     try {
@@ -70,9 +76,16 @@
       }
       $api->post($target_path . '/profile', array('profile_no' => $map[(int) $h['current_profile_no']] ?? 1));
       $api->delete(poracle_human_path($source));
-    } catch (PoracleApiException $e) {
+    } catch (Throwable $e) {
+      // Any failure after the create removes the half-built Telegram human;
+      // the Discord human is only deleted as the very last step above.
       if ($created) {
-        try { $api->delete($target_path); } catch (PoracleApiException $ignored) {}
+        try { $api->delete($target_path); } catch (Throwable $ignored) {}
+      }
+      if (!($e instanceof PoracleApiException)) {
+        // PHP errors may carry paths or internals: log them, show a generic message.
+        error_log('PoracleWeb migration failed: ' . $e);
+        $e = new Exception(i8ln("Migration failed, your account was not changed"));
       }
       poracle_fail('', $e);
     }
