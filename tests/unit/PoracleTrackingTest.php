@@ -45,6 +45,14 @@ class PoracleTrackingTest extends TestCase
       $this->assertSame(0, poracle_common_distance(array()));
    }
 
+   public function testCopyPlanGroupsByTypeAndProfileWithoutUids()
+   {
+      $plan = poracle_copy_plan($this->snapshot, null);
+      $this->assertSame(array(array('lure', 1, 2), array('lure', 2, 1)), array_map(function ($p) { return array($p['type'], $p['profile_no'], count($p['rules'])); }, $plan));
+      $this->assertArrayNotHasKey('uid', $plan[0]['rules'][0]);
+      $this->assertSame(array(array('lure', 2, 1)), array_map(function ($p) { return array($p['type'], $p['profile_no'], count($p['rules'])); }, poracle_copy_plan($this->snapshot, 2)));
+   }
+
    public function testRuleBodyStripsResponseKeysAndNulls()
    {
       $this->assertSame(array('lure_id' => 501, 'clean' => true),

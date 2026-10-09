@@ -47,6 +47,28 @@ function poracle_rule_body(array $rule)
    return poracle_compact($rule);
 }
 
+// A snapshot's rules as create requests: one step per type and profile, in
+// profile order, with response-only keys removed. A null $onlyProfile means
+// every profile.
+function poracle_copy_plan(array $snapshot, $onlyProfile)
+{
+   $plan = array();
+   foreach ($snapshot['tracking'] as $type => $rules) {
+      $byProfile = array();
+      foreach ($rules as $rule) {
+         $p = (int) $rule['profile_no'];
+         if ($onlyProfile === null || $p === (int) $onlyProfile) {
+            $byProfile[$p][] = poracle_rule_body($rule);
+         }
+      }
+      ksort($byProfile);
+      foreach ($byProfile as $p => $bodies) {
+         $plan[] = array('type' => $type, 'profile_no' => $p, 'rules' => $bodies);
+      }
+   }
+   return $plan;
+}
+
 function poracle_rules_in(array $snapshot, $type, $profile)
 {
    $rules = isset($snapshot['tracking'][$type]) ? $snapshot['tracking'][$type] : array();

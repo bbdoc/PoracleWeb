@@ -28,3 +28,25 @@ function admin_may_manage(array $session, array $target)
    }
    return false;
 }
+
+// The Telegram login widget's signature check (HMAC-SHA256 of the sorted
+// key=value lines, keyed with SHA256 of the bot token), plus a one-day expiry.
+function telegram_auth_valid(array $params, $botToken, $now)
+{
+   // No token configured: anyone could sign with the empty key.
+   if ((string) $botToken === '' || !isset($params['hash'], $params['auth_date']) || !is_string($params['hash'])) {
+      return false;
+   }
+   $hash = $params['hash'];
+   unset($params['hash']);
+   $check = array();
+   foreach ($params as $key => $value) {
+      if (!is_scalar($value)) {
+         return false;
+      }
+      $check[] = $key . '=' . $value;
+   }
+   sort($check);
+   $expected = hash_hmac('sha256', implode("\n", $check), hash('sha256', (string) $botToken, true));
+   return hash_equals($expected, $hash) && ($now - (int) $params['auth_date']) <= 86400;
+}

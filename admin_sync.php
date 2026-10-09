@@ -128,7 +128,7 @@ foreach ($dbnames as &$db) {
 
                         <li class="btn btn-primary btn-icon-split mr-2 mt-1">
                             <span class="icon text-white-50">
-                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
+                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>' value='<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font style='font-size:12px;'><i class="fab fa-discord"></i></font></label>
                             </span>
                             <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>
@@ -185,7 +185,7 @@ foreach ($dbnames as &$db) {
 
                         <li class="btn btn-info btn-icon-split mr-2 mt-1">
                             <span class="icon text-white-50">
-                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
+                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>' value='<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font style='font-size:12px;'><i class="fab fa-telegram"></i></font></label>
                             </span>
                             <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>
@@ -242,7 +242,7 @@ foreach ($dbnames as &$db) {
 
                         <li class="btn btn-secondary btn-icon-split mr-2 mt-1">
                             <span class="icon text-white-50">
-                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>'>
+                                <input type='checkbox' name='target_<?php echo $target_id; ?>' id='target_<?php echo $target_id; ?>' value='<?php echo $target_id; ?>'>
                                 <label for='target_<?php echo $target_id; ?>'><font size="1">WH</font></label>
                             </span>
                             <span class="text" style="width:250px;"><?php echo htmlspecialchars($row['name']); ?></span>

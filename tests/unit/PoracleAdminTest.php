@@ -37,4 +37,25 @@ class PoracleAdminTest extends TestCase
    {
       $this->assertTrue(admin_may_manage($this->delegated(), array('id' => '1', 'type' => 'discord:user', 'name' => 'me')));
    }
+
+   public function testTelegramAuth()
+   {
+      $token = 'bot:token';
+      $params = array('id' => '5', 'username' => 'u', 'auth_date' => '1000');
+      $check = array();
+      foreach ($params as $k => $v) { $check[] = "$k=$v"; }
+      sort($check);
+      $params['hash'] = hash_hmac('sha256', implode("\n", $check), hash('sha256', $token, true));
+      $this->assertTrue(telegram_auth_valid($params, $token, 1500));
+      $this->assertFalse(telegram_auth_valid($params, $token, 1000 + 86401));
+      $params['id'] = '6';
+      $this->assertFalse(telegram_auth_valid($params, $token, 1500));
+   }
+
+   public function testTelegramAuthRejectsEmptyBotToken()
+   {
+      $params = array('id' => '5', 'auth_date' => '1000');
+      $params['hash'] = hash_hmac('sha256', "auth_date=1000\nid=5", hash('sha256', '', true));
+      $this->assertFalse(telegram_auth_valid($params, '', 1500));
+   }
 }

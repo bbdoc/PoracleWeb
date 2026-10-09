@@ -1,130 +1,46 @@
 <?php
+  include_once "../config.php";
+  include_once "../include/db_connect.php";
 
-   include_once "../config.php";
-   include_once "../include/db_connect.php";
+  if (empty($_SESSION['admin_id'])) { header("Location: $redirect_url?return=invalid_auth"); exit(); }
 
-   if (empty($_SESSION['admin_id'])) { header("Location: $redirect_url?return=invalid_auth"); exit(); }
-
-if (isset($_POST['sync'])) {
-
-    foreach ($_POST as $key => $value) {
-      if (substr($key, 0, 7) == "target_") {
-	      $target = ltrim($key, 'target_');
-	      $target_fields = explode("|", $target);
-	      $target_db=$target_fields[0];
-	      $target_id=$target_fields[1];
-	      $target_id=str_replace("_com", ".com", $target_id);
-
-              // Database names cannot be parameterized in prepared statements (they are identifiers, not values)
-              // so we use a whitelist to validate the database name before using string interpolation
-              $allowed_dbs = explode(",", $dbname);
-              if (!in_array($target_db, $allowed_dbs)) {
-                  die("Invalid database");
-              }
-
-              // Delete All Previous Trackings
-	      $stmt = $conn->prepare("DELETE FROM ".$target_db.".monsters WHERE id = ?");
-	      $rs = $stmt->bind_param("s", $target_id);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-              $stmt = $conn->prepare("DELETE FROM ".$target_db.".egg WHERE id = ?");
-              $rs = $stmt->bind_param("s", $target_id);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-              $stmt = $conn->prepare("DELETE FROM ".$target_db.".raid WHERE id = ?");
-              $rs = $stmt->bind_param("s", $target_id);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-              $stmt = $conn->prepare("DELETE FROM ".$target_db.".quest WHERE id = ?");
-              $rs = $stmt->bind_param("s", $target_id);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-	      // Insert New Monsters Tracking
-	      
-	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".monsters 
-		      (id, ping, clean, pokemon_id, distance,
-                      min_iv, max_iv,
-                      min_cp, max_cp,
-                      min_level, max_level,
-                      atk, def, sta,
-                      template, min_weight, max_weight, form, max_atk,
-                      max_def, max_sta, gender,
-                      pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
-		      profile_no, min_time, rarity, max_rarity, 
-                      size, max_size
-                      )
-                      SELECT REPLACE(id, ?, ? ),
-                      ping, clean, pokemon_id, distance,
-                      min_iv, max_iv,
-                      min_cp, max_cp,
-                      min_level, max_level,
-                      atk, def, sta,
-                      template, min_weight, max_weight, form, max_atk,
-                      max_def, max_sta, gender,
-                      pvp_ranking_worst, pvp_ranking_best, pvp_ranking_min_cp, pvp_ranking_league, pvp_ranking_cap,
-                      profile_no, min_time, rarity, max_rarity,
-                      size, max_size
-		      FROM monsters
-                      WHERE id = ?
-		      ");
-
-	      $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
-	      $rs = $stmt->execute();
-              $stmt->close();
-
-	      // Insert New Eggs Tracking
-
-	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".egg 
-		      (id,ping, clean, exclusive, template, distance, team, level, profile_no)
-                      SELECT REPLACE(id, ?, ? ),
-                      ping, clean, exclusive, template, distance, team, level, profile_no
-                      FROM egg
-                      WHERE id = ?
-                      ");
-
-              $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-	      // Insert New Raids Tracking
-
-	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".raid 
-		      (id, ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no)
-                      SELECT REPLACE(id, ?, ? ),
-                      ping, clean, pokemon_id, exclusive, template, distance, team, level, form, profile_no
-                      FROM raid
-                      WHERE id = ?
-                      ");
-
-              $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
-              $rs = $stmt->execute();
-              $stmt->close();
-
-              // Insert New Quests Tracking
-
-	      $stmt = $conn->prepare("INSERT INTO ".$target_db.".quest 
-		      (id, ping, clean, reward, template, shiny, reward_type, distance, profile_no)
-                      SELECT REPLACE(id, ?, ? ),
-                      ping, clean, reward, template, shiny, reward_type, distance, profile_no
-                      FROM quest
-                      WHERE id = ?
-                      ");
-
-              $rs = $stmt->bind_param("sss", $_SESSION['id'], $target_id, $_SESSION['id']);
-              $rs = $stmt->execute();
-              $stmt->close();
-
+  // Copy the viewed profile's rules (every tracking type) into each selected
+  // target's active profile, replacing what that profile tracked before.
+  if (isset($_POST['sync'])) {
+    try {
+      $source = poracle_snapshot();
+      $plan = poracle_copy_plan($source, (int) $_SESSION['profile']);
+      $types = array_keys($source['tracking']);
+      foreach ($_POST as $key => $value) {
+        if (strpos($key, 'target_') !== 0) { continue; }
+        // The checkbox value carries "instance|id" intact; the name is the
+        // fallback, where PHP has turned dots into underscores.
+        if ($value !== 'on' && strpos($value, '|') !== false) {
+          list($target_instance, $target_id) = explode('|', $value, 2);
+        } else {
+          list($target_instance, $target_id) = array_pad(explode('|', substr($key, 7), 2), 2, '');
+          $target_id = str_replace('_com', '.com', $target_id);
+        }
+        if ($target_id === '' || !in_array($target_instance, poracle_instance_names(), true)) { continue; }
+        $target_api = poracle_api_for($target_instance);
+        $target_profile = (int) $target_api->get(poracle_human_path($target_id))['human']['current_profile_no'];
+        $existing = $target_api->get(poracle_human_path($target_id) . '/tracking', array('profile' => $target_profile));
+        foreach ($types as $type) {
+          $rules = isset($existing['tracking'][$type]) ? $existing['tracking'][$type] : array();
+          $uids = array_column($rules, 'uid');
+          if ($uids) {
+            $target_api->delete(poracle_tracking_path($target_id, $type), array('uid' => implode(',', array_map('intval', $uids)), 'profile' => $target_profile, 'silent' => true));
+          }
+        }
+        foreach ($plan as $step) {
+          $target_api->post(poracle_tracking_path($target_id, $step['type']), $step['rules'], array('profile' => $target_profile, 'silent' => true));
+        }
       }
+    } catch (PoracleApiException $e) {
+      poracle_fail('', $e);
     }
+    header("Location: $redirect_url?return=success_channel_sync");
+    exit();
+  }
 
-  header("Location: $redirect_url?return=success_channel_sync");
-  exit();
-
-}
-
-include "./action_error.php";
-
+  include "./action_error.php";
