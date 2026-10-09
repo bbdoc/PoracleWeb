@@ -73,10 +73,10 @@
 		 <td width=100%>
 		    <?php if ( @$admin_mode <> "True" ) { ?>
 	               <img class="img-profile rounded-circle" src="<?php echo @$avatar ?>">
-		       <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+		       <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
 		    <?php } else { ?>
 		       <span class="mr-2 d-lg-inline text-red-600"><i class="fas fa-user-shield"></i>&nbsp;</span>
-		       <span class="mr-2 d-lg-inline text-red-600 small"><b><?php echo $_SESSION['username']; ?></b></span>
+		       <span class="mr-2 d-lg-inline text-red-600 small"><b><?php echo htmlspecialchars($_SESSION['username']); ?></b></span>
                     <?php } ?>
                  </td>
 		 <td>

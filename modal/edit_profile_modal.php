@@ -42,7 +42,7 @@
 		       echo "<li style='width:90%; margin:0; align:center;'>";
 		       echo "<input type='radio' name='profile' value=".$row['profile_no']." id='profile_".$row['profile_no']."' $checked/>\n";
 		       echo "<label for='profile_".$row['profile_no']."' style='$active'>";
-		       echo "<font style='font-size:12px;'>".$row['name']."</font>";
+		       echo "<font style='font-size:12px;'>".htmlspecialchars($row['name'])."</font>";
 		       echo "</label>\n";
 		       echo "</li><br>\n";
 	    }
