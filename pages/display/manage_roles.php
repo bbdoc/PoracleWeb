@@ -92,7 +92,6 @@ foreach ($json['guilds'] as $key => $value) {
                                         echo "</a>";
 				}
                         }
-                        print_r($value['roles']['general']);
                         echo "      </div>";
                         echo "   </div>";
 			echo "</div>";

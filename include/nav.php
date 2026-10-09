@@ -15,7 +15,7 @@
     <?php if ( $_SESSION['number_of_profiles'] > 1) { ?>
         <a href="<?php echo $redirect_url; ?>?type=display&page=profiles" style="color:white">
 	<span class="badge badge-info">
-	   <?php echo $_SESSION['profile_name']; ?>
+	   <?php echo htmlspecialchars($_SESSION['profile_name']); ?>
 	</span>
         </a>
     <?php } ?>
