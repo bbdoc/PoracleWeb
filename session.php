@@ -50,11 +50,13 @@ if (isset($admin_id)) {
 // Get Config Items from API and Store in Session Variables
 
 $opts = array(
-  'http'=>array(
-    'method'=>"GET",
-    'header'=>"Accept-language: en\r\n" .
-              "X-Poracle-Secret: $api_secret\r\n"
-  )
+    'http' => array(
+        'method' => "GET",
+        'header' => "Accept-language: en\r\n" .
+                    "X-Poracle-Secret: $api_secret\r\n",
+        'ignore_errors' => true,
+        'timeout' => 15
+    )
 );
 
 $context = stream_context_create($opts);
