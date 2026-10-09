@@ -5,13 +5,15 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-if ($row['pokemon_id'] == "0") {
+$pid = (int) ($row['pokemon_id'] ?? 0);
+$form = (int) ($row['form'] ?? 0);
+if ($pid == 0) {
 	echo "<font style='font-size:24px;'>".i8ln("ALL")."</font><br>";
 } else {
-	if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
-	$PkmnImg = "$uicons_pkmn/pokemon/" . $row['pokemon_id'] . $addform . ".png";
+	if ($form <> 0 ) { $addform = "_f".$form; } else { $addform = ""; }
+	$PkmnImg = "$uicons_pkmn/pokemon/" . $pid . $addform . ".png";
 	echo "<img width=100 src='".$PkmnImg."'><br>";
-	echo "<center><font size=5>".i8ln(get_mons($row['pokemon_id']))."</font></center>";
+	echo "<center><font size=5>".i8ln(get_mons($pid))."</font></center>";
 }
 echo "</div>";
 
@@ -32,7 +34,7 @@ echo "</div>";
                 <div class="input-group-prepend">
                     <div class="input-group-text">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo i8ln("Spawns/Hour"); ?>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 </div>
-                <input type='number' id='min_spawns' name='min_spawns' size=1 value='<?php echo $row['min_spawn_avg'] ?>'
+                <input type='number' id='min_spawns' name='min_spawns' size=1 value='<?php echo (int) ($row['min_spawn_avg'] ?? 0); ?>'
                     min='0' max='100' class="form-control text-center">
                 <div class="input-group-append">
                     <div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
@@ -48,7 +50,7 @@ echo "</div>";
             <div class="input-group-prepend">
                 <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
             </div>
-            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars($row['ping'] ?? ''); ?>">
         </div>
     </div>
     <hr>
@@ -62,12 +64,12 @@ echo "</div>";
             </div>
         </div>
         <?php
-                if ($row['clean'] == 0) {
+                if (empty($row['clean'])) {
                         $checked0 = 'checked';
                 } else {
                         $checked0 = '';
                 }
-                if ($row['clean'] == 1) {
+                if (!empty($row['clean'])) {
                         $checked1 = 'checked';
                 } else {
                         $checked1 = '';
@@ -92,7 +94,7 @@ echo "</div>";
                         </div>';
                         foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary mb-1 mr-1">';
-                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>
