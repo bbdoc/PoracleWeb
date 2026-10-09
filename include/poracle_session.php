@@ -94,3 +94,13 @@ function poracle_rules($type, $profile = 'view')
    }
    return poracle_rules_in(poracle_snapshot(), $type, $profile);
 }
+
+// Rules of every v2 type behind a legacy table name ('view' profile or null = all).
+function poracle_table_rules($table, $profile = 'view')
+{
+   $rules = array();
+   foreach (poracle_type_for_table($table) as $type) {
+      $rules = array_merge($rules, poracle_rules($type, $profile));
+   }
+   return $rules;
+}

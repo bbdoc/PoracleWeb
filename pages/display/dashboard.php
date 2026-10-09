@@ -1,62 +1,14 @@
 
 <?php
 
-$stmt = $conn->prepare("SELECT count(*) count FROM monsters WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_mon_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM raid WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_raid_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM egg WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_egg_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM quest WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_quest_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM invasion WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_invasion_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM lures WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_lure_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM nests WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_nests_tracked = $row['count']; }
-$stmt->close();
-
-$stmt = $conn->prepare("SELECT count(*) count FROM gym WHERE id = ? AND profile_no = ?");
-$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) { $num_gyms_tracked = $row['count']; }
-$stmt->close();
-
+$num_mon_tracked = count(poracle_table_rules('monsters'));
+$num_raid_tracked = count(poracle_table_rules('raid'));
+$num_egg_tracked = count(poracle_table_rules('egg'));
+$num_quest_tracked = count(poracle_table_rules('quest'));
+$num_invasion_tracked = count(poracle_table_rules('invasion'));
+$num_lure_tracked = count(poracle_table_rules('lures'));
+$num_nests_tracked = count(poracle_table_rules('nests'));
+$num_gyms_tracked = count(poracle_table_rules('gym'));
 
 $num_areas=0;
 $areas = explode(",", $area_set);

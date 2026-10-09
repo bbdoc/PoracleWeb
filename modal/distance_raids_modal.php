@@ -8,18 +8,7 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $stmt = $conn->prepare("SELECT distance from (SELECT distance,id from raid UNION SELECT distance,id from egg) raidegg WHERE id = ? GROUP by distance");
-    $stmt->bind_param("s", $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows == 1) {
-            while ($row = $result->fetch_assoc()) {
-                    $distance_set = $row['distance'];
-            }
-    } else {
-            $distance_set = 0;
-    }
-    $stmt->close();
+    $distance_set = poracle_shared_distance(array_merge(poracle_table_rules('raid', null), poracle_table_rules('egg', null)));
 ?>
 <form action='./actions/raids.php?action=update_raids_distance' method='POST'>
 <div class="modal-body">

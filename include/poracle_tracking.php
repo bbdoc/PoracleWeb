@@ -148,3 +148,37 @@ function poracle_track_set_field(PoracleApi $api, $human, $type, array $rules, $
    }
    return $api->post(poracle_tracking_path($human, $type), $bodies, array('profile' => (int) $profile));
 }
+
+function poracle_type_for_table($table)
+{
+   $map = array('monsters' => array('pokemon'), 'raid' => array('raid'), 'egg' => array('egg'), 'quest' => array('quest'),
+      'invasion' => array('invasion', 'incident'), 'lures' => array('lure'), 'nests' => array('nest'), 'gym' => array('gym'));
+   return isset($map[$table]) ? $map[$table] : array();
+}
+
+function poracle_decode_areas($json)
+{
+   $areas = is_string($json) ? json_decode($json, true) : $json;
+   return is_array($areas) ? $areas : array();
+}
+
+function poracle_profile_view(array $snapshot, $profile)
+{
+   $human = $snapshot['human'];
+   $view = array(
+      'name' => null, 'area' => poracle_decode_areas($human['area']),
+      'latitude' => $human['latitude'], 'longitude' => $human['longitude'],
+      'profile_count' => count($snapshot['profiles']), 'current_profile_no' => (int) $human['current_profile_no'],
+      'enabled' => (int) $human['enabled'], 'admin_disable' => (int) $human['admin_disable'],
+      'disabled_date' => $human['disabled_date'], 'language' => $human['language'],
+   );
+   foreach ($snapshot['profiles'] as $p) {
+      if ((int) $p['profile_no'] === (int) $profile) {
+         $view['name'] = $p['name'];
+         $view['area'] = poracle_decode_areas($p['area']);
+         $view['latitude'] = $p['latitude'];
+         $view['longitude'] = $p['longitude'];
+      }
+   }
+   return $view;
+}

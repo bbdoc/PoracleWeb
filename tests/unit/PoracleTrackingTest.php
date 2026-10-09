@@ -105,4 +105,22 @@ class PoracleTrackingTest extends TestCase
       poracle_track_set_field($api, '42', 'lure', array(array('uid' => 3, 'profile_no' => 1, 'lure_id' => 0, 'clean' => true)), 'clean', null, 1);
       $this->assertSame(array(array('lure_id' => 0)), $this->calls[0]['body']);
    }
+
+   public function testHumanAndProfileView()
+   {
+      $snap = array(
+         'human' => array('current_profile_no' => 1, 'area' => '["north"]', 'latitude' => 1.5, 'longitude' => 2.5, 'enabled' => 1, 'admin_disable' => 0, 'disabled_date' => null, 'language' => null),
+         'profiles' => array(
+            array('profile_no' => 1, 'name' => 'Home', 'area' => '["north"]', 'latitude' => 1.5, 'longitude' => 2.5),
+            array('profile_no' => 2, 'name' => 'Work', 'area' => '["south","east"]', 'latitude' => 3.0, 'longitude' => 4.0),
+         ),
+      );
+      $v = poracle_profile_view($snap, 2);
+      $this->assertSame(array('Work', array('south', 'east'), 3.0, 4.0, 2, 1),
+         array($v['name'], $v['area'], $v['latitude'], $v['longitude'], $v['profile_count'], $v['current_profile_no']));
+      $this->assertSame(array('north'), poracle_profile_view($snap, 9)['area']);
+      $this->assertNull(poracle_profile_view($snap, 9)['name']);
+      $this->assertSame(array('pokemon'), poracle_type_for_table('monsters'));
+      $this->assertSame(array('invasion', 'incident'), poracle_type_for_table('invasion'));
+   }
 }
