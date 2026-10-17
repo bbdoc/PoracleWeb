@@ -85,7 +85,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['locale'] = $json['locale'];
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
-   $_SESSION['staticKey'] = $json['staticKey'][0];
+   $_SESSION['staticKey'] = $json['staticKey'][0] ?? '';
    $_SESSION['poracleVersion'] = $json['version'];
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
    $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
