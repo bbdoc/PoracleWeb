@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.4-apache-bookworm
 
 RUN rm -rf /var/www/html/*
 WORKDIR /var/www/html/
