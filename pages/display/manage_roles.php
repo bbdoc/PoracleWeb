@@ -5,10 +5,13 @@
         echo '</div>';
 
 #$roles = @file_get_contents("roles.json", false);
-$roles= @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/roles", false, $context);
-$json = json_decode($roles, true);
+try {
+	$json = poracle_api()->get(poracle_human_path($_SESSION['id']) . '/roles');
+} catch (PoracleApiException $e) {
+	$json = array('guilds' => array());
+}
 
-if ( count($json) == 0 ) {
+if ( empty($json['guilds']) ) {
 	echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
 	echo i8ln("Sorry Nothing to Show");
 	echo '</div>';
@@ -28,7 +31,7 @@ if ( !isset($_POST['guild']) && !isset($_SESSION['guild']) ) { $_SESSION['guild'
 
 foreach ($json['guilds'] as $key => $value) {
 	if ( $value['name'] == $_SESSION['guild'] ) { $selected = "selected"; } else { $selected = ""; }
-	echo "<option value='".$value['name']."' $selected>".$value['name']."</option>\n";
+	echo "<option value='".htmlspecialchars($value['name'], ENT_QUOTES)."' $selected>".htmlspecialchars($value['name'])."</option>\n";
 }
 
 ?>
@@ -44,20 +47,20 @@ foreach ($json['guilds'] as $key => $value) {
 
 foreach ($json['guilds'] as $key => $value) {
         if ( $value['name'] == $_SESSION['guild'] ) {
-		foreach ($value['roles']['exclusive'] as $key => $value) {
+		foreach (($value['roles']['exclusive'] ?? array()) as $key => $value) {
 			echo "<div class='row'>";
 			echo "   <div class='col'>";
 			echo "      <div class='alert alert-secondary text-center'>"; 
 			echo "      <p>".i8ln("Select Max 1 option")."</p>";
 			$exclusive_id = $key;
 			foreach ($value as $key => $value) {
-				if ( $value['set'] == "True" ) {
-					echo "<a href='./actions/roles.php?type=remove&id=".$value['id']."'>";
-					echo "<button type='button' class='btn btn-success m-1'>".$value['description']."</button>";
+				if ( $value['set'] === true ) {
+					echo "<a href='./actions/roles.php?type=remove&id=".rawurlencode($value['id'])."'>";
+					echo "<button type='button' class='btn btn-success m-1'>".htmlspecialchars($value['description'])."</button>";
 					echo "</a>";
 				} else {
-					echo "<a href='./actions/roles.php?type=add&id=".$value['id']."'>";
-					echo "<button type='button' class='btn btn-light m-1'>".$value['description']."</button>";
+					echo "<a href='./actions/roles.php?type=add&id=".rawurlencode($value['id'])."'>";
+					echo "<button type='button' class='btn btn-light m-1'>".htmlspecialchars($value['description'])."</button>";
 					echo "</a>";
 				}
                         }
@@ -73,23 +76,22 @@ foreach ($json['guilds'] as $key => $value) {
 
 foreach ($json['guilds'] as $key => $value) {
 	if ( $value['name'] == $_SESSION['guild'] ) {
-		if (count($value['roles']['general']) > 0 ) {
+		if (!empty($value['roles']['general']) ) {
 		        echo "<div class='row'>";
                         echo "   <div class='col'>";
 		        echo "      <div class='alert alert-secondary text-center'>";
 		        echo "      <p>".i8ln("Select multiple options")."</p>";
 			foreach ($value['roles']['general'] as $key => $value) { 
-				if ( $value['set'] == "True" ) {
-                                        echo "<a href='./actions/roles.php?type=remove&id=".$value['id']."'>";
-                                        echo "<button type='button' class='btn btn-success m-1'>".$value['description']."</button>";
+				if ( $value['set'] === true ) {
+                                        echo "<a href='./actions/roles.php?type=remove&id=".rawurlencode($value['id'])."'>";
+                                        echo "<button type='button' class='btn btn-success m-1'>".htmlspecialchars($value['description'])."</button>";
                                         echo "</a>";
                                 } else {
-                                        echo "<a href='./actions/roles.php?type=add&id=".$value['id']."'>";
-                                        echo "<button type='button' class='btn btn-light m-1'>".$value['description']."</button>";
+                                        echo "<a href='./actions/roles.php?type=add&id=".rawurlencode($value['id'])."'>";
+                                        echo "<button type='button' class='btn btn-light m-1'>".htmlspecialchars($value['description'])."</button>";
                                         echo "</a>";
 				}
                         }
-                        print_r($value['roles']['general']);
                         echo "      </div>";
                         echo "   </div>";
 			echo "</div>";

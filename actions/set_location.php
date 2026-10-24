@@ -5,31 +5,25 @@ include_once "../include/db_connect.php";
 include_once "../include/functions.php";
 
 
+$api = poracle_api();
+$human = $_SESSION['id'];
+$profile = (int) $_SESSION['profile'];
+
 if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
-  $lat = "0.0000000000";
-  $lon = "0.0000000000";
-
-  $stmt = $conn->prepare("UPDATE monsters set distance = 0 WHERE id = ? AND profile_no = ?");
-  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-  $stmt->execute();
-  $stmt->close();
-  $stmt = $conn->prepare("UPDATE raid set distance = 0 WHERE id = ? AND profile_no = ?");
-  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-  $stmt->execute();
-  $stmt->close();
-  $stmt = $conn->prepare("UPDATE egg set distance = 0 WHERE id = ? AND profile_no = ?");
-  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-  $stmt->execute();
-  $stmt->close();
-  $stmt = $conn->prepare("UPDATE quest set distance = 0 WHERE id = ? AND profile_no = ?");
-  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-  $stmt->execute();
-  $stmt->close();
-  $stmt = $conn->prepare("UPDATE invasion set distance = 0 WHERE id = ? AND profile_no = ?");
-  $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-  $stmt->execute();
-  $stmt->close();
+  // Without a location, distance rules can never match: switch them to areas.
+  $refused = array();
+  try {
+    $api->delete(poracle_human_path($human) . '/location', array('profile' => $profile));
+    foreach (array('pokemon','raid','egg','quest','invasion','incident','lure','nest','gym','fort','maxbattle') as $type) {
+      $refused = array_merge($refused, poracle_track_set_field($api, $human, $type, poracle_rules($type), 'distance', null, $profile));
+    }
+  } catch (PoracleApiException $e) {
+    poracle_fail('area', $e);
+  }
+  poracle_report_refused('area', $refused);
+  header("Location: $redirect_url?type=display&page=area&return=success_delete_location");
+  exit();
 
 } else if ( isset($_GET['lat']) &&  isset($_GET['lon']) ) {
 
@@ -56,14 +50,15 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
        . '/search?'
        . http_build_query($params);
 
-   $request = file_get_contents($filepath);
+   $request = @file_get_contents($filepath);
 
-   if ( $request == "[]" ) { 
+   if ( $request === false || $request == "[]" ) { 
       header("Location: $redirect_url?type=display&page=area&return=error_update_location");
       exit();
    }   
 
    $json = json_decode($request, true);
+   if (!is_array($json)) { $json = array(); }
 
    foreach ($json as $key => $value) { 
       foreach ($value as $key => $value2) { 
@@ -74,50 +69,20 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 }
 
-// Update Lat and Lon from Humans if current profile is active
-
-$stmt = $conn->prepare("UPDATE humans set latitude = ?, longitude = ? WHERE id = ? AND current_profile_no = ?");
-if (false === $stmt) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH1&sql=$stmt->error");
-  exit();
-}
-$rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
-if (false === $rs) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH2&sql=$stmt->error");
-  exit();
-}
-$rs = $stmt->execute();
-if (false === $rs) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLH3&sql=$stmt->error");
+if (!isset($lat, $lon) || !is_numeric($lat) || !is_numeric($lon)) {
+  header("Location: $redirect_url?type=display&page=area&return=error_update_location");
   exit();
 }
 
-// Update Lat and Lon from Profile if exist
+// Set the location of the viewed profile (403 = outside the allowed area)
 
-$stmt = $conn->prepare("UPDATE profiles set latitude = ?, longitude = ? WHERE id = ? AND profile_no = ?");
-if (false === $stmt) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP1&sql=$stmt->error");
-  exit();
-}
-$rs = $stmt->bind_param("sssi", $lat, $lon, $_SESSION['id'], $_SESSION['profile']);
-if (false === $rs) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP2&sql=$stmt->error");
-  exit();
-}
-$rs = $stmt->execute();
-if (false === $rs) {
-  header("Location: $redirect_url?type=display&page=area&return=sql_error&phase=ESLP3&sql=$stmt->error");
-  exit();
+try {
+  $api->post(poracle_human_path($human) . '/location', poracle_location_body($lat, $lon), array('profile' => $profile));
+} catch (PoracleApiException $e) {
+  poracle_fail('area', $e);
 }
 
-
-if ( isset($_POST['delete']) ) {
-    header("Location: $redirect_url?type=display&page=area&return=success_delete_location");
-    exit();
-} else {
-    header("Location: $redirect_url?type=display&page=area&return=success_update_location");
-    exit();
-}
-
+header("Location: $redirect_url?type=display&page=area&return=success_update_location");
+exit();
 
 ?>

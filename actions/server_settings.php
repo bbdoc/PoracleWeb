@@ -3,6 +3,8 @@
    include_once "../config.php";
    include_once "../include/db_connect.php";
 
+   if (empty($_SESSION['admin_id'])) { header("Location: $redirect_url?return=invalid_auth"); exit(); }
+
    // CREATE SETTINGS TABLE IF IT DOESN'T EXIST
 
    $sql = "CREATE TABLE IF NOT EXISTS pweb_settings ( setting varchar(255) NOT NULL, value varchar(255), UNIQUE(setting) )";

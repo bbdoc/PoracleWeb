@@ -99,19 +99,16 @@
 
                                 // Show Lures
 
-                                $sql = "SELECT * FROM lures WHERE id = ? AND profile_no = ? ORDER BY lure_id";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-				$result = $stmt->get_result();
+                                $lures = poracle_rules('lure');
+                                usort($lures, function ($a, $b) { return $a['lure_id'] - $b['lure_id']; });
 
-                                if ($result->num_rows == 0) {
+                                if (count($lures) == 0) {
                                    echo "<div class='alert alert-warning w-100 m-3' role='alert'>";
                                    echo i8ln("You have not set any Alarm yet!");
                                    echo "</div>";
                                 }
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($lures as $row) {
 
                                     // Build a Unique Index
                                     $unique_id = "lure_" . $row['uid'];
@@ -142,7 +139,7 @@
 
                                                 <div class="mt-2 text-center">
                                                 <ul class="list-group mt-2 mb-2">
-                                                    <?php if ($row['distance'] <> '0') { ?>
+                                                    <?php if (!empty($row['distance'])) { ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
@@ -160,7 +157,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowLures_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowLures" aria-hidden="true">
@@ -174,17 +171,17 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
                                                     </li>
                                                     <?php }
-                                                            if ($row['clean'] == '1' && $all_lures_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_lures_cleaned == '0') {
                                                     ?>
                                                     <div class="mt-1">
                                                        <span class="badge badge-pill badge-info w-100"><?php echo i8ln("Cleaning Activated"); ?></span>
@@ -204,9 +201,10 @@
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['lure']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -264,7 +262,6 @@
                             </div>
 
                             <?php }
-				$stmt->close();
 				?>
 
                         </div>

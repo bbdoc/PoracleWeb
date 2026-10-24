@@ -66,17 +66,24 @@ foreach ($dbnames as &$db) {
 
 if (@$admin_disable_userlist <> "True" ) {
 
-   $dbnames = explode(",", $dbname);
-   foreach ($dbnames as &$db) {
+   foreach (poracle_all_apis() as $instance => $api) {
 
-      // Get Discord Users
-     
-      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, type FROM humans WHERE type like 'discord:user' ORDER by type,name";
-      $result = $conn->query($sql);
+      try {
+         $humans = array();
+         foreach (array('discord:user' => 'DISCORD', 'telegram:user' => 'TELEGRAM') as $type => $label) {
+            $list = $api->get('/api/v2/humans', array('type' => $type))['humans'];
+            usort($list, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+            $humans[$type] = $list;
+         }
+      } catch (PoracleApiException $e) {
+         echo "<hr><div class='alert alert-danger text-center' role='alert'>" . htmlspecialchars(i8ln("Could not connect to the API") . " ($instance)") . "</div>";
+         continue;
+      }
+
+      foreach (array('discord:user' => 'DISCORD', 'telegram:user' => 'TELEGRAM') as $type => $label) {
       ?>
 
-      <?php if ($result->num_rows <> 0) { ?>
+      <?php if (count($humans[$type]) <> 0) { ?>
 
          <hr>
 
@@ -84,54 +91,19 @@ if (@$admin_disable_userlist <> "True" ) {
          <div class="row">
            <div class="col">
               <div class="alert alert-secondary text-center" role="alert">
-  	      <strong><?php echo i8ln("USERS LIST"); ?> - DISCORD</strong>
-                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
+              <strong><?php echo i8ln("USERS LIST"); ?> - <?php echo $label; ?></strong>
+                  <?php if ($num_dbs > 1) { echo "<br>".htmlspecialchars($instance); } ?>
               </div>
            </div>
          </div>
 
          <div class='text-uppercase text-center'>
 
-         <?php while ($row = $result->fetch_assoc()) { ?>
-            <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
-    	       class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
-            <span class="icon text-white-50"> <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i> </span>
-            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
-            </a>
-         <?php } ?>
-
-      </div>
-
-      <?php } 
-
-      // Get Discord Users
-
-      $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-      $sql = "select id, name, type FROM humans WHERE type like 'telegram:user' ORDER by type,name";
-      $result = $conn->query($sql);
-      ?>
-
-      <?php if ($result->num_rows <> 0) { ?>
-
-         <hr>
-
-         <!-- Heading -->
-         <div class="row">
-           <div class="col">
-              <div class="alert alert-secondary text-center" role="alert">
-              <strong><?php echo i8ln("USERS LIST"); ?> - TELEGRAM</strong>
-                  <?php if ($num_dbs > 1) { echo "<br>".$db; } ?>
-              </div>
-           </div>
-         </div>
-
-         <div class='text-uppercase text-center'>
-
-         <?php while ($row = $result->fetch_assoc()) { ?>
-            <a href="admin_connect.php?id=<?php echo $row['id']; ?>"
+         <?php foreach ($humans[$type] as $row) { ?>
+            <a href="admin_connect.php?id=<?php echo htmlspecialchars(rawurlencode($row['id'])); ?>"
                class="btn btn-<?php if ($row['type']=='discord:user') { echo "primary"; } else { echo "info"; } ?> btn-icon-split m-1">
             <span class="icon text-white-50"> <i class="fab fa-<?php echo rtrim($row['type'], ':user');?>"></i> </span>
-            <span class="text" style="min-width: 130px;"><font size=1><?php echo $row['name']; ?></font></span>
+            <span class="text" style="min-width: 130px;"><font size=1><?php echo htmlspecialchars($row['name']); ?></font></span>
             </a>
          <?php } ?>
 
@@ -139,7 +111,8 @@ if (@$admin_disable_userlist <> "True" ) {
 
       <?php } ?>
 
+      <?php } ?>
+
    <?php } ?>
 
 <?php } ?>
-

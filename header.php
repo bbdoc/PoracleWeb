@@ -4,6 +4,7 @@ include_once "./config.php";
 include_once "./include/db_connect.php";
 include_once "./include/functions.php";
 include_once "./include/defaults.php";
+include_once "./include/poracle_forms.php";
 
 set_locale();
 
@@ -28,159 +29,44 @@ if (!isset($_SESSION['avatar']) || false === @file_get_contents($_SESSION['avata
 	$avatar = $_SESSION['avatar'];
 }
 
-// Set Profile to current if not yet set
+// Load the human, profile and tracking snapshot from the PoracleNG API
 
-if (!isset($_SESSION['profile']) && isset($_SESSION['id'])) {
-   $stmt = $conn->prepare("SELECT current_profile_no FROM humans WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $_SESSION['profile'] = $row['current_profile_no'];
-   }
-   $stmt->close();
-}
-
-// Check if user has Multiple Profiles
-
+$snapshot = null;
+$api_unavailable = false;
 if (isset($_SESSION['id'])) {
-   $stmt = $conn->prepare("SELECT name FROM profiles WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   $_SESSION['number_of_profiles'] = $result->num_rows;
-   $stmt->close();
+   try {
+      $snapshot = poracle_snapshot();
+   } catch (PoracleApiException $e) {
+      // Only a 404 means the human is not registered; anything else is an outage
+      $snapshot = null;
+      $api_unavailable = ($e->status != 404);
+   }
 }
-
-// Get Profile Name
-
-if (isset($_SESSION['id'])) {
-   $stmt = $conn->prepare("SELECT name FROM profiles WHERE id = ? AND profile_no = ?");
-   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-         $_SESSION['profile_name'] = $row['name'];
-      }
-   } else {
-         $_SESSION['profile_name'] = i8ln("Default");
+if (!empty($snapshot)) {
+   // Set Profile to current if not yet set
+   if (!isset($_SESSION['profile'])) {
+      $_SESSION['profile'] = (int) $snapshot['human']['current_profile_no'];
    }
-   $stmt->close();
-}
+   $profile_view = poracle_profile_view($snapshot, $_SESSION['profile']);
+   $_SESSION['number_of_profiles'] = $profile_view['profile_count'];
+   $_SESSION['profile_name'] = $profile_view['name'] !== null ? $profile_view['name'] : i8ln("Default");
+   $_SESSION['current_profile'] = $profile_view['current_profile_no'];
 
-// Get Active Profile
+   // Cleaning toggles span every profile, as before
+   $all_mon_cleaned = poracle_all_clean(poracle_table_rules('monsters', null));
+   $all_raid_cleaned = poracle_all_clean(array_merge(poracle_table_rules('raid', null), poracle_table_rules('egg', null)));
+   $all_quest_cleaned = poracle_all_clean(poracle_table_rules('quest', null));
+   $all_invasion_cleaned = poracle_all_clean(poracle_table_rules('invasion', null));
+   $all_lures_cleaned = poracle_all_clean(poracle_table_rules('lures', null));
+   $all_nests_cleaned = poracle_all_clean(poracle_table_rules('nests', null));
+   $all_gyms_cleaned = poracle_all_clean(poracle_table_rules('gym', null));
 
-if (isset($_SESSION['id'])) {
-   $stmt = $conn->prepare("SELECT current_profile_no from humans WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-      $_SESSION['current_profile'] = $row['current_profile_no'];
-   }
-   $stmt->close();
-}
-
-// Check for Cleaned
-
-if (isset($_SESSION['id'])) {
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM monsters WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_mon_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM (select id, clean from raid UNION select id, clean from egg) raidegg WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_raid_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM quest WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_quest_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM invasion WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_invasion_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM lures WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_lures_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM nests WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_nests_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-   $stmt = $conn->prepare("SELECT min(clean) clean FROM gym WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $all_gyms_cleaned = $row['clean'];
-   }
-   $stmt->close();
-
-
-   // Get Areas, Lat, long and Enabled from Humans Table
-   $stmt = $conn->prepare("SELECT area, latitude, longitude, enabled, admin_disable, disabled_date from humans WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   while ($row = $result->fetch_assoc()) {
-       $area_set = $row['area'];
-       $latitude = $row['latitude'];
-       $longitude = $row['longitude'];
-       $enabled = $row['enabled'];
-       $admin_disable = $row['admin_disable'];
-       $disabled_date = $row['disabled_date'];
-   }
-   $stmt->close();
-
-   // Overwrite with Profile info if a profile is available
-
-   $stmt = $conn->prepare("SELECT area, latitude, longitude from profiles WHERE id = ? AND profile_no = ?");
-   $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-
-   if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-          $area_set = $row['area'];
-          $latitude = $row['latitude'];
-          $longitude = $row['longitude'];
-      }
-   }
-   $stmt->close();
-
+   $area_set = json_encode($profile_view['area']);
+   $latitude = $profile_view['latitude'];
+   $longitude = $profile_view['longitude'];
+   $enabled = $profile_view['enabled'];
+   $admin_disable = $profile_view['admin_disable'];
+   $disabled_date = $profile_view['disabled_date'];
 }
 
 if (isset($_SESSION['username'])) {
@@ -196,22 +82,29 @@ if (isset($_SESSION['username'])) {
 
     if (!isset($subs_clause)) { $subs_clause = ""; }
 
-    if (isset($enable_admin_dis) && $enable_admin_dis == "False" && isset($_SESSION['admin_id']) && $_SESSION['id'] <> $_SESSION['admin_id'])
-    {
-	    $stmt = $conn->prepare("SELECT * from humans WHERE id = ? AND admin_disable = 0");
-    } else {
-	    $stmt = $conn->prepare("SELECT * from humans WHERE id = ?");
+    // API outage, timeout or bad secret: say so rather than treating the user as unregistered.
+    // No redirect, so there is nothing to loop on; the user can retry by reloading.
+    if ($api_unavailable) {
+         echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>" . htmlspecialchars($title) . "</title></head><body style='font-family:sans-serif;margin:2em;'>";
+         echo "<div style='padding:1em;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:4px;'>";
+         echo htmlspecialchars(i8ln("Could not connect to API. Please ask admin to check server config"));
+         echo "<br><a href='" . htmlspecialchars($_SERVER['REQUEST_URI']) . "'>" . htmlspecialchars(i8ln("Retry")) . "</a>";
+         echo " | <a href='$redirect_url/logout.php'>" . htmlspecialchars(i8ln("Logout")) . "</a>";
+         echo "</div></body></html>";
+         exit();
     }
-    $stmt->bind_param("s", $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows == 0) {
+
+    $registered = !empty($snapshot);
+    if ($registered && isset($enable_admin_dis) && $enable_admin_dis == "False" && isset($_SESSION['admin_id']) && $_SESSION['id'] <> $_SESSION['admin_id'])
+    {
+	    $registered = ((int) $snapshot['human']['admin_disable'] == 0);
+    }
+    if (!$registered) {
          if (strpos($_SERVER['REQUEST_URI'],$redirect_page) == false) {
 		 header("Location: $redirect_url/$redirect_page");
 		 exit();
 	 }
     }
-    $stmt->close(); 
 
 } else { 
      // If not logged in import login page
@@ -228,10 +121,10 @@ if (isset($_SESSION['delegated_id']) && $_SESSION['delegated_id'] <> $_SESSION['
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
 
    if ( isset($_SESSION['notes']) ) {
-	   $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+	   $admin_alarm.="<span class='badge badge-light'>".htmlspecialchars($_SESSION['notes'])."</span>";
    }
 
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".htmlspecialchars(strtoupper($_SESSION['username']))."</span><br>";
    if ($_SESSION['delegated_dbname'] <> $_SESSION['dbname'])
    {
            $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
@@ -249,10 +142,10 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
    $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['type'])."</span>";
 
    if ( isset($_SESSION['notes']) ) {
-           $admin_alarm.="<span class='badge badge-light'>".$_SESSION['notes']."</span>";
+           $admin_alarm.="<span class='badge badge-light'>".htmlspecialchars($_SESSION['notes'])."</span>";
    }
 
-   $admin_alarm.="<span class='badge badge-light m-1'>".strtoupper($_SESSION['username'])."</span><br>";
+   $admin_alarm.="<span class='badge badge-light m-1'>".htmlspecialchars(strtoupper($_SESSION['username']))."</span><br>";
    if ($_SESSION['admin_dbname'] <> $_SESSION['dbname'])
    {
            $admin_alarm.="DB : <b>".$_SESSION['dbname']."</b><br>";
@@ -272,24 +165,25 @@ if (isset($_SESSION['admin_id']) && $_SESSION['admin_id'] <> $_SESSION['id'])
 
 // Check if IV + PvP is used
 
-$sql = "SELECT * FROM monsters
-	WHERE (min_iv > 0 or max_iv < 100 or atk > 0 or def > 0 or sta > 0 or max_atk < 15 or max_def < 15 or max_sta < 15)
-	AND pvp_ranking_league <> 0
-        AND id = ?";
+$iv_pvp_used = false;
+if (!empty($snapshot)) {
+   foreach (poracle_rules('pokemon', null) as $rule) {
+      if ($rule['pvp_ranking_league'] === null) { continue; }
+      $iv_set = ($rule['min_iv'] !== null && $rule['min_iv'] > 0);
+      foreach (array('max_iv', 'atk', 'def', 'sta', 'max_atk', 'max_def', 'max_sta') as $f) {
+         if (isset($rule[$f])) { $iv_set = true; }
+      }
+      if ($iv_set) { $iv_pvp_used = true; break; }
+   }
+}
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $_SESSION['id']);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if (!empty($result) && $result->num_rows > 0) {
+if ($iv_pvp_used) {
    $config_alarm="<div class='alert alert-danger fade show mb-2' role='alert' style='background-color:darkred; color:white;'>";
    $config_alarm.="&#x26A0;<br>";
    $config_alarm.=i8ln("Some of your alarms contains both IV and PvP Filters").".<br>";
    $config_alarm.=i8ln("Alarms will only be triggered if ALL Filters are met").".<br>";
    $config_alarm.="</div>";
 }
-$stmt->close();
 
 // Check If Distance Map should be displayed
 

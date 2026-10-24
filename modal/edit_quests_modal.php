@@ -6,7 +6,7 @@ echo "
 
 echo "<div class='text-center mt-3'>";
 if ( $row['reward_type'] == "7") {
-    if ($row['form'] <> 0 ) { $addform = "_f".$row['form']; } else { $addform = ""; }
+    if (!empty($row['form'])) { $addform = "_f".$row['form']; } else { $addform = ""; }
     echo "<img width=100 src='$uicons_pkmn/pokemon/".$mon_id.$addform.".png'><br>";
  } elseif ( $row['reward_type'] == "2") {   
     echo "<img width=100 src='$uicons_reward/reward/item/".$row['reward'].".png'><br>";
@@ -14,7 +14,7 @@ if ( $row['reward_type'] == "7") {
     echo "<img width=100 src='$uicons_reward/reward/mega_resource/".$row['reward'].".png'><br>";
  } elseif ( $row['reward_type'] == "4") {
     echo "<img width=100 src='./img/candy/".$row['reward'].".png'>";
-    if ( $row['reward'] <> 0 ) { 
+    if ( !empty($row['reward']) ) { 
 	    echo "<img width=100 loading=lazy src='$uicons_pkmn/pokemon/".$row['reward'].".png'>";
     }
     echo "<br>";
@@ -37,7 +37,7 @@ echo "</div>";
             <div class="input-group-prepend">
                 <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
             </div>
-            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars($row['ping'] ?? ''); ?>">
         </div>
     </div>
     <hr>
@@ -51,12 +51,12 @@ echo "</div>";
             </div>
         </div>
         <?php
-                if ($row['clean'] == 0) {
+                if (empty($row['clean'])) {
                         $checked0 = 'checked';
                 } else {
                         $checked0 = '';
                 }
-                if ($row['clean'] == 1) {
+                if (!empty($row['clean'])) {
                         $checked1 = 'checked';
                 } else {
                         $checked1 = '';
@@ -81,7 +81,7 @@ echo "</div>";
                         </div>';
                         foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary mb-1 mr-1">';
-                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>

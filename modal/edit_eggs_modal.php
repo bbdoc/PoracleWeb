@@ -52,7 +52,7 @@ echo "</div>";
             <div class="input-group-prepend">
                 <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
             </div>
-            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars($row['ping'] ?? ''); ?>">
         </div>
     </div>
     <hr>
@@ -66,12 +66,12 @@ echo "</div>";
             </div>
         </div>
         <?php
-                if ($row['clean'] == 0) {
+                if (empty($row['clean'])) {
                         $checked0 = 'checked';
                 } else {
                         $checked0 = '';
                 }
-                if ($row['clean'] == 1) {
+                if (!empty($row['clean'])) {
                         $checked1 = 'checked';
                 } else {
                         $checked1 = '';
@@ -96,7 +96,7 @@ echo "</div>";
                         </div>';
                         foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary mb-1 mr-1">';
-                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>

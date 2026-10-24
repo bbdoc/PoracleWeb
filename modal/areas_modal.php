@@ -2,23 +2,7 @@
 
 // Check Current Selection
 
-if ($_SESSION['profile'] == $_SESSION['current_profile'] ) {
-	$stmt = $conn->prepare("SELECT area FROM humans WHERE id = ?");
-	$stmt->bind_param("s", $_SESSION['id']);
-}
-else {
-	$stmt = $conn->prepare("SELECT area FROM profiles WHERE id = ? AND profile_no = ?");
-	$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-}
-
-$stmt->execute();
-$result = $stmt->get_result();
-
-while ($row = $result->fetch_assoc()) {
-    $existing_area = $row['area'];
-    $existing_area = json_decode($row['area']);
-}
-$stmt->close();
+$existing_area = poracle_profile_view(poracle_snapshot(), $_SESSION['profile'])['area'];
 
 echo "
     <div id='areas' class='areasform text-uppercase text-center'>

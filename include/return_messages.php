@@ -14,7 +14,7 @@
     ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <?php echo i8ln("Successfully Added Monster Alarm(s)"); ?>
-    <?php echo "<br>".i8ln("Quick Pick").": "; echo $_GET['pick']; ?>
+    <?php echo "<br>".i8ln("Quick Pick").": "; echo htmlspecialchars($_GET['pick']); ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -25,7 +25,7 @@
     ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <?php echo i8ln("Successfully Deleted Monster Alarm(s)"); ?>
-    <?php echo "<br>".i8ln("Quick Pick").": "; echo $_GET['pick']; ?>
+    <?php echo "<br>".i8ln("Quick Pick").": "; echo htmlspecialchars($_GET['pick']); ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -328,8 +328,8 @@
     if (isset($_GET['return']) && $_GET['return'] == 'success_migrate') {
     ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <?php echo i8ln("Successfully Migrated account")."<br>".$_GET['mig_source']."
-       <i class='fas fa-arrow-circle-right'></i> ".$_GET['mig_target']."!"; ?>
+    <?php echo i8ln("Successfully Migrated account")."<br>".htmlspecialchars($_GET['mig_source'])."
+       <i class='fas fa-arrow-circle-right'></i> ".htmlspecialchars($_GET['mig_target'])."!"; ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -437,9 +437,9 @@
     if (isset($_GET['return']) && $_GET['return'] == 'sql_error') {
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
         echo i8ln("You Request couldn't not be handled")." : ";
-        echo i8ln("Error"). " #" . $_GET['phase'];
+        echo i8ln("Error"). " #" . htmlspecialchars($_GET['phase']);
         if ($debug == 'True') {
-            echo "<br><br>" . $_GET['sql'];
+            echo "<br><br>" . htmlspecialchars($_GET['sql']);
         }
     ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -463,6 +463,29 @@
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
         echo i8ln("Could not connect to the API")."<br>";
         echo i8ln("Please contact an admin!");
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'error_api_not_poracleng') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("PoracleWeb requires PoracleNG")."<br>";
+        echo i8ln("Please contact an admin!");
+    ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+    }
+    if (isset($_GET['return']) && $_GET['return'] == 'api_error') {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+        echo i8ln("You Request couldn't not be handled")."<br>";
+        echo htmlspecialchars($_SESSION['api_error'] ?? '');
+        unset($_SESSION['api_error']);
     ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

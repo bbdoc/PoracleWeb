@@ -47,17 +47,17 @@ if ( $disable_mons == "True" ) {
                                         </div>
                                     </div>
 				    <input type='number' id='min_iv_add' name='min_iv' size=1 
-					placeholder='<?php echo $monster_defaults['min_iv']; ?>' 
-                                        min='<?php echo $monster_defaults['min_iv']; ?>' 
-                                        max='<?php echo $monster_defaults['max_iv']; ?>'
+					placeholder='0' 
+                                        min='0' 
+                                        max='100'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                                     </div>
 				    <input type='number' id='max_iv' name='max_iv' size=1 
-					placeholder='<?php echo $monster_defaults['max_iv']; ?>' 
-					min='<?php echo $monster_defaults['min_iv']; ?>' 
-                                        max='<?php echo $monster_defaults['max_iv']; ?>'
+					placeholder='100' 
+					min='0' 
+                                        max='100'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -74,17 +74,17 @@ if ( $disable_mons == "True" ) {
                                         </div>
                                     </div>
 				    <input type='number' id='min_cp' name='min_cp' size=1 
-                                        placeholder='<?php echo $monster_defaults['min_cp']; ?>' 
-                                        min='<?php echo $monster_defaults['min_cp']; ?>' 
-                                        max='<?php echo $monster_defaults['max_cp']; ?>'
+                                        placeholder='0' 
+                                        min='0' 
+                                        max='9000'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                                     </div>
 				    <input type='number' id='max_cp' name='max_cp' size=1 
                                         placeholder='MAX' 
-                                        min='<?php echo $monster_defaults['min_cp']; ?>'
-					max='<?php echo $monster_defaults['max_cp']; ?>' 
+                                        min='0'
+					max='9000' 
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -100,17 +100,17 @@ if ( $disable_mons == "True" ) {
                                         </div>
                                     </div>
 				    <input type='number' id='min_level' name='min_level' size=1 
-                                         placeholder='<?php echo $monster_defaults['min_level']; ?>'
-                                         min='<?php echo $monster_defaults['min_level']; ?>'
-				 	 max='<?php echo $monster_defaults['max_level']; ?>'
+                                         placeholder='0'
+                                         min='0'
+				 	 max='55'
                                          class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                                     </div>
 				    <input type='number' id='max_level' name='max_level' size=1 
-                                        placeholder='<?php echo $monster_defaults['max_level']; ?>' 
-                                        min='<?php echo $monster_defaults['min_level']; ?>'
-					max='<?php echo $monster_defaults['max_level']; ?>' 
+                                        placeholder='55' 
+                                        min='0'
+					max='55' 
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -125,17 +125,17 @@ if ( $disable_mons == "True" ) {
 					<div class="input-group-text"><?php echo i8ln("Weight"); ?></div>
                                     </div>
 				    <input type='number' id='min_weight' name='min_weight' size=2 
-                                        placeholder='<?php echo $monster_defaults['min_weight']; ?>' 
-                                        min='<?php echo $monster_defaults['min_weight']; ?>'
-					max='<?php echo $monster_defaults['max_weight']; ?>' 
+                                        placeholder='0' 
+                                        min='0'
+					max='9000000' 
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("MIN"); ?></div>
                                     </div>
 				    <input type='number' id='max_weight' name='max_weight' size=4
                                         placeholder='MAX'
-					min='<?php echo $monster_defaults['min_weight']; ?>' 
-                                        max='<?php echo $monster_defaults['max_weight']; ?>' 
+					min='0' 
+                                        max='9000000' 
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("MAX"); ?></span>
@@ -148,25 +148,25 @@ if ( $disable_mons == "True" ) {
 				<label><?php echo i8ln("MIN STATS"); ?></label>
                                 <div class="input-group">
 				    <input type='number' id='atk' name='atk' size=1 
-					placeholder='<?php echo $monster_defaults['atk']; ?>' 
-					min='<?php echo $monster_defaults['atk']; ?>' 
-                                        max='<?php echo $monster_defaults['max_atk']; ?>'
+					placeholder='0' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                                     </div>
 				    <input type='number' id='def' name='def' size=1 
-					placeholder='<?php echo $monster_defaults['def']; ?>' 
-					min='<?php echo $monster_defaults['def']; ?>' 
-                                        max='<?php echo $monster_defaults['max_def']; ?>'
+					placeholder='0' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                                     </div>
 				    <input type='number' id='sta' name='sta' size=1 
-					placeholder='<?php echo $monster_defaults['sta']; ?>' 
-					min='<?php echo $monster_defaults['sta']; ?>' 
-                                        max='<?php echo $monster_defaults['max_sta']; ?>'
+					placeholder='0' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("STA"); ?></span>
@@ -179,25 +179,25 @@ if ( $disable_mons == "True" ) {
 				<label><?php echo i8ln("MAX STATS"); ?></label>
                                 <div class="input-group">
 				    <input type='number' id='max_atk' name='max_atk' size=1 
-					placeholder='<?php echo $monster_defaults['max_atk']; ?>' 
-					min='<?php echo $monster_defaults['atk']; ?>' 
-                                        max='<?php echo $monster_defaults['max_atk']; ?>'
+					placeholder='15' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<div class="input-group-text"><?php echo i8ln("ATK"); ?></div>
                                     </div>
 				    <input type='number' id='max_def' name='max_def' size=1 
-					placeholder='<?php echo $monster_defaults['max_def']; ?>' 
-					min='<?php echo $monster_defaults['def']; ?>' 
-                                        max='<?php echo $monster_defaults['max_def']; ?>'
+					placeholder='15' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("DEF"); ?></span>
                                     </div>
 				    <input type='number' id='max_sta' name='max_sta' size=1
-					placeholder='<?php echo $monster_defaults['max_sta']; ?>' 
-					min='<?php echo $monster_defaults['sta']; ?>' 
-                                        max='<?php echo $monster_defaults['max_sta']; ?>'
+					placeholder='15' 
+					min='0' 
+                                        max='15'
                                         class="form-control text-center">
                                     <div class="input-group-append">
 					<span class="input-group-text"><?php echo i8ln("STA"); ?></span>

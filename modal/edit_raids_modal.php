@@ -5,7 +5,7 @@ echo "
     ";
 
 echo "<div class='text-center mt-3'>";
-if ($row['level'] == "9000") {
+if ($row['pokemon_id'] !== null) {
         echo "<img width=100 src='$uicons_pkmn/pokemon/" . $row['pokemon_id'].".png'>";
 } else {
 	echo "<img width=100 src='./img/raid_" . $row['level'] . ".png'>";
@@ -16,9 +16,9 @@ if ( !is_null($row['gym_id']) ) {
 }
 
 echo "<div class='h5 mb-0 font-weight-bold text-gray-800 text-center mt-2'>";
-if ( $row['level'] <> 90 && $row['level'] <> 9000) { 
+if ( $row['pokemon_id'] === null && $row['level'] <> 90 ) { 
 	echo i8ln("Raids")." ".$row['level']; 
-} else if ( $row['level'] == 9000 ) { 
+} else if ( $row['pokemon_id'] !== null ) { 
 	echo i8ln("Raids")." ".$pokemon_name." ".$form_name;
 } else {
 	echo i8ln("All Raids"); 
@@ -50,7 +50,7 @@ echo "</div>";
             <div class="input-group-prepend">
                 <div class="input-group-text"><?php echo i8ln("Role to ping"); ?></div>
             </div>
-            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo $row['ping'] ?>">
+            <input type='text' id='content_edit' name='content' size=50 class="form-control" maxlength="255" value="<?php echo htmlspecialchars($row['ping'] ?? ''); ?>">
         </div>
     </div>
     <hr>
@@ -64,12 +64,12 @@ echo "</div>";
             </div>
         </div>
         <?php
-                if ($row['clean'] == 0) {
+                if (empty($row['clean'])) {
                         $checked0 = 'checked';
                 } else {
                         $checked0 = '';
                 }
-                if ($row['clean'] == 1) {
+                if (!empty($row['clean'])) {
                         $checked1 = 'checked';
                 } else {
                         $checked1 = '';
@@ -94,7 +94,7 @@ echo "</div>";
                         </div>';
                         foreach ( $templates_list as $key => $name ) {
                             echo '<label class="btn btn-secondary mb-1 mr-1">';
-                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == $row['template']) ? 'checked' : '') . '>';
+                            echo '<input type="radio" name="template" id="' . $name . '" value="' . $name . '" ' . (($name == ($row['template'] ?? $_SESSION['defaultTemplateName'])) ? 'checked' : '') . '>';
                             echo $name . '</label>';
                         }
                 echo '</div>

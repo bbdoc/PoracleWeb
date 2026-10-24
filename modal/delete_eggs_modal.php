@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h5 class="modal-title" id="<?php echo $unique_id ?>DeleteModalTitle">
         <?php echo i8ln("Delete tracking for Eggs Level"); ?>
-        <?php echo $row['level']; ?>
+        <?php echo (int) ($row['level'] ?? 0); ?>
     </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -9,14 +9,14 @@
 </div>
 <div class="modal-body">
     <?php echo i8ln("This will delete tracking for Eggs Level"); ?>
-    <?php echo $row['level']; ?><br>
+    <?php echo (int) ($row['level'] ?? 0); ?><br>
     <?php echo i8ln("Are you sure?"); ?>
 </div>
 <div class="modal-footer">
     <form action='./actions/raids.php' method='POST'>
         <?php echo "
             <input type='hidden' id='type' name='type' value='eggs'>
-            <input type='hidden' id='uid' name='uid' value='" . $row['uid'] . "'>
+            <input type='hidden' id='uid' name='uid' value='" . (int) ($row['uid'] ?? 0) . "'>
             " ?>
         <input class="btn btn-danger" type='submit' name='delete'
             value='<?php echo i8ln("DELETE"); ?>'>

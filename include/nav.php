@@ -15,7 +15,7 @@
     <?php if ( $_SESSION['number_of_profiles'] > 1) { ?>
         <a href="<?php echo $redirect_url; ?>?type=display&page=profiles" style="color:white">
 	<span class="badge badge-info">
-	   <?php echo $_SESSION['profile_name']; ?>
+	   <?php echo htmlspecialchars($_SESSION['profile_name']); ?>
 	</span>
         </a>
     <?php } ?>
@@ -73,10 +73,10 @@
 		 <td width=100%>
 		    <?php if ( @$admin_mode <> "True" ) { ?>
 	               <img class="img-profile rounded-circle" src="<?php echo @$avatar ?>">
-		       <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+		       <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
 		    <?php } else { ?>
 		       <span class="mr-2 d-lg-inline text-red-600"><i class="fas fa-user-shield"></i>&nbsp;</span>
-		       <span class="mr-2 d-lg-inline text-red-600 small"><b><?php echo $_SESSION['username']; ?></b></span>
+		       <span class="mr-2 d-lg-inline text-red-600 small"><b><?php echo htmlspecialchars($_SESSION['username']); ?></b></span>
                     <?php } ?>
                  </td>
 		 <td>

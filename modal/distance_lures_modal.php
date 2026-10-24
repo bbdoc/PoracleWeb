@@ -8,18 +8,7 @@
 </div>
 <!-- CHECK CURRENT DISTANCE SET -->
 <?php
-    $stmt = $conn->prepare("SELECT distance from lures WHERE id = ? GROUP by distance");
-    $stmt->bind_param("s", $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if (!empty($result) && $result->num_rows == 1) {
-            while ($row = $result->fetch_assoc()) {
-                    $distance_set = $row['distance'];
-            }
-    } else {
-            $distance_set = 0;
-    }
-    $stmt->close();
+    $distance_set = poracle_shared_distance(poracle_table_rules('lures', null));
 ?>
 <form action='./actions/lures.php?action=update_lures_distance' method='POST'>
 <div class="modal-body">

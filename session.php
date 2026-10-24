@@ -2,35 +2,26 @@
 
 include_once "./config.php";
 include_once "./include/functions.php";
+include_once "./include/db_connect.php";
 
 if(session_status() == PHP_SESSION_NONE){
    session_start();
 }
 
-$dbnames = explode(",", $dbname);
+// Find the instance this human is registered on.
 
-foreach ($dbnames as &$db) {
-
-   $conn = new mysqli($dbhost.":".$dbport, $dbuser, $dbpass, $db);
-   
-   // Check connection
-   if ($conn->connect_errno) {
-      echo "Failed to connect to MySQL: " . $conn->connect_error;
-      exit();
-   }
-
-   $stmt = $conn->prepare("SELECT * from humans WHERE id = ?");
-   $stmt->bind_param("s", $_SESSION['id']);
-   $stmt->execute() or die(mysqli_error($conn));
-   $result = $stmt->get_result();
-
-   if ( $result->num_rows > 0 ) {
-	  $_SESSION['dbname'] = $db;
-   }
-   $stmt->close();
-
+try {
+   $instance = poracle_find_human_instance(poracle_all_apis(), $_SESSION['id']);
+} catch (PoracleApiException $e) {
+   $instance = null;
+   $no_api = "True";
 }
-
+if ($instance !== null) {
+   $_SESSION['dbname'] = $instance;
+} elseif (!isset($_SESSION['dbname'])) {
+   $_SESSION['dbname'] = poracle_instance_names()[0];
+}
+$api = poracle_api();
 
 // Set Admin Variables
 
@@ -47,46 +38,31 @@ if (isset($admin_id)) {
    } 
 }
 
-// Get Config Items from API and Store in Session Variables
+// Require PoracleNG (v2 API)
 
-$opts = array(
-    'http' => array(
-        'method' => "GET",
-        'header' => "Accept-language: en\r\n" .
-                    "X-Poracle-Secret: $api_secret\r\n",
-        'ignore_errors' => true,
-        'timeout' => 15
-    )
-);
-
-$context = stream_context_create($opts);
-
-// Check that API is Running fine
-
-if (!$api = @file_get_contents("$api_address/api/config/poracleWeb", false, $context) ) 
-{
-   if (!isset($_SESSION['admin_id']))
-   {
+try {
+   $health = $api->get('/health');
+   if (!poracle_supports_v2($health)) {
+      session_destroy();
+      header("Location: $redirect_url?return=error_api_not_poracleng");
+      exit();
+   }
+   $json = $api->get('/api/config/poracleWeb');
+} catch (PoracleApiException $e) {
+   if (!isset($_SESSION['admin_id'])) {
       session_destroy();
       header("Location: $redirect_url?return=error_no_api");
       exit();
-   } else
-   {
-     $no_api = "True";
    }
+   $no_api = "True";
+   $json = array();
 }
 
-// Get Config Items from API
-
-$config = @file_get_contents("$api_address/api/config/poracleWeb", false, $context);
-$json = json_decode($config, true);
-
-if ( $json['status']=="ok" ) {
+if (!empty($json)) {
    $_SESSION['locale'] = $json['locale'];
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
-   $_SESSION['staticKey'] = $json['staticKey'][0] ?? '';
-   $_SESSION['poracleVersion'] = $json['version'];
+   $_SESSION['staticKey'] = ($json['staticKey'][0] ?? '');
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
    $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
    $_SESSION['pvpFilterGreatMinCP'] = $json['pvpFilterGreatMinCP'];
@@ -95,52 +71,50 @@ if ( $json['status']=="ok" ) {
    $_SESSION['defaultTemplateName'] = $json['defaultTemplateName'];
    $_SESSION['everythingFlagPermissions'] = $json['everythingFlagPermissions'];
    $_SESSION['maxDistance'] = $json['maxDistance'];
-   $_SESSION['poracle_admins'] = array_merge($json['admins']['discord'],$json['admins']['telegram']);
-   $_SESSION['pvpCaps'] = $json['pvpCaps'];
+   $_SESSION['poracle_admins'] = array_merge($json['admins']['discord'] ?? array(), $json['admins']['telegram'] ?? array());
+   $_SESSION['pvpCaps'] = ($json['pvpCaps'] ?? array());
    $_SESSION['defaultPvpCap'] = $json['defaultPvpCap'];
    $_SESSION['defaultDistance'] = $json['defaultDistance'];
-} else if (!isset($_SESSION['admin_id'])) {
-   session_destroy();
-   header("Location: $redirect_url?return=error_api_nok");
-   exit();
-} else {
-   $no_api = "True";
-
 }
 
 // Set Max Distance to 10,726 km if 0 (so no max distance)
 
-if ( $_SESSION['maxDistance'] == 0 ) { $_SESSION['maxDistance'] = 10726000; }
+if ( empty($_SESSION['maxDistance']) ) { $_SESSION['maxDistance'] = 10726000; }
 
-// Get Areas from API
+// Areas this human may select
 
-$areas = @file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['id']), false, $context);
-$json = json_decode($areas, true);
-
-if ( $json['status']=="ok" ) {
-    $_SESSION['areas'] = $json['areas'];
-} elseif (($json['message'] ?? null) === "User not found") {
-    header("Location: " . rtrim($redirect_url, '/') . "/");
-    exit();
-} else if (!isset($_SESSION['admin_id'])) {
-   session_destroy();
-   header("Location: $redirect_url?return=error_api_nok");
-   exit();
-} else {
+try {
+   $areas = $api->get(poracle_human_path($_SESSION['id']) . '/areas');
+   $_SESSION['areas'] = $areas['areas'] ?? array();
+} catch (PoracleApiException $e) {
+   if ($e->status == 404) {
+      header("Location: " . rtrim($redirect_url, '/') . "/");
+      exit();
+   }
+   if (!isset($_SESSION['admin_id'])) {
+      session_destroy();
+      header("Location: $redirect_url?return=error_api_nok");
+      exit();
+   }
    $no_api = "True";
 }
 
-// Get Templates from API
+// Templates
 
-$templates = @file_get_contents("$api_address/api/config/templates", false, $context);
-$json = json_decode($templates, true);
-
-$_SESSION['templates'] = $json;
+try {
+   $_SESSION['templates'] = $api->get('/api/config/templates');
+} catch (PoracleApiException $e) {
+   $_SESSION['templates'] = array();
+}
 
 // Get Delegated Admin from API
 
-$delegated = @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/getAdministrationRoles", false, $context);
-$json = json_decode($delegated, true);
+try {
+   $json = $api->get(poracle_human_path($_SESSION['id']) . '/admin-roles');
+   $json['status'] = 'ok';
+} catch (PoracleApiException $e) {
+   $json = array('status' => 'error');
+}
 
 if (is_array($json) && ($json['status'] ?? null) === "ok") {
 
@@ -160,16 +134,16 @@ if (is_array($json) && ($json['status'] ?? null) === "ok") {
 
    // Set Roles depending on API results
    
-   if ( in_array($_SESSION['id'],$_SESSION['poracle_admins']) ) 
+   if ( in_array($_SESSION['id'], $_SESSION['poracle_admins'] ?? array()) ) 
    { 
 	   $_SESSION['channels_admin'] = "True"; 
 	   $_SESSION['users_admin'] = "True"; 
 	   $_SESSION['poracle_admin'] = "True"; 
    }
-   if ( isset($json['admin']['discord']['users']) && $json['admin']['discord']['users'] == "true" ) { 
+   if ( !empty($json['admin']['discord']['users']) ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
-   if ( isset($json['admin']['telegram']['users']) && $json['admin']['telegram']['users'] == "true" ) { 
+   if ( !empty($json['admin']['telegram']['users']) ) { 
 	   $_SESSION['users_admin'] = "True"; 
    }
    if ( $_SESSION['delegated_count'] > 0 ) 

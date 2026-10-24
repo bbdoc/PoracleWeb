@@ -102,13 +102,10 @@
 
                                 // Show Eggs & Raids
 
-                                $sql = "SELECT * FROM egg WHERE id = ? AND profile_no = ? ORDER BY level";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
+                                $eggs = poracle_rules('egg');
+                                usort($eggs, function ($a, $b) { return $a['level'] - $b['level']; });
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($eggs as $row) {
 
                                     // Build a Unique Index
                                     $unique_id = "egg_" . $row['uid'];
@@ -149,7 +146,7 @@
 
                                                     <?php
 
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <?php echo i8ln("DISTANCE"); ?>
@@ -167,7 +164,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowEggs_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowEggsTitle" aria-hidden="true">
@@ -181,18 +178,18 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-						    if ($row['ping'] <> '') {
+						    if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
 						    </li>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '1') {
+                                                    if ($row['rsvp_changes'] === 'rsvp') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -200,7 +197,7 @@
 						    </div>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '2') {
+                                                    if ($row['rsvp_changes'] === 'rsvp_only') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -209,7 +206,7 @@
                                                     <?php }
 
 
-						    if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
+						    if (!empty($row['clean']) && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -228,10 +225,11 @@
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['raid'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['raid']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -289,15 +287,13 @@
 
                             <?php
                                 }
-				$stmt->close();
 
-				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id = 9000 ORDER BY level";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
+				$level_raids = array_filter(poracle_rules('raid'), function ($r) { return $r['pokemon_id'] === null; });
+                                usort($level_raids, function ($a, $b) { return (int) ($a['level'] ?? 90) - (int) ($b['level'] ?? 90); });
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($level_raids as $row) {
+                                    // level null = all tiers; the page treats that as level 90
+                                    if ($row['level'] === null) { $row['level'] = 90; }
 
                                     // Build a Unique Index
                                     $unique_id = "raid_" . $row['uid'];
@@ -331,7 +327,7 @@
                                                 <div class="mt-2 text-center">
                                                     <?php
 
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -350,7 +346,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowPokemons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowPokemonsTitle" aria-hidden="true">
@@ -364,18 +360,18 @@
 						    </div>
                                                     <?php } ?>
                                                     <?php }
-                                                        if ($row['ping'] <> '') {
+                                                        if (!empty($row['ping'])) {
                                                     ?>
                                                     <li
                                                         class="list-group-item justify-content-between align-items-center">
                                                         <?php echo i8ln("PING"); ?><br>
                                                         <div class="bg-secondary text-break text-white p-1 rounded">
-                                                            <span class="small"><?=$row['ping']?></span>
+                                                            <span class="small"><?=htmlspecialchars($row['ping'])?></span>
                                                         </div>
 						    </li>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '1') {
+                                                    if ($row['rsvp_changes'] === 'rsvp') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -383,7 +379,7 @@
                                                     </div>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '2') {
+                                                    if ($row['rsvp_changes'] === 'rsvp_only') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -391,7 +387,7 @@
                                                     </div>
 
                                                     <?php  }
-                                                            if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -410,10 +406,11 @@
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['raid'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['raid']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -468,15 +465,12 @@
                             </div>
                             <?php
                                 }
-				$stmt->close();
 
-				$sql = "SELECT * FROM raid WHERE id = ? AND profile_no = ? AND pokemon_id <> 9000 ORDER BY pokemon_id";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("si", $_SESSION['id'], $_SESSION['profile']);
-				$stmt->execute();
-                                $result = $stmt->get_result();
+				$boss_raids = array_filter(poracle_rules('raid'), function ($r) { return $r['pokemon_id'] !== null; });
+                                usort($boss_raids, function ($a, $b) { return $a['pokemon_id'] - $b['pokemon_id']; });
 
-                                while ($row = $result->fetch_assoc()) {
+                                foreach ($boss_raids as $row) {
+                                    $row['form'] = (int) ($row['form'] ?? 0);
 
                                     // Build a Unique Index
                                     $unique_id = "raid_" . $row['uid'];
@@ -529,7 +523,7 @@
 
                                                     <?php
 
-                                                            if ($row['distance'] <> '0') {
+                                                            if (!empty($row['distance'])) {
                                                             ?>
                                                     <li
                                                         class="list-group-item d-flex justify-content-between align-items-center">
@@ -548,7 +542,7 @@
                                                         <?php } ?>
                                                     </li>
 
-                                                    <?php if ( $row['distance'] > 0 ) { ?>
+                                                    <?php if ( !empty($row['distance']) ) { ?>
                                                     <!-- SHOW DISTANCE Modal -->
                                                     <div class="modal fade" id="DistanceShowRaidMons_<?php echo $row['distance']; ?>" tabindex="-1" role="dialog"
                                                         aria-labelledby="DistanceShowRaidMonsTitle" aria-hidden="true">
@@ -563,7 +557,7 @@
                                                     <?php } ?>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '1') {
+                                                    if ($row['rsvp_changes'] === 'rsvp') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -571,7 +565,7 @@
                                                     </div>
 
                                                     <?php }
-                                                    if ($row['rsvp_changes'] == '2') {
+                                                    if ($row['rsvp_changes'] === 'rsvp_only') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -580,7 +574,7 @@
 
                                                     <?php
                                                             }
-                                                            if ($row['clean'] == '1' && $all_raid_cleaned == '0') {
+                                                            if (!empty($row['clean']) && $all_raid_cleaned == '0') {
                                                             ?>
                                                     <div class="mb-2">
                                                         <span
@@ -599,10 +593,11 @@
                                                     $templates_locale = @$_SESSION['templates'][$type[0]]['raid'][$_SESSION['locale']];
                                                     $templates_undefined = @$_SESSION['templates'][$type[0]]['raid']['%'];
                                                     $templates_list = array_merge((array)$templates_locale,(array)$templates_undefined);
+                                                    $tpl = $row['template'] ?? $_SESSION['defaultTemplateName'];
 
-                                                    if ( in_array($row['template'], $templates_list ) )
+                                                    if ( in_array($tpl, $templates_list ) )
                                                     {
-                                                            $template = $row['template'];
+                                                            $template = $tpl;
                                                     }
                                                     else
                                                     {
@@ -658,7 +653,6 @@
                             </div>
                             <?php
                                 }
-				$stmt->close();
                                 ?>
 
                         </div>

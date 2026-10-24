@@ -12,7 +12,7 @@
                             <div class="card-header py-3">
 				<div class="row d-flex justify-content-between align-items-center pl-3 pr-3">
 				   <h6 class="m-0 font-weight-bold text-dark"><?php echo i8ln("Profile"); ?>: 
-				   <strong><?php echo $_SESSION['profile_name']; ?></strong>
+				   <strong><?php echo htmlspecialchars($_SESSION['profile_name']); ?></strong>
 				   </h6>
 				   <?php if ( $_SESSION['profile'] == $_SESSION['current_profile'] ) { ?>
 				   <span class="badge badge-success badge-pill ml-2" style="padding:5px; padding-right:15px; padding-left:15px;">
