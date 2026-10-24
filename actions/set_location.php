@@ -32,8 +32,8 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 } else {
 
-   $street = trim($_POST['street']);
-   $city = trim($_POST['city']);
+   $street = trim((string) ($_POST['street'] ?? ''));
+   $city = trim((string) ($_POST['city'] ?? ''));
 
    $params = [
        'addressdetails' => 1,
