@@ -88,13 +88,15 @@
   // UPDATE ALL INVASIONS DISTANCE
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_invasions_distance') {
+    $refused = array();
     try {
       foreach (array('invasion', 'incident') as $ruleType) {
-        poracle_track_set_field($api, $human, $ruleType, poracle_rules($ruleType), 'distance', form_common($_POST)['distance'], $profile);
+        $refused = array_merge($refused, poracle_track_set_field($api, $human, $ruleType, poracle_rules($ruleType), 'distance', form_common($_POST)['distance'], $profile));
       }
     } catch (PoracleApiException $e) {
       poracle_fail('invasion', $e);
     }
+    poracle_report_refused('invasion', $refused);
     header("Location: $redirect_url?type=display&page=invasion&return=success_update_invasions_distance");
     exit();
   }

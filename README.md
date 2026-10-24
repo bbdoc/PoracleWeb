@@ -12,7 +12,7 @@ REQUIRES MYSQL !
 
 This tool is an add-on to [PoracleNG](https://github.com/jfberry/PoracleNG).
 
-PoracleWeb now requires PoracleNG with the v2 API (`/api/v2`) and talks to it for all tracking, human, profile and location data. PoracleJS is not supported. The minimum PoracleNG must include PRs #248 and #249 (see `docs/v2-api-migration.md`).
+PoracleWeb now requires PoracleNG with the v2 API (`/api/v2`) and talks to it for all tracking, human, profile and location data. PoracleJS is not supported. The minimum is PoracleNG 5.4.0 (currently its `develop` branch); see `docs/v2-api-migration.md`.
 
 It requires a working webserver (typically Apache or nginx) + PHP.
 Alternatively it can be run out of Docker (Dockerfile is provided).

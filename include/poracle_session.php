@@ -67,6 +67,14 @@ function poracle_fail($page, Exception $e)
    exit();
 }
 
+// Report the rules a bulk change left alone, once the rest has applied.
+function poracle_report_refused($page, array $refused)
+{
+   if ($refused) {
+      poracle_fail($page, new Exception(poracle_refused_message($refused)));
+   }
+}
+
 // The logged-in human's full tracking snapshot, fetched once per request.
 function poracle_snapshot($invalidate = false)
 {

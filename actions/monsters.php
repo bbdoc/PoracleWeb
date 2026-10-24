@@ -78,10 +78,11 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_mons_distance') {
     try {
-      poracle_track_set_field($api, $human, 'pokemon', poracle_rules('pokemon'), 'distance', form_common($_POST)['distance'], $profile);
+      $refused = poracle_track_set_field($api, $human, 'pokemon', poracle_rules('pokemon'), 'distance', form_common($_POST)['distance'], $profile);
     } catch (PoracleApiException $e) {
       poracle_fail('pokemon', $e);
     }
+    poracle_report_refused('pokemon', $refused);
     header("Location: $redirect_url?type=display&page=pokemon&gen=$gen&return=success_update_mons_distance");
     exit();
   }

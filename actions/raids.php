@@ -86,11 +86,13 @@
   if (isset($_GET['action']) && $_GET['action'] == 'update_raids_distance') {
     try {
       $distance = form_common($_POST)['distance'];
-      poracle_track_set_field($api, $human, 'raid', poracle_rules('raid'), 'distance', $distance, $profile);
-      poracle_track_set_field($api, $human, 'egg', poracle_rules('egg'), 'distance', $distance, $profile);
+      $refused = array_merge(
+        poracle_track_set_field($api, $human, 'raid', poracle_rules('raid'), 'distance', $distance, $profile),
+        poracle_track_set_field($api, $human, 'egg', poracle_rules('egg'), 'distance', $distance, $profile));
     } catch (PoracleApiException $e) {
       poracle_fail('raid', $e);
     }
+    poracle_report_refused('raid', $refused);
     header("Location: $redirect_url?type=display&page=raid&return=success_update_raids_distance");
     exit();
   }

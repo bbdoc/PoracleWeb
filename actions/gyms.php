@@ -77,10 +77,11 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_gyms_distance') {
     try {
-      poracle_track_set_field($api, $human, 'gym', poracle_rules('gym'), 'distance', form_common($_POST)['distance'], $profile);
+      $refused = poracle_track_set_field($api, $human, 'gym', poracle_rules('gym'), 'distance', form_common($_POST)['distance'], $profile);
     } catch (PoracleApiException $e) {
       poracle_fail('gym', $e);
     }
+    poracle_report_refused('gym', $refused);
     header("Location: $redirect_url?type=display&page=gym&return=success_update_gyms_distance");
     exit();
   }

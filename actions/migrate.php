@@ -22,19 +22,12 @@
     try {
       $snap = $api->get(poracle_human_path($source) . '/tracking', array('all_profiles' => true));
       $h = $snap['human'];
-      $profiles = $snap['profiles'];
-      usort($profiles, function ($a, $b) { return $a['profile_no'] - $b['profile_no']; });
-      // The snapshot carries active_hours as the stored JSON string; the
-      // profiles endpoint gives the typed entries the create body takes.
-      $hours = array();
-      foreach ($api->get(poracle_human_path($source) . '/profiles')['profiles'] as $p) {
-        $hours[(int) $p['profile_no']] = isset($p['active_hours']) ? $p['active_hours'] : array();
-      }
+      $profiles = poracle_migration_profiles($snap);
 
       $api->post('/api/v2/humans', array_filter(array(
         'id' => (string) $target['id'], 'name' => $target['username'], 'type' => 'telegram:user',
         'language' => $h['language'], 'area' => $h['area'], 'latitude' => $h['latitude'], 'longitude' => $h['longitude'],
-        'community' => poracle_decode_areas($h['community_membership']), 'notes' => $h['notes'],
+        'community' => $h['community_membership'], 'notes' => $h['notes'],
         'profile_name' => $profiles ? $profiles[0]['name'] : null,
       ), function ($v) { return $v !== null && $v !== '' && $v !== array(); }));
       $created = true;
@@ -48,29 +41,29 @@
           $map[$old] = 1;
         } else {
           $body = array('name' => $p['name'] !== '' ? $p['name'] : 'Profile ' . $old);
-          if (!empty($hours[$old])) {
-            $body['active_hours'] = $hours[$old];
+          if (!empty($p['active_hours'])) {
+            $body['active_hours'] = $p['active_hours'];
           }
           $res = $api->post($target_path . '/profiles', $body);
           $map[$old] = (int) $res['profile_no'];
         }
         $n = $map[$old];
-        $api->post($target_path . '/areas', array('areas' => poracle_decode_areas($p['area']), 'trusted' => true), array('profile' => $n));
+        $api->post($target_path . '/areas', array('areas' => $p['area'], 'trusted' => true), array('profile' => $n));
         if ((float) $p['latitude'] != 0 || (float) $p['longitude'] != 0) {
-          $api->post($target_path . '/location', array('lat' => (float) $p['latitude'], 'lon' => (float) $p['longitude']), array('profile' => $n));
+          $api->post($target_path . '/location', poracle_location_body($p['latitude'], $p['longitude']), array('profile' => $n));
         }
       }
       // The first profile's active hours cannot be given on create.
-      if ($profiles && !empty($hours[(int) $profiles[0]['profile_no']])) {
-        $api->patch($target_path . '/profiles/1', array('active_hours' => $hours[(int) $profiles[0]['profile_no']]));
+      if (!empty($profiles[0]['active_hours'])) {
+        $api->patch($target_path . '/profiles/1', array('active_hours' => $profiles[0]['active_hours']));
       }
       $named = isset($snap['locations']['named']) ? $snap['locations']['named'] : array();
       foreach ($named as $loc) {
-        $api->post($target_path . '/locations', array('label' => $loc['label'], 'lat' => (float) $loc['latitude'], 'lon' => (float) $loc['longitude']));
+        $api->post($target_path . '/locations', array('label' => $loc['label']) + poracle_location_body($loc['latitude'], $loc['longitude']));
       }
       foreach (poracle_copy_plan($snap, null) as $step) {
         if (!isset($map[$step['profile_no']])) {
-          throw new PoracleApiException(0, 'Rules found for missing profile ' . $step['profile_no']);
+          continue; // rules left by a deleted profile: they never match
         }
         $api->post(poracle_tracking_path($target['id'], $step['type']), $step['rules'], array('profile' => $map[$step['profile_no']], 'silent' => true));
       }

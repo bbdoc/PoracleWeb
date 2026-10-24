@@ -53,8 +53,49 @@ class PoracleLiveTest extends TestCase
       poracle_track_set_field($this->api, $this->human, 'pokemon', $this->rules('pokemon'), 'clean', true, 1);
       $after = $this->rules('pokemon');
       $this->assertCount(2, $after);
+      $this->assertSame(array_column($before, 'uid'), array_column($after, 'uid'));
       $this->assertSame(array(400, 400), array_column($after, 'distance'));
       $this->assertSame(array(true, true), array_column($after, 'clean'));
+   }
+
+   public function testSetFieldRefusesARuleItWouldDuplicate()
+   {
+      poracle_track_add($this->api, $this->human, 'lure', array(array('lure_id' => 501, 'distance' => 100), array('lure_id' => 501, 'distance' => 200)), 1);
+      $before = $this->rules('lure');
+      $this->assertCount(2, $before);
+      $refused = poracle_track_set_field($this->api, $this->human, 'lure', $before, 'distance', 300, 1);
+      $this->assertCount(1, $refused);
+      $this->assertSame('conflict', $refused[0]['reason']);
+      $this->assertEqualsCanonicalizing(array(200, 300), array_column($this->rules('lure'), 'distance'));
+   }
+
+   public function testLocationSetAndClear()
+   {
+      $path = poracle_human_path($this->human);
+      $this->api->post($path . '/location', poracle_location_body(51.5, -0.25), array('profile' => 1));
+      $human = $this->api->get($path . '/tracking')['human'];
+      $this->assertEquals(array(51.5, -0.25), array($human['latitude'], $human['longitude']));
+      $this->api->delete($path . '/location', array('profile' => 1));
+      $human = $this->api->get($path . '/tracking')['human'];
+      $this->assertEquals(array(0, 0), array($human['latitude'], $human['longitude']));
+   }
+
+   public function testSavedLocationTakesLatitudeAndLongitude()
+   {
+      $path = poracle_human_path($this->human);
+      try { $this->api->delete($path . '/locations/pweb-it'); } catch (PoracleApiException $e) {}
+      $this->api->post($path . '/locations', array('label' => 'pweb-it') + poracle_location_body(51.5, -0.25));
+      $named = array_column($this->api->get($path . '/locations')['locations']['named'], null, 'label');
+      $this->assertEquals(51.5, $named['pweb-it']['latitude']);
+      $this->api->delete($path . '/locations/pweb-it');
+   }
+
+   public function testHumanShapeIsTyped()
+   {
+      $human = $this->api->get(poracle_human_path($this->human))['human'];
+      $this->assertIsBool($human['enabled']);
+      $this->assertIsArray($human['area']);
+      $this->assertIsString($human['language']);
    }
 
    public function testProblemJsonOnBadBody()

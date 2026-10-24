@@ -74,10 +74,11 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_nests_distance') {
     try {
-      poracle_track_set_field($api, $human, 'nest', poracle_rules('nest'), 'distance', form_common($_POST)['distance'], $profile);
+      $refused = poracle_track_set_field($api, $human, 'nest', poracle_rules('nest'), 'distance', form_common($_POST)['distance'], $profile);
     } catch (PoracleApiException $e) {
       poracle_fail('nest', $e);
     }
+    poracle_report_refused('nest', $refused);
     header("Location: $redirect_url?type=display&page=nest&return=success_update_nests_distance");
     exit();
   }

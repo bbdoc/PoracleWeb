@@ -74,10 +74,11 @@
 
   if (isset($_GET['action']) && $_GET['action'] == 'update_quests_distance') {
     try {
-      poracle_track_set_field($api, $human, 'quest', poracle_rules('quest'), 'distance', form_common($_POST)['distance'], $profile);
+      $refused = poracle_track_set_field($api, $human, 'quest', poracle_rules('quest'), 'distance', form_common($_POST)['distance'], $profile);
     } catch (PoracleApiException $e) {
       poracle_fail('quest', $e);
     }
+    poracle_report_refused('quest', $refused);
     header("Location: $redirect_url?type=display&page=quest&return=success_update_quests_distance");
     exit();
   }

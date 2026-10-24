@@ -112,36 +112,85 @@ class PoracleTrackingTest extends TestCase
       $this->assertSame('http://p/api/v2/humans/42/tracking/lure?uid=1%2C3&profile=1', $this->calls[0]['url']);
    }
 
-   public function testSetFieldRepostsEveryRuleWithOneChange()
+   public function testSetFieldPatchesTheListedUids()
    {
-      $api = $this->api(array(array(200, '{"created":[],"updated":[],"unchanged":[]}')));
+      $api = $this->api(array(array(200, '{"updated":[],"unchanged":[],"refused":[]}')));
       $rules = poracle_rules_in($this->snapshot, 'lure', 1);
-      poracle_track_set_field($api, '42', 'lure', $rules, 'distance', 750, 1);
-      $this->assertSame(array(
-         array('lure_id' => 501, 'distance' => 750, 'clean' => true),
-         array('lure_id' => 0, 'distance' => 750, 'clean' => true),
-      ), $this->calls[0]['body']);
+      $this->assertSame(array(), poracle_track_set_field($api, '42', 'lure', $rules, 'distance', 750, 1));
+      $this->assertSame('PATCH', $this->calls[0]['method']);
+      $this->assertSame('http://p/api/v2/humans/42/tracking/lure?profile=1', $this->calls[0]['url']);
+      $this->assertSame(array('uids' => array(1, 3), 'set' => array('distance' => 750)), $this->calls[0]['body']);
    }
 
-   public function testSetFieldNullMeansAny()
+   public function testSetFieldNullSwitchesTheSettingOff()
    {
-      $api = $this->api(array(array(200, '{"created":[],"updated":[],"unchanged":[]}')));
-      poracle_track_set_field($api, '42', 'lure', array(array('uid' => 3, 'profile_no' => 1, 'lure_id' => 0, 'clean' => true)), 'clean', null, 1);
-      $this->assertSame(array(array('lure_id' => 0)), $this->calls[0]['body']);
+      $api = $this->api(array(array(200, '{"updated":[],"unchanged":[],"refused":[]}'), array(200, '{"updated":[],"unchanged":[],"refused":[]}')));
+      $rules = array(array('uid' => 3, 'profile_no' => 1, 'lure_id' => 0, 'clean' => true));
+      poracle_track_set_field($api, '42', 'lure', $rules, 'clean', null, 1);
+      poracle_track_set_field($api, '42', 'lure', $rules, 'distance', null, 1);
+      $this->assertSame(array('clean' => false), $this->calls[0]['body']['set']);
+      $this->assertSame(array('distance' => 0), $this->calls[1]['body']['set']);
+   }
+
+   public function testSetFieldReturnsRefusalsAndSkipsEmptyLists()
+   {
+      $refused = array('uid' => 3, 'reason' => 'conflict', 'detail' => 'would duplicate rule 1', 'conflicts_with' => 1);
+      $api = $this->api(array(array(200, json_encode(array('updated' => array(), 'unchanged' => array(), 'refused' => array($refused))))));
+      $this->assertSame(array(), poracle_track_set_field($api, '42', 'lure', array(), 'distance', 750, 1));
+      $this->assertCount(0, $this->calls);
+      $this->assertSame(array($refused), poracle_track_set_field($api, '42', 'lure', poracle_rules_in($this->snapshot, 'lure', 1), 'distance', 750, 1));
+   }
+
+   public function testRefusedMessageCountsRulesAndListsEachReasonOnce()
+   {
+      $refused = array(
+         array('uid' => 2, 'reason' => 'conflict', 'detail' => 'would duplicate rule 1'),
+         array('uid' => 4, 'reason' => 'conflict', 'detail' => 'would duplicate rule 1'),
+         array('uid' => 9, 'reason' => 'not_found'),
+      );
+      $this->assertSame('3 alarm(s) were not changed: would duplicate rule 1; not_found', poracle_refused_message($refused));
+   }
+
+   public function testLocationBodyUsesLatitudeAndLongitude()
+   {
+      $this->assertSame(array('latitude' => 51.5, 'longitude' => -0.25), poracle_location_body('51.5', '-0.25'));
+   }
+
+   public function testProfileNumbersIncludeTheActiveProfileAndRuleProfiles()
+   {
+      $snap = array('human' => array('current_profile_no' => 1), 'profiles' => array(array('profile_no' => 3)),
+         'tracking' => $this->snapshot['tracking']);
+      $this->assertSame(array(1, 2, 3), poracle_profile_numbers($snap));
+   }
+
+   public function testMigrationProfilesRecreateAnActiveProfileWithNoEntry()
+   {
+      $hours = array(array('day' => 1, 'hours' => 9, 'mins' => 0));
+      $snap = array(
+         'human' => array('current_profile_no' => 2, 'area' => array('north'), 'latitude' => 1.5, 'longitude' => 2.5),
+         'profiles' => array(array('profile_no' => 3, 'name' => 'Work', 'area' => array('south'), 'latitude' => 3.0, 'longitude' => 4.0, 'active_hours' => $hours)),
+      );
+      $this->assertSame(array(
+         array('profile_no' => 2, 'name' => '', 'area' => array('north'), 'latitude' => 1.5, 'longitude' => 2.5, 'active_hours' => array()),
+         array('profile_no' => 3, 'name' => 'Work', 'area' => array('south'), 'latitude' => 3.0, 'longitude' => 4.0, 'active_hours' => $hours),
+      ), poracle_migration_profiles($snap));
+      $snap['human']['current_profile_no'] = 3;
+      $this->assertSame(array(3), array_column(poracle_migration_profiles($snap), 'profile_no'));
    }
 
    public function testHumanAndProfileView()
    {
       $snap = array(
-         'human' => array('current_profile_no' => 1, 'area' => '["north"]', 'latitude' => 1.5, 'longitude' => 2.5, 'enabled' => 1, 'admin_disable' => 0, 'disabled_date' => null, 'language' => null),
+         'human' => array('current_profile_no' => 1, 'area' => array('north'), 'latitude' => 1.5, 'longitude' => 2.5, 'enabled' => true, 'admin_disable' => false, 'disabled_date' => null, 'language' => ''),
          'profiles' => array(
-            array('profile_no' => 1, 'name' => 'Home', 'area' => '["north"]', 'latitude' => 1.5, 'longitude' => 2.5),
-            array('profile_no' => 2, 'name' => 'Work', 'area' => '["south","east"]', 'latitude' => 3.0, 'longitude' => 4.0),
+            array('profile_no' => 1, 'name' => 'Home', 'area' => array('north'), 'latitude' => 1.5, 'longitude' => 2.5),
+            array('profile_no' => 2, 'name' => 'Work', 'area' => array('south', 'east'), 'latitude' => 3.0, 'longitude' => 4.0),
          ),
       );
       $v = poracle_profile_view($snap, 2);
       $this->assertSame(array('Work', array('south', 'east'), 3.0, 4.0, 2, 1),
          array($v['name'], $v['area'], $v['latitude'], $v['longitude'], $v['profile_count'], $v['current_profile_no']));
+      $this->assertSame(array(1, 0), array($v['enabled'], $v['admin_disable']));
       $this->assertSame(array('north'), poracle_profile_view($snap, 9)['area']);
       $this->assertNull(poracle_profile_view($snap, 9)['name']);
       $this->assertSame(array('pokemon'), poracle_type_for_table('monsters'));

@@ -1,9 +1,16 @@
 # Migrating PoracleWeb to the PoracleNG v2 API
 
-**Status:** implemented, 2026-10-09 (this document has been updated to match what was built)
+**Status:** implemented, 2026-10-09; updated 2026-10-24 for the PoracleNG 5.4.0 v2 changes (this document matches what was built)
 **Target:** PoracleNG (v5+) only. PoracleJS has no v2 API and is not supported.
 
-**Minimum PoracleNG:** a build that includes jfberry/PoracleNG#248 (`DELETE /api/v2/humans/{id}/location`; v2 tracking distance clamped to `[tracking] max_distance`) and jfberry/PoracleNG#249 (v2 `ping` on every rule type; canonical diff so wildcard-alias rows don't duplicate on GET then POST).
+**Minimum PoracleNG:** 5.4.0 (currently the `develop` branch). PoracleWeb relies on:
+
+- jfberry/PoracleNG#248: `DELETE /api/v2/humans/{id}/location`, and v2 tracking distance clamped to `[tracking] max_distance`;
+- jfberry/PoracleNG#249: v2 `ping` on every rule type, and a canonical diff so wildcard-alias rows don't duplicate on GET then POST;
+- jfberry/PoracleNG#303: v2's own typed human and profile shapes, `latitude`/`longitude` in every request, and edits that keep the rule's `uid`;
+- jfberry/PoracleNG#328: the bulk `PATCH` of rule settings.
+
+Earlier v2 builds reject PoracleWeb's location requests (they expected `lat`/`lon`) and have no bulk `PATCH`.
 
 ## Goal
 
@@ -86,26 +93,20 @@ Today, `config.env.php` lets `$dbname` hold several databases, but `api_address`
 | PoracleWeb action | v2 call |
 |---|---|
 | Add (any type) | `POST /v2/humans/{id}/tracking/{type}?profile={p}` with an **array** body, one element per selected item. Report `created` and `unchanged`; an item in `unchanged` means the rule already exists. |
-| Edit one rule (form) | `GET …/{type}/{uid}`, merge the form fields into the returned rule, then `PUT …/{type}/{uid}`. **PUT replaces the whole rule** (fields left out reset to defaults) and returns a **new uid**. Fields the form doesn't show are kept by the merge. Edits to `:user` destinations do not clear `ping`. |
+| Edit one rule (form) | `GET …/{type}/{uid}`, merge the form fields into the returned rule, then `PUT …/{type}/{uid}`. **PUT replaces the whole rule** (fields left out reset to defaults) and the rule keeps its `uid`. Fields the form doesn't show are kept by the merge. A `409` means the edit would make the rule duplicate another one; it is shown as an error. Edits to `:user` destinations do not clear `ping`. |
 | Delete one | `DELETE …/{type}/{uid}` |
 | Delete all on a profile | Take the uids from the snapshot, then `DELETE …/{type}?uid=1,2,3` |
-| Set distance on all; cleaning toggles | Take the rules from the snapshot, change the **one** field, then `POST` the array back (one request per type). See *Bulk update rule* below. |
+| Set distance on all; cleaning toggles | Take the uids from the snapshot, then `PATCH …/{type}?profile={p} {uids, set:{field: value}}` (one request per type). See *Bulk update rule* below. |
 
 Every item operation is scoped by `(human, uid)`. This fixes today's ability to edit or delete another user's rule by posting their uid.
 
 ### Bulk update rule
 
-`POST` upserts. A posted rule counts as an **update** only if it matches a stored rule on every field except exactly **one** updatable field. The updatable fields are:
+`PATCH …/tracking/{type}` with `{"uids":[…],"set":{…}}` changes delivery settings (`distance`, `clean`, `edit`, `summary`, `template`, `ping`) on the listed rules. Each rule keeps its `uid` and every field not named. In `set`, `null` means "leave as stored", so PoracleWeb clears a setting by sending its "off" value: `distance: 0` (match by area) or `clean: false`.
 
-- `distance`, `clean` and `template` on every type;
-- `min_iv` on pokemon;
-- `slot_changes` and `battle_changes` on gym.
+The response has one outcome per rule: `updated`, `unchanged` or `refused`. A rule is refused when the change would make it duplicate another rule (`conflict`), or when it no longer exists (`not_found`). Refusals don't stop the rest of the request. PoracleWeb applies the whole change and then shows how many rules were left alone, and why.
 
-If two or more fields differ, or the difference is in any other field, the posted rule is inserted as a **new** rule and the old one is kept. PoracleNG canonicalizes the pokemon wildcard-alias rows server-side (PoracleNG#249), so posting back an unmodified GET result is `unchanged`. So:
-
-- Bulk operations change exactly one field per request. "Set distance" and "toggle clean" are separate requests.
-- Edit forms always use PUT.
-- The integration suite checks the round trip against a live PoracleNG.
+Adding rules still uses `POST`, which upserts: a posted rule that exactly matches a stored one is `unchanged`, and one that differs in a single updatable field updates that rule in place.
 
 ### Field mapping (form → v2)
 
@@ -137,8 +138,8 @@ Common to all types:
 |---|---|
 | Global alerts toggle (`actions/profile.php`) | `POST /v2/humans/{id}/enable` or `POST /v2/humans/{id}/disable` |
 | Language | `POST /v2/humans/{id}/language {language}`. The server checks it against the configured locales. |
-| Set location (`actions/set_location.php`) | `POST /v2/humans/{id}/location?profile={p} {lat, lon}`. Geocoding stays in PoracleWeb. A 403 means the location is outside the user's allowed areas. |
-| Delete location | `DELETE /v2/humans/{id}/location?profile={p}`, then a bulk `distance: 0` POST on **all 11** types for that profile. Previously only 5 types were reset. |
+| Set location (`actions/set_location.php`) | `POST /v2/humans/{id}/location?profile={p} {latitude, longitude}`. Geocoding stays in PoracleWeb. A 403 means the location is outside the user's allowed areas. |
+| Delete location | `DELETE /v2/humans/{id}/location?profile={p}`, then a bulk `PATCH` of `distance: 0` on **all 11** types for that profile. Previously only 5 types were reset. |
 | Areas | `POST /v2/humans/{id}/areas?profile={p} {areas:[…]}`. Names are matched against the fences the user may select; unmatched names come back in `rejected`. This replaces the hand-built JSON. |
 | Available areas | `GET /v2/humans/{id}/areas` |
 | Create profile | `POST /v2/humans/{id}/profiles {name}`. The response includes `profile_no`. The gap-filling query is removed. |
@@ -164,7 +165,7 @@ These endpoints stay on the existing unversioned `/api/*`:
 - **Account migration** (`actions/migrate.php`) goes through the API. The Telegram login is verified first, and the migration is bound to the session that started it.
   1. Read the old human, with the snapshot including all profiles.
   2. `POST /v2/humans` to create the new id, with the same name, language, areas and community.
-  3. Recreate the profiles, then POST each profile's rules, then the saved locations.
+  3. Recreate the profiles, then the saved locations, then POST each profile's rules. If the active profile has no `profiles` entry (common for humans that came from PoracleJS), it is recreated from the human's own area and location. Rules left on a deleted profile can never match, so they are not copied.
   4. `DELETE /v2/humans/{old}` only after every step succeeds. If a step fails, the partly created new human is deleted (rolled back) and the error is reported.
 - **Admin authorization stays PoracleWeb's job.** The API secret can act on any human.
   - Every admin action (including `server_settings`, `channel_sync` and `migrate`) requires admin rights.
@@ -189,7 +190,6 @@ PHPUnit runs via Docker (see the README, "Running tests"). An opt-in integration
 
 ## Risks
 
-- **Bulk round-trip fidelity.** A column missing from the v2 schema produces duplicate rules (see §4). PoracleNG#249 fixes the known case, and the integration suite checks it.
-- **New uids.** PUT, and updates made through POST, return new uids. Pages must re-read or use the returned uid; they can't keep the old one.
+- **Copy round-trip fidelity.** Channel sync and the migration POST rules read back from a GET; a column missing from the v2 schema would produce duplicate rules. PoracleNG#249 fixes the known case, and the integration suite checks it.
 - **Request count.** A page now costs one snapshot request. The header runs on every page, so the snapshot must be memoized, not fetched separately in each include.
-- **The `human` resource's legacy encodings** (JSON-string `area`, int flags) may change in a future v2 revision. Parse them in one place only.
+- **Profiles without a `profiles` entry.** A legacy human's active profile may have no entry. The cleaning toggles and the migration take profile numbers from the human and the rules as well as `profiles`, so these rules are not skipped.

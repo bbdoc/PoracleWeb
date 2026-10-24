@@ -42,7 +42,7 @@
 
     try {
       $snapshot = poracle_snapshot();
-      $first = (count($snapshot['profiles']) == 1);
+      $first = (count($snapshot['profiles']) <= 1);
       $source = poracle_profile_view($snapshot, (int) $_SESSION['profile']);
 
       $res = $api->post(poracle_human_path($human) . '/profiles', array('name' => $_POST['profile_name']));
@@ -54,7 +54,7 @@
           $api->post(poracle_human_path($human) . '/areas', array('areas' => $source['area']), array('profile' => (int) $res['profile_no']));
         }
         if ((float) $source['latitude'] != 0 || (float) $source['longitude'] != 0) {
-          $api->post(poracle_human_path($human) . '/location', array('lat' => (float) $source['latitude'], 'lon' => (float) $source['longitude']), array('profile' => (int) $res['profile_no']));
+          $api->post(poracle_human_path($human) . '/location', poracle_location_body($source['latitude'], $source['longitude']), array('profile' => (int) $res['profile_no']));
         }
       }
     } catch (PoracleApiException $e) {

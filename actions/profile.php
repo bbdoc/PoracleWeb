@@ -32,13 +32,14 @@
       'nids_clean_toggle' => 'nests',
       'gyms_clean_toggle' => 'gym',
     );
+    $refused = array();
     try {
       foreach ($toggles as $checkbox => $table) {
         $tables = ($table == 'raid') ? array('raid', 'egg') : array($table);
         foreach ($tables as $t) {
           foreach (poracle_type_for_table($t) as $type) {
-            foreach (poracle_snapshot()['profiles'] as $p) {
-              poracle_track_set_field($api, $human, $type, poracle_rules($type, (int) $p['profile_no']), 'clean', isset($_POST[$checkbox]) ? true : null, (int) $p['profile_no']);
+            foreach (poracle_profile_numbers(poracle_snapshot()) as $n) {
+              $refused = array_merge($refused, poracle_track_set_field($api, $human, $type, poracle_rules($type, $n), 'clean', isset($_POST[$checkbox]), $n));
             }
           }
         }
@@ -46,6 +47,7 @@
     } catch (PoracleApiException $e) {
       poracle_fail('cleaning', $e);
     }
+    poracle_report_refused('cleaning', $refused);
 
     header("Location: $redirect_url?type=display&page=cleaning&return=success_update_settings");
     exit();
