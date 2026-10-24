@@ -151,6 +151,22 @@ class PoracleTrackingTest extends TestCase
       $this->assertSame('3 alarm(s) were not changed: would duplicate rule 1; not_found', poracle_refused_message($refused));
    }
 
+   public function testBulkDistanceSkipsRulesWithTheirOwnLocationOrAreas()
+   {
+      $rules = array(
+         array('uid' => 1, 'lure_id' => 501),
+         array('uid' => 2, 'lure_id' => 502, 'override_location_label' => 'home', 'distance' => 500),
+         array('uid' => 3, 'lure_id' => 503, 'override_areas' => array('north')),
+      );
+      $this->assertSame(array(1, 3), array_column(poracle_distance_targets($rules, 0), 'uid'));
+      $this->assertSame(array(1, 2), array_column(poracle_distance_targets($rules, 300), 'uid'));
+      $api = $this->api(array(array(200, '{"updated":[],"unchanged":[],"refused":[]}')));
+      poracle_track_set_field($api, '42', 'lure', $rules, 'distance', null, 1);
+      $this->assertSame(array(1, 3), $this->calls[0]['body']['uids']);
+      $this->assertSame(array(), poracle_track_set_field($api, '42', 'lure', array($rules[2]), 'distance', 300, 1));
+      $this->assertCount(1, $this->calls);
+   }
+
    public function testLocationBodyUsesLatitudeAndLongitude()
    {
       $this->assertSame(array('latitude' => 51.5, 'longitude' => -0.25), poracle_location_body('51.5', '-0.25'));

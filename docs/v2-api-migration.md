@@ -104,6 +104,8 @@ Every item operation is scoped by `(human, uid)`. This fixes today's ability to 
 
 `PATCH …/tracking/{type}` with `{"uids":[…],"set":{…}}` changes delivery settings (`distance`, `clean`, `edit`, `summary`, `template`, `ping`) on the listed rules. Each rule keeps its `uid` and every field not named. In `set`, `null` means "leave as stored", so PoracleWeb clears a setting by sending its "off" value: `distance: 0` (match by area) or `clean: false`.
 
+A bulk distance leaves out rules that carry their own scope: a rule tied to a saved location (`override_location_label`) must keep a radius, and a rule limited to `override_areas` can't have one. Removing the location therefore leaves saved-location rules as they are.
+
 The response has one outcome per rule: `updated`, `unchanged` or `refused`. A rule is refused when the change would make it duplicate another rule (`conflict`), or when it no longer exists (`not_found`). Refusals don't stop the rest of the request. PoracleWeb applies the whole change and then shows how many rules were left alone, and why.
 
 Adding rules still uses `POST`, which upserts: a posted rule that exactly matches a stored one is `unchanged`, and one that differs in a single updatable field updates that rule in place.

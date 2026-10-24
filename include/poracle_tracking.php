@@ -174,9 +174,25 @@ function poracle_track_set_field(PoracleApi $api, $human, $type, array $rules, $
    if ($value === null) {
       $value = PORACLE_SET_CLEARED[$field];
    }
+   if ($field === 'distance') {
+      $rules = poracle_distance_targets($rules, (int) $value);
+      if (!$rules) {
+         return array();
+      }
+   }
    $body = array('uids' => array_map('intval', array_column($rules, 'uid')), 'set' => array($field => $value));
    $res = $api->patch(poracle_tracking_path($human, $type), $body, array('profile' => (int) $profile));
    return (isset($res['refused']) && is_array($res['refused'])) ? $res['refused'] : array();
+}
+
+// The rules a bulk distance applies to. A rule pinned to a saved location
+// always has a radius and one limited to override areas never does (the API
+// refuses either otherwise), so those keep their own setting.
+function poracle_distance_targets(array $rules, $distance)
+{
+   return array_values(array_filter($rules, function ($r) use ($distance) {
+      return $distance > 0 ? empty($r['override_areas']) : empty($r['override_location_label']);
+   }));
 }
 
 // The rules a bulk change left alone, for the user. Plain English like the
