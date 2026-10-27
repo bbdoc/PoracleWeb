@@ -50,11 +50,13 @@ if (isset($admin_id)) {
 // Get Config Items from API and Store in Session Variables
 
 $opts = array(
-  'http'=>array(
-    'method'=>"GET",
-    'header'=>"Accept-language: en\r\n" .
-              "X-Poracle-Secret: $api_secret\r\n"
-  )
+    'http' => array(
+        'method' => "GET",
+        'header' => "Accept-language: en\r\n" .
+                    "X-Poracle-Secret: $api_secret\r\n",
+        'ignore_errors' => true,
+        'timeout' => 15
+    )
 );
 
 $context = stream_context_create($opts);
@@ -83,7 +85,7 @@ if ( $json['status']=="ok" ) {
    $_SESSION['locale'] = $json['locale'];
    $_SESSION['server_locale'] = $json['locale'];
    $_SESSION['providerURL'] = $json['providerURL'];
-   $_SESSION['staticKey'] = $json['staticKey'][0];
+   $_SESSION['staticKey'] = $json['staticKey'][0] ?? '';
    $_SESSION['poracleVersion'] = $json['version'];
    $_SESSION['pvpFilterMaxRank'] = $json['pvpFilterMaxRank'];
    $_SESSION['pvpFilterLittleMinCP'] = $json['pvpFilterLittleMinCP'];
@@ -116,10 +118,10 @@ $areas = @file_get_contents("$api_address/api/humans/".rawurlencode($_SESSION['i
 $json = json_decode($areas, true);
 
 if ( $json['status']=="ok" ) {
-   $_SESSION['areas'] = $json['areas'];
-} else if ( $json['message'] == "User not found" ) {
-   header("Location: $redirect_url?$redirect_page");
-   exit();
+    $_SESSION['areas'] = $json['areas'];
+} elseif (($json['message'] ?? null) === "User not found") {
+    header("Location: " . rtrim($redirect_url, '/') . "/");
+    exit();
 } else if (!isset($_SESSION['admin_id'])) {
    session_destroy();
    header("Location: $redirect_url?return=error_api_nok");
@@ -140,25 +142,21 @@ $_SESSION['templates'] = $json;
 $delegated = @file_get_contents("$api_address/api/humans/".$_SESSION['id']."/getAdministrationRoles", false, $context);
 $json = json_decode($delegated, true);
 
-if ( $json['status']=="ok" ) {
+if (is_array($json) && ($json['status'] ?? null) === "ok") {
 
    $_SESSION['delegated_channels'] = $json['admin'];
    $_SESSION['delegated_count'] = 0;
 
    // Count Number of Delegated Channels Users has
 
-   if (isset($json['admin']['discord']['channels'])) 
-   { 
-	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['discord']['channels']);
-   } 
-   if (isset($json['admin']['discord']['webhooks'])) 
-   { 
-	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['discord']['webhooks']);
-   } 
-   if (isset($json['admin']['telegram']['channels'])) 
-   { 
-	   $_SESSION['delegated_count'] = $_SESSION['delegated_count'] + count($json['admin']['telegram']['channels']);
-   } 
+   $discordChannels = $json['admin']['discord']['channels'] ?? [];
+   $discordWebhooks = $json['admin']['discord']['webhooks'] ?? [];
+   $telegramChannels = $json['admin']['telegram']['channels'] ?? [];
+
+   $_SESSION['delegated_count'] =
+       (is_array($discordChannels) ? count($discordChannels) : 0)
+       + (is_array($discordWebhooks) ? count($discordWebhooks) : 0)
+       + (is_array($telegramChannels) ? count($telegramChannels) : 0);
 
    // Set Roles depending on API results
    

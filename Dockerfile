@@ -1,19 +1,23 @@
-FROM php:8.1-apache
+FROM php:8.4-apache-bookworm
 
 RUN rm -rf /var/www/html/*
 WORKDIR /var/www/html/
 
-# Install Node
-RUN apt-get update && apt-get -y install curl gnupg
-RUN curl -sL https://deb.nodesource.com/setup_18.x  | bash -
-RUN apt-get update && apt-get -y install nodejs
+# System dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       curl gnupg libcurl4-openssl-dev \
+    && docker-php-ext-install mysqli curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install PHP modules
-RUN docker-php-ext-install mysqli
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Node depdencies
 COPY package.json .
 COPY config.env.php config.php
 RUN npm install
-# Install PoracleWeb
+
 COPY . .

@@ -38,13 +38,23 @@ if ( isset($_GET['action']) && $_GET['action'] == "delete" ) {
 
 } else {
 
-   $street = str_replace(" ", "%20", $_POST['street']);
-   $city = str_replace(" ", "%20", $_POST['city']);
+   $street = trim((string) ($_POST['street'] ?? ''));
+   $city = trim((string) ($_POST['city'] ?? ''));
 
-   $filepath=$_SESSION['providerURL']."/?addressdetails=1&q=".$street."%20".$city."&format=json&limit=1";
-   if ( strlen($_SESSION['staticKey']) == 32  ) { 
-	   $filepath.="&key=".$_SESSION['staticKey'];
+   $params = [
+       'addressdetails' => 1,
+       'q' => trim($street . ' ' . $city),
+       'format' => 'json',
+       'limit' => 1,
+   ];
+
+   if (strlen($_SESSION['staticKey']) == 32) {
+       $params['key'] = $_SESSION['staticKey'];
    }
+
+   $filepath = rtrim($_SESSION['providerURL'], '/')
+       . '/search?'
+       . http_build_query($params);
 
    $request = file_get_contents($filepath);
 
