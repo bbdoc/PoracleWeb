@@ -620,4 +620,3 @@ function default_distance($table) {
    return $default_distance;
 
 }
-
