@@ -10,7 +10,18 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Check Telegram Bot Auth
 $auth_data = $_GET;
+
+if (
+    !isset($auth_data['hash']) ||
+    !is_string($auth_data['hash']) ||
+    $auth_data['hash'] === ''
+) {
+    http_response_code(400);
+    exit('Invalid Telegram authentication request');
+}
+
 $check_hash = $auth_data['hash'];
+
 unset($auth_data['hash']);
 
 $data_check_arr = [];
