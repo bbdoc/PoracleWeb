@@ -52,7 +52,10 @@
       }
       if (substr($value, 0,5) === "size_") { 
         $size = ltrim($value, 'size_');
-        if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
+        if ( $size == -1 ) { $max_size = 5; }
+      }
+      if (substr($value, 0,9) === "max_size_") { 
+        $max_size = ltrim($value, 'max_size');
       }
       if (substr($value, 0, 4) == "cap_") {
         $cap = ltrim($value, 'cap_');
@@ -174,7 +177,10 @@
       }
       if (substr($value, 0,5) === "size_") { 
         $size = ltrim($value, 'size_');
-        if ( $size == -1 ) { $max_size = 5; } else { $max_size = $size;}
+        if ( $size == -1 ) { $max_size = 5; }
+      }
+      if (substr($value, 0,9) === "max_size_") { 
+        $max_size = ltrim($value, 'max_size');
       }
       if (substr($value, 0, 4) === "cap_") {
         $cap = ltrim($value, 'cap_');

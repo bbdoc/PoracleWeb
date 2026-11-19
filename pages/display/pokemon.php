@@ -582,4 +582,3 @@ $gen9 = execute_count_query($conn, $_SESSION['id'], $_SESSION['profile'], $searc
                     <?php
                     } // End of Mons Disable 
                     ?>
-
